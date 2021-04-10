@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CookBook</string>
+    <string name="recipe_title_label">Nom de la recette</string>
+    <string name="recipe_title_hint">Merveilleux couscous à l\indienne</string>
+    <string name="recipe_source_label">Source de la recette</string>
+    <string name="recipe_source_hint">Oui Chef de Lignac page 118</string>
+    <string name="recipe_note_label">Note de 1 à 5</string>
+    <string name="recipe_note_hint">5</string>
+    <string name="recipe_S1_label">Etape 1</string>
+    <string name="recipe_S1_hint">Description de l\'etape</string>
+    <string name="recipe_S2_label">Etape 2</string>
+    <string name="recipe_S2_hint">Description de l\'etape</string>
+    <string name="recipe_S3_label">Etape 3</string>
+    <string name="recipe_S3_hint">Description de l\'etape</string>
+    <string name="recipe_S4_label">Etape 4</string>
+    <string name="recipe_S4_hint">Description de l\'etape</string>
+</resources>
