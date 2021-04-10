@@ -14,4 +14,7 @@
     <string name="recipe_S3_hint">Description de l\'etape</string>
     <string name="recipe_S4_label">Etape 4</string>
     <string name="recipe_S4_hint">Description de l\'etape</string>
+    <string name="list_item_recipe_title_label">Nom de la recette</string>
+    <string name="list_item_recipe_source_label">Source ou auteur</string>
+    <string name="list_item_recipe_note_label">Note</string>
 </resources>
