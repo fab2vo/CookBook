@@ -1,5 +1,6 @@
 package com.example.cookbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -38,23 +40,38 @@ public class RecipeListFragment extends Fragment {
         mRecipeRecyclerView.setAdapter(mAdapter);
     }
 
-    private class RecipeHolder extends RecyclerView.ViewHolder{
+    private class RecipeHolder extends RecyclerView.ViewHolder
+                                implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mSourceTextView;
         private TextView mNoteTextView;
         private Recipe mRecipe;
         public RecipeHolder(LayoutInflater inflater,ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
-
+            itemView.setOnClickListener(this);
             mTitleTextView= (TextView) itemView.findViewById(R.id.recipe_title);
             mSourceTextView= (TextView) itemView.findViewById(R.id.recipe_source);
             mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
+            // To check can be called by clicking on note
+            mNoteTextView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(getActivity(), "Note clicked",
+                            Toast.LENGTH_SHORT ).show();
+                }
+            });
+            //-
         }
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
             mSourceTextView.setText(mRecipe.getSource());
             mNoteTextView.setText(mRecipe.getNote()+"/5");
+        }
+        @Override
+        public void onClick(View v){
+            Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
+            startActivity(intent);
         }
     }
 

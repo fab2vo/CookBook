@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.example.cookbook.Recipe;
 
+import java.util.UUID;
+
 public class RecipeFragment extends Fragment {
     private Recipe mRecipe;
     private EditText mTitleField;
@@ -26,6 +28,9 @@ public class RecipeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mRecipe=new Recipe(4);
+        UUID recipeId=(UUID) getActivity().getIntent()
+                .getSerializableExtra(RecipeActivity.EXTRA_RECIPE_ID);
+        mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
     }
 
     @Override
@@ -33,6 +38,7 @@ public class RecipeFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_recipe, container, false);
 
         mTitleField= (EditText) v.findViewById(R.id.recipe_title);
+        mTitleField.setText(mRecipe.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -51,6 +57,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mSourceField= (EditText) v.findViewById(R.id.recipe_source);
+        mSourceField.setText(mRecipe.getSource());
         mSourceField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,6 +76,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mNoteField= (EditText) v.findViewById(R.id.recipe_note);
+        mNoteField.setText(mRecipe.getNote()+"/5");
         mNoteField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,6 +95,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mS1Field= (EditText) v.findViewById(R.id.recipe_S1);
+        mS1Field.setText(mRecipe.getS1());
         mS1Field.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -105,6 +114,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mS2Field= (EditText) v.findViewById(R.id.recipe_S2);
+        mS2Field.setText(mRecipe.getS2());
         mS2Field.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -123,6 +133,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mS3Field= (EditText) v.findViewById(R.id.recipe_S3);
+        mS3Field.setText(mRecipe.getS3());
         mS3Field.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -141,6 +152,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mS4Field= (EditText) v.findViewById(R.id.recipe_S4);
+        mS4Field.setText(mRecipe.getS4());
         mS4Field.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

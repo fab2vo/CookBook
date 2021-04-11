@@ -38,10 +38,10 @@ public class CookBook {
             r.setNote(rand.nextInt(6));
             r.setS1(mS1[rand.nextInt(5)]+" le "+s1+".");
             r.setS2("Apres quelques minutes, ajoutez au "+s1+
-                    " les "+mS2[rand.nextInt(5)]+
-                    " et les "+mS2[rand.nextInt(5)]);
+                    " "+mS2[rand.nextInt(5)]+
+                    " et "+mS2[rand.nextInt(5)]);
             r.setS3("Salez, poivrez et ajoutez "+mS3[rand.nextInt(5)]);
-            r.setS4(mS4[rand.nextInt(5)]+ " pendant environ"+ (5+ rand.nextInt(10))+ "minutes.");
+            r.setS4(mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
             mRecipes.add(r);
         }
     }

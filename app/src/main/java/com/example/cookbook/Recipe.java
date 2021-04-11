@@ -73,4 +73,9 @@ public class Recipe {
     public void setS4(String step) {
         mStep[3] = step;
     }
+
+    public String getS1(){return mStep[0];}
+    public String getS2(){return mStep[1];}
+    public String getS3(){return mStep[2];}
+    public String getS4(){return mStep[3];}
 }
