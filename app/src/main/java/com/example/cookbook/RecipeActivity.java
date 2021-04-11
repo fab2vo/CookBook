@@ -9,7 +9,7 @@ import android.os.Bundle;
 import java.util.UUID;
 
 public class RecipeActivity extends SingleFragmentActivity {
-    public static final String EXTRA_RECIPE_ID="com.example.cookbook.recipe_id";
+    private static final String EXTRA_RECIPE_ID="com.example.cookbook.recipe_id";
 
     public static Intent newIntent(Context packageContexte, UUID recipeId) {
         Intent intent=new Intent(packageContexte, RecipeActivity.class);
@@ -19,7 +19,8 @@ public class RecipeActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment(){
-        return new RecipeFragment();
+        UUID recipeId=(UUID) getIntent().getSerializableExtra(EXTRA_RECIPE_ID);
+        return RecipeFragment.newInstance(recipeId);
     }
 
 }

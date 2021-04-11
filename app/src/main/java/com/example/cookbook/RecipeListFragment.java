@@ -30,14 +30,22 @@ public class RecipeListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
-        mAdapter=new RecipeAdapter(recipes);
+        if (mAdapter==null){
+            mAdapter=new RecipeAdapter(recipes);
+            mRecipeRecyclerView.setAdapter(mAdapter);
+        } else { mAdapter.notifyDataSetChanged();}
   //      Log.d(TAG, "Taille Cookbook " + recipes.size());
   //      Log.d(TAG, "Recette 5 " + recipes.get(5).getTitle());
   //      Log.d(TAG, "Recette 5 " + recipes.get(5).getSource());
-        mRecipeRecyclerView.setAdapter(mAdapter);
     }
 
     private class RecipeHolder extends RecyclerView.ViewHolder

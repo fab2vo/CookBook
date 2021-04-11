@@ -14,6 +14,7 @@ import com.example.cookbook.Recipe;
 import java.util.UUID;
 
 public class RecipeFragment extends Fragment {
+    private static final String ARG_RECIPE_ID="recipe_id";
     private Recipe mRecipe;
     private EditText mTitleField;
     private EditText mSourceField;
@@ -23,13 +24,19 @@ public class RecipeFragment extends Fragment {
     private EditText mS3Field;
     private EditText mS4Field;
 
+    public static RecipeFragment newInstance(UUID recipeId){
+        Bundle args=new Bundle();
+        args.putSerializable(ARG_RECIPE_ID, recipeId);
+        RecipeFragment fragment=new RecipeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mRecipe=new Recipe(4);
-        UUID recipeId=(UUID) getActivity().getIntent()
-                .getSerializableExtra(RecipeActivity.EXTRA_RECIPE_ID);
+        UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
     }
 
