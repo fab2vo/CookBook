@@ -2,6 +2,7 @@ package com.example.cookbook;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,10 +16,12 @@ import java.util.UUID;
 
 public class RecipeFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
+    private static final String DIALOG_DATE="DialogDate";
     private Recipe mRecipe;
     private EditText mTitleField;
     private EditText mSourceField;
     private EditText mNoteField;
+    private EditText mDateField;
     private EditText mS1Field;
     private EditText mS2Field;
     private EditText mS3Field;
@@ -98,6 +101,28 @@ public class RecipeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 // blank
+            }
+        });
+
+        mDateField= (EditText) v.findViewById(R.id.recipe_date);
+        mDateField.setText(mRecipe.getDate().toString());
+        mDateField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                FragmentManager fm= getFragmentManager();
+                DatePickerFragment dialog=new DatePickerFragment();
+                dialog.show(fm, DIALOG_DATE);
+                // mettre à jour
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 

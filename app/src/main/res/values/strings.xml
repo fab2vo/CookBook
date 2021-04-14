@@ -4,8 +4,10 @@
     <string name="recipe_title_hint">Merveilleux couscous à l\indienne</string>
     <string name="recipe_source_label">Source de la recette</string>
     <string name="recipe_source_hint">Oui Chef de Lignac page 118</string>
-    <string name="recipe_note_label">Note de 1 à 5</string>
+    <string name="recipe_note_label">Note de 1 a 5</string>
+    <string name="recipe_date_label">Date de creation</string>
     <string name="recipe_note_hint">5</string>
+    <string name="recipe_date_hint">1 janvier 1900</string>
     <string name="recipe_S1_label">Etape 1</string>
     <string name="recipe_S1_hint">Description de l\'etape</string>
     <string name="recipe_S2_label">Etape 2</string>
@@ -17,4 +19,5 @@
     <string name="list_item_recipe_title_label">Nom de la recette</string>
     <string name="list_item_recipe_source_label">Source ou auteur</string>
     <string name="list_item_recipe_note_label">Note</string>
+    <string name="date_picker_title">Date de creation de la recette</string>
 </resources>

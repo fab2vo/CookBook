@@ -3,6 +3,7 @@ package com.example.cookbook;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class CookBook {
         mRecipes=new ArrayList<>();
         Recipe r;
         Random rand=new Random();
-        String s1,s2, S3;
+        String s1;
         String[] mIngPrinc={"Poulet","Boeuf","Canard","Thon", "Homard"};
         String[] mFacon={"a la moutarde","a la marocaine"," laque", "a la mexicaine", "a l indienne", "braise", "saute"};
         String[] mSource={"Marmiton","Cyril Lignac", "Fabrice", "Veronique", "Cuisine actuelle"};
@@ -42,6 +43,7 @@ public class CookBook {
                     " et "+mS2[rand.nextInt(5)]);
             r.setS3("Salez, poivrez et ajoutez "+mS3[rand.nextInt(5)]);
             r.setS4(mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
+            r.setDate(new Date());
             mRecipes.add(r);
         }
     }
