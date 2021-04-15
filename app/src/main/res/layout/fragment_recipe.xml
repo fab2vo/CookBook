@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="@string/recipe_date_label"/>
 
-    <EditText
+    <Button
         android:id="@+id/recipe_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

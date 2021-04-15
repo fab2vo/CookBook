@@ -1,5 +1,7 @@
 package com.example.cookbook;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,20 +10,23 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cookbook.Recipe;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class RecipeFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String DIALOG_DATE="DialogDate";
+    private static final int REQUEST_DATE=0;
     private Recipe mRecipe;
     private EditText mTitleField;
     private EditText mSourceField;
     private EditText mNoteField;
-    private EditText mDateField;
+    private Button mDateButton;
     private EditText mS1Field;
     private EditText mS2Field;
     private EditText mS3Field;
@@ -104,25 +109,16 @@ public class RecipeFragment extends Fragment {
             }
         });
 
-        mDateField= (EditText) v.findViewById(R.id.recipe_date);
-        mDateField.setText(mRecipe.getDate().toString());
-        mDateField.addTextChangedListener(new TextWatcher() {
+        mDateButton= (Button) v.findViewById(R.id.recipe_date);
+        updateDate();
+        mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onClick(View v) {
                 FragmentManager fm= getFragmentManager();
-                DatePickerFragment dialog=new DatePickerFragment();
+                DatePickerFragment dialog=DatePickerFragment
+                        .newInstance(mRecipe.getDate());
+                dialog.setTargetFragment(RecipeFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);
-                // mettre à jour
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -203,5 +199,22 @@ public class RecipeFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mRecipe.setDate(date);
+            updateDate();
+        }
+    }
+
+    private void updateDate() {
+        mDateButton.setText(mRecipe.getDate().toString());
     }
 }
