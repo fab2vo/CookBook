@@ -21,9 +21,7 @@ public class CookBook {
 
     private CookBook(Context context) {
         mRecipes=new ArrayList<>();
-        for (int i = 0; i < 30; i++){
-            mRecipes.add(randomRecipe());
-        }
+        for (int i = 0; i < 3; i++){mRecipes.add(randomRecipe());}
     }
 
     public Recipe getRecipe(UUID id) {
@@ -32,7 +30,7 @@ public class CookBook {
         }
         return null;
     }
-
+// methode pour generer des recettes aléatoires pour la phase de mise au point
     private Recipe randomRecipe(){
         Recipe r;
         Random rand=new Random();
@@ -57,6 +55,10 @@ public class CookBook {
         r.setS4(mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
         r.setDate(new Date());
         return r;
+    }
+
+    public void addRecipe(Recipe r){
+        mRecipes.add(r);
     }
 
     public List<Recipe> getRecipes(){

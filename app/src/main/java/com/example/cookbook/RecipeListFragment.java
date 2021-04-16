@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -48,6 +49,21 @@ public class RecipeListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.new_recipe:
+                Recipe recipe=new Recipe(4);
+                CookBook.get(getActivity()).addRecipe(recipe);
+                Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void updateUI() {
