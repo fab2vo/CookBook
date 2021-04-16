@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +118,7 @@ public class RecipeListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mSourceTextView;
         private TextView mNoteTextView;
+        private ImageView mDeleteIcon;
         private Recipe mRecipe;
         public RecipeHolder(LayoutInflater inflater,ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
@@ -124,6 +126,7 @@ public class RecipeListFragment extends Fragment {
             mTitleTextView= (TextView) itemView.findViewById(R.id.recipe_title);
             mSourceTextView= (TextView) itemView.findViewById(R.id.recipe_source);
             mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
+            mDeleteIcon=(ImageView) itemView.findViewById(R.id.recipe_delete);
             // To check can be called by clicking on note
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -133,6 +136,13 @@ public class RecipeListFragment extends Fragment {
                 }
             });
             //-
+            mDeleteIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CookBook.get(getActivity()).removeRecipe(mRecipe);
+                    updateUI();
+                }
+            });
         }
         public void bind(Recipe recipe){
             mRecipe=recipe;

@@ -21,7 +21,7 @@ public class CookBook {
 
     private CookBook(Context context) {
         mRecipes=new ArrayList<>();
-        for (int i = 0; i < 3; i++){mRecipes.add(randomRecipe());}
+        for (int i = 0; i < 5; i++){mRecipes.add(randomRecipe());}
     }
 
     public Recipe getRecipe(UUID id) {
@@ -59,6 +59,12 @@ public class CookBook {
 
     public void addRecipe(Recipe r){
         mRecipes.add(r);
+    }
+
+    public void removeRecipe(Recipe r){
+        int i=mRecipes.indexOf(r);
+        if (i>=0){mRecipes.remove(r);}
+        return;
     }
 
     public List<Recipe> getRecipes(){
