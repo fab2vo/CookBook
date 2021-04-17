@@ -12,8 +12,12 @@ public class Recipe {
     private int mNote;
 
     public Recipe( int nbstep) {
-        mId=UUID.randomUUID();
-        mDate= new Date();
+        this(nbstep, UUID.randomUUID());
+    }
+
+    public Recipe(int nbstep, UUID id){
+        mId=id;
+        mDate=new Date();
         mStep= new String[nbstep];
     }
 

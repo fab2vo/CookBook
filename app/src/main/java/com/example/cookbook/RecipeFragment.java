@@ -49,6 +49,12 @@ public class RecipeFragment extends Fragment {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        CookBook.get(getActivity()).updateRecipe(mRecipe);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.fragment_recipe, container, false);
 
@@ -91,7 +97,7 @@ public class RecipeFragment extends Fragment {
         });
 
         mNoteField= (EditText) v.findViewById(R.id.recipe_note);
-        mNoteField.setText(mRecipe.getNote()+"/5");
+        mNoteField.setText(mRecipe.getNote()+"");
         mNoteField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,12 +106,14 @@ public class RecipeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setNote(Integer.parseInt(s.toString()));
+                int entry=Integer.parseInt(s.toString());
+                if ((entry<0)||(entry>5)){entry=0;}
+                mRecipe.setNote(entry);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // blank
+//
             }
         });
 
