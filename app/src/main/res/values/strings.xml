@@ -24,4 +24,6 @@
     <string name="show_subtitle">Show count</string>
     <string name="hide_subtitle">Hide count</string>
     <string name="subtitle_format">%1$d recettes</string>
+    <string name="recipe_friend_text">Choissisez votre ami</string>
+    <string name="recipe_report_text">Envoyez le rapport</string>
 </resources>

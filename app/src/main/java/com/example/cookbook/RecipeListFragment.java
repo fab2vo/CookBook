@@ -24,6 +24,7 @@ public class RecipeListFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private SessionInfo mSession;
     private static final String SAVED_SUBTITLE_VISIBLE="subtitle";
     private static final String TAG = "DebugRecipe";
 
@@ -31,6 +32,7 @@ public class RecipeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mSession= SessionInfo.get(getActivity());
     }
 
     @Override
@@ -104,7 +106,7 @@ public class RecipeListFragment extends Fragment {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
         if (mAdapter==null){
-            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size());
+            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getMember());
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
         } else {

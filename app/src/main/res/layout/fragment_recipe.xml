@@ -7,100 +7,130 @@
     android:layout_margin="16dp"
     android:orientation="vertical">
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
+    <ScrollView
+        android:id="@+id/fragment_recipe_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/recipe_title_label"/>
+        android:scrollbarStyle="insideInset">
 
-    <EditText
-        android:id="@+id/recipe_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_title_hint"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_source_label"/>
 
-    <EditText
-        android:id="@+id/recipe_source"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_source_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_title_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_note_label"/>
+            <EditText
+                android:id="@+id/recipe_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_title_hint" />
 
-    <EditText
-        android:id="@+id/recipe_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:text="@string/recipe_note_hint" />
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_source_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_date_label"/>
+            <EditText
+                android:id="@+id/recipe_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_source_hint" />
 
-    <Button
-        android:id="@+id/recipe_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_date_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_note_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S1_label"/>
+            <EditText
+                android:id="@+id/recipe_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@string/recipe_note_hint" />
 
-    <EditText
-        android:id="@+id/recipe_S1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S1_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_date_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S2_label"/>
+            <Button
+                android:id="@+id/recipe_date"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:text="@string/recipe_date_hint"
+                android:textSize="10sp" />
 
-    <EditText
-        android:id="@+id/recipe_S2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S2_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S1_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S3_label"/>
+            <EditText
+                android:id="@+id/recipe_S1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S1_hint" />
 
-    <EditText
-        android:id="@+id/recipe_S3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S3_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S2_label" />
 
-    <TextView
-        style="?android:listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S4_label"/>
+            <EditText
+                android:id="@+id/recipe_S2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S2_hint" />
 
-    <EditText
-        android:id="@+id/recipe_S4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recipe_S4_hint"/>
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S3_label" />
+
+            <EditText
+                android:id="@+id/recipe_S3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S3_hint" />
+
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S4_label" />
+
+            <EditText
+                android:id="@+id/recipe_S4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S4_hint" />
+
+            <Button
+                android:id="@+id/recipe_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_friend_text"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/recipe_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_report_text"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

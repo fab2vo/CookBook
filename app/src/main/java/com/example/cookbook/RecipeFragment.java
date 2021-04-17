@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 
 import com.example.cookbook.Recipe;
 
@@ -31,6 +32,7 @@ public class RecipeFragment extends Fragment {
     private EditText mS2Field;
     private EditText mS3Field;
     private EditText mS4Field;
+    private ScrollView mScroll;
 
     public static RecipeFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -57,7 +59,7 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.fragment_recipe, container, false);
-
+        mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         mTitleField= (EditText) v.findViewById(R.id.recipe_title);
         mTitleField.setText(mRecipe.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
