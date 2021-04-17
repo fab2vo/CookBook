@@ -70,8 +70,10 @@ public class CookBook {
     }
 
     public void removeRecipe(Recipe r){
-//        int i=mRecipes.indexOf(r);
-//        if (i>=0){mRecipes.remove(r);}
+        String uuidString=r.getId().toString();
+        mDatabase.delete(RecipeDbSchema.RecipeTable.NAME,
+                RecipeDbSchema.RecipeTable.Cols.UUID+" =?",
+                new String[] {uuidString});
         return;
     }
 

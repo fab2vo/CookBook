@@ -104,13 +104,13 @@ public class RecipeListFragment extends Fragment {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
         if (mAdapter==null){
+            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size());
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
-        } else { mAdapter.notifyDataSetChanged();}
+        } else {
+            mAdapter.setRecipes(recipes);
+            mAdapter.notifyDataSetChanged();}
         updateSubtitle();
-  //      Log.d(TAG, "Taille Cookbook " + recipes.size());
-  //      Log.d(TAG, "Recette 5 " + recipes.get(5).getTitle());
-  //      Log.d(TAG, "Recette 5 " + recipes.get(5).getSource());
     }
 
     private class RecipeHolder extends RecyclerView.ViewHolder
@@ -140,6 +140,10 @@ public class RecipeListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     CookBook.get(getActivity()).removeRecipe(mRecipe);
+ //                  CookBook cookbook=CookBook.get(getActivity());
+ //                   List<Recipe> recipes=cookbook.getRecipes();
+ //                   mAdapter=new RecipeAdapter(recipes);
+ //                   mRecipeRecyclerView.setAdapter(mAdapter);
                     updateUI();
                 }
             });
@@ -179,6 +183,10 @@ public class RecipeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mRecipes.size();
+        }
+
+        public void setRecipes(List<Recipe> recipes){
+            mRecipes=recipes;
         }
     }
 }
