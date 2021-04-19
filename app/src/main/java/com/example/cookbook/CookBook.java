@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +103,11 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getS3());
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP4, recipe.getS4());
         return values;
+    }
+
+    public File getPhotoFile(Recipe r){
+        File filesDir= mContext.getFilesDir();
+        return new File(filesDir, r.getPhotoFilename());
     }
 
     // methode pour generer des recettes aléatoires pour la phase de mise au point

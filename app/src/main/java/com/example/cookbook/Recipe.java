@@ -10,7 +10,6 @@ public class Recipe {
     private String mSource;
     private String[] mStep;
     private int mNote;
-    private String mFriend;
 
     public Recipe( int nbstep) {
         this(nbstep, UUID.randomUUID());
@@ -84,11 +83,8 @@ public class Recipe {
     public String getS3(){return mStep[2];}
     public String getS4(){return mStep[3];}
 
-    public String getFriend() {
-        return mFriend;
-    }
 
-    public void setFriend(String friend) {
-        mFriend = friend;
+    public String getPhotoFilename(){
+        return "IMG"+getId().toString()+".jpg";
     }
 }

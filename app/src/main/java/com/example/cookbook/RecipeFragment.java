@@ -2,9 +2,15 @@ package com.example.cookbook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -17,18 +23,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.example.cookbook.Recipe;
 
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class RecipeFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String DIALOG_DATE="DialogDate";
     private static final int REQUEST_DATE=0;
+    private static final int REQUEST_PHOTO= 2;
     private Recipe mRecipe;
+    private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
     private EditText mNoteField;
@@ -38,6 +50,8 @@ public class RecipeFragment extends Fragment {
     private EditText mS3Field;
     private EditText mS4Field;
     private ScrollView mScroll;
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
     public static RecipeFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -54,6 +68,7 @@ public class RecipeFragment extends Fragment {
         UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
         setHasOptionsMenu(true);
+        mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
     }
 
     @Override
@@ -87,6 +102,30 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v=inflater.inflate(R.layout.fragment_recipe, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
+        PackageManager packageManager=getActivity().getPackageManager();
+        mPhotoButton=(ImageButton) v.findViewById(R.id.recipe_camera);
+            final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            boolean canTakePhoto=(mPhotoFile != null) &&
+                    (captureImage.resolveActivity(packageManager)!=null);
+            mPhotoButton.setEnabled(canTakePhoto);
+            mPhotoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uri= FileProvider.getUriForFile(getActivity(),
+                            "com.example.cookbook.fileprovider", mPhotoFile);
+                    captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    List<ResolveInfo> cameraActivities=getActivity()
+                            .getPackageManager().queryIntentActivities(captureImage,
+                             PackageManager.MATCH_DEFAULT_ONLY);
+                    for(ResolveInfo activity : cameraActivities){
+                        getActivity().grantUriPermission(activity.activityInfo.packageName,
+                                uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    }
+                    startActivityForResult(captureImage, REQUEST_PHOTO);
+                }
+            });
+        mPhotoView=(ImageView) v.findViewById(R.id.recipe_photo);
+        updatePhotoView();
         mTitleField= (EditText) v.findViewById(R.id.recipe_title);
         mTitleField.setText(mRecipe.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -235,6 +274,8 @@ public class RecipeFragment extends Fragment {
             }
         });
 
+
+
        return v;
     }
 
@@ -248,6 +289,11 @@ public class RecipeFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mRecipe.setDate(date);
             updateDate();
+        } else if (requestCode==REQUEST_PHOTO){
+            Uri uri=FileProvider.getUriForFile(getActivity(),
+                    "com.example.cookbook.fileprovider", mPhotoFile);
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            updatePhotoView();
         }
     }
 
@@ -270,5 +316,14 @@ public class RecipeFragment extends Fragment {
         String fin=getString(R.string.recipe_report_final);
         report= header+"\n"+title+"\n"+step1+"\n"+step2+"\n"+step3+"\n"+step4+ "\n" + fin;
         return report;
+    }
+
+    private void updatePhotoView(){
+        if (mPhotoFile==null || !mPhotoFile.exists()){
+            mPhotoView.setImageDrawable(null);
+        } else {
+            Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhotoView.setImageBitmap(bitmap);
+        }
     }
 }
