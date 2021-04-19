@@ -10,6 +10,9 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,8 +38,6 @@ public class RecipeFragment extends Fragment {
     private EditText mS3Field;
     private EditText mS4Field;
     private ScrollView mScroll;
-    private Button mReportButton;
-    private static final String TAG2 = "DebugRecipeFragment";
 
     public static RecipeFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -52,12 +53,34 @@ public class RecipeFragment extends Fragment {
         mRecipe=new Recipe(4);
         UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void onPause(){
         super.onPause();
         CookBook.get(getActivity()).updateRecipe(mRecipe);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_recipe, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.recipe_menu_report:
+                Intent i=new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getRecipeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.recipe_report_subject));
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -212,20 +235,7 @@ public class RecipeFragment extends Fragment {
             }
         });
 
-        mReportButton = (Button) v.findViewById(R.id.recipe_report);
-        mReportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG2, "Report ="+getRecipeReport() );
-                Intent i=new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, getRecipeReport());
-                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.recipe_report_subject));
-                startActivity(i);
-            }
-        });
-
-        return v;
+       return v;
     }
 
     @Override
