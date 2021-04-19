@@ -30,7 +30,7 @@ public class RecipeCursorWrapper extends CursorWrapper {
         r.setNote(note);
         r.setS1(step1);
         r.setS2(step2);
-        r.setS3(step4);
+        r.setS3(step3);
         r.setS4(step4);
         return r;
     }

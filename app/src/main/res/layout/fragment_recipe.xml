@@ -118,13 +118,6 @@
                 android:text="@string/recipe_S4_hint" />
 
             <Button
-                android:id="@+id/recipe_friend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/recipe_friend_text"
-                android:textSize="10sp" />
-
-            <Button
                 android:id="@+id/recipe_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

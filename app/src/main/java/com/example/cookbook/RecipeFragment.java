@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ public class RecipeFragment extends Fragment {
     private EditText mS3Field;
     private EditText mS4Field;
     private ScrollView mScroll;
+    private Button mReportButton;
+    private static final String TAG2 = "DebugRecipeFragment";
 
     public static RecipeFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -208,6 +212,19 @@ public class RecipeFragment extends Fragment {
             }
         });
 
+        mReportButton = (Button) v.findViewById(R.id.recipe_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG2, "Report ="+getRecipeReport() );
+                Intent i=new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getRecipeReport());
+                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.recipe_report_subject));
+                startActivity(i);
+            }
+        });
+
         return v;
     }
 
@@ -226,5 +243,22 @@ public class RecipeFragment extends Fragment {
 
     private void updateDate() {
         mDateButton.setText(mRecipe.getDate().toString());
+    }
+
+    private String getRecipeReport(){
+        String report="";
+        SessionInfo session=SessionInfo.get(getActivity());
+        String header=getString(R.string.recipe_report_header,session.getMember(), session.getFamily());
+        String dateFormat = "dd MMM yyyy";
+        String dateString=DateFormat.format(dateFormat,mRecipe.getDate()).toString();
+        String title=getString(R.string.recipe_report_title,
+                mRecipe.getTitle(), mRecipe.getSource(), dateString );
+        String step1=getString(R.string.recipe_report_step1, mRecipe.getS1());
+        String step2=getString(R.string.recipe_report_step2, mRecipe.getS2());
+        String step3=getString(R.string.recipe_report_step3, mRecipe.getS3());
+        String step4=getString(R.string.recipe_report_step4, mRecipe.getS4());
+        String fin=getString(R.string.recipe_report_final);
+        report= header+"\n"+title+"\n"+step1+"\n"+step2+"\n"+step3+"\n"+step4+ "\n" + fin;
+        return report;
     }
 }

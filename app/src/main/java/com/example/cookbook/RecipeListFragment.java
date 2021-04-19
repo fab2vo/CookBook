@@ -26,7 +26,7 @@ public class RecipeListFragment extends Fragment {
     private boolean mSubtitleVisible;
     private SessionInfo mSession;
     private static final String SAVED_SUBTITLE_VISIBLE="subtitle";
-    private static final String TAG = "DebugRecipe";
+    private static final String TAG = "DebugRecipeListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
