@@ -50,7 +50,6 @@ public class RecipeFragment extends Fragment {
     private EditText mS3Field;
     private EditText mS4Field;
     private ScrollView mScroll;
-    private ImageButton mPhotoButton;
     private ImageView mPhotoView;
 
     public static RecipeFragment newInstance(UUID recipeId){
@@ -103,28 +102,26 @@ public class RecipeFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_recipe, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         PackageManager packageManager=getActivity().getPackageManager();
-        mPhotoButton=(ImageButton) v.findViewById(R.id.recipe_camera);
             final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             boolean canTakePhoto=(mPhotoFile != null) &&
                     (captureImage.resolveActivity(packageManager)!=null);
-            mPhotoButton.setEnabled(canTakePhoto);
-            mPhotoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Uri uri= FileProvider.getUriForFile(getActivity(),
-                            "com.example.cookbook.fileprovider", mPhotoFile);
-                    captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                    List<ResolveInfo> cameraActivities=getActivity()
-                            .getPackageManager().queryIntentActivities(captureImage,
-                             PackageManager.MATCH_DEFAULT_ONLY);
-                    for(ResolveInfo activity : cameraActivities){
-                        getActivity().grantUriPermission(activity.activityInfo.packageName,
-                                uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    }
-                    startActivityForResult(captureImage, REQUEST_PHOTO);
-                }
-            });
         mPhotoView=(ImageView) v.findViewById(R.id.recipe_photo);
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri= FileProvider.getUriForFile(getActivity(),
+                        "com.example.cookbook.fileprovider", mPhotoFile);
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                List<ResolveInfo> cameraActivities=getActivity()
+                        .getPackageManager().queryIntentActivities(captureImage,
+                                PackageManager.MATCH_DEFAULT_ONLY);
+                for(ResolveInfo activity : cameraActivities){
+                    getActivity().grantUriPermission(activity.activityInfo.packageName,
+                            uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+                startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        });
         updatePhotoView();
         mTitleField= (EditText) v.findViewById(R.id.recipe_title);
         mTitleField.setText(mRecipe.getTitle());

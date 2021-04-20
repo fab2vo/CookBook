@@ -110,6 +110,17 @@ public class CookBook {
         return new File(filesDir, r.getPhotoFilename());
     }
 
+    public Boolean deleteImage(Recipe r){
+        Boolean success=false;
+        File filesDir= mContext.getFilesDir();
+        File im=new File(filesDir, r.getPhotoFilename());
+        if (im.exists()){
+            im.delete();
+            success=true;
+        }
+        return success;
+    }
+
     // methode pour generer des recettes aléatoires pour la phase de mise au point
     private Recipe randomRecipe(){
         Recipe r;

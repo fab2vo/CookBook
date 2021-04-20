@@ -37,11 +37,7 @@
                         android:scaleType="centerCrop"
                         android:cropToPadding="true"
                         android:background="@android:color/darker_gray"/>
-                    <ImageButton
-                        android:id="@+id/recipe_camera"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/ic_menu_camera"/>
+
                 </LinearLayout>
 
                 <LinearLayout

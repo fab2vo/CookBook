@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -141,11 +142,10 @@ public class RecipeListFragment extends Fragment {
             mDeleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
+  //                     Toast.makeText(getActivity(), "Failure in deleting file", Toast.LENGTH_SHORT).show();
+                    }
                     CookBook.get(getActivity()).removeRecipe(mRecipe);
- //                  CookBook cookbook=CookBook.get(getActivity());
- //                   List<Recipe> recipes=cookbook.getRecipes();
- //                   mAdapter=new RecipeAdapter(recipes);
- //                   mRecipeRecyclerView.setAdapter(mAdapter);
                     updateUI();
                 }
             });
