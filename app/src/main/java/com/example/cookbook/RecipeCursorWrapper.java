@@ -23,11 +23,11 @@ public class RecipeCursorWrapper extends CursorWrapper {
         String step2 = getString(getColumnIndex(RecipeTable.Cols.STEP2));
         String step3 = getString(getColumnIndex(RecipeTable.Cols.STEP3));
         String step4 = getString(getColumnIndex(RecipeTable.Cols.STEP4));
-        Recipe r=new Recipe(4,UUID.fromString(uuidString));
+        Recipe r=new Recipe(UUID.fromString(uuidString));
         r.setTitle(title);
         r.setSource(source);
         r.setDate(new Date(date));
-        r.setNote(note);
+        r.setNoteAvg(note);
         r.setS1(step1);
         r.setS2(step2);
         r.setS3(step3);

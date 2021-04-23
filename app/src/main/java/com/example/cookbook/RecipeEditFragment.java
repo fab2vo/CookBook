@@ -20,9 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Date;
@@ -39,11 +41,14 @@ public class RecipeEditFragment extends Fragment {
     private EditText mTitleField;
     private EditText mSourceField;
 //    private Button mDateButton;
-    private EditText mS1Field;
-    private EditText mS2Field;
-    private TextView mS3Title;
-    private EditText mS3Field;
-    private EditText mS4Field;
+    private TextView mS1TextView;
+    private TextView mS2TextView;
+    private TextView mS3TextView;
+    private TextView mS4TextView;
+    private TextView mS5TextView;
+    private EditText mNewStepField;
+    private ImageButton mNewStepEnter;
+    private ImageButton mNewStepBack;
     private int mStepNb;
     private ScrollView mScroll;
     private ImageView mPhotoView;
@@ -59,12 +64,12 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mRecipe=new Recipe(4);
+        mRecipe=new Recipe();
         UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
         setHasOptionsMenu(true);
         mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
-        mStepNb=4;
+        mStepNb=mRecipe.getNbStep();;
     }
 
     @Override
@@ -96,7 +101,7 @@ public class RecipeEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View v=inflater.inflate(R.layout.fragment_recipe, container, false);
+        final View v=inflater.inflate(R.layout.fragment_recipe, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         PackageManager packageManager=getActivity().getPackageManager();
             final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -192,9 +197,17 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 */
-        mS1Field= (EditText) v.findViewById(R.id.recipe_S1);
-        mS1Field.setText(mRecipe.getS1());
-        mS1Field.addTextChangedListener(new TextWatcher() {
+        mS1TextView= (TextView) v.findViewById(R.id.recipe_S1);
+        mS2TextView= (TextView) v.findViewById(R.id.recipe_S2);
+        mS3TextView= (TextView) v.findViewById(R.id.recipe_S3);
+        mS4TextView= (TextView) v.findViewById(R.id.recipe_S4);
+        mS5TextView= (TextView) v.findViewById(R.id.recipe_S5);
+        mNewStepEnter=(ImageButton) v.findViewById(R.id.recipe_step_enter);
+        mNewStepBack=(ImageButton) v.findViewById(R.id.recipe_step_back);
+        updateListStep(v);
+
+        mNewStepField= (EditText) v.findViewById(R.id.recipe_new_step);
+        mNewStepField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // blank
@@ -202,76 +215,33 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setS1(s.toString());
+                mRecipe.setStep(mStepNb+1, s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
 
-        mS2Field= (EditText) v.findViewById(R.id.recipe_S2);
-        mS2Field.setText(mRecipe.getS2());
-        mS2Field.addTextChangedListener(new TextWatcher() {
+        mNewStepEnter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setS2(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+//                Toast.makeText(getActivity(), mRecipe.getStep(mStepNb+1)+"/"+mStepNb,
+//                        Toast.LENGTH_SHORT).show();
+                updateListStep(v);
+                mNewStepField.getText().clear();
             }
         });
 
-        mS3Title=(TextView) v.findViewById(R.id.recipe_S3_title);
- //       mS3Title.setVisibility(View.GONE);
-        mS3Field= (EditText) v.findViewById(R.id.recipe_S3);
-//        mS3Field.setVisibility(View.GONE);
-        mS3Field.setText(mRecipe.getS3());
-        mS3Field.addTextChangedListener(new TextWatcher() {
+        mNewStepBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setS3(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                mRecipe.setStep(mStepNb, "");
+                mRecipe.setStep(mStepNb+1, "");
+                updateListStep(v);
+                mNewStepField.getText().clear();
             }
         });
-
-        mS4Field= (EditText) v.findViewById(R.id.recipe_S4);
-        mS4Field.setText(mRecipe.getS4());
-        mS4Field.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setS4(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
 
        return v;
     }
@@ -323,8 +293,36 @@ public class RecipeEditFragment extends Fragment {
             mPhotoView.setImageBitmap(bitmap);
         }
     }
-    private void updateListStep(){
-        // mStepNb trouver mStepNb puis mettre àjour les étapes
 
+    private void updateListStep(View v) {
+        mStepNb = mRecipe.getNbStep();
+        mS1TextView.setText("1. " + mRecipe.getStep(1));
+        if (mStepNb > 1) {
+            mS2TextView.setText("2. " + mRecipe.getStep(2));
+            mS2TextView.setVisibility(View.VISIBLE);
+        } else {
+            mS2TextView.setVisibility(View.GONE);
+        }
+
+        if (mStepNb > 2) {
+            mS3TextView.setText("3. " + mRecipe.getStep(3));
+            mS3TextView.setVisibility(View.VISIBLE);
+        } else {
+            mS3TextView.setVisibility(View.GONE);
+        }
+
+        if (mStepNb > 3) {
+            mS4TextView.setText("4. " + mRecipe.getStep(4));
+            mS4TextView.setVisibility(View.VISIBLE);
+        } else {
+            mS4TextView.setVisibility(View.GONE);
+        }
+
+        if (mStepNb > 4) {
+            mS5TextView.setText("5. " + mRecipe.getStep(5));
+            mS5TextView.setVisibility(View.VISIBLE);
+        } else {
+            mS5TextView.setVisibility(View.GONE);
+        }
     }
 }

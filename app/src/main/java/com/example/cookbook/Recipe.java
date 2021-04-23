@@ -5,20 +5,33 @@ import java.util.UUID;
 
 public class Recipe {
     private UUID mId;
+    private User mOwner;
     private Date mDate;
+    private Date mDate_crea;
+    private Date mDate_modif;
     private String mTitle;
     private String mSource;
-    private String[] mStep;
-    private int mNote;
+    private String mSource_http;
+    private int mNb_pers;
+    private String[] mSteps;
+    private int mNoteAvg;
+    //private ArrayList<Note> mNotes;
+    //private ArrayList<Ingredient> mIngredients;
+    //private ArrayList<Comment> mComments
+    // season
+    // type
 
-    public Recipe( int nbstep) {
-        this(nbstep, UUID.randomUUID());
+
+
+    public Recipe() {
+        this(UUID.randomUUID());
     }
 
-    public Recipe(int nbstep, UUID id){
+    public Recipe( UUID id){
         mId=id;
         mDate=new Date();
-        mStep= new String[nbstep];
+        mSteps = new String[9];
+        for(int i=0;i<9;i++){mSteps[i]="";}
     }
 
     public UUID getId() {
@@ -49,39 +62,57 @@ public class Recipe {
         mSource = source;
     }
 
-    public void setStep(String[] step) {
-        mStep = step;
+    public void setSteps(String[] steps) {
+        mSteps = steps;
     }
 
-    public String[] getStep() {
-        return mStep;
+    public String[] getSteps() {
+        return mSteps;
     }
 
-    public int getNote() {
-        return mNote;
+    public int getNoteAvg() {
+        return mNoteAvg;
     }
 
-    public void setNote(int note) {
-        mNote = note;
+    public void setNoteAvg(int noteAvg) {
+        mNoteAvg = noteAvg;
     }
 
     public void setS1(String step) {
-        mStep[0] = step;
+        mSteps[0] = step;
     }
     public void setS2(String step) {
-        mStep[1] = step;
+        mSteps[1] = step;
     }
     public void setS3(String step) {
-        mStep[2] = step;
+        mSteps[2] = step;
     }
     public void setS4(String step) {
-        mStep[3] = step;
+        mSteps[3] = step;
     }
 
-    public String getS1(){return mStep[0];}
-    public String getS2(){return mStep[1];}
-    public String getS3(){return mStep[2];}
-    public String getS4(){return mStep[3];}
+    public void setStep(Integer i, String step) {
+        if ((i > 0) || (i < 10)) {
+            mSteps[i - 1] = step;
+        }
+    }
+
+    public String getS1(){return mSteps[0];}
+    public String getS2(){return mSteps[1];}
+    public String getS3(){return mSteps[2];}
+    public String getS4(){return mSteps[3];}
+
+    public String getStep(Integer i){
+        if ((i>0)||(i<10)) {return mSteps[i-1];}
+        else{ return "";}
+    }
+
+    public int getNbStep(){
+        int j=1;
+        for(int i=9; i>0; i--){
+            if (!mSteps[i-1].isEmpty()) {j=i; break;}}
+        return j;
+    }
 
 
     public String getPhotoFilename(){

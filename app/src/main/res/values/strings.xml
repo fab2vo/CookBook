@@ -4,18 +4,14 @@
     <string name="recipe_title_hint">Merveilleux couscous à l\indienne</string>
     <string name="recipe_source_label">Source de la recette</string>
     <string name="recipe_source_hint">Oui Chef de Lignac page 118</string>
-    <string name="recipe_note_label">Note de 1 a 5</string>
-    <string name="recipe_date_label">Date de creation</string>
-    <string name="recipe_note_hint">5</string>
-    <string name="recipe_date_hint">1 janvier 1900</string>
-    <string name="recipe_S1_label">Etape 1</string>
-    <string name="recipe_S1_hint">Description de l\'etape</string>
-    <string name="recipe_S2_label">Etape 2</string>
-    <string name="recipe_S2_hint">Description de l\'etape</string>
-    <string name="recipe_S3_label">Etape 3</string>
-    <string name="recipe_S3_hint">Description de l\'etape</string>
-    <string name="recipe_S4_label">Etape 4</string>
-    <string name="recipe_S4_hint">Description de l\'etape</string>
+    <string name="recipe_step">Descriptions des étapes (max 9)</string>
+    <string name="recipe_S1_label"> Descripton de \'étape 1</string>
+    <string name="recipe_S2_label">Descripton de \'étape 2</string>
+    <string name="recipe_S3_label">Descripton de \'étape 3</string>
+    <string name="recipe_S4_label">Descripton de \'étape 4</string>
+    <string name="recipe_S5_label">Descripton de \'étape 5</string>
+    <string name="recipe_new_recipe_label">     Description de la nouvelle étape:</string>
+    <string name="recipe_new_recipe_hint">...</string>
     <string name="list_item_recipe_title_label">Nom de la recette</string>
     <string name="list_item_recipe_source_label">Source ou auteur</string>
     <string name="list_item_recipe_note_label">Note</string>
@@ -26,7 +22,7 @@
     <string name="subtitle_format">%1$d recettes</string>
     <string name="recipe_report_text">Partager la recette</string>
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
-    <string name="recipe_report_header">%1$s de la famille %2$s vous envoie cette recette : </string>
+    <string name="recipe_report_header">%1$s vous envoie cette recette : </string>
     <string name="recipe_report_title">==%1$s de %2$s (créé le %3$s)==</string>
     <string name="recipe_report_step1">-Etape 1 %1$s</string>
     <string name="recipe_report_step2">-Etape 2 %1$s</string>

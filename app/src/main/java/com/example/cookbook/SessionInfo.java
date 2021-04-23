@@ -2,10 +2,11 @@ package com.example.cookbook;
 
 import android.content.Context;
 
+import java.util.UUID;
+
 public class SessionInfo {
     private static SessionInfo ourInstance;
-    private String mFamily;
-    private String mMember;
+    private User mUser;
     private Context mContext;
 
     public static SessionInfo get(Context context) {
@@ -17,23 +18,16 @@ public class SessionInfo {
 
     private SessionInfo(Context context) {
         mContext=context.getApplicationContext();
-        mFamily="Devaux_Lion de ML";
-        mMember="Fabrice";
+        mUser=new User("Devaux_Lion de ML","Fabrice");
+        // UID constant pour phase debug
+        mUser.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
     }
 
-    public String getFamily() {
-        return mFamily;
+    public String getName() {
+        return mUser.getName()+" de "+mUser.getFamily();
     }
 
-    public void setFamily(String family) {
-        mFamily = family;
-    }
-
-    public String getMember() {
-        return mMember;
-    }
-
-    public void setMember(String member) {
-        mMember = member;
+    public User getUser() {
+        return mUser;
     }
 }

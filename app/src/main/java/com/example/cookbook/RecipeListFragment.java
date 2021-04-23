@@ -1,7 +1,6 @@
 package com.example.cookbook;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -78,7 +77,7 @@ public class RecipeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_recipe:
-                Recipe recipe=new Recipe(4);
+                Recipe recipe=new Recipe();
                 CookBook.get(getActivity()).addRecipe(recipe);
                 Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 startActivity(intent);
@@ -107,7 +106,7 @@ public class RecipeListFragment extends Fragment {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
         if (mAdapter==null){
-            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getMember());
+            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getName());
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
         } else {
@@ -154,7 +153,7 @@ public class RecipeListFragment extends Fragment {
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
             mSourceTextView.setText(mRecipe.getSource());
-            mNoteTextView.setText(mRecipe.getNote()+"/5");
+            mNoteTextView.setText(mRecipe.getNoteAvg()+"/5");
         }
         @Override
         public void onClick(View v){

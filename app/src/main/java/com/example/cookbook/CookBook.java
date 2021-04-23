@@ -97,7 +97,7 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.TITLE, recipe.getTitle());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
-        values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNote()); //Pb ?
+        values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNoteAvg()); //Pb ?
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP1, recipe.getS1());
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP2, recipe.getS2());
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getS3());
@@ -133,11 +133,11 @@ public class CookBook {
         String[] mS2={"les tomates","les oignons", "les poivrons","les pommes de terre","les aubergines"};
         String[] mS3={"le poivre", "le curry", "la sauce soja", "le cumin", "le piment"};
         String[] mS4={"Mettre au four", "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
-        r=new Recipe(4);
+        r=new Recipe();
         s1=mIngPrinc[rand.nextInt(5)];
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
-        r.setNote(rand.nextInt(6));
+        r.setNoteAvg(rand.nextInt(6));
         r.setS1(mS1[rand.nextInt(5)]+" le "+s1+".");
         r.setS2("Apres quelques minutes, ajoutez au "+s1+
                 " "+mS2[rand.nextInt(5)]+
