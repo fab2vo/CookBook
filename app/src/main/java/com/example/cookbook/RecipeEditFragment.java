@@ -9,32 +9,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-
-import com.example.cookbook.Recipe;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class RecipeFragment extends Fragment {
+public class RecipeEditFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String DIALOG_DATE="DialogDate";
     private static final int REQUEST_DATE=0;
@@ -43,19 +38,20 @@ public class RecipeFragment extends Fragment {
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
-    private EditText mNoteField;
-    private Button mDateButton;
+//    private Button mDateButton;
     private EditText mS1Field;
     private EditText mS2Field;
+    private TextView mS3Title;
     private EditText mS3Field;
     private EditText mS4Field;
+    private int mStepNb;
     private ScrollView mScroll;
     private ImageView mPhotoView;
 
-    public static RecipeFragment newInstance(UUID recipeId){
+    public static RecipeEditFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
         args.putSerializable(ARG_RECIPE_ID, recipeId);
-        RecipeFragment fragment=new RecipeFragment();
+        RecipeEditFragment fragment=new RecipeEditFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +64,7 @@ public class RecipeFragment extends Fragment {
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
         setHasOptionsMenu(true);
         mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+        mStepNb=4;
     }
 
     @Override
@@ -161,8 +158,8 @@ public class RecipeFragment extends Fragment {
             }
         });
 
-        mNoteField= (EditText) v.findViewById(R.id.recipe_note);
-        mNoteField.setText(mRecipe.getNote()+"");
+/*        mNoteField= (EditText) v.findViewById(R.id.recipe_note);
+        mNoteField.setText(mRecipe.getNoteAvg()+"");
         mNoteField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,16 +170,16 @@ public class RecipeFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int entry=Integer.parseInt(s.toString());
                 if ((entry<0)||(entry>5)){entry=0;}
-                mRecipe.setNote(entry);
+                mRecipe.setNoteAvg(entry);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-//
-            }
-        });
 
-        mDateButton= (Button) v.findViewById(R.id.recipe_date);
+            }
+         });
+*/
+/*        mDateButton= (Button) v.findViewById(R.id.recipe_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,11 +187,11 @@ public class RecipeFragment extends Fragment {
                 FragmentManager fm= getFragmentManager();
                 DatePickerFragment dialog=DatePickerFragment
                         .newInstance(mRecipe.getDate());
-                dialog.setTargetFragment(RecipeFragment.this, REQUEST_DATE);
+                dialog.setTargetFragment(RecipeEditFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);
             }
         });
-
+*/
         mS1Field= (EditText) v.findViewById(R.id.recipe_S1);
         mS1Field.setText(mRecipe.getS1());
         mS1Field.addTextChangedListener(new TextWatcher() {
@@ -233,7 +230,10 @@ public class RecipeFragment extends Fragment {
             }
         });
 
+        mS3Title=(TextView) v.findViewById(R.id.recipe_S3_title);
+ //       mS3Title.setVisibility(View.GONE);
         mS3Field= (EditText) v.findViewById(R.id.recipe_S3);
+//        mS3Field.setVisibility(View.GONE);
         mS3Field.setText(mRecipe.getS3());
         mS3Field.addTextChangedListener(new TextWatcher() {
             @Override
@@ -285,7 +285,7 @@ public class RecipeFragment extends Fragment {
             Date date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mRecipe.setDate(date);
-            updateDate();
+ //           updateDate();
         } else if (requestCode==REQUEST_PHOTO){
             Uri uri=FileProvider.getUriForFile(getActivity(),
                     "com.example.cookbook.fileprovider", mPhotoFile);
@@ -294,14 +294,14 @@ public class RecipeFragment extends Fragment {
         }
     }
 
-    private void updateDate() {
+/*    private void updateDate() {
         mDateButton.setText(mRecipe.getDate().toString());
     }
-
+*/
     private String getRecipeReport(){
         String report="";
         SessionInfo session=SessionInfo.get(getActivity());
-        String header=getString(R.string.recipe_report_header,session.getMember(), session.getFamily());
+        String header=getString(R.string.recipe_report_header,session.getName());
         String dateFormat = "dd MMM yyyy";
         String dateString=DateFormat.format(dateFormat,mRecipe.getDate()).toString();
         String title=getString(R.string.recipe_report_title,
@@ -322,5 +322,9 @@ public class RecipeFragment extends Fragment {
             Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);
         }
+    }
+    private void updateListStep(){
+        // mStepNb trouver mStepNb puis mettre àjour les étapes
+
     }
 }
