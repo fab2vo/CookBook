@@ -41,11 +41,7 @@ public class RecipeEditFragment extends Fragment {
     private EditText mTitleField;
     private EditText mSourceField;
 //    private Button mDateButton;
-    private TextView mS1TextView;
-    private TextView mS2TextView;
-    private TextView mS3TextView;
-    private TextView mS4TextView;
-    private TextView mS5TextView;
+    private TextView[] mSTextView;
     private EditText mNewStepField;
     private ImageButton mNewStepEnter;
     private ImageButton mNewStepBack;
@@ -197,11 +193,12 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 */
-        mS1TextView= (TextView) v.findViewById(R.id.recipe_S1);
-        mS2TextView= (TextView) v.findViewById(R.id.recipe_S2);
-        mS3TextView= (TextView) v.findViewById(R.id.recipe_S3);
-        mS4TextView= (TextView) v.findViewById(R.id.recipe_S4);
-        mS5TextView= (TextView) v.findViewById(R.id.recipe_S5);
+        final int[] rID= {R.id.recipe_S1,R.id.recipe_S2,R.id.recipe_S3,R.id.recipe_S4,
+                R.id.recipe_S5,R.id.recipe_S6,R.id.recipe_S7,R.id.recipe_S8,R.id.recipe_S9};
+        mSTextView= new TextView[mRecipe.getNbStepMax()];
+        for(int i=0;i<mRecipe.getNbStepMax();i++) {
+            mSTextView[i] = (TextView) v.findViewById(rID[i]);
+        }
         mNewStepEnter=(ImageButton) v.findViewById(R.id.recipe_step_enter);
         mNewStepBack=(ImageButton) v.findViewById(R.id.recipe_step_back);
         updateListStep(v);
@@ -228,7 +225,7 @@ public class RecipeEditFragment extends Fragment {
             public void onClick(View v) {
 //                Toast.makeText(getActivity(), mRecipe.getStep(mStepNb+1)+"/"+mStepNb,
 //                        Toast.LENGTH_SHORT).show();
-                updateListStep(v);
+                mNewStepField.setVisibility(updateListStep(v));
                 mNewStepField.getText().clear();
             }
         });
@@ -238,7 +235,7 @@ public class RecipeEditFragment extends Fragment {
             public void onClick(View v) {
                 mRecipe.setStep(mStepNb, "");
                 mRecipe.setStep(mStepNb+1, "");
-                updateListStep(v);
+                mNewStepField.setVisibility(updateListStep(v));
                 mNewStepField.getText().clear();
             }
         });
@@ -294,35 +291,21 @@ public class RecipeEditFragment extends Fragment {
         }
     }
 
-    private void updateListStep(View v) {
+    private int updateListStep(View v) {
+        int imax=mRecipe.getNbStepMax(), iplus;
+        String[] display=new String[imax];
         mStepNb = mRecipe.getNbStep();
-        mS1TextView.setText("1. " + mRecipe.getStep(1));
-        if (mStepNb > 1) {
-            mS2TextView.setText("2. " + mRecipe.getStep(2));
-            mS2TextView.setVisibility(View.VISIBLE);
-        } else {
-            mS2TextView.setVisibility(View.GONE);
+        int gone=View.GONE;
+        int visible=View.VISIBLE;
+        mSTextView[0].setText("1...");
+        mSTextView[0].setVisibility(visible);
+        for(int i=0;i<imax;i++){
+            iplus=i+1; display[i]=iplus+"."+mRecipe.getStep(i+1);
+            if (mStepNb>0){mSTextView[i].setText(display[i]);}
+            if (i>=0){mSTextView[i].setVisibility((mStepNb>i)? visible:gone);}
         }
-
-        if (mStepNb > 2) {
-            mS3TextView.setText("3. " + mRecipe.getStep(3));
-            mS3TextView.setVisibility(View.VISIBLE);
-        } else {
-            mS3TextView.setVisibility(View.GONE);
-        }
-
-        if (mStepNb > 3) {
-            mS4TextView.setText("4. " + mRecipe.getStep(4));
-            mS4TextView.setVisibility(View.VISIBLE);
-        } else {
-            mS4TextView.setVisibility(View.GONE);
-        }
-
-        if (mStepNb > 4) {
-            mS5TextView.setText("5. " + mRecipe.getStep(5));
-            mS5TextView.setVisibility(View.VISIBLE);
-        } else {
-            mS5TextView.setVisibility(View.GONE);
-        }
+        mNewStepBack.setVisibility((mStepNb==0)? gone:visible);
+        mNewStepEnter.setVisibility((mStepNb==imax)? gone:visible);
+        return ((mStepNb==imax)?gone:visible);
     }
 }

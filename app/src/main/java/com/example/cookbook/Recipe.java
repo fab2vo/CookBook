@@ -14,6 +14,7 @@ public class Recipe {
     private String mSource_http;
     private int mNb_pers;
     private String[] mSteps;
+    private static final int NBSTEP_MAX=9;
     private int mNoteAvg;
     //private ArrayList<Note> mNotes;
     //private ArrayList<Ingredient> mIngredients;
@@ -30,8 +31,8 @@ public class Recipe {
     public Recipe( UUID id){
         mId=id;
         mDate=new Date();
-        mSteps = new String[9];
-        for(int i=0;i<9;i++){mSteps[i]="";}
+        mSteps = new String[NBSTEP_MAX];
+        for(int i=0;i<NBSTEP_MAX;i++){mSteps[i]="";}
     }
 
     public UUID getId() {
@@ -92,7 +93,7 @@ public class Recipe {
     }
 
     public void setStep(Integer i, String step) {
-        if ((i > 0) || (i < 10)) {
+        if ((i > 0) && (i <= NBSTEP_MAX)) {
             mSteps[i - 1] = step;
         }
     }
@@ -103,17 +104,18 @@ public class Recipe {
     public String getS4(){return mSteps[3];}
 
     public String getStep(Integer i){
-        if ((i>0)||(i<10)) {return mSteps[i-1];}
+        if ((i>0)&&(i<=NBSTEP_MAX)) {return mSteps[i-1];}
         else{ return "";}
     }
 
     public int getNbStep(){
-        int j=1;
-        for(int i=9; i>0; i--){
+        int j=0;
+        for(int i=NBSTEP_MAX; i>0; i--){
             if (!mSteps[i-1].isEmpty()) {j=i; break;}}
         return j;
     }
 
+    public int getNbStepMax(){return NBSTEP_MAX;}
 
     public String getPhotoFilename(){
         return "IMG"+getId().toString()+".jpg";

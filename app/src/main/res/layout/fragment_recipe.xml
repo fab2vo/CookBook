@@ -101,11 +101,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_S4_label" />
+
             <TextView
                 android:id="@+id/recipe_S5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_S5_label" />
+            <TextView
+                android:id="@+id/recipe_S6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S6_label" />
+            <TextView
+                android:id="@+id/recipe_S7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S7_label" />
+            <TextView
+                android:id="@+id/recipe_S8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S8_label" />
+            <TextView
+                android:id="@+id/recipe_S9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_S9_label" />
 
             <TextView
                 android:layout_width="match_parent"
