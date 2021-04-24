@@ -13,6 +13,7 @@ import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.Date;
@@ -36,10 +36,12 @@ public class RecipeEditFragment extends Fragment {
     private static final String DIALOG_DATE="DialogDate";
     private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
+    private static final String TAG = "DebugRecipeEditFragment";
     private Recipe mRecipe;
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
+    private EditText mNbPersField;
 //    private Button mDateButton;
     private TextView[] mSTextView;
     private EditText mNewStepField;
@@ -97,7 +99,7 @@ public class RecipeEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        final View v=inflater.inflate(R.layout.fragment_recipe, container, false);
+        final View v=inflater.inflate(R.layout.fragment_recipe_edit, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         PackageManager packageManager=getActivity().getPackageManager();
             final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -151,6 +153,30 @@ public class RecipeEditFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mRecipe.setSource(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mNbPersField= (EditText) v.findViewById(R.id.recipe_nbpers);
+        mNbPersField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                Log.d(TAG "onTextChanged de mNbPersField >" + s.toString()+"<");,
+                if (s.toString().equals("")) {} else {
+                    int nb_entered = Integer.parseInt(s.toString());
+                    if ((nb_entered > 0) && (nb_entered < 13)) {
+                        mRecipe.setNbPers(nb_entered);
+                    }
+                }
             }
 
             @Override
@@ -273,10 +299,10 @@ public class RecipeEditFragment extends Fragment {
         String dateString=DateFormat.format(dateFormat,mRecipe.getDate()).toString();
         String title=getString(R.string.recipe_report_title,
                 mRecipe.getTitle(), mRecipe.getSource(), dateString );
-        String step1=getString(R.string.recipe_report_step1, mRecipe.getS1());
-        String step2=getString(R.string.recipe_report_step2, mRecipe.getS2());
-        String step3=getString(R.string.recipe_report_step3, mRecipe.getS3());
-        String step4=getString(R.string.recipe_report_step4, mRecipe.getS4());
+        String step1=getString(R.string.recipe_report_step1, mRecipe.getStep(1));
+        String step2=getString(R.string.recipe_report_step2, mRecipe.getStep(2));
+        String step3=getString(R.string.recipe_report_step3, mRecipe.getStep(3));
+        String step4=getString(R.string.recipe_report_step4, mRecipe.getStep(4));
         String fin=getString(R.string.recipe_report_final);
         report= header+"\n"+title+"\n"+step1+"\n"+step2+"\n"+step3+"\n"+step4+ "\n" + fin;
         return report;

@@ -4,6 +4,8 @@
     <string name="recipe_title_hint">Merveilleux couscous à l\indienne</string>
     <string name="recipe_source_label">Source de la recette</string>
     <string name="recipe_source_hint">Oui Chef de Lignac page 118</string>
+    <string name="recipe_nbpers_label">Nombre de personne (max 12) </string>
+    <string name="recipe_nbpers_hint">4</string>
     <string name="recipe_step">Descriptions des étapes (max 9)</string>
     <string name="recipe_S1_label"> Descripton de l\'étape 1</string>
     <string name="recipe_S2_label">Descripton de l\'étape 2</string>

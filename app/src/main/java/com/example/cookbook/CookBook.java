@@ -98,10 +98,10 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNoteAvg()); //Pb ?
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP1, recipe.getS1());
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP2, recipe.getS2());
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getS3());
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP4, recipe.getS4());
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP1, recipe.getStep(1));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP2, recipe.getStep(2));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getStep(3));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP4, recipe.getStep(4));
         return values;
     }
 
@@ -125,7 +125,7 @@ public class CookBook {
     private Recipe randomRecipe(){
         Recipe r;
         Random rand=new Random();
-        String s1;
+        String[] mUserName={"Fabrice", "Véronique", "Lucile"};
         String[] mIngPrinc={"Poulet","Boeuf","Canard","Thon", "Homard"};
         String[] mFacon={"a la moutarde","a la marocaine"," laque", "a la mexicaine", "a l indienne", "braise", "saute"};
         String[] mSource={"Marmiton","Cyril Lignac", "Fabrice", "Veronique", "Cuisine actuelle"};
@@ -134,16 +134,18 @@ public class CookBook {
         String[] mS3={"le poivre", "le curry", "la sauce soja", "le cumin", "le piment"};
         String[] mS4={"Mettre au four", "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
         r=new Recipe();
-        s1=mIngPrinc[rand.nextInt(5)];
+        r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
+        String s1=mIngPrinc[rand.nextInt(5)];
+
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
         r.setNoteAvg(rand.nextInt(6));
-        r.setS1(mS1[rand.nextInt(5)]+" le "+s1+".");
-        r.setS2("Apres quelques minutes, ajoutez au "+s1+
+        r.setStep(1,mS1[rand.nextInt(5)]+" le "+s1+".");
+        r.setStep(2,"Apres quelques minutes, ajoutez au "+s1+
                 " "+mS2[rand.nextInt(5)]+
                 " et "+mS2[rand.nextInt(5)]);
-        r.setS3("Salez, poivrez et ajoutez "+mS3[rand.nextInt(5)]);
-        r.setS4(mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
+        r.setStep(3,"Salez, poivrez et ajoutez "+mS3[rand.nextInt(5)]);
+        r.setStep(4,mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
         r.setDate(new Date());
         return r;
     }

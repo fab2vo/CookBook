@@ -12,7 +12,7 @@ public class Recipe {
     private String mTitle;
     private String mSource;
     private String mSource_http;
-    private int mNb_pers;
+    private int mNbPers;
     private String[] mSteps;
     private static final int NBSTEP_MAX=9;
     private int mNoteAvg;
@@ -33,6 +33,7 @@ public class Recipe {
         mDate=new Date();
         mSteps = new String[NBSTEP_MAX];
         for(int i=0;i<NBSTEP_MAX;i++){mSteps[i]="";}
+        mNbPers=4;
     }
 
     public UUID getId() {
@@ -79,29 +80,11 @@ public class Recipe {
         mNoteAvg = noteAvg;
     }
 
-    public void setS1(String step) {
-        mSteps[0] = step;
-    }
-    public void setS2(String step) {
-        mSteps[1] = step;
-    }
-    public void setS3(String step) {
-        mSteps[2] = step;
-    }
-    public void setS4(String step) {
-        mSteps[3] = step;
-    }
-
     public void setStep(Integer i, String step) {
         if ((i > 0) && (i <= NBSTEP_MAX)) {
             mSteps[i - 1] = step;
         }
     }
-
-    public String getS1(){return mSteps[0];}
-    public String getS2(){return mSteps[1];}
-    public String getS3(){return mSteps[2];}
-    public String getS4(){return mSteps[3];}
 
     public String getStep(Integer i){
         if ((i>0)&&(i<=NBSTEP_MAX)) {return mSteps[i-1];}
@@ -113,6 +96,22 @@ public class Recipe {
         for(int i=NBSTEP_MAX; i>0; i--){
             if (!mSteps[i-1].isEmpty()) {j=i; break;}}
         return j;
+    }
+
+    public User getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(User owner) {
+        mOwner = owner;
+    }
+
+    public int getNbPers() {
+        return mNbPers;
+    }
+
+    public void setNbPers(int nbPers) {
+        mNbPers = nbPers;
     }
 
     public int getNbStepMax(){return NBSTEP_MAX;}
