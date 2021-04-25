@@ -30,7 +30,7 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-   //       for (int i = 0; i < 5; i++){addRecipe(randomRecipe());}
+       //   for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // JUST FOR CReation
     }
 
     public Recipe getRecipe(UUID id) {
@@ -102,6 +102,11 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP2, recipe.getStep(2));
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getStep(3));
         values.put(RecipeDbSchema.RecipeTable.Cols.STEP4, recipe.getStep(4));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP5, recipe.getStep(5));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP6, recipe.getStep(6));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP7, recipe.getStep(7));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP8, recipe.getStep(8));
+        values.put(RecipeDbSchema.RecipeTable.Cols.STEP9, recipe.getStep(9));
         return values;
     }
 
@@ -132,7 +137,8 @@ public class CookBook {
         String[] mS1={"Coupez","Tranchez", "Emincez","Coupez en lamelles","Coupez en cubes"};
         String[] mS2={"les tomates","les oignons", "les poivrons","les pommes de terre","les aubergines"};
         String[] mS3={"le poivre", "le curry", "la sauce soja", "le cumin", "le piment"};
-        String[] mS4={"Mettre au four", "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
+        String[] mS4={"Mettre au four",
+                "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
         r=new Recipe();
         r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
         String s1=mIngPrinc[rand.nextInt(5)];
@@ -146,6 +152,11 @@ public class CookBook {
                 " et "+mS2[rand.nextInt(5)]);
         r.setStep(3,"Salez, poivrez et ajoutez "+mS3[rand.nextInt(5)]);
         r.setStep(4,mS4[rand.nextInt(5)]+ " pendant environ "+ (5+ rand.nextInt(10))+ " minutes.");
+        r.setStep(5,"");
+        r.setStep(6,"");
+        r.setStep(7,"");
+        r.setStep(8,"");
+        r.setStep(9,"");
         r.setDate(new Date());
         return r;
     }
