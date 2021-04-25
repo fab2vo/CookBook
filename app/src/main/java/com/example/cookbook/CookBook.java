@@ -30,7 +30,7 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-       //   for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // JUST FOR CReation
+          //for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // For initialisation of recipedB
     }
 
     public Recipe getRecipe(UUID id) {
@@ -98,15 +98,10 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNoteAvg()); //Pb ?
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP1, recipe.getStep(1));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP2, recipe.getStep(2));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP3, recipe.getStep(3));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP4, recipe.getStep(4));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP5, recipe.getStep(5));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP6, recipe.getStep(6));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP7, recipe.getStep(7));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP8, recipe.getStep(8));
-        values.put(RecipeDbSchema.RecipeTable.Cols.STEP9, recipe.getStep(9));
+        values.put(RecipeDbSchema.RecipeTable.Cols.NBPERS, recipe.getNbPers());
+        for(int i=0;i<recipe.getNbStepMax();i++){
+            values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
+        }
         return values;
     }
 
@@ -146,6 +141,7 @@ public class CookBook {
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
         r.setNoteAvg(rand.nextInt(6));
+        r.setNbPers(3+rand.nextInt(3));
         r.setStep(1,mS1[rand.nextInt(5)]+" le "+s1+".");
         r.setStep(2,"Apres quelques minutes, ajoutez au "+s1+
                 " "+mS2[rand.nextInt(5)]+

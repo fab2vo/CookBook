@@ -8,13 +8,19 @@ import com.example.cookbook.RecipeDbSchema.RecipeTable;
 
 public class RecipeBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION=1;
-    private static final String DATA_BASE_NAME="recipeBase2.db";  // REINIT BASE
+    private static final String DATA_BASE_NAME="recipeBase.db";  // REINIT BASE
     public RecipeBaseHelper(Context context) {
         super(context, DATA_BASE_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String s="";
+        Recipe r=new Recipe();
+        for(int i=0;i<r.getNbStepMax();i++){
+            s=s+RecipeTable.Cols.STEP[i];
+            if (i<(r.getNbStepMax()-1)){s=s+", ";}
+        }
         db.execSQL("create table "+ RecipeTable.NAME+"("+
                 " _id integer primary key autoincrement, "+
                 RecipeTable.Cols.UUID+", "+
@@ -22,17 +28,11 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 RecipeTable.Cols.SOURCE+", "+
                 RecipeTable.Cols.DATE+", "+
                 RecipeTable.Cols.NOTE+", "+
-                RecipeTable.Cols.STEP1+", "+
-                RecipeTable.Cols.STEP2+", "+
-                RecipeTable.Cols.STEP3+", "+
-                RecipeTable.Cols.STEP4+", "+
-                RecipeTable.Cols.STEP5+", "+
-                RecipeTable.Cols.STEP6+", "+
-                RecipeTable.Cols.STEP7+", "+
-                RecipeTable.Cols.STEP8+", "+
-                RecipeTable.Cols.STEP9+
+                RecipeTable.Cols.NBPERS+", "+
+                s +
                 ")"
         );
+
     }
 
     @Override

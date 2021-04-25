@@ -1,26 +1,29 @@
 package com.example.cookbook;
 
+import android.util.Log;
+
 import java.util.Date;
 import java.util.UUID;
 
 public class Recipe {
-    private UUID mId;
+    private UUID mId;           //RecipdedB
     private User mOwner;
-    private Date mDate;
+    private Date mDate;         //RecipdedB
     private Date mDate_crea;
     private Date mDate_modif;
-    private String mTitle;
-    private String mSource;
+    private String mTitle;      //RecipdedB
+    private String mSource;     //RecipdedB
     private String mSource_http;
-    private int mNbPers;
-    private String[] mSteps;
+    private int mNbPers;        //RecipdedB
+    private String[] mSteps;    //RecipdedB
     private static final int NBSTEP_MAX=9;
-    private int mNoteAvg;
+    private int mNoteAvg;       //RecipdedB
     //private ArrayList<Note> mNotes;
     //private ArrayList<Ingredient> mIngredients;
     //private ArrayList<Comment> mComments
     // season
     // type
+    private String TAG="DebugRecipe";
 
 
 

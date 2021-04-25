@@ -162,6 +162,7 @@ public class RecipeEditFragment extends Fragment {
         });
 
         mNbPersField= (EditText) v.findViewById(R.id.recipe_nbpers);
+        mNbPersField.setText(mRecipe.getNbPers()+"");
         mNbPersField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -170,7 +171,7 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.d(TAG "onTextChanged de mNbPersField >" + s.toString()+"<");,
+//                Log.d(TAG "onTextChanged de mNbPersField >" + s.toString()+"<");
                 if (s.toString().equals("")) {} else {
                     int nb_entered = Integer.parseInt(s.toString());
                     if ((nb_entered > 0) && (nb_entered < 13)) {
