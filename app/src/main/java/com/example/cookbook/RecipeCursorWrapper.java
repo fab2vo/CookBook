@@ -21,7 +21,9 @@ public class RecipeCursorWrapper extends CursorWrapper {
         String uuidString = getString(getColumnIndex(RecipeTable.Cols.UUID));
         Recipe r=new Recipe(UUID.fromString(uuidString));
         String title = getString(getColumnIndex(RecipeTable.Cols.TITLE));
+        r.setTitle(title);
         String source = getString(getColumnIndex(RecipeTable.Cols.SOURCE));
+        r.setSource(source);
         String sourceURL=getString(getColumnIndex(RecipeTable.Cols.SOURCE_URL));
         try {
             URL url = new URL(sourceURL);
@@ -30,19 +32,19 @@ public class RecipeCursorWrapper extends CursorWrapper {
                 Log.d(TAG, "getURL from cursor failed");
             }
         long date = getLong(getColumnIndex(RecipeTable.Cols.DATE));
+        r.setDate(new Date(date));
         int note = getInt(getColumnIndex(RecipeTable.Cols.NOTE));
+        r.setNoteAvg(note);
         int nbpers=getInt(getColumnIndex(RecipeTable.Cols.NBPERS));
+        r.setNbPers(nbpers);
         String[] step= new String[r.getNbStepMax()];
         for(int i=0;i<r.getNbStepMax();i++){
             step[i]=getString(getColumnIndex(RecipeTable.Cols.STEP[i]));
             r.setStep(i+1, step[i]);
         }
+        String season = getString(getColumnIndex(RecipeTable.Cols.SEASON));
+        r.setSeason(RecipeSeason.valueOf(season));
 
-        r.setTitle(title);
-        r.setSource(source);
-        r.setDate(new Date(date));
-        r.setNoteAvg(note);
-        r.setNbPers(nbpers);
         return r;
     }
 }

@@ -8,7 +8,7 @@ import com.example.cookbook.RecipeDbSchema.RecipeTable;
 
 public class RecipeBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION=1;
-    private static final String DATA_BASE_NAME="recipeBase2.db";  // REINIT BASE
+    private static final String DATA_BASE_NAME="recipeBase.db";  // REINIT BASE
     public RecipeBaseHelper(Context context) {
         super(context, DATA_BASE_NAME, null, VERSION);
     }
@@ -19,7 +19,8 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
         Recipe r=new Recipe();
         for(int i=0;i<r.getNbStepMax();i++){
             s=s+RecipeTable.Cols.STEP[i];
-            if (i<(r.getNbStepMax()-1)){s=s+", ";}
+        //    if (i<(r.getNbStepMax()-1)){s=s+", ";} deleted when SEASON added after string s below
+            s=s+", ";
         }
         db.execSQL("create table "+ RecipeTable.NAME+"("+
                 " _id integer primary key autoincrement, "+
@@ -31,6 +32,7 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 RecipeTable.Cols.NOTE+", "+
                 RecipeTable.Cols.NBPERS+", "+
                 s +
+                RecipeTable.Cols.SEASON+
                 ")"
         );
 

@@ -34,7 +34,7 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-          //for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // For initialisation of recipedB
+          for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // For initialisation of recipedB
     }
 
     public Recipe getRecipe(UUID id) {
@@ -107,6 +107,7 @@ public class CookBook {
         for(int i=0;i<recipe.getNbStepMax();i++){
             values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
         }
+        values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         return values;
     }
 
@@ -140,10 +141,10 @@ public class CookBook {
         String[] mS4={"Mettre au four",
                 "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
         String[] mURL={"http://www.marmiton.org","http://www.cuisinechef.com","http://www.lacuisinedefabrice.fr"};
+        RecipeSeason[] mSeason={RecipeSeason.WINTER,RecipeSeason.SUMMER,RecipeSeason.ALLYEAR};
         r=new Recipe();
         r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
         String s1=mIngPrinc[rand.nextInt(5)];
-
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
         String urls=mURL[rand.nextInt(3)];
@@ -153,6 +154,7 @@ public class CookBook {
         } catch (MalformedURLException e){
             Log.d(TAG, "random recipe URL >" +urls+"< Failed");}
         r.setNoteAvg(rand.nextInt(6));
+        r.setSeason(mSeason[rand.nextInt(3)]);
         r.setNbPers(3+rand.nextInt(3));
         r.setStep(1,mS1[rand.nextInt(5)]+" le "+s1+".");
         r.setStep(2,"Apres quelques minutes, ajoutez au "+s1+

@@ -23,7 +23,7 @@ public class Recipe {
     //private ArrayList<Note> mNotes;
     //private ArrayList<Ingredient> mIngredients;
     //private ArrayList<Comment> mComments
-    // season
+    private RecipeSeason mSeason;
     // type
     private static final int NBSTEP_MAX=9;
     private String TAG="DebugRecipe";
@@ -101,6 +101,14 @@ public class Recipe {
 
     public void setSource_url(URL source_url) {
         mSource_url = source_url;
+    }
+
+    public RecipeSeason getSeason() {
+        return mSeason;
+    }
+
+    public void setSeason(RecipeSeason season) {
+        mSeason = season;
     }
 
     public String getStep(Integer i){

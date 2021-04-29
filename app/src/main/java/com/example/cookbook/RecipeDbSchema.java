@@ -13,6 +13,7 @@ public class RecipeDbSchema {
             public static final String NBPERS="nbpers";
             public static final String[] STEP={"etape1","etape2","etape3","etape4",
                     "etape5","etape6","etape7","etape8","etape9"};
+            public static final String SEASON="season";
         }
     }
 }
