@@ -27,6 +27,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +43,7 @@ public class RecipeEditFragment extends Fragment {
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
+    private EditText mSourceUrl;
     private EditText mNbPersField;
 //    private Button mDateButton;
     private TextView[] mSTextView;
@@ -161,6 +164,35 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 
+        mSourceUrl=(EditText) v.findViewById(R.id.recipe_source_url);
+        mSourceUrl.setText(mRecipe.getSource_url().toString());
+        mSourceUrl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().equals("")) {} else {
+                    //Log.d(TAG, "onTextChanged de mSource_url input>" + s.toString()+"<");
+                    try {
+                        URL url=new URL(s.toString());
+                    //    Log.d(TAG, "onTextChanged de mSource_url output >" + url.toString()+"<");
+                        mRecipe.setSource_url(url);
+                    } catch (MalformedURLException e) {
+                        Log.d(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed");
+                    }
+                    //
+                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         mNbPersField= (EditText) v.findViewById(R.id.recipe_nbpers);
         mNbPersField.setText(mRecipe.getNbPers()+"");
         mNbPersField.addTextChangedListener(new TextWatcher() {
@@ -171,7 +203,7 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.d(TAG "onTextChanged de mNbPersField >" + s.toString()+"<");
+//                Log.d(TAG, "onTextChanged de mNbPersField >" + s.toString()+"<");
                 if (s.toString().equals("")) {} else {
                     int nb_entered = Integer.parseInt(s.toString());
                     if ((nb_entered > 0) && (nb_entered < 13)) {

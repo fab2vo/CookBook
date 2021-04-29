@@ -4,9 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,7 @@ public class CookBook {
 //    private List<Recipe> mRecipes;
     private Context mContext;
     private SQLiteDatabase mDatabase;
+    private String TAG="CookBook";
 
     public static CookBook get(Context context) {
         if (ourInstance==null){
@@ -96,6 +100,7 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.UUID, recipe.getId().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.TITLE, recipe.getTitle());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
+        values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE_URL, recipe.getSource_url().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNoteAvg()); //Pb ?
         values.put(RecipeDbSchema.RecipeTable.Cols.NBPERS, recipe.getNbPers());
@@ -134,12 +139,19 @@ public class CookBook {
         String[] mS3={"le poivre", "le curry", "la sauce soja", "le cumin", "le piment"};
         String[] mS4={"Mettre au four",
                 "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
+        String[] mURL={"http://www.marmiton.org","http://www.cuisinechef.com","http://www.lacuisinedefabrice.fr"};
         r=new Recipe();
         r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
         String s1=mIngPrinc[rand.nextInt(5)];
 
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
+        String urls=mURL[rand.nextInt(3)];
+        try {
+            URL url= new URL(urls);
+            r.setSource_url(url);
+        } catch (MalformedURLException e){
+            Log.d(TAG, "random recipe URL >" +urls+"< Failed");}
         r.setNoteAvg(rand.nextInt(6));
         r.setNbPers(3+rand.nextInt(3));
         r.setStep(1,mS1[rand.nextInt(5)]+" le "+s1+".");

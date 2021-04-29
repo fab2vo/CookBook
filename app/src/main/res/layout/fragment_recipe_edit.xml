@@ -59,23 +59,37 @@
                         android:layout_height="wrap_content"
                         android:text="@string/recipe_title_hint" />
 
-                    <TextView
-                        style="?android:listSeparatorTextViewStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/recipe_source_label" />
-
-                    <EditText
-                        android:id="@+id/recipe_source"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="@string/recipe_source_hint" />
                 </LinearLayout>
 
 
 
             </LinearLayout>
+
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_source_label" />
+
+            <EditText
+                android:id="@+id/recipe_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@string/recipe_source_hint" />
+
+            <TextView
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_source_url_label" />
+
+            <EditText
+                android:id="@+id/recipe_source_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"
+                android:text="@string/recipe_source_url_hint" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/linearLayout2"
@@ -89,7 +103,6 @@
                     android:layout_height="29dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/recipe_nbpers_label"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/recipe_nbpers"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -106,6 +119,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </android.support.constraint.ConstraintLayout>
 
             <TextView

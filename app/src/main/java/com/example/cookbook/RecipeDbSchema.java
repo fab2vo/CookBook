@@ -7,6 +7,7 @@ public class RecipeDbSchema {
             public static final String UUID="uuid";
             public static final String TITLE="title";
             public static final String SOURCE="source";
+            public static final String SOURCE_URL="source_url";
             public static final String DATE="date";
             public static final String NOTE="note";
             public static final String NBPERS="nbpers";

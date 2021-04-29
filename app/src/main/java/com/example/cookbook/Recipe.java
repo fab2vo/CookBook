@@ -2,6 +2,8 @@ package com.example.cookbook;
 
 import android.util.Log;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,17 +15,19 @@ public class Recipe {
     private Date mDate_modif;
     private String mTitle;      //RecipdedB
     private String mSource;     //RecipdedB
-    private String mSource_http;
+    private URL mSource_url;    //RecipdedB
     private int mNbPers;        //RecipdedB
     private String[] mSteps;    //RecipdedB
-    private static final int NBSTEP_MAX=9;
+
     private int mNoteAvg;       //RecipdedB
     //private ArrayList<Note> mNotes;
     //private ArrayList<Ingredient> mIngredients;
     //private ArrayList<Comment> mComments
     // season
     // type
+    private static final int NBSTEP_MAX=9;
     private String TAG="DebugRecipe";
+    private String DEFAULT_URL="https://wwww.familycookbook.com";
 
 
 
@@ -37,6 +41,8 @@ public class Recipe {
         mSteps = new String[NBSTEP_MAX];
         for(int i=0;i<NBSTEP_MAX;i++){mSteps[i]="";}
         mNbPers=4;
+        try {mSource_url=new URL(DEFAULT_URL);
+        } catch (MalformedURLException e) {}
     }
 
     public UUID getId() {
@@ -87,6 +93,14 @@ public class Recipe {
         if ((i > 0) && (i <= NBSTEP_MAX)) {
             mSteps[i - 1] = step;
         }
+    }
+
+    public URL getSource_url() {
+        return mSource_url;
+    }
+
+    public void setSource_url(URL source_url) {
+        mSource_url = source_url;
     }
 
     public String getStep(Integer i){
