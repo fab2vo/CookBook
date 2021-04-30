@@ -34,7 +34,8 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-          for (int i = 0; i < 10; i++){addRecipe(randomRecipe());} // For initialisation of recipedB
+          // For initialisation of recipedB database : adding random recipes
+          //for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
     }
 
     public Recipe getRecipe(UUID id) {
@@ -108,6 +109,7 @@ public class CookBook {
             values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
         }
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
+        values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
         return values;
     }
 
@@ -142,6 +144,7 @@ public class CookBook {
                 "Faites revenir","Faites bouillir","Saisir","Faites mijoter"};
         String[] mURL={"http://www.marmiton.org","http://www.cuisinechef.com","http://www.lacuisinedefabrice.fr"};
         RecipeSeason[] mSeason={RecipeSeason.WINTER,RecipeSeason.SUMMER,RecipeSeason.ALLYEAR};
+        RecipeDifficulty[] mDifficulty={RecipeDifficulty.EASY, RecipeDifficulty.QUICK, RecipeDifficulty.ELABORATE, RecipeDifficulty.SOPHISTICATED };
         r=new Recipe();
         r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
         String s1=mIngPrinc[rand.nextInt(5)];
@@ -155,6 +158,7 @@ public class CookBook {
             Log.d(TAG, "random recipe URL >" +urls+"< Failed");}
         r.setNoteAvg(rand.nextInt(6));
         r.setSeason(mSeason[rand.nextInt(3)]);
+        r.setDifficulty(mDifficulty[rand.nextInt(4)]);
         r.setNbPers(3+rand.nextInt(3));
         r.setStep(1,mS1[rand.nextInt(5)]+" le "+s1+".");
         r.setStep(2,"Apres quelques minutes, ajoutez au "+s1+

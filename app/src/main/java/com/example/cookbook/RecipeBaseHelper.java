@@ -8,7 +8,7 @@ import com.example.cookbook.RecipeDbSchema.RecipeTable;
 
 public class RecipeBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION=1;
-    private static final String DATA_BASE_NAME="recipeBase.db";  // REINIT BASE
+    private static final String DATA_BASE_NAME="recipeBase2.db";  // REINIT BASE
     public RecipeBaseHelper(Context context) {
         super(context, DATA_BASE_NAME, null, VERSION);
     }
@@ -32,7 +32,8 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 RecipeTable.Cols.NOTE+", "+
                 RecipeTable.Cols.NBPERS+", "+
                 s +
-                RecipeTable.Cols.SEASON+
+                RecipeTable.Cols.SEASON+", "+
+                RecipeTable.Cols.DIFFICULTY+
                 ")"
         );
 

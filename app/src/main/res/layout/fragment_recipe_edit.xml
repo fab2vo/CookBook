@@ -122,6 +122,31 @@
 
             </android.support.constraint.ConstraintLayout>
 
+             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                 <Spinner
+                     android:id="@+id/recipe_season"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="left"
+                     android:gravity="left"
+                     android:minWidth="150dp"
+                     android:spinnerMode="dropdown" />
+
+                 <Spinner
+                     android:id="@+id/recipe_difficulty"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="right"
+                     android:gravity="right"
+                     android:minWidth="150dp"
+                     android:spinnerMode="dropdown" />
+
+             </LinearLayout>
+
             <TextView
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"

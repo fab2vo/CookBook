@@ -24,7 +24,8 @@ public class Recipe {
     //private ArrayList<Ingredient> mIngredients;
     //private ArrayList<Comment> mComments
     private RecipeSeason mSeason;
-    // type
+    private RecipeDifficulty mDifficulty; //RecipdedB
+
     private static final int NBSTEP_MAX=9;
     private String TAG="DebugRecipe";
     private String DEFAULT_URL="https://wwww.familycookbook.com";
@@ -109,6 +110,14 @@ public class Recipe {
 
     public void setSeason(RecipeSeason season) {
         mSeason = season;
+    }
+
+    public RecipeDifficulty getDifficulty() {
+        return mDifficulty;
+    }
+
+    public void setDifficulty(RecipeDifficulty difficulty) {
+        mDifficulty = difficulty;
     }
 
     public String getStep(Integer i){

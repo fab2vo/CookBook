@@ -37,4 +37,16 @@
     <string name="recipe_report_step3">-Etape 3 %1$s</string>
     <string name="recipe_report_step4">-Etape 4 %1$s</string>
     <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
+    <string-array name="recipe_season_array">
+        <item>Hiver</item>
+        <item>Ete</item>
+        <item>Toute l\'année</item>
+    </string-array>
+    <string-array name="recipe_difficulty_array">
+        <item>Vite fait</item>
+        <item>Facile</item>
+        <item>Elaboré</item>
+        <item>Sophistiqué</item>
+        <item> non défini </item>
+    </string-array>
 </resources>

@@ -20,10 +20,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
@@ -51,6 +53,8 @@ public class RecipeEditFragment extends Fragment {
     private ImageButton mNewStepEnter;
     private ImageButton mNewStepBack;
     private int mStepNb;
+    private Spinner mSeasonSpinner;
+    private Spinner mDifficultySpinner;
     private ScrollView mScroll;
     private ImageView mPhotoView;
 
@@ -218,6 +222,17 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 
+
+
+        mSeasonSpinner= (Spinner) v.findViewById(R.id.recipe_season);
+        ArrayAdapter<CharSequence> adapterSeason = ArrayAdapter.createFromResource(getContext(),
+                R.array.recipe_season_array, android.R.layout.simple_spinner_item);
+        mSeasonSpinner.setAdapter(adapterSeason);
+
+        mDifficultySpinner= (Spinner) v.findViewById(R.id.recipe_difficulty);
+        ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(getContext(),
+                R.array.recipe_difficulty_array, android.R.layout.simple_spinner_item);
+        mDifficultySpinner.setAdapter(adapterDifficulty);
 /*        mNoteField= (EditText) v.findViewById(R.id.recipe_note);
         mNoteField.setText(mRecipe.getNoteAvg()+"");
         mNoteField.addTextChangedListener(new TextWatcher() {
