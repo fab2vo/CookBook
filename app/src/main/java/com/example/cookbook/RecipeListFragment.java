@@ -78,6 +78,8 @@ public class RecipeListFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.new_recipe:
                 Recipe recipe=new Recipe();
+                SessionInfo session=SessionInfo.get(getActivity());
+                recipe.setOwner(session.getUser());
                 CookBook.get(getActivity()).addRecipe(recipe);
                 Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 startActivity(intent);

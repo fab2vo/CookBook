@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -53,6 +54,11 @@ public class RecipeEditFragment extends Fragment {
     private ImageButton mNewStepEnter;
     private ImageButton mNewStepBack;
     private int mStepNb;
+    private TextView[] mSTextIngView;
+    private EditText mNewIngField;
+    private ImageButton mNewIngEnter;
+    private ImageButton mNewIngBack;
+    private int mIngNb;
     private Spinner mSeasonSpinner;
     private Spinner mDifficultySpinner;
     private ScrollView mScroll;
@@ -74,7 +80,8 @@ public class RecipeEditFragment extends Fragment {
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
         setHasOptionsMenu(true);
         mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
-        mStepNb=mRecipe.getNbStep();;
+        mStepNb=mRecipe.getNbStep();
+        mIngNb=mRecipe.getNbIng();
     }
 
     @Override
@@ -228,11 +235,36 @@ public class RecipeEditFragment extends Fragment {
         ArrayAdapter<CharSequence> adapterSeason = ArrayAdapter.createFromResource(getContext(),
                 R.array.recipe_season_array, android.R.layout.simple_spinner_item);
         mSeasonSpinner.setAdapter(adapterSeason);
+        mSeasonSpinner.setSelection(RecipeSeason.getIndex(mRecipe.getSeason()));
+        mSeasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mRecipe.setSeason(RecipeSeason.getSeason(position));
+                //Log.d(TAG, "mSeasonSpinner>" + mRecipe.getSeason().name()+"<");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mDifficultySpinner= (Spinner) v.findViewById(R.id.recipe_difficulty);
         ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(getContext(),
                 R.array.recipe_difficulty_array, android.R.layout.simple_spinner_item);
         mDifficultySpinner.setAdapter(adapterDifficulty);
+        mDifficultySpinner.setSelection(RecipeDifficulty.getIndex(mRecipe.getDifficulty()));
+        mDifficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mRecipe.setDifficulty(RecipeDifficulty.getDifficulty(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 /*        mNoteField= (EditText) v.findViewById(R.id.recipe_note);
         mNoteField.setText(mRecipe.getNoteAvg()+"");
         mNoteField.addTextChangedListener(new TextWatcher() {
@@ -314,8 +346,55 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 
+        final int[] rIngID= {R.id.recipe_I01,R.id.recipe_I02,R.id.recipe_I03,R.id.recipe_I04,
+                R.id.recipe_I05,R.id.recipe_I06,R.id.recipe_I07,R.id.recipe_I08,
+                R.id.recipe_I09,R.id.recipe_I10,R.id.recipe_I11,R.id.recipe_I12,
+                R.id.recipe_I13,R.id.recipe_I14,R.id.recipe_I15};
+        mSTextIngView= new TextView[mRecipe.getNbIngMax()];
+        for(int i=0;i<mRecipe.getNbIngMax();i++) {
+            mSTextIngView[i] = (TextView) v.findViewById(rIngID[i]);
+        }
+        mNewIngEnter=(ImageButton) v.findViewById(R.id.recipe_ing_enter);
+        mNewIngBack=(ImageButton) v.findViewById(R.id.recipe_ing_back);
+        updateListIng(v);
+
+        mNewIngField= (EditText) v.findViewById(R.id.recipe_new_ing);
+        mNewIngField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(mIngNb+1, s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mNewIngEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNewIngField.setVisibility(updateListIng(v));
+                mNewIngField.getText().clear();
+            }
+        });
+        mNewIngBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecipe.setIngredient(mIngNb, "");
+                mRecipe.setIngredient(mIngNb+1, "");
+                mNewIngField.setVisibility(updateListIng(v));
+                mNewIngField.getText().clear();
+            }
+        });
+
        return v;
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -374,12 +453,30 @@ public class RecipeEditFragment extends Fragment {
         mSTextView[0].setText("1...");
         mSTextView[0].setVisibility(visible);
         for(int i=0;i<imax;i++){
-            iplus=i+1; display[i]=iplus+"."+mRecipe.getStep(i+1);
+            iplus=i+1; display[i]=iplus+". "+mRecipe.getStep(i+1);
             if (mStepNb>0){mSTextView[i].setText(display[i]);}
             if (i>=0){mSTextView[i].setVisibility((mStepNb>i)? visible:gone);}
         }
         mNewStepBack.setVisibility((mStepNb==0)? gone:visible);
         mNewStepEnter.setVisibility((mStepNb==imax)? gone:visible);
         return ((mStepNb==imax)?gone:visible);
+    }
+
+    private int updateListIng(View v) {
+        int imax=mRecipe.getNbIngMax(), iplus;
+        String[] display=new String[imax];
+        mIngNb = mRecipe.getNbIng();
+        int gone=View.GONE;
+        int visible=View.VISIBLE;
+        mSTextIngView[0].setText("-...");
+        mSTextIngView[0].setVisibility(visible);
+        for(int i=0;i<imax;i++){
+            iplus=i+1; display[i]="-"+mRecipe.getIngredient(i+1);
+            if (mIngNb>0){mSTextIngView[i].setText(display[i]);}
+            if (i>=0){mSTextIngView[i].setVisibility((mIngNb>i)? visible:gone);}
+        }
+        mNewIngBack.setVisibility((mIngNb==0)? gone:visible);
+        mNewIngEnter.setVisibility((mIngNb==imax)? gone:visible);
+        return ((mIngNb==imax)?gone:visible);
     }
 }

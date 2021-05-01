@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EnterValueField">
+        <item name="android:background">@color/bg_enter_val</item>
+    </style>
+    <style name="EnterTitle">
+        <item name="android:background">@color/fg_enter_label</item>
+    </style>
+
 </resources>

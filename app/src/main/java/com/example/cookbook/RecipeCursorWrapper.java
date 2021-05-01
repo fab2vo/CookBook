@@ -20,6 +20,10 @@ public class RecipeCursorWrapper extends CursorWrapper {
     public Recipe getRecipe(){
         String uuidString = getString(getColumnIndex(RecipeTable.Cols.UUID));
         Recipe r=new Recipe(UUID.fromString(uuidString));
+        String ownerString = getString(getColumnIndex(RecipeTable.Cols.OWNER));
+        User user=new User("","");
+        user.setId(UUID.fromString(ownerString));
+        r.setOwner(user);
         String title = getString(getColumnIndex(RecipeTable.Cols.TITLE));
         r.setTitle(title);
         String source = getString(getColumnIndex(RecipeTable.Cols.SOURCE));
@@ -41,6 +45,11 @@ public class RecipeCursorWrapper extends CursorWrapper {
         for(int i=0;i<r.getNbStepMax();i++){
             step[i]=getString(getColumnIndex(RecipeTable.Cols.STEP[i]));
             r.setStep(i+1, step[i]);
+        }
+        String[] ing=new String[r.getNbIngMax()];
+        for(int i=0;i<r.getNbIngMax(); i++){
+            ing[i]=getString(getColumnIndex(RecipeTable.Cols.ING[i]));
+            r.setIngredient(i+1, ing[i]);
         }
         String season = getString(getColumnIndex(RecipeTable.Cols.SEASON));
         r.setSeason(RecipeSeason.valueOf(season));

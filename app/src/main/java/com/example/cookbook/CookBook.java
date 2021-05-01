@@ -35,7 +35,7 @@ public class CookBook {
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
           // For initialisation of recipedB database : adding random recipes
-          //for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
+          // for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
     }
 
     public Recipe getRecipe(UUID id) {
@@ -99,6 +99,7 @@ public class CookBook {
     private static ContentValues getContentValues(Recipe recipe) {
         ContentValues values=new ContentValues();
         values.put(RecipeDbSchema.RecipeTable.Cols.UUID, recipe.getId().toString());
+        values.put(RecipeDbSchema.RecipeTable.Cols.OWNER, recipe.getOwner().getId().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.TITLE, recipe.getTitle());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE_URL, recipe.getSource_url().toString());
@@ -107,6 +108,9 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.NBPERS, recipe.getNbPers());
         for(int i=0;i<recipe.getNbStepMax();i++){
             values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
+        }
+        for(int i=0;i<recipe.getNbIngMax();i++){
+            values.put(RecipeDbSchema.RecipeTable.Cols.ING[i], recipe.getIngredient(i+1));
         }
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
@@ -133,7 +137,15 @@ public class CookBook {
     private Recipe randomRecipe(){
         Recipe r;
         Random rand=new Random();
-        String[] mUserName={"Fabrice", "Véronique", "Lucile"};
+        // initialisations users
+        User fab=new User("Devaux_Lion de ML","Fabrice");
+        fab.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+        User lucile=new User("Devaux_Lion de ML","Lucile");
+        lucile.setId(UUID.fromString("c81d4e2e-bcf2-11e7-869b-7df92533d2db"));
+        User vero=new User("Devaux_Lion de ML","Véronique");
+        vero.setId(UUID.fromString("c81d4e2e-bcf3-11e6-869b-7df92533d2db"));
+        // Init pour alea
+        User[] mUserName={fab, lucile, vero};
         String[] mIngPrinc={"Poulet","Boeuf","Canard","Thon", "Homard"};
         String[] mFacon={"a la moutarde","a la marocaine"," laque", "a la mexicaine", "a l indienne", "braise", "saute"};
         String[] mSource={"Marmiton","Cyril Lignac", "Fabrice", "Veronique", "Cuisine actuelle"};
@@ -145,8 +157,12 @@ public class CookBook {
         String[] mURL={"http://www.marmiton.org","http://www.cuisinechef.com","http://www.lacuisinedefabrice.fr"};
         RecipeSeason[] mSeason={RecipeSeason.WINTER,RecipeSeason.SUMMER,RecipeSeason.ALLYEAR};
         RecipeDifficulty[] mDifficulty={RecipeDifficulty.EASY, RecipeDifficulty.QUICK, RecipeDifficulty.ELABORATE, RecipeDifficulty.SOPHISTICATED };
+        String[] iNum={"5","20","3","100","2"};
+        String[] iUnit={"g","dl","cuillerées à café", "litres", "pincées"};
+        String[] iIngt={"poivre moulu","ail","lait","porc", "sucre","boeuf","pomme de terre","pruneaux"};
+        //setting
         r=new Recipe();
-        r.setOwner(new User("Devaux_Lion de ML",mUserName[rand.nextInt(3)]));
+        r.setOwner(mUserName[rand.nextInt(3)]);
         String s1=mIngPrinc[rand.nextInt(5)];
         r.setTitle(s1+" "+mFacon[rand.nextInt(7)]);
         r.setSource(mSource[rand.nextInt(5)]);
@@ -172,6 +188,11 @@ public class CookBook {
         r.setStep(8,"");
         r.setStep(9,"");
         r.setDate(new Date());
+        int ix=rand.nextInt(7)+3;
+        for(int i=0; i<ix;i++){
+            r.setIngredient(i+1,iNum[rand.nextInt(5)]+" "+
+                    iUnit[rand.nextInt(5)]+" de "+iIngt[rand.nextInt(8)]);
+        }
         return r;
     }
 
