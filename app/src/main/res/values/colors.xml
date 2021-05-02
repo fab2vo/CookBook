@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="bg_enter_val">#5E3D0C</color>
     <color name="fg_enter_label">#84AA9C</color>
+    <color name="bg_list">#0B1B0B</color>
 </resources>

@@ -78,13 +78,6 @@ public class Recipe {
     public void setNoteAvg(int noteAvg) {
         mNoteAvg = noteAvg;
     }
-    public User getOwner() {
-        return mOwner;
-    }
-
-    public void setOwner(User owner) {
-        mOwner = owner;
-    }
 
     public int getNbPers() {
         return mNbPers;
@@ -135,6 +128,16 @@ public class Recipe {
 
     public int getNbIngMax(){return NBING_MAX;}
 
+    //------------------- Owner ----------------------------------
+    public User getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(User owner) {
+        mOwner = owner;
+    }
+
+
     //------------------- Source ----------------------------------
     public String getSource() {
         return mSource;
@@ -144,6 +147,12 @@ public class Recipe {
     }
     public URL getSource_url() {
         return mSource_url;
+    }
+
+    public String getSource_url_name() {
+        String ret=mSource_url.toString();
+        if (ret.equals("https:") || ret.equals("http:")){ret="";}
+        return ret;
     }
 
     public void setSource_url(URL source_url) {

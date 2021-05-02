@@ -108,7 +108,7 @@ public class RecipeListFragment extends Fragment {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
         if (mAdapter==null){
-            Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getName());
+            //Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getName());
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
         } else {
@@ -143,11 +143,11 @@ public class RecipeListFragment extends Fragment {
             mDeleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
+  //                  if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
   //                     Toast.makeText(getActivity(), "Failure in deleting file", Toast.LENGTH_SHORT).show();
-                    }
-                    CookBook.get(getActivity()).removeRecipe(mRecipe);
-                    updateUI();
+  //                  }
+  //                  CookBook.get(getActivity()).removeRecipe(mRecipe);
+  //                  updateUI();
                 }
             });
         }

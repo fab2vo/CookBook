@@ -21,8 +21,7 @@ public class RecipeCursorWrapper extends CursorWrapper {
         String uuidString = getString(getColumnIndex(RecipeTable.Cols.UUID));
         Recipe r=new Recipe(UUID.fromString(uuidString));
         String ownerString = getString(getColumnIndex(RecipeTable.Cols.OWNER));
-        User user=new User("","");
-        user.setId(UUID.fromString(ownerString));
+        User user=new User(UUID.fromString(ownerString));
         r.setOwner(user);
         String title = getString(getColumnIndex(RecipeTable.Cols.TITLE));
         r.setTitle(title);

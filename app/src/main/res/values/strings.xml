@@ -32,14 +32,14 @@
     <string name="show_subtitle">Show count</string>
     <string name="hide_subtitle">Hide count</string>
     <string name="subtitle_format">%1$d recettes</string>
-    <string name="recipe_report_text">Partager la recette</string>
+    <string name="recipe_menu_report_text">Partager la recette</string>
+    <string name="recipe_menu_delete_text">Effacer la recette</string>
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
-    <string name="recipe_report_header">%1$s vous envoie cette recette : </string>
-    <string name="recipe_report_title">==%1$s de %2$s (créé le %3$s)==</string>
-    <string name="recipe_report_step1">-Etape 1 %1$s</string>
-    <string name="recipe_report_step2">-Etape 2 %1$s</string>
-    <string name="recipe_report_step3">-Etape 3 %1$s</string>
-    <string name="recipe_report_step4">-Etape 4 %1$s</string>
+    <string name="recipe_report_title">==%1$s ==</string>
+    <string name="recipe_report_owner">de %1$s </string>
+    <string name="recipe_report_url"> lien %1$s </string>
+    <string name="recipe_report_ing">- %1$s</string>
+    <string name="recipe_report_step">-Etape %1$s : %2$s</string>
     <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>

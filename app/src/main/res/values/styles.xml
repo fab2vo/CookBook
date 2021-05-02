@@ -6,10 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/bg_list</item>
     </style>
 
     <style name="EnterValueField">
         <item name="android:background">@color/bg_enter_val</item>
+
     </style>
     <style name="EnterTitle">
         <item name="android:background">@color/fg_enter_label</item>

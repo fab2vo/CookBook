@@ -23,11 +23,12 @@ public class SessionInfo {
         mUser.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
     }
 
-    public String getName() {
-        return mUser.getName()+" de "+mUser.getFamily();
+    public String getUserNameComplete() {
+        return mUser.getNameComplete();
     }
 
     public User getUser() {
         return mUser;
     }
+
 }
