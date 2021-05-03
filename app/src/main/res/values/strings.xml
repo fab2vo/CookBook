@@ -41,6 +41,7 @@
     <string name="recipe_report_ing">- %1$s</string>
     <string name="recipe_report_step">-Etape %1$s : %2$s</string>
     <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
+    <string name="list_item_difficulty">Difficulty </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

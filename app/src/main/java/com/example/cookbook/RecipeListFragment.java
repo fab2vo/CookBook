@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.List;
 
 public class RecipeListFragment extends Fragment {
@@ -123,7 +126,10 @@ public class RecipeListFragment extends Fragment {
         private TextView mSourceTextView;
         private TextView mNoteTextView;
         private ImageView mDeleteIcon;
+        private ImageView mPhotoView;
+        private File mPhotoFile;
         private Recipe mRecipe;
+        private RatingBar mRating;
         public RecipeHolder(LayoutInflater inflater,ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
             itemView.setOnClickListener(this);
@@ -131,6 +137,9 @@ public class RecipeListFragment extends Fragment {
             mSourceTextView= (TextView) itemView.findViewById(R.id.recipe_source);
             mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
             mDeleteIcon=(ImageView) itemView.findViewById(R.id.recipe_delete);
+            mPhotoView=(ImageView) itemView.findViewById(R.id.recipe_photo);
+            mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+            mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
             // To check can be called by clicking on note
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -155,7 +164,15 @@ public class RecipeListFragment extends Fragment {
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
             mSourceTextView.setText(mRecipe.getSource());
+            mRating.setRating((float) mRecipe.getNoteAvg());
             mNoteTextView.setText(mRecipe.getNoteAvg()+"/5");
+            mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+            if (mPhotoFile==null || !mPhotoFile.exists()){
+                mPhotoView.setImageDrawable(null);
+            } else {
+                Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+                mPhotoView.setImageBitmap(bitmap);
+            }
         }
         @Override
         public void onClick(View v){
@@ -192,4 +209,5 @@ public class RecipeListFragment extends Fragment {
             mRecipes=recipes;
         }
     }
+
 }

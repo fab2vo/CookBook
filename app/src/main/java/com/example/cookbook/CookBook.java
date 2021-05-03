@@ -35,7 +35,7 @@ public class CookBook {
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
           // For initialisation of recipedB database : adding random recipes
-          // for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
+          //for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
     }
 
     public Recipe getRecipe(UUID id) {
@@ -118,6 +118,7 @@ public class CookBook {
     }
 
     public File getPhotoFile(Recipe r){
+        if (r==null) {return null;}
         File filesDir= mContext.getFilesDir();
         return new File(filesDir, r.getPhotoFilename());
     }

@@ -114,10 +114,12 @@
                     android:id="@+id/recipe_nbpers"
                     style="@style/EnterValueField"
                     android:layout_width="wrap_content"
+                    android:minWidth="30dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="0dp"
                     android:inputType="number"
+                    android:gravity="right"
                     android:text="@string/recipe_nbpers_hint"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -126,32 +128,34 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/recipe_season"
+                    style="@style/EnterValueField"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="left"
-                    android:gravity="left"
+                    android:layout_height="32dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@+id/recipe_difficulty"
                     android:minWidth="150dp"
                     android:spinnerMode="dropdown"
                     tools:background="@color/bg_enter_val" />
 
                 <Spinner
+                    style="@style/EnterValueField"
                     android:id="@+id/recipe_difficulty"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_gravity="right"
-                    android:gravity="right"
+                    android:layout_height="32dp"
                     android:minWidth="150dp"
                     android:spinnerMode="dropdown"
-                    tools:background="@color/bg_enter_val"/>
+                    tools:background="@color/bg_enter_val"
+                    android:layout_alignParentEnd="true"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <TextView
                 style="?android:listSeparatorTextViewStyle"

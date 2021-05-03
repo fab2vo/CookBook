@@ -11,7 +11,7 @@
 
     <style name="EnterValueField">
         <item name="android:background">@color/bg_enter_val</item>
-
+        <item name="android:layout_marginLeft">8dp</item>
     </style>
     <style name="EnterTitle">
         <item name="android:background">@color/fg_enter_label</item>
