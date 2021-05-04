@@ -71,5 +71,7 @@ public class User {
         return mName+" de "+ mFamily;
     }
 
+    public boolean IsEqual(User r){return (mId==r.getId());}
+
 
 }

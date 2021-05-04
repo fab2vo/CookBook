@@ -38,11 +38,12 @@
     <TextView
         android:id="@+id/recipe_source"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_height="21dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="right"
         android:text="@string/list_item_recipe_source_label"
-        app:layout_constraintStart_toEndOf="@+id/recipe_title"
+        app:layout_constraintEnd_toStartOf="@+id/recipe_edit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
@@ -80,16 +81,13 @@
         app:layout_constraintEnd_toStartOf="@+id/recipe_img_sun" />
 
     <ImageView
-        android:id="@+id/recipe_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/recipe_edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.742"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageView
@@ -100,19 +98,18 @@
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_recipe_sun"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recipe_delete" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/recipe_img_ice"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_recipe_ice"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recipe_delete"
-        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recipe_img_sun" />
 
 </android.support.constraint.ConstraintLayout>

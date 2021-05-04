@@ -125,8 +125,11 @@ public class RecipeListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mSourceTextView;
         private TextView mNoteTextView;
-        private ImageView mDeleteIcon;
+        private TextView mDifficulty;
+        private ImageView mEditIcon;
         private ImageView mPhotoView;
+        private ImageView mSunIcon;
+        private ImageView mIceIcon;
         private File mPhotoFile;
         private Recipe mRecipe;
         private RatingBar mRating;
@@ -136,7 +139,10 @@ public class RecipeListFragment extends Fragment {
             mTitleTextView= (TextView) itemView.findViewById(R.id.recipe_title);
             mSourceTextView= (TextView) itemView.findViewById(R.id.recipe_source);
             mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
-            mDeleteIcon=(ImageView) itemView.findViewById(R.id.recipe_delete);
+            mEditIcon=(ImageView) itemView.findViewById(R.id.recipe_edit);
+            mSunIcon=(ImageView) itemView.findViewById(R.id.recipe_img_sun);
+            mIceIcon=(ImageView) itemView.findViewById(R.id.recipe_img_ice);
+            mDifficulty=(TextView) itemView.findViewById(R.id.recipe_difficulty);
             mPhotoView=(ImageView) itemView.findViewById(R.id.recipe_photo);
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
@@ -149,7 +155,7 @@ public class RecipeListFragment extends Fragment {
                 }
             });
             //-
-            mDeleteIcon.setOnClickListener(new View.OnClickListener() {
+            mEditIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
   //                  if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
@@ -163,16 +169,23 @@ public class RecipeListFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mSourceTextView.setText(mRecipe.getSource());
+            mSourceTextView.setText(mRecipe.getOwner().getName());
             mRating.setRating((float) mRecipe.getNoteAvg());
             mNoteTextView.setText(mRecipe.getNoteAvg()+"/5");
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+            int idff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
+            String[] stringArray = getResources().getStringArray(R.array.recipe_difficulty_array);
+            mDifficulty.setText(stringArray[idff]);
             if (mPhotoFile==null || !mPhotoFile.exists()){
                 mPhotoView.setImageDrawable(null);
             } else {
                 Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
                 mPhotoView.setImageBitmap(bitmap);
             }
+            mIceIcon.setImageResource((mRecipe.getSeason()==RecipeSeason.WINTER) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
+            mSunIcon.setImageResource((mRecipe.getSeason()==RecipeSeason.SUMMER) ? R.drawable.ic_recipe_sun : R.drawable.ic_recipe_sun_disabled);
+            // BUG ICI
+            mEditIcon.setVisibility((mRecipe.getOwner().getId().equals(mSession.getUser().getId())) ? View.VISIBLE : View.GONE);
         }
         @Override
         public void onClick(View v){
