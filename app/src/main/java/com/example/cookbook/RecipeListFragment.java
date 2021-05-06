@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 public class RecipeListFragment extends Fragment {
@@ -28,7 +29,13 @@ public class RecipeListFragment extends Fragment {
     private RecipeAdapter mAdapter;
     private boolean mSubtitleVisible;
     private SessionInfo mSession;
-    private static final String SAVED_SUBTITLE_VISIBLE="subtitle";
+    private static final String SAVED_SORT_STATUS="sort";
+    private int mSortOption;
+    private static final int maskSortTitle=1 <<3;
+    private static final int maskSortSource=1;
+    private static final int maskSortNote=1 <<2;
+    private static final int maskSortSeason=1 <<4;
+    private static final int maskSortDifficulty=1 <<5;
     private static final String TAG = "DebugRecipeListFragment";
 
     @Override
@@ -36,6 +43,7 @@ public class RecipeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
+        mSortOption=0;
     }
 
     @Override
@@ -45,8 +53,10 @@ public class RecipeListFragment extends Fragment {
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState!=null){
-            mSubtitleVisible=savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+            mSortOption=savedInstanceState.getInt(SAVED_SORT_STATUS);
+            Log.d(TAG, "OnCreatView  coming back mSortOption=" + mSortOption);
         }
+        Log.d(TAG, "OnCreatView  mSortOption=" + mSortOption);
         updateUI();
         return view;
     }
@@ -60,20 +70,15 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+        outState.putInt(SAVED_SORT_STATUS, mSortOption);
+        Log.d(TAG, "OnSaveInstance mSortOption : Taille Cookbook =" + mSortOption);
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_list, menu);
-        MenuItem subtitleItem=menu.findItem(R.id.show_subtitle);
-        if (mSubtitleVisible) {
-            subtitleItem.setTitle(R.string.hide_subtitle);
-        } else {
-            subtitleItem.setTitle(R.string.show_subtitle);
-        }
-
     }
 
     @Override
@@ -87,37 +92,41 @@ public class RecipeListFragment extends Fragment {
                 Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 startActivity(intent);
                 return true;
-            case R.id.show_subtitle:
-                mSubtitleVisible= !mSubtitleVisible;
-                getActivity().invalidateOptionsMenu();
-                updateSubtitle();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
     }
 
-    private void updateSubtitle(){
-        CookBook cookBook= CookBook.get(getActivity());
-        int recipeCount=cookBook.getRecipes().size();
-        String subtitle=getString(R.string.subtitle_format, recipeCount);
-        if (!mSubtitleVisible){subtitle=null;}
-        AppCompatActivity activity=(AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setSubtitle(subtitle);
-    }
-
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
+
+        if ((mSortOption & maskSortTitle) == maskSortTitle) {
+            Collections.sort(recipes,
+                    (r1, r2)->{return(r1.getTitle().compareTo(r2.getTitle()));});}
+        if ((mSortOption & maskSortNote) == maskSortNote) {
+            Collections.sort(recipes,
+                    (r1, r2)->{return(r2.getNoteAvg()-r1.getNoteAvg());});}
+        if ((mSortOption & maskSortSource) == maskSortSource) {
+            Collections.sort(recipes,
+                    (r1, r2)->{return(r1.getOwner().getName().compareTo(r2.getOwner().getName()));});}
+        if ((mSortOption & maskSortSeason) == maskSortSeason) {
+            Collections.sort(recipes,
+                    (r1, r2)->{return(RecipeSeason.getIndex(r1.getSeason())
+                            -RecipeSeason.getIndex(r2.getSeason()));});}
+        if ((mSortOption & maskSortDifficulty) == maskSortDifficulty) {
+            Collections.sort(recipes,
+                    (r1, r2)->{return(RecipeDifficulty.getIndex(r1.getDifficulty())
+                            -RecipeDifficulty.getIndex(r2.getDifficulty()));});}
         if (mAdapter==null){
             //Log.d(TAG, "updateUI : Taille Cookbook =" + recipes.size()+" de "+mSession.getName());
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.setRecipes(recipes);
-            mAdapter.notifyDataSetChanged();}
-        updateSubtitle();
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class RecipeHolder extends RecyclerView.ViewHolder
@@ -147,11 +156,25 @@ public class RecipeListFragment extends Fragment {
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
             // To check can be called by clicking on note
+            mTitleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSortOption=mSortOption ^ maskSortTitle;
+                    updateUI();
+                }
+            });
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Toast.makeText(getActivity(), "Note clicked",
-                            Toast.LENGTH_SHORT ).show();
+                    mSortOption=mSortOption ^ maskSortNote;
+                    updateUI();
+                }
+            });
+            mSourceTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSortOption=mSortOption ^ maskSortSource;
+                    updateUI();
                 }
             });
             //-
@@ -163,6 +186,42 @@ public class RecipeListFragment extends Fragment {
   //                  }
   //                  CookBook.get(getActivity()).removeRecipe(mRecipe);
   //                  updateUI();
+                }
+            });
+            mSunIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSortOption=mSortOption ^ maskSortSeason;
+                    updateUI();
+                }
+            });
+            mIceIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSortOption=mSortOption ^ maskSortSeason;
+                    updateUI();
+                }
+            });
+            mDifficulty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSortOption=mSortOption ^ maskSortDifficulty;
+                    updateUI();
+                }
+            });
+            mEditIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
+                    startActivity(intent);
+                }
+            });
+            mPhotoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //          Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
+                    //           startActivity(intent);
+                    Toast.makeText(getActivity(), "Call view", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -177,7 +236,7 @@ public class RecipeListFragment extends Fragment {
             String[] stringArray = getResources().getStringArray(R.array.recipe_difficulty_array);
             mDifficulty.setText(stringArray[idff]);
             if (mPhotoFile==null || !mPhotoFile.exists()){
-                mPhotoView.setImageDrawable(null);
+                mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_see));
             } else {
                 Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
                 mPhotoView.setImageBitmap(bitmap);
@@ -187,10 +246,12 @@ public class RecipeListFragment extends Fragment {
             // BUG ICI
             mEditIcon.setVisibility((mRecipe.getOwner().getId().equals(mSession.getUser().getId())) ? View.VISIBLE : View.GONE);
         }
+
         @Override
         public void onClick(View v){
-            Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
-            startActivity(intent);
+  //          Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
+ //           startActivity(intent);
+            Toast.makeText(getActivity(), "Call neutralisé", Toast.LENGTH_SHORT).show();
         }
     }
 

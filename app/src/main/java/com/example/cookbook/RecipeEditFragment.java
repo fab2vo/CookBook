@@ -448,7 +448,7 @@ public class RecipeEditFragment extends Fragment {
 
     private void updatePhotoView(){
         if (mPhotoFile==null || !mPhotoFile.exists()){
-            mPhotoView.setImageDrawable(null);
+            mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_camera));
         } else {
             Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
             mPhotoView.setImageBitmap(bitmap);

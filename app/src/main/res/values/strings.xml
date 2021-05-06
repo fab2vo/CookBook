@@ -29,9 +29,7 @@
     <string name="list_item_recipe_note_label">Note</string>
     <string name="date_picker_title">Date de creation de la recette</string>
     <string name="new_recipe">Nouvelle recette</string>
-    <string name="show_subtitle">Show count</string>
-    <string name="hide_subtitle">Hide count</string>
-    <string name="subtitle_format">%1$d recettes</string>
+     <string name="subtitle_format">%1$d recettes</string>
     <string name="recipe_menu_report_text">Partager la recette</string>
     <string name="recipe_menu_delete_text">Effacer la recette</string>
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
