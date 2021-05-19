@@ -20,6 +20,8 @@
         <activity android:name=".RecipeActivity"
             android:parentActivityName=".RecipeListActivity">
         </activity>
+        <activity android:name=".RecipeDisplayActivity">
+        </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.cookbook.fileprovider"

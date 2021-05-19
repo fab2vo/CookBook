@@ -17,4 +17,21 @@
         <item name="android:background">@color/fg_enter_label</item>
     </style>
 
+    <style name="CookBookText">
+        <item name="android:fontFamily">serif</item>
+    </style>
+    <style name="CookBookText.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/fg_title</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">casual</item>
+    </style>
+    <style name="CookBookText.SubTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+    <style name="CookBookText.Small">
+        <item name="android:textSize">8sp</item>
+    </style>
+
 </resources>

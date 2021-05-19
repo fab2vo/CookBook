@@ -221,7 +221,10 @@ public class RecipeListFragment extends Fragment {
                 public void onClick(View v) {
                     //          Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
                     //           startActivity(intent);
-                    Toast.makeText(getActivity(), "Call view", Toast.LENGTH_SHORT).show();
+                    Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
+                    startActivity(intent);
+
+                    //Toast.makeText(getActivity(), "Call view", Toast.LENGTH_SHORT).show();
                 }
             });
         }
