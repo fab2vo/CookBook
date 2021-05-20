@@ -32,6 +32,7 @@
      <string name="subtitle_format">%1$d recettes</string>
     <string name="recipe_menu_report_text">Partager la recette</string>
     <string name="recipe_menu_delete_text">Effacer la recette</string>
+    <string name="recipe_menu_edit_text">Editer la recette</string>
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
     <string name="recipe_report_title">==%1$s ==</string>
     <string name="recipe_report_owner">de %1$s </string>
@@ -40,7 +41,7 @@
     <string name="recipe_report_step">-Etape %1$s : %2$s</string>
     <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
     <string name="list_item_difficulty">Difficulty </string>
-    <string name="recipe_display_author">De arthur de Famille Machin</string>
+    <string name="recipe_display_author">de %1$s de la famille %2$s</string>
     <string name="recipe_display_title_ing"> Ingredients pour %1$s personnes </string>
     <string name="recipe_display_title_step">Etapes</string>
     <string name="recipe_display_title_comment">Commentaires</string>

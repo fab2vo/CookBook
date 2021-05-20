@@ -24,6 +24,7 @@
 
     <TextView
         android:id="@+id/recipe_title"
+        style="@style/CookBookText.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,11 +40,11 @@
         android:id="@+id/recipe_source"
         android:layout_width="0dp"
         android:layout_height="21dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:gravity="right"
         android:text="@string/list_item_recipe_source_label"
-        app:layout_constraintEnd_toStartOf="@+id/recipe_edit"
+        app:layout_constraintStart_toEndOf="@+id/recipe_title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
@@ -97,6 +98,7 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_recipe_sun"
+        android:tint="@color/fg_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -107,6 +109,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:tint="@color/fg_icon"
         android:src="@drawable/ic_recipe_ice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -20,7 +20,8 @@
         <activity android:name=".RecipeActivity"
             android:parentActivityName=".RecipeListActivity">
         </activity>
-        <activity android:name=".RecipeDisplayActivity">
+        <activity android:name=".RecipeDisplayActivity"
+            android:parentActivityName=".RecipeListActivity">
         </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"

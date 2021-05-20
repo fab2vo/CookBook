@@ -7,4 +7,5 @@
     <color name="fg_enter_label">#84AA9C</color>
     <color name="bg_list">#0B1B0B</color>
     <color name="fg_title">#ffffbb33</color>
+    <color name="fg_icon">#D3A356</color>
 </resources>

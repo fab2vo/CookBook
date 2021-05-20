@@ -44,6 +44,9 @@ public class RecipeListFragment extends Fragment {
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
         mSortOption=0;
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        User u=mSession.getUser();
+        activity.getSupportActionBar().setSubtitle(getString(R.string.recipe_display_author,u.getName(),u.getFamily()));
     }
 
     @Override
@@ -101,7 +104,6 @@ public class RecipeListFragment extends Fragment {
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes=cookbook.getRecipes();
-
         if ((mSortOption & maskSortTitle) == maskSortTitle) {
             Collections.sort(recipes,
                     (r1, r2)->{return(r1.getTitle().compareTo(r2.getTitle()));});}
@@ -231,7 +233,7 @@ public class RecipeListFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mSourceTextView.setText(mRecipe.getOwner().getName());
+            mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
             mRating.setRating((float) mRecipe.getNoteAvg());
             mNoteTextView.setText(mRecipe.getNoteAvg()+"/5");
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
@@ -244,8 +246,8 @@ public class RecipeListFragment extends Fragment {
                 Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
                 mPhotoView.setImageBitmap(bitmap);
             }
-            mIceIcon.setImageResource((mRecipe.getSeason()==RecipeSeason.WINTER) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
-            mSunIcon.setImageResource((mRecipe.getSeason()==RecipeSeason.SUMMER) ? R.drawable.ic_recipe_sun : R.drawable.ic_recipe_sun_disabled);
+            mIceIcon.setImageResource((mRecipe.IsWinter()) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
+            mSunIcon.setImageResource((mRecipe.IsSummer()) ? R.drawable.ic_recipe_sun : R.drawable.ic_recipe_sun_disabled);
             // BUG ICI
             mEditIcon.setVisibility((mRecipe.getOwner().getId().equals(mSession.getUser().getId())) ? View.VISIBLE : View.GONE);
         }

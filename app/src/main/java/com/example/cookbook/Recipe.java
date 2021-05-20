@@ -169,6 +169,27 @@ public class Recipe {
         mSeason = season;
     }
 
+    public boolean IsSummer(){
+        switch (mSeason) {
+            case SUMMER:
+                return true;
+            case ALLYEAR:
+                return true;
+            default:
+                return false;
+        }
+    }
+    public boolean IsWinter(){
+        switch (mSeason) {
+            case WINTER:
+                return true;
+            case ALLYEAR:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public RecipeDifficulty getDifficulty() {
         return mDifficulty;
     }
