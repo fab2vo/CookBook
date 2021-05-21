@@ -2,10 +2,17 @@ package com.example.cookbook;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+
 
 public class Recipe {
     private UUID mId;                       //RecipdedB
@@ -20,13 +27,14 @@ public class Recipe {
     private String[] mSteps;                //RecipdedB
     private int mNoteAvg;                   //RecipdedB
     //private ArrayList<Note> mNotes;
-    //private ArrayList<Comment> mComments;
+    private ArrayList<Comment> mComments;
     private RecipeSeason mSeason;           //RecipdedB
     private RecipeDifficulty mDifficulty;   //RecipdedB
     private String[] mIngredients;          //RecipdedB
 
     private static final int NBSTEP_MAX=9;
     private static final int NBING_MAX=15;
+    private static final int NBCOM_MAX=20;
     private String TAG="DebugRecipe";
     private String DEFAULT_URL="https://wwww.familycookbook.com";
 
@@ -46,6 +54,7 @@ public class Recipe {
         mNbPers=4;
         mSeason=RecipeSeason.ALLYEAR;
         mDifficulty=RecipeDifficulty.UNDEFINED;
+        mComments=new ArrayList<Comment>();
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
     }
@@ -54,6 +63,8 @@ public class Recipe {
     public UUID getId() {
         return mId;
     }
+
+    public void setId(UUID id) {mId = id; }
 
     public Date getDate() {
         return mDate;
@@ -203,4 +214,40 @@ public class Recipe {
     public String getPhotoFilename(){
         return "IMG"+getId().toString()+".jpg";
     }
+
+    //--------------------- Arraylist Comments et Notes------------------------
+
+    public void addComment(Comment c){ mComments.add(c);}
+
+    public ArrayList<Comment> getComments() {return mComments;}
+
+    public Comment getComment(int i){
+        if (i<mComments.size()){
+            return mComments.get(i);
+        } else {return null;}
+
+    }
+
+    public int getNbComMax(){return NBCOM_MAX;} // nb max affiché
+
+    //--------------------- Serialisation ------------------------
+    public String getSerializedComments(){
+        Gson gson = new Gson();
+        return gson.toJson(mComments);
+    }
+
+    public void getCommentsDeserialised(String raw){
+        Gson gson=new Gson();
+        Type listOfNotesObject = new TypeToken<ArrayList<Comment>>() {}.getType();
+        mComments=gson.fromJson(raw, listOfNotesObject);
+    }
+    public String getSerializedOwner(){
+        Gson gson = new Gson();
+        return gson.toJson(mOwner);
+    }
+    public void getOwnerDeserialized(String raw){
+        Gson gson=new Gson();
+        mOwner=gson.fromJson(raw, User.class);
+    }
+
 }

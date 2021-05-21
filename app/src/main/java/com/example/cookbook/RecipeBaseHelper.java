@@ -19,7 +19,6 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
         Recipe r=new Recipe();
         for(int i=0;i<r.getNbStepMax();i++){
             st=st+RecipeTable.Cols.STEP[i];
-        //    if (i<(r.getNbStepMax()-1)){s=s+", ";} deleted when SEASON added after string s below
             st=st+", ";
         }
         for(int i=0;i<r.getNbIngMax();i++){
@@ -39,7 +38,8 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 st +
                 si +
                 RecipeTable.Cols.SEASON+", "+
-                RecipeTable.Cols.DIFFICULTY+
+                RecipeTable.Cols.DIFFICULTY+","+
+                RecipeTable.Cols.COMMENTS+
                 ")"
         );
 

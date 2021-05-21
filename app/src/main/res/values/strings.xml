@@ -46,6 +46,7 @@
     <string name="recipe_display_title_step">Etapes</string>
     <string name="recipe_display_title_comment">Commentaires</string>
     <string name="recipe_C_label"> - Plus de sel ! de Arthur @ Family Malin</string>
+    <string name="recipe_comment_hint"> nouveau commentaire ...</string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

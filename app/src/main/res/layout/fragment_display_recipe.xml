@@ -333,27 +333,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_S9_label"/>
 
-            <LinearLayout
+            <TextView
+                style="@style/CookBookText.SubTitle"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:layout_marginStart="8dp"
+                android:text="@string/recipe_display_title_comment" />
 
-                <TextView
-                    style="@style/CookBookText.SubTitle"
-                    android:layout_width="313dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/recipe_display_title_comment" />
-                <ImageView
-                    android:id="@+id/recipe_img_plus"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_menu_add" />
-            </LinearLayout>
             <TextView
                 android:id="@+id/recipe_display_C01"
                 android:layout_marginStart="8dp"
@@ -412,6 +399,13 @@
                 android:text="@string/recipe_C_label"/>
             <TextView
                 android:id="@+id/recipe_display_C09"
+                android:layout_marginStart="8dp"
+                style="@style/CookBookText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recipe_C_label"/>
+            <TextView
+                android:id="@+id/recipe_display_C10"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
@@ -487,7 +481,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_C_label"/>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/recipe_display_enter_comment"
+                    style="@style/EnterValueField"
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recipe_comment_hint"/>
+                <ImageView
+                    android:id="@+id/recipe_img_enter"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:tint="@color/fg_icon"
+                    android:src="@drawable/ic_recipe_enter" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

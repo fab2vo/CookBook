@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.io.File;
 import java.util.Collections;
@@ -57,9 +58,9 @@ public class RecipeListFragment extends Fragment {
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState!=null){
             mSortOption=savedInstanceState.getInt(SAVED_SORT_STATUS);
-            Log.d(TAG, "OnCreatView  coming back mSortOption=" + mSortOption);
+            //Log.d(TAG, "OnCreateView  coming back mSortOption=" + mSortOption);
         }
-        Log.d(TAG, "OnCreatView  mSortOption=" + mSortOption);
+        //Log.d(TAG, "OnCreateView  mSortOption=" + mSortOption);
         updateUI();
         return view;
     }
@@ -74,7 +75,7 @@ public class RecipeListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SAVED_SORT_STATUS, mSortOption);
-        Log.d(TAG, "OnSaveInstance mSortOption : Taille Cookbook =" + mSortOption);
+        //Log.d(TAG, "OnSaveInstance mSortOption : Taille Cookbook =" + mSortOption);
 
     }
 

@@ -9,6 +9,10 @@
         <item name="android:windowBackground">@color/bg_list</item>
     </style>
 
+    <style name="ToolbarSubtitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">8dp</item>
+    </style>
+
     <style name="EnterValueField">
         <item name="android:background">@color/bg_enter_val</item>
         <item name="android:layout_marginLeft">8dp</item>
@@ -30,6 +34,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">casual</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/fg_icon</item>
     </style>
     <style name="CookBookText.Small">
         <item name="android:textSize">10sp</item>

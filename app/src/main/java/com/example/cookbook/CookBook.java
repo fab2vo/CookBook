@@ -11,6 +11,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +22,7 @@ public class CookBook {
 //    private List<Recipe> mRecipes;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    private String TAG="CookBook";
+    private static final String TAG = "DebugCookbook";
 
     public static CookBook get(Context context) {
         if (ourInstance==null){
@@ -34,8 +35,9 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-          // For initialisation of recipedB database : adding random recipes
+          //For initialisation of recipedB database : adding random recipes
           //for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
+          //addRecipe(MyOldRecipe());
     }
 
     public Recipe getRecipe(UUID id) {
@@ -99,7 +101,7 @@ public class CookBook {
     private static ContentValues getContentValues(Recipe recipe) {
         ContentValues values=new ContentValues();
         values.put(RecipeDbSchema.RecipeTable.Cols.UUID, recipe.getId().toString());
-        values.put(RecipeDbSchema.RecipeTable.Cols.OWNER, recipe.getOwner().getId().toString());
+        values.put(RecipeDbSchema.RecipeTable.Cols.OWNER, recipe.getSerializedOwner());
         values.put(RecipeDbSchema.RecipeTable.Cols.TITLE, recipe.getTitle());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE_URL, recipe.getSource_url().toString());
@@ -114,6 +116,7 @@ public class CookBook {
         }
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
+        values.put(RecipeDbSchema.RecipeTable.Cols.COMMENTS, recipe.getSerializedComments());
         return values;
     }
 
@@ -161,6 +164,9 @@ public class CookBook {
         String[] iNum={"5","20","3","100","2"};
         String[] iUnit={"g","dl","cuillerées à café", "litres", "pincées"};
         String[] iIngt={"poivre moulu","ail","lait","porc", "sucre","boeuf","pomme de terre","pruneaux"};
+        User[] iNotesAuthor={fab, lucile, vero, lucile, vero};
+        String[] iComment={"Plus de sel", "Avec des courgettes, c'est délicieux", "A servir avec du riz", "J'aime", "Un peu fade!",
+                "Bon pour l'hiver", "Plus de poivre", "Un peu juste en quantité"}; //8
         //setting
         r=new Recipe();
         r.setOwner(mUserName[rand.nextInt(3)]);
@@ -194,6 +200,64 @@ public class CookBook {
             r.setIngredient(i+1,iNum[rand.nextInt(5)]+" "+
                     iUnit[rand.nextInt(5)]+" de "+iIngt[rand.nextInt(8)]);
         }
+        Date d=new Date();
+        Calendar c = Calendar.getInstance();
+        Comment comment;
+        for(int i=0; i<rand.nextInt(5);i++){
+            c.set(2000+rand.nextInt(20),rand.nextInt(12),1+rand.nextInt(27), 0, 0);
+            comment=new Comment(iComment[rand.nextInt(8)],iNotesAuthor[rand.nextInt(5)]);
+            d=c.getTime();
+            comment.setDate(d);
+            r.addComment(comment);
+        }
+        c.set(2018+rand.nextInt(3),rand.nextInt(12),1+rand.nextInt(27), 0, 0);
+        r.setDate(c.getTime());
+
+        return r;
+    }
+
+    // ma recette de lasagne
+    private Recipe MyOldRecipe(){
+        Recipe r;
+        User fab=new User("Devaux_Lion de ML","Fabrice");
+        fab.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+        r=new Recipe();
+        r.setOwner(fab);
+        r.setId(UUID.fromString("f819bcc2-ab09-4ed8-8a7c-98fade172da2")); // to recover the image
+        r.setTitle("Lasagnes pour Lucile");
+        r.setSource("Moi");
+        String urls="https://wwww.familycookbook.com";
+        try {
+            URL url= new URL(urls);
+            r.setSource_url(url);
+        } catch (MalformedURLException e){
+            Log.d(TAG, "lasagne recipe URL >" +urls+"< Failed");}
+        r.setNoteAvg(3);
+        r.setSeason(RecipeSeason.ALLYEAR);
+        r.setDifficulty(RecipeDifficulty.EASY);
+        r.setNbPers(4);
+        r.setStep(1,"Émincer oignons et carottes. Faire fondre beurre dans une grande poêle sur 7. Mettre les oignons. Réduire a 6. Couvert 5 min.");
+        r.setStep(2,"Rassembler l'oignon fondu dans un coin. Faire revenir la viande sur 8 qq min.");
+        r.setStep(3,"Ajouter carottes, concentré, tomates en morceaux, poivrons, sel, poivre");
+        r.setStep(4,"Couvrir et réduire sur 6. Laisser mijoter 15 minutes.");
+        r.setStep(5,"Dans un grand plat, disposer une couche de lasagnes, une couche de sauce mijotée, de fromage et bouts de mozza. Recommencer deux fois.");
+        r.setStep(6,"Finir avec un peu de crème, une couche de lasagnes, puis napper de béchamel.");
+        r.setStep(7,"Enfourner a 180 C pendant 30 minutes.");
+        r.setStep(8,"");
+        r.setStep(9,"");
+        r.setDate(new Date());
+        r.setIngredient(1,"1 oignon");
+        r.setIngredient(2,"400 g de viande hachée");
+        r.setIngredient(3,"1 petite boîte de concentré de tomate");
+        r.setIngredient(4,"3 tomates");
+        r.setIngredient(5,"1 boule de mozza");
+        r.setIngredient(6,"2 carottes");
+        r.setIngredient(7,"des poivrons");
+        r.setIngredient(8,"15 feuilles de lasagnes");
+        r.setIngredient(9,"200 g de fromage râpé");
+        r.setIngredient(10,"de la bechamel");
+        r.setIngredient(11,"de la crème fraîche (option)");
+        r.setIngredient(12,"");
         return r;
     }
 

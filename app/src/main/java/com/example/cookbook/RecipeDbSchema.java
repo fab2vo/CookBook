@@ -19,6 +19,7 @@ public class RecipeDbSchema {
                     "ing12","ing13","ing14","ing15"};
             public static final String SEASON="season";
             public static final String DIFFICULTY="difficulty";
+            public static final String COMMENTS="comments";
         }
     }
 }

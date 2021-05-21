@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
@@ -30,6 +33,7 @@ public class RecipeDisplayFragment extends Fragment {
     private File mPhotoFile;
     private int mStepNb;
     private int mIngNb;
+    private String newcomment;
     private SessionInfo mSession;
     private ImageView mDPhotoView;
     private TextView mDTitleText;
@@ -44,6 +48,9 @@ public class RecipeDisplayFragment extends Fragment {
     private TextView mDIngTitle;
     private TextView[] mDStepText;
     private TextView[] mDIngText;
+    private TextView[] mDComText;
+    private EditText mDNexComment;
+    private ImageView mDEnterComment;
     private ScrollView mScroll;
 
     public static RecipeDisplayFragment newInstance(UUID recipeId) {
@@ -140,7 +147,44 @@ public class RecipeDisplayFragment extends Fragment {
         for(int i=0;i<mRecipe.getNbStepMax();i++) {
             mDStepText[i] = (TextView) v.findViewById(rID[i]);
         }
+        final int[] rComID= {R.id.recipe_display_C01,R.id.recipe_display_C02,R.id.recipe_display_C03,
+                R.id.recipe_display_C04,R.id.recipe_display_C05,R.id.recipe_display_C06,
+                R.id.recipe_display_C07,R.id.recipe_display_C08,R.id.recipe_display_C09,
+                R.id.recipe_display_C10,R.id.recipe_display_C11,R.id.recipe_display_C12,
+                R.id.recipe_display_C13,R.id.recipe_display_C14,R.id.recipe_display_C15,
+                R.id.recipe_display_C16,R.id.recipe_display_C17,R.id.recipe_display_C18,
+                R.id.recipe_display_C19,R.id.recipe_display_C20};
+        mDComText=new TextView[mRecipe.getNbComMax()];
+        for(int i=0;i<mRecipe.getNbComMax();i++) {
+            mDComText[i] = (TextView) v.findViewById(rComID[i]);
+        }
         updateUI();
+        mDNexComment=(EditText) v.findViewById(R.id.recipe_display_enter_comment);
+        mDNexComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                newcomment=s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mDEnterComment=(ImageView) v.findViewById(R.id.recipe_img_enter);
+        mDEnterComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecipe.addComment(new Comment(newcomment, mSession.getUser()));
+                mDNexComment.setText("...");
+                updateUI();
+            }
+        });
         return v;
     }
     private void updatePhotoView(){
@@ -156,6 +200,8 @@ public class RecipeDisplayFragment extends Fragment {
         User u=mRecipe.getOwner();
         int ingMax=mRecipe.getNbIngMax();
         int stepMax=mRecipe.getNbStepMax();
+        int comMax=mRecipe.getNbComMax();
+        int NbCom=mRecipe.getComments().size();
         int gone=View.GONE;
         int visible=View.VISIBLE;
         mDTitleText.setText(mRecipe.getTitle());
@@ -179,6 +225,13 @@ public class RecipeDisplayFragment extends Fragment {
         for(int i=0;i<stepMax;i++){
             if (mStepNb>0){mDStepText[i].setText((i+1)+". "+mRecipe.getStep(i+1));}
             if (i>=0){mDStepText[i].setVisibility((mStepNb>i)? visible:gone);}
+        }
+        for(int i=0;i<comMax;i++){
+            if (NbCom>0){
+                if (i<NbCom) {mDComText[i].setText("- "+mRecipe.getComment(i).toString());}
+                else {mDComText[i].setText("");}
+            }
+            if (i>=0){mDComText[i].setVisibility((NbCom>i)? visible:gone);}
         }
     }
     private String getRecipeReport(){
