@@ -29,11 +29,13 @@ public class RecipeDisplayFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String TAG = "DebugRecipeDisplayFrag";
     private static final int REQUEST_PHOTO= 2;
-        private Recipe mRecipe;
+    private Recipe mRecipe;
     private File mPhotoFile;
     private int mStepNb;
     private int mIngNb;
     private String newcomment;
+    private String DEFAULT_URL="https://wwww.familycookbook.com";
+
     private SessionInfo mSession;
     private ImageView mDPhotoView;
     private TextView mDTitleText;
@@ -46,6 +48,7 @@ public class RecipeDisplayFragment extends Fragment {
     private TextView mDSourceText;
     private TextView mDSourceUrl;
     private TextView mDIngTitle;
+    private TextView mDComTitle;
     private TextView[] mDStepText;
     private TextView[] mDIngText;
     private TextView[] mDComText;
@@ -131,6 +134,7 @@ public class RecipeDisplayFragment extends Fragment {
         mDSourceText=(TextView) v.findViewById(R.id.recipe_display_source);
         mDSourceUrl=(TextView) v.findViewById(R.id.recipe_display_source_url);
         mDIngTitle=(TextView) v.findViewById(R.id.recipe_display_title_ing);
+        mDComTitle=(TextView)v.findViewById(R.id.recipe_display_comment_title);
         final int[] rIngID= {R.id.recipe_display_I01,R.id.recipe_display_I02,R.id.recipe_display_I03,
                 R.id.recipe_display_I04,R.id.recipe_display_I05,R.id.recipe_display_I06,
                 R.id.recipe_display_I07,R.id.recipe_display_I08,R.id.recipe_display_I09,
@@ -215,7 +219,9 @@ public class RecipeDisplayFragment extends Fragment {
         mIceIcon.setImageResource((mRecipe.IsWinter()) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
         mDAuthorText.setText(s);
         mDSourceText.setText(mRecipe.getSource());
-        mDSourceUrl.setText(mRecipe.getSource_url_name());
+        if (mRecipe.getSource_url_name().equals(DEFAULT_URL)) {
+            mDSourceUrl.setText(""); }
+        else {mDSourceUrl.setText(mRecipe.getSource_url_name());}
         s=getString(R.string.recipe_display_title_ing, ""+mRecipe.getNbPers());
         mDIngTitle.setText(s);
         for(int i=0;i<ingMax;i++){
@@ -226,9 +232,11 @@ public class RecipeDisplayFragment extends Fragment {
             if (mStepNb>0){mDStepText[i].setText((i+1)+". "+mRecipe.getStep(i+1));}
             if (i>=0){mDStepText[i].setVisibility((mStepNb>i)? visible:gone);}
         }
+        s=getString(R.string.recipe_display_title_comment, ""+mRecipe.getComments().size());
+        mDComTitle.setText(s);
         for(int i=0;i<comMax;i++){
             if (NbCom>0){
-                if (i<NbCom) {mDComText[i].setText("- "+mRecipe.getComment(i).toString());}
+                if (i<NbCom) {mDComText[i].setText("- "+mRecipe.getComment(NbCom-i-1).toString());}
                 else {mDComText[i].setText("");}
             }
             if (i>=0){mDComText[i].setVisibility((NbCom>i)? visible:gone);}

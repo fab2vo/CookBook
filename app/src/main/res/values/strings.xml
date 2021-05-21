@@ -41,10 +41,10 @@
     <string name="recipe_report_step">-Etape %1$s : %2$s</string>
     <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
     <string name="list_item_difficulty">Difficulty </string>
-    <string name="recipe_display_author">de %1$s de la famille %2$s</string>
+    <string name="recipe_display_author">%1$s de %2$s</string>
     <string name="recipe_display_title_ing"> Ingredients pour %1$s personnes </string>
     <string name="recipe_display_title_step">Etapes</string>
-    <string name="recipe_display_title_comment">Commentaires</string>
+    <string name="recipe_display_title_comment">Commentaires (%1$s)</string>
     <string name="recipe_C_label"> - Plus de sel ! de Arthur @ Family Malin</string>
     <string name="recipe_comment_hint"> nouveau commentaire ...</string>
     <string-array name="recipe_season_array">
