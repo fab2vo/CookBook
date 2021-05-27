@@ -144,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:autoLink="web|none"
+                android:textColorLink="@color/fg_icon"
                 android:text="@string/recipe_source_url_hint" />
 
             <TextView

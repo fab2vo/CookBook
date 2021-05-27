@@ -10,7 +10,6 @@ public class RecipeDbSchema {
             public static final String SOURCE="source";
             public static final String SOURCE_URL="source_url";
             public static final String DATE="date";
-            public static final String NOTE="note";
             public static final String NBPERS="nbpers";
             public static final String[] STEP={"etape1","etape2","etape3","etape4",
                     "etape5","etape6","etape7","etape8","etape9"};
@@ -20,6 +19,7 @@ public class RecipeDbSchema {
             public static final String SEASON="season";
             public static final String DIFFICULTY="difficulty";
             public static final String COMMENTS="comments";
+            public static final String NOTES="notes";
         }
     }
 }

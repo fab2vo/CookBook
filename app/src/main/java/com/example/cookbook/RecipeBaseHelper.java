@@ -33,13 +33,13 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 RecipeTable.Cols.SOURCE+", "+
                 RecipeTable.Cols.SOURCE_URL+", "+
                 RecipeTable.Cols.DATE+", "+
-                RecipeTable.Cols.NOTE+", "+
                 RecipeTable.Cols.NBPERS+", "+
                 st +
                 si +
                 RecipeTable.Cols.SEASON+", "+
                 RecipeTable.Cols.DIFFICULTY+","+
-                RecipeTable.Cols.COMMENTS+
+                RecipeTable.Cols.COMMENTS+", "+
+                RecipeTable.Cols.NOTES+
                 ")"
         );
 

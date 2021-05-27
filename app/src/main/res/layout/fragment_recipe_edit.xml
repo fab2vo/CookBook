@@ -104,6 +104,7 @@
                     style="?android:listSeparatorTextViewStyle"
                     android:layout_width="0dp"
                     android:layout_height="29dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/recipe_nbpers_label"
                     app:layout_constraintEnd_toStartOf="@+id/recipe_nbpers"
@@ -114,12 +115,12 @@
                     android:id="@+id/recipe_nbpers"
                     style="@style/EnterValueField"
                     android:layout_width="wrap_content"
-                    android:minWidth="30dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="0dp"
-                    android:inputType="number"
+                    android:layout_marginTop="8dp"
                     android:gravity="right"
+                    android:inputType="number"
+                    android:minWidth="30dp"
                     android:text="@string/recipe_nbpers_hint"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +132,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <Spinner
@@ -138,6 +141,7 @@
                     style="@style/EnterValueField"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
+
                     android:layout_alignParentStart="true"
                     android:layout_marginEnd="8dp"
                     android:layout_toStartOf="@+id/recipe_difficulty"
@@ -159,96 +163,113 @@
 
             <TextView
                 style="?android:listSeparatorTextViewStyle"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_ingredient" />
 
             <TextView
                 android:id="@+id/recipe_I01"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I02"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I03"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I04"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I05"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I06"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I07"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I08"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I09"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I10"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I11"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I12"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I13"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I14"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
 
             <TextView
                 android:id="@+id/recipe_I15"
+                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recipe_I_label" />
@@ -256,11 +277,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/recipe_new_ing_label" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -290,70 +314,84 @@
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_step" />
 
             <TextView
                 android:id="@+id/recipe_S1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S1_label" />
 
             <TextView
                 android:id="@+id/recipe_S2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S2_label" />
 
             <TextView
                 android:id="@+id/recipe_S3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S3_label" />
 
             <TextView
                 android:id="@+id/recipe_S4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S4_label" />
 
             <TextView
                 android:id="@+id/recipe_S5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S5_label" />
 
             <TextView
                 android:id="@+id/recipe_S6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S6_label" />
 
             <TextView
                 android:id="@+id/recipe_S7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S7_label" />
 
             <TextView
                 android:id="@+id/recipe_S8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S8_label" />
 
             <TextView
                 android:id="@+id/recipe_S9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/recipe_S9_label" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/recipe_new_recipe_label" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:orientation="horizontal">
 
                 <ImageButton

@@ -42,6 +42,7 @@ public class RecipeEditFragment extends Fragment {
     private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
     private static final String TAG = "DebugRecipeEditFragment";
+    //Log.d(TAG, "onTextChanged de mSource_url input>" + s.toString()+"<");
     private Recipe mRecipe;
     private File mPhotoFile;
     private EditText mTitleField;
@@ -192,15 +193,12 @@ public class RecipeEditFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().equals("")) {} else {
-                    //Log.d(TAG, "onTextChanged de mSource_url input>" + s.toString()+"<");
                     try {
                         URL url=new URL(s.toString());
-                    //    Log.d(TAG, "onTextChanged de mSource_url output >" + url.toString()+"<");
                         mRecipe.setSource_url(url);
                     } catch (MalformedURLException e) {
                         Log.d(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed");
                     }
-                    //
                     }
             }
 
@@ -220,7 +218,6 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.d(TAG, "onTextChanged de mNbPersField >" + s.toString()+"<");
                 if (s.toString().equals("")) {} else {
                     int nb_entered = Integer.parseInt(s.toString());
                     if ((nb_entered > 0) && (nb_entered < 13)) {
@@ -246,7 +243,6 @@ public class RecipeEditFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mRecipe.setSeason(RecipeSeason.getSeason(position));
-                //Log.d(TAG, "mSeasonSpinner>" + mRecipe.getSeason().name()+"<");
             }
 
             @Override
@@ -271,40 +267,7 @@ public class RecipeEditFragment extends Fragment {
 
             }
         });
-/*        mNoteField= (EditText) v.findViewById(R.id.recipe_note);
-        mNoteField.setText(mRecipe.getNoteAvg()+"");
-        mNoteField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int entry=Integer.parseInt(s.toString());
-                if ((entry<0)||(entry>5)){entry=0;}
-                mRecipe.setNoteAvg(entry);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-         });
-*/
-/*        mDateButton= (Button) v.findViewById(R.id.recipe_date);
-        updateDate();
-        mDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm= getFragmentManager();
-                DatePickerFragment dialog=DatePickerFragment
-                        .newInstance(mRecipe.getDate());
-                dialog.setTargetFragment(RecipeEditFragment.this, REQUEST_DATE);
-                dialog.show(fm, DIALOG_DATE);
-            }
-        });
-*/
         final int[] rID= {R.id.recipe_S1,R.id.recipe_S2,R.id.recipe_S3,R.id.recipe_S4,
                 R.id.recipe_S5,R.id.recipe_S6,R.id.recipe_S7,R.id.recipe_S8,R.id.recipe_S9};
         mSTextView= new TextView[mRecipe.getNbStepMax()];
@@ -407,12 +370,8 @@ public class RecipeEditFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == REQUEST_DATE) {
-            Date date = (Date) data
-                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mRecipe.setDate(date);
- //           updateDate();
-        } else if (requestCode==REQUEST_PHOTO){
+
+        if (requestCode==REQUEST_PHOTO){
             Uri uri=FileProvider.getUriForFile(getActivity(),
                     "com.example.cookbook.fileprovider", mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -420,17 +379,12 @@ public class RecipeEditFragment extends Fragment {
         }
     }
 
-/*    private void updateDate() {
-        mDateButton.setText(mRecipe.getDate().toString());
-    }
-*/
     private String getRecipeReport(){
         String report="";
         Integer iplus=0;
         report =getString(R.string.recipe_report_title, mRecipe.getTitle())+"\n";
         report +=getString(R.string.recipe_report_owner,mRecipe.getOwner().getNameComplete())+"\n";
-        //String dateFormat = "dd MMM yyyy";
-        //String dateString=DateFormat.format(dateFormat,mRecipe.getDate()).toString();
+
          if(!mRecipe.getSource_url_name().equals("")){
             report += getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
         }

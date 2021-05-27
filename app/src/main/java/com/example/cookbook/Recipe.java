@@ -15,22 +15,20 @@ import java.util.UUID;
 
 
 public class Recipe {
-    private UUID mId;                       //RecipdedB
-    private User mOwner;                    //RecipedB
-    private Date mDate;                     //RecipdedB
-    private Date mDate_crea;
-    private Date mDate_modif;
-    private String mTitle;                  //RecipdedB
-    private String mSource;                 //RecipdedB
-    private URL mSource_url;                //RecipdedB
-    private int mNbPers;                    //RecipdedB
-    private String[] mSteps;                //RecipdedB
-    private int mNoteAvg;                   //RecipdedB
-    //private ArrayList<Note> mNotes;
+    private UUID mId;
+    private User mOwner;
+    private Date mDate;                     //date de dernière modification en local
+    private String mTitle;
+    private String mSource;
+    private URL mSource_url;
+    private int mNbPers;
+    private String[] mSteps;
+    private double mNoteAvg;
+    private ArrayList<Note> mNotes;
     private ArrayList<Comment> mComments;
-    private RecipeSeason mSeason;           //RecipdedB
-    private RecipeDifficulty mDifficulty;   //RecipdedB
-    private String[] mIngredients;          //RecipdedB
+    private RecipeSeason mSeason;
+    private RecipeDifficulty mDifficulty;
+    private String[] mIngredients;
 
     private static final int NBSTEP_MAX=9;
     private static final int NBING_MAX=15;
@@ -55,6 +53,7 @@ public class Recipe {
         mSeason=RecipeSeason.ALLYEAR;
         mDifficulty=RecipeDifficulty.UNDEFINED;
         mComments=new ArrayList<Comment>();
+        mNotes=new ArrayList<Note>();
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
     }
@@ -80,14 +79,6 @@ public class Recipe {
 
     public void setTitle(String title) {
         mTitle = title;
-    }
-
-    public int getNoteAvg() {
-        return mNoteAvg;
-    }
-
-    public void setNoteAvg(int noteAvg) {
-        mNoteAvg = noteAvg;
     }
 
     public int getNbPers() {
@@ -230,6 +221,22 @@ public class Recipe {
 
     public int getNbComMax(){return NBCOM_MAX;} // nb max affiché
 
+    public void addNote(Note note){ mNotes.add(note);}
+    public ArrayList<Note> getNotes() {return mNotes;}
+    public Note getNote(int i){
+        if (i<mNotes.size()){ return mNotes.get(i);}
+        else {return null;}
+    }
+
+    public double getNoteAvg() {
+        mNoteAvg=0;
+        if (mNotes.size()!=0) {
+            for(Note n:mNotes){mNoteAvg+=n.getNote();}
+            mNoteAvg=mNoteAvg/mNotes.size();
+        } else {mNoteAvg=0;}
+        return mNoteAvg;
+    }
+
     //--------------------- Serialisation ------------------------
     public String getSerializedComments(){
         Gson gson = new Gson();
@@ -248,6 +255,17 @@ public class Recipe {
     public void getOwnerDeserialized(String raw){
         Gson gson=new Gson();
         mOwner=gson.fromJson(raw, User.class);
+    }
+
+    public String getSerializedNotes(){
+        Gson gson = new Gson();
+        return gson.toJson(mNotes);
+    }
+
+    public void getNotesDeserialised(String raw){
+        Gson gson=new Gson();
+        Type listOfNotesObject = new TypeToken<ArrayList<Note>>() {}.getType();
+        mNotes=gson.fromJson(raw, listOfNotesObject);
     }
 
 }

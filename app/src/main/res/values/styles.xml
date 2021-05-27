@@ -39,5 +39,8 @@
     <style name="CookBookText.Small">
         <item name="android:textSize">10sp</item>
     </style>
+    <style name="RatingDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>

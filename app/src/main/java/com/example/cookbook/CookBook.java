@@ -36,7 +36,7 @@ public class CookBook {
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
           //For initialisation of recipedB database : adding random recipes
-          //for (int i = 0; i < 12; i++){addRecipe(randomRecipe());}
+          //for (int i = 0; i < 5; i++){addRecipe(randomRecipe());}
           //addRecipe(MyOldRecipe());
     }
 
@@ -54,6 +54,7 @@ public class CookBook {
 
     public void updateRecipe(Recipe r) {
         String uuidString=r.getId().toString();
+        r.setDate(new Date());                          //last modification
         ContentValues values=getContentValues(r);
         mDatabase.update(RecipeDbSchema.RecipeTable.NAME, values,
                 RecipeDbSchema.RecipeTable.Cols.UUID+" =?",
@@ -106,7 +107,6 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE_URL, recipe.getSource_url().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
-        values.put(RecipeDbSchema.RecipeTable.Cols.NOTE, recipe.getNoteAvg()); //Pb ?
         values.put(RecipeDbSchema.RecipeTable.Cols.NBPERS, recipe.getNbPers());
         for(int i=0;i<recipe.getNbStepMax();i++){
             values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
@@ -117,6 +117,7 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.COMMENTS, recipe.getSerializedComments());
+        values.put(RecipeDbSchema.RecipeTable.Cols.NOTES, recipe.getSerializedNotes());
         return values;
     }
 
@@ -179,7 +180,6 @@ public class CookBook {
             r.setSource_url(url);
         } catch (MalformedURLException e){
             Log.d(TAG, "random recipe URL >" +urls+"< Failed");}
-        r.setNoteAvg(rand.nextInt(6));
         r.setSeason(mSeason[rand.nextInt(3)]);
         r.setDifficulty(mDifficulty[rand.nextInt(4)]);
         r.setNbPers(3+rand.nextInt(3));
@@ -203,16 +203,19 @@ public class CookBook {
         Date d=new Date();
         Calendar c = Calendar.getInstance();
         Comment comment;
+        Note note;
         for(int i=0; i<rand.nextInt(5);i++){
             c.set(2000+rand.nextInt(20),rand.nextInt(12),1+rand.nextInt(27), 0, 0);
             comment=new Comment(iComment[rand.nextInt(8)],iNotesAuthor[rand.nextInt(5)]);
+            note=new Note(1+rand.nextInt(5),iNotesAuthor[rand.nextInt(5)]);
             d=c.getTime();
             comment.setDate(d);
+            note.setDate(d);
             r.addComment(comment);
+            r.addNote(note);
         }
         c.set(2018+rand.nextInt(3),rand.nextInt(12),1+rand.nextInt(27), 0, 0);
         r.setDate(c.getTime());
-
         return r;
     }
 
@@ -232,7 +235,6 @@ public class CookBook {
             r.setSource_url(url);
         } catch (MalformedURLException e){
             Log.d(TAG, "lasagne recipe URL >" +urls+"< Failed");}
-        r.setNoteAvg(3);
         r.setSeason(RecipeSeason.ALLYEAR);
         r.setDifficulty(RecipeDifficulty.EASY);
         r.setNbPers(4);

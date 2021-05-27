@@ -35,8 +35,6 @@ public class RecipeCursorWrapper extends CursorWrapper {
             }
         long date = getLong(getColumnIndex(RecipeTable.Cols.DATE));
         r.setDate(new Date(date));
-        int note = getInt(getColumnIndex(RecipeTable.Cols.NOTE));
-        r.setNoteAvg(note);
         int nbpers=getInt(getColumnIndex(RecipeTable.Cols.NBPERS));
         r.setNbPers(nbpers);
         String[] step= new String[r.getNbStepMax()];
@@ -55,6 +53,8 @@ public class RecipeCursorWrapper extends CursorWrapper {
         r.setDifficulty(RecipeDifficulty.valueOf(difficulty));
         String comments = getString(getColumnIndex(RecipeTable.Cols.COMMENTS));
         r.getCommentsDeserialised(comments);
+        String notes = getString(getColumnIndex(RecipeTable.Cols.NOTES));
+        r.getNotesDeserialised(notes);
         return r;
     }
 }

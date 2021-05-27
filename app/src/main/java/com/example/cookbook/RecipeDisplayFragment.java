@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class RecipeDisplayFragment extends Fragment {
@@ -208,9 +209,10 @@ public class RecipeDisplayFragment extends Fragment {
         int NbCom=mRecipe.getComments().size();
         int gone=View.GONE;
         int visible=View.VISIBLE;
+        DecimalFormat df = new DecimalFormat("#.#");
         mDTitleText.setText(mRecipe.getTitle());
         mDRatingBar.setRating((float) mRecipe.getNoteAvg());
-        mDRatingBarText.setText(mRecipe.getNoteAvg()+"  ("+"x"+")");
+        mDRatingBarText.setText(df.format(mRecipe.getNoteAvg())+"  ("+ mRecipe.getNotes().size()+")");
         s=getString(R.string.recipe_display_author,u.getName(),u.getFamily());
         int idiff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
         String[] stringArrayDiff = getResources().getStringArray(R.array.recipe_difficulty_array);
