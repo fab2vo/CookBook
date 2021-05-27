@@ -6,6 +6,7 @@
     <color name="bg_enter_val">#185E0C</color>
     <color name="fg_enter_label">#84AA9C</color>
     <color name="bg_list">#0B1B0B</color>
+    <color name="bg_list2">#2E2E23</color>
     <color name="fg_title">#ffffbb33</color>
     <color name="fg_icon">#D3A356</color>
 </resources>

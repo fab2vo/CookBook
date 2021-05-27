@@ -2,11 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/list_item_bg"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:elevation="2dp">
 
     <ImageView
         android:id="@+id/recipe_photo"
@@ -34,7 +36,8 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textSize="14sp" />
+        tools:textSize="14sp"
+        />
 
     <TextView
         android:id="@+id/recipe_source"
