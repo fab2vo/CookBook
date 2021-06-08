@@ -9,4 +9,6 @@
     <color name="bg_list2">#2E2E23</color>
     <color name="fg_title">#ffffbb33</color>
     <color name="fg_icon">#D3A356</color>
+    <color name="light_red">#D62C30</color>
+    <color name="light_green">#81D62C</color>
 </resources>

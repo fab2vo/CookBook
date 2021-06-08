@@ -64,14 +64,15 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light"
-                    android:tint="@android:color/holo_green_dark"/>
+                    android:src="@drawable/ic_splash_light_green"
+                    />
                 <EditText
                     android:id="@+id/splash_edit_family"
                     style="@style/EnterValueField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="16dp"
                     android:inputType="text"
                     android:text="@string/splash_edit_family_hint" />
             </LinearLayout>
@@ -93,14 +94,15 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light"
-                    android:tint="@android:color/holo_green_dark"/>
+                    android:src="@drawable/ic_splash_light_green"
+                    />
                 <EditText
                     android:id="@+id/splash_edit_member"
                     style="@style/EnterValueField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="16dp"
                     android:inputType="text"
                     android:text="@string/splash_edit_member_hint" />
             </LinearLayout>
@@ -122,8 +124,8 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light"
-                    android:tint="@android:color/holo_green_dark"/>
+                    android:src="@drawable/ic_splash_light_green"
+                    />
 
                 <EditText
                     android:id="@+id/splash_edit_pwd"
@@ -132,6 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:inputType="textPassword"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/splash_edit_pwd_hint" />
             </LinearLayout>
             <TextView
@@ -139,7 +142,8 @@
                 android:layout_width="match_parent"
                 style="@style/CookBookText"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:layout_height="60dp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -161,6 +165,7 @@
                     style="@style/CookBookText.Small"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/splash_button_session_expl"/>
             </LinearLayout>
 
@@ -184,6 +189,7 @@
                     style="@style/CookBookText.Small"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/splash_button_member_expl"/>
             </LinearLayout>
 
@@ -207,17 +213,10 @@
                     style="@style/CookBookText.Small"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/splash_button_family_expl"/>
             </LinearLayout>
 
         </LinearLayout>
-
-    <Button
-        android:id="@+id/splash_button_go"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        tools:text="@string/splash_go_txt"/>
 
 </LinearLayout>

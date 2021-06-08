@@ -3,12 +3,14 @@ package com.example.cookbook;
 import android.util.Log;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class User {
     private UUID mId;
     private String mFamily;
     private String mName;
     private static final String TAG = "DebugUser";
+
 
     public User(String family, String name){
         mFamily=family;

@@ -51,7 +51,7 @@
     <string name="dialog_star_done">Fait !</string>
     <string name="dialog_star_title">Note</string>
     <string name="splash_moto_txt">FamilyCookBook votre livre de recettes à partager en famille et avec vos amis</string>
-    <string name="splash_go_txt">On y va ?</string>
+
     <string name="splash_button_session_txt">Ouvrir mon livre</string>
     <string name="splash_button_session_expl">Identification avec votre nom, celui de la famille et son mot de passe.</string>
     <string name="splash_button_member_txt"> Nouveau membre de la famille</string>
@@ -61,9 +61,13 @@
     <string name="splash_edit_family_label">Famille :</string>
     <string name="splash_edit_member_label">Prénom :</string>
     <string name="splash_edit_pwd_label">Mot de passe :</string>
-    <string name="splash_edit_family_hint">De La Martine de Saint-Malo</string>
+    <string name="splash_edit_family_hint">De Parpaing de Toulouse</string>
     <string name="splash_edit_member_hint">Marie-Jeanne</string>
     <string name="splash_edit_pwd_hint">minMAJ123</string>
+    <string name="network_err_no_connection"> Pas de connection au serveur familycookbook </string>
+    <string name="enter_err_family"> Caracteres speciaux autorisés _-?!() et espace </string>
+    <string name="enter_err_member"> Caracteres speciaux autorisés _- et pas d\'espace </string>
+    <string name="enter_err_pwd"> Caracteres speciaux autorisés _-?!() et pas d\'espace </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>
