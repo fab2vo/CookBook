@@ -124,9 +124,7 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light_green"
-                    />
-
+                    android:src="@drawable/ic_splash_light_green" />
                 <EditText
                     android:id="@+id/splash_edit_pwd"
                     style="@style/EnterValueField"
@@ -151,24 +149,21 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/splash_button_session"
+                    android:id="@+id/splash_button_family"
                     android:layout_marginStart="16dp"
                     android:layout_width="170dp"
                     android:layout_height="64dp"
-                    android:backgroundTint="@color/bg_list2"
-                    android:textColor="@color/fg_enter_label"
-                    android:layout_gravity="center_horizontal"
-                    tools:text="@string/splash_button_session_txt"/>
+                    style="@style/ButtonCookBook"
+                    tools:text="@string/splash_button_family_txt"/>
                 <TextView
-                    android:id="@+id/splash_button_session_textview"
-                     android:layout_width="match_parent"
+                    android:id="@+id/splash_button_family_textview"
+                    android:layout_width="match_parent"
                     style="@style/CookBookText.Small"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/splash_button_session_expl"/>
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/splash_button_family_expl"/>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,44 +174,40 @@
                     android:layout_marginStart="16dp"
                     android:layout_width="170dp"
                     android:layout_height="64dp"
-                    android:backgroundTint="@color/bg_list2"
-                    android:textColor="@color/fg_enter_label"
-                    android:layout_gravity="center_horizontal"
+                    style="@style/ButtonCookBook"
                     tools:text="@string/splash_button_member_txt"/>
+
                 <TextView
                     android:id="@+id/splash_button_member_textview"
-                    android:layout_width="match_parent"
                     style="@style/CookBookText.Small"
+                    android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/splash_button_member_expl"/>
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/splash_button_member_expl"
+                    tools:padding="4dp" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/splash_button_family"
+                    android:id="@+id/splash_button_session"
                     android:layout_marginStart="16dp"
                     android:layout_width="170dp"
                     android:layout_height="64dp"
-                    android:backgroundTint="@color/bg_list2"
-                    android:textColor="@color/fg_enter_label"
-                    android:layout_gravity="center_horizontal"
-                    tools:text="@string/splash_button_family_txt"/>
+                    style="@style/ButtonCookBook"
+                    tools:text="@string/splash_button_session_txt"/>
                 <TextView
-                    android:id="@+id/splash_button_family_textview"
-                    android:layout_width="match_parent"
+                    android:id="@+id/splash_button_session_textview"
                     style="@style/CookBookText.Small"
+                    android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/splash_button_family_expl"/>
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/splash_button_session_expl"
+                    tools:padding="4dp" />
             </LinearLayout>
-
         </LinearLayout>
-
 </LinearLayout>

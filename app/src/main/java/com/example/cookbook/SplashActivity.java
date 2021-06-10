@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -105,6 +107,56 @@ public class SplashActivity extends AppCompatActivity {
         mNewFamilyTxt=(TextView) findViewById(R.id.splash_button_family_textview);
         updateTop();
         getJSON(mSession.getURLPath()+PHPREQ);
+        mEnterFamily.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String z=s.toString();
+                mFamilyLight.setImageResource((Pattern.matches(REGEX_FAMILY,z)&&(IsLenOK(z,8,45)))?
+                        R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+                if (Pattern.matches(REGEX_FAMILY,z)){
+                    mNewSession.setEnabled(true);
+                    mNewFamily.setEnabled(true);
+                }
+                else{
+                    mNewSession.setEnabled(false);
+                    mNewFamily.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mEnterMember.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String z=s.toString();
+                mMemberLight.setImageResource((Pattern.matches(REGEX_MEMBER,z)&&(IsLenOK(z,1,25)))?
+                        R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mEnterPwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String z=s.toString();
+                mPwdLight.setImageResource((Pattern.matches(REGEX_PWD,z)&&(IsLenOK(z,4,12)))?
+                        R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
         mNewSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,27 +242,35 @@ public class SplashActivity extends AppCompatActivity {
         mNewFamily.setText(R.string.splash_button_family_txt);
         mNewFamilyTxt.setText(R.string.splash_button_family_expl);
     }
+    private Boolean IsLenOK(String s, int min, int max){
+        int l=s.length();
+        return ((l>min)&&(l<max));
+    }
     private Boolean testAndUpdateLight(){
         Boolean ret=true;
         String message="";
+        String z="";
         if(!mSession.IsConnected()){
             ret=false;
             message += getResources().getString(R.string.network_err_no_connection)+"\n";
         } else {
             message += "Connection OK"+"\n";}
-        if (Pattern.matches(REGEX_FAMILY,mEnterFamily.getText())){
+        z=mEnterFamily.getText().toString();
+        if (Pattern.matches(REGEX_FAMILY,z)&&(IsLenOK(z,8,45))){
                 mFamilyLight.setImageResource(R.drawable.ic_splash_light_green);
         } else{
             ret=false;
             message += getResources().getString(R.string.enter_err_family)+"\n";
             mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);}
-        if (Pattern.matches(REGEX_MEMBER,mEnterMember.getText())){
+        z=mEnterMember.getText().toString();
+        if (Pattern.matches(REGEX_MEMBER,z)&&IsLenOK(z,1,25)){
                 mMemberLight.setImageResource(R.drawable.ic_splash_light_green);
         } else{
             ret=false;
             message += getResources().getString(R.string.enter_err_member)+"\n";
             mMemberLight.setImageResource(R.drawable.ic_splash_light_red);}
-        if (Pattern.matches(REGEX_PWD,mEnterPwd.getText())){
+        z=mEnterPwd.getText().toString();
+        if (Pattern.matches(REGEX_PWD,z)&&IsLenOK(z,4,12)){
             mPwdLight.setImageResource(R.drawable.ic_splash_light_green);
         } else{
             ret=false;

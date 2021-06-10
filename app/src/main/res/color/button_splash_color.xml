@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:color="@color/fg_title"/> <!-- pressed -->
+    <item android:state_enabled="true"
+        android:color="@color/fg_enter_label"/> <!-- enabled -->
+    <item android:color="@color/bg_list2"/> <!-- default -->
+</selector>

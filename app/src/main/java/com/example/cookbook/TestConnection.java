@@ -7,6 +7,13 @@ import android.util.Log;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+// ********************************************************************
+//  to use :
+//        TestConnection t;
+//        t = new TestConnection();
+//        t.setTestConnexion(getApplicationContext());
+//        t.testGo(); start async => result in Boolean  mSession.IsConnected()
+//***********************************************************
 
 public class TestConnection {
     private static String URLPATH="http://82.66.37.73:8085/cb/";

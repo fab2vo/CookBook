@@ -53,11 +53,12 @@
     <string name="splash_moto_txt">FamilyCookBook votre livre de recettes à partager en famille et avec vos amis</string>
 
     <string name="splash_button_session_txt">Ouvrir mon livre</string>
-    <string name="splash_button_session_expl">Identification avec votre nom, celui de la famille et son mot de passe.</string>
+    <string name="splash_button_session_expl"> Pour ouvrir votre livre de cuisine existant, avec votre nom, celui de la famille et son mot de passe.</string>
     <string name="splash_button_member_txt"> Nouveau membre de la famille</string>
-    <string name="splash_button_member_expl"> Indiquer votre nom, ainsi que celui de votre famille et son mot de passe.</string>
+    <string name="splash_button_member_expl"> Pour créer un nouveau membre de la famille participant au livre de famille existant. Cela nécessite le mot de passe de la famille. </string>
     <string name="splash_button_family_txt"> Nouveau livre de famille</string>
-    <string name="splash_button_family_expl"> Indiquer votre nom de famille, votre nom et définisser le mot de passe du livre.</string>
+    <string name="splash_button_family_expl"> Pour crééer une nouvelle famille et son livre de cuisine.
+        Il faut définir un nom de famille et son mot de passe, et démarrer avec vous comme 1er membre.</string>
     <string name="splash_edit_family_label">Famille :</string>
     <string name="splash_edit_member_label">Prénom :</string>
     <string name="splash_edit_pwd_label">Mot de passe :</string>
