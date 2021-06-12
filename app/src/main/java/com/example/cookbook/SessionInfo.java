@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -34,6 +35,7 @@ public class SessionInfo {
 
     private SessionInfo(Context context) {
         mContext=context.getApplicationContext();
+        mIsConnected=false;
         String sharedPref;
         sharedPref= PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(CB_ID, NOT_FOUND);
@@ -63,6 +65,13 @@ public class SessionInfo {
                 .putString(CB_ID, user.getId().toString())
                 .apply();
     }
+    public void clearStoredUser(){
+        SharedPreferences settings = mContext.getSharedPreferences("PreferencesName", Context.MODE_PRIVATE);
+        settings.edit().remove("CB_FAMILY").commit();
+        settings.edit().remove("CB_NAME").commit();
+        settings.edit().remove("CB_ID").commit();
+
+    }
 
     public Boolean IsEmpty(){
         if (mUser.getName().equals(NOT_FOUND)){return true;}
@@ -81,4 +90,5 @@ public class SessionInfo {
     public String getURLPath(){return URLPATH;}
     public int getConnectTimeout(){return CONNECT_TIMEOUT;}
     public int getReadTimeout(){return READ_TIMEOUT;}
+
 }

@@ -118,9 +118,13 @@ public class RecipeListFragment extends Fragment {
                 Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 startActivity(intent);
                 return true;
+            case R.id.list_logout:
+                //mSession.clearStoredUser();**************************************************************
+                Intent intent2=new Intent(getActivity().getApplicationContext(), SplashActivity.class);
+                startActivity(intent2);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 

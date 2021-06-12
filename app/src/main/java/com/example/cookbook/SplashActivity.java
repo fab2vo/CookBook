@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,19 +16,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class SplashActivity extends AppCompatActivity {
-    //private ListView mListView;
     private TextView mMoto;
     private SessionInfo mSession;
-    private Boolean mIsConnected;
+    private String mFamilyEntered;
+    private String mMemberEntered;
+    private String mPwdEntered;
     private TextView mEnterFamilyLbl;
     private EditText mEnterFamily;
     private TextView mEnterMemberLbl;
@@ -44,15 +55,15 @@ public class SplashActivity extends AppCompatActivity {
     private Button mNewFamily;
     private TextView mNewFamilyTxt;
     private ImageView mFamilyLight;
-    private String mState;
+    private int mState;
     private static final String TAG = "DebugSplashActivity";
-    private static String NEW_FAMILY="Family";
-    private static String NEW_MEMBER="Member";
-    private static String NEW_Session="Session";
+    private final static int NEW_FAMILY=1;
+    private final static int NEW_MEMBER=2;
+    private final static int NEW_SESSION=3;
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
     private static final String REGEX_PWD="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()]*";
-    private static String PHPREQ="getrecipestamps.php?id_user=c81d4e2e-bcf2-11e6-869b-8df92533d2db";
+    private static String PHPREQFAMILYCOMP="getfamilycomposition.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +73,13 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        //mListView = (ListView) findViewById(R.id.splash_listView);
         mMoto=(TextView) findViewById(R.id.splash_moto);
         mMoto.setText(R.string.splash_moto_txt);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.splash_progBar);
         progressBar.setProgress(0);
         mSession= SessionInfo.get(getApplicationContext());
+        mEnterMessage=(TextView) findViewById(R.id.splash_edit_message);
+        mEnterMessage.setText("");
 
         TestConnection t;
         t = new TestConnection();
@@ -75,13 +87,11 @@ public class SplashActivity extends AppCompatActivity {
         t.testGo();
 
         if (!mSession.IsEmpty()){
-            // utilisateur déjà défini => check user belong to family, sync et get started
-            //Toast.makeText(getApplicationContext(), mSession.getUserNameComplete()+" "+mIsConnected, Toast.LENGTH_SHORT).show();
+            mEnterMessage.setText("Synchronising");
+            getStarted(); //**********SESSION EXSTANTE**************************
+
         }
-        /*if (!mIsConnected){
-            Toast.makeText(getApplicationContext(), "No network connection", Toast.LENGTH_SHORT).show();
-            finish();
-        }*/
+
         // pas d'utilisateur pré-défini
         // il faudra mettre à jour le nouvel utilisateur
         User user=new User("Devaux_Lion de ML","Fabrice");
@@ -98,7 +108,6 @@ public class SplashActivity extends AppCompatActivity {
         mEnterPwdLbl=(TextView) findViewById(R.id.splash_edit_pwd_lbl);
         mEnterPwd=(EditText) findViewById(R.id.splash_edit_pwd);
         mPwdLight=(ImageView) findViewById(R.id.splash_edit_pwd_light);
-        mEnterMessage=(TextView) findViewById(R.id.splash_edit_message);
         mNewSession=(Button) findViewById(R.id.splash_button_session);
         mNewSessionTxt=(TextView) findViewById(R.id.splash_button_session_textview);
         mNewMember=(Button) findViewById(R.id.splash_button_member);
@@ -106,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
         mNewFamily=(Button) findViewById(R.id.splash_button_family);
         mNewFamilyTxt=(TextView) findViewById(R.id.splash_button_family_textview);
         updateTop();
-        getJSON(mSession.getURLPath()+PHPREQ);
+
         mEnterFamily.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -114,16 +123,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
+                mFamilyEntered=z;
                 mFamilyLight.setImageResource((Pattern.matches(REGEX_FAMILY,z)&&(IsLenOK(z,8,45)))?
                         R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
-                if (Pattern.matches(REGEX_FAMILY,z)){
-                    mNewSession.setEnabled(true);
-                    mNewFamily.setEnabled(true);
-                }
-                else{
-                    mNewSession.setEnabled(false);
-                    mNewFamily.setEnabled(false);
-                }
+                buttonEnabled(Pattern.matches(REGEX_FAMILY,z)&&(IsLenOK(z,8,45)));
             }
 
             @Override
@@ -136,8 +139,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
+                mMemberEntered=z;
                 mMemberLight.setImageResource((Pattern.matches(REGEX_MEMBER,z)&&(IsLenOK(z,1,25)))?
                         R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+                buttonEnabled((Pattern.matches(REGEX_MEMBER,z)&&(IsLenOK(z,1,25))));
             }
 
             @Override
@@ -150,8 +155,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
+                mPwdEntered=z;
                 mPwdLight.setImageResource((Pattern.matches(REGEX_PWD,z)&&(IsLenOK(z,4,12)))?
                         R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+                buttonEnabled((Pattern.matches(REGEX_PWD,z)&&(IsLenOK(z,4,12))));
             }
 
             @Override
@@ -161,7 +168,28 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(testAndUpdateLight()){
-                    getStarted();
+                    mState=NEW_SESSION;
+                    getJSON();
+                }
+                t.testGo();
+            }
+        });
+        mNewMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(testAndUpdateLight()){
+                    mState=NEW_MEMBER;
+                    getJSON();
+                }
+                t.testGo();
+            }
+        });
+        mNewFamily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(testAndUpdateLight()){
+                    mState=NEW_FAMILY;
+                    getJSON();
                 }
                 t.testGo();
             }
@@ -169,7 +197,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    private void getJSON(final String urlWebService) {
+    private void getJSON() {
 
         class GetJSON extends AsyncTask<Void, Void, String> {
 
@@ -178,51 +206,111 @@ public class SplashActivity extends AppCompatActivity {
                 super.onPreExecute();
             }
 
-
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
- /*               try {
-                    loadIntoListView(s);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } */
+                ArrayList<User> memberFamily=parseJsonFamily(s);
+                if (s==null){
+                    mEnterMessage.setText(R.string.enter_err_com);
+                    return;
+                }
+                switch(mState){
+                    case NEW_SESSION : {
+                        if (memberFamily.size()==0) {
+                            mEnterMessage.setText(R.string.enter_err_member_wo_family);
+                            mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);}
+                        else {
+                            mEnterMessage.setText("Family found");
+                            User u= new User("","");
+                            for(User user:memberFamily){
+                                if (user.getName().equals(mMemberEntered)){u=user;}
+                            }
+                            if (u.getName().equals("")) {
+                                mEnterMessage.setText(R.string.enter_err_member_in_family);
+                                mMemberLight.setImageResource(R.drawable.ic_splash_light_red);
+                            } else {
+                                // **** Ready to go foe a new session ********************
+                                mEnterMessage.setText("Let us go for a new session");
+                            }
+                        }
+                        break;
+                    }
+                    case NEW_FAMILY : {
+                        if (memberFamily.size()==0) {
+                            mEnterMessage.setText("Welcome !");
+                            // create user ************************************************
+                            // start welcome page ****************************************
+                        }
+                        else {
+                            mEnterMessage.setText(R.string.enter_err_family_already);
+                            mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);;
+                        }
+                        break;
+                    }
+                    case NEW_MEMBER : {
+                        if (memberFamily.size()==0) {
+                            mEnterMessage.setText(R.string.enter_err_member_wo_family);
+                            mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);;
+                        }
+                        else {
+                            // family found
+                            User u= new User("","");
+                            for(User user:memberFamily){
+                                if (user.getName().equals(mMemberEntered)){u=user;}
+                            }
+                            if (u.getName().equals("")) {
+                                // ************** Ready to create member ****************
+                                mEnterMessage.setText("Let us go for a new member");
+                            } else {
+                                mEnterMessage.setText(R.string.enter_err_member_notin_family);
+                                mMemberLight.setImageResource(R.drawable.ic_splash_light_red);
+                            }
+                        }
+                        break;
+                    }
+                    default : {
+                        Log.d(TAG, "Switch case on mState anomaly : "+mState);
+                    }
+                }
             }
 
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL(urlWebService);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    String link=mSession.getURLPath()+PHPREQFAMILYCOMP;
+                    String data  = URLEncoder.encode("family", "UTF-8") + "=" +
+                            URLEncoder.encode(mFamilyEntered.trim(), "UTF-8");
+                    data += "&" + URLEncoder.encode("pwd", "UTF-8") + "=" +
+                            URLEncoder.encode(mPwdEntered.trim(), "UTF-8");
+                    URL url = new URL(link);
+                    URLConnection conn = url.openConnection();
+                    conn.setDoOutput(true);
+                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                    wr.write( data );
+                    wr.flush();
                     StringBuilder sb = new StringBuilder();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String json;
                     while ((json = bufferedReader.readLine()) != null) {
                          sb.append(json + "\n");
                     }
                     return sb.toString().trim();
                 } catch (Exception e) {
-                return null;
+                    return null;
                 }
+
             }
         }
 
     GetJSON getJSON = new GetJSON();
         getJSON.execute();
     }
-/*    private void loadIntoListView(String json) throws JSONException {
-        JSONArray jsonArray = new JSONArray(json);
-        String[] idrecipe = new String[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject obj = jsonArray.getJSONObject(i);
-            idrecipe[i] = obj.getString("lastupdate_recipe");
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, idrecipe);
-        mListView.setAdapter(arrayAdapter);
-    } */
 
     private void getStarted(){
+        //User user=new User(mFamilyEntered.trim(),mMemberEntered.trim());
+        //user.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+        // et le mettre dans sharedpref
+        //mSession.setStoredUser(user);
         Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
         startActivity(intent);
     }
@@ -230,10 +318,13 @@ public class SplashActivity extends AppCompatActivity {
     private void updateTop(){
         mEnterFamilyLbl.setText(R.string.splash_edit_family_label);
         mEnterFamily.setText(R.string.splash_edit_family_hint);
+        mFamilyEntered=getResources().getString(R.string.splash_edit_family_hint);
         mEnterMemberLbl.setText(R.string.splash_edit_member_label);
         mEnterMember.setText(R.string.splash_edit_member_hint);
+        mMemberEntered=getResources().getString(R.string.splash_edit_member_hint);
         mEnterPwdLbl.setText(R.string.splash_edit_pwd_label);
         mEnterPwd.setText(R.string.splash_edit_pwd_hint);
+        mPwdEntered=getResources().getString(R.string.splash_edit_pwd_hint);
         mEnterMessage.setText("");
         mNewSession.setText(R.string.splash_button_session_txt);
         mNewSessionTxt.setText(R.string.splash_button_session_expl);
@@ -279,4 +370,38 @@ public class SplashActivity extends AppCompatActivity {
         mEnterMessage.setText(message);
         return ret;
     }
+
+    public ArrayList<User> parseJsonFamily(String json){
+        ArrayList<User> ret=new ArrayList<User>();
+        User u;
+        String name,dateString;
+        UUID uuid;
+        Date date;
+        try {
+            JSONArray jarr1=new JSONArray(json);
+            for (int i=0; i<jarr1.length(); i++){
+                JSONObject obj = jarr1.getJSONObject(i);
+                name=obj.getString("name");
+                uuid=UUID.fromString(obj.getString("id_user"));
+                u=new User(mFamilyEntered, name );
+                u.setId(uuid);
+                dateString=obj.getString("last_sync");
+                date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateString);
+                u.setDate(date);
+                ret.add(u);
+            }
+        }
+        catch (Exception e){
+            //Log.d(TAG, "Failure in parsing JSON");
+        }
+
+        return ret;
+    }
+
+    private void buttonEnabled(Boolean b){
+        mNewSession.setEnabled(b);
+        mNewMember.setEnabled(b);
+        mNewFamily.setEnabled(b);
+    }
+
 }

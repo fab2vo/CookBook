@@ -2,6 +2,7 @@ package com.example.cookbook;
 
 import android.util.Log;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -9,13 +10,14 @@ public class User {
     private UUID mId;
     private String mFamily;
     private String mName;
+    private Date mDate;
     private static final String TAG = "DebugUser";
-
 
     public User(String family, String name){
         mFamily=family;
         mName=name;
         mId =UUID.randomUUID();
+        mDate=new Date();
     }
 
     public User(UUID uuid){
@@ -75,5 +77,11 @@ public class User {
 
     public boolean IsEqual(User r){return (mId==r.getId());}
 
+    public Date getDate() {
+        return mDate;
+    }
 
+    public void setDate(Date date) {
+        mDate = date;
+    }
 }

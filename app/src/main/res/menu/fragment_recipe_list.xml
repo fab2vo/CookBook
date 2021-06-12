@@ -11,5 +11,10 @@
         android:icon="@drawable/ic_menu_add"
         android:title="@string/new_recipe"
         app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/list_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="logout"
+        app:showAsAction="never|withText"/>
 
 </menu>
