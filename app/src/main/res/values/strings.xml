@@ -62,17 +62,17 @@
     <string name="splash_edit_family_label">Famille :</string>
     <string name="splash_edit_member_label">Prénom :</string>
     <string name="splash_edit_pwd_label">Mot de passe :</string>
-    <string name="splash_edit_family_hint">Devaux_Lion de ML</string> <!-- De Parpaing de Toulouse -->
+    <string name="splash_edit_family_hint">Bressac de Liège</string> <!-- De Parpaing de Toulouse -->
     <string name="splash_edit_member_hint">Marie-Jeanne</string> <!-- Marie-Jeanne -->
-    <string name="splash_edit_pwd_hint">cookbook</string> <!-- Marie-Jeanne -->
+    <string name="splash_edit_pwd_hint">cookbookbf</string> <!-- cookbook-->
     <string name="network_err_no_connection"> Pas de connection au serveur familycookbook </string>
-    <string name="enter_err_family"> Caracteres speciaux autorisés _-?!() et espace </string>
+    <string name="enter_err_family"> Caracteres speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
     <string name="enter_err_family_already"> Ce nom de famille existe déjà. Ajoutez une rue, une ville ou un chiffre </string>
-    <string name="enter_err_member"> Caracteres speciaux autorisés _- et pas d\'espace </string>
+    <string name="enter_err_member"> Caracteres speciaux autorisés _- et pas d\'espace. Min %1$s et max %2$s caractères. </string>
     <string name="enter_err_member_wo_family"> Nous n\'avons pas trouvé ce nom de famille. Vérifiez le menu sur l\'application d\'un membre de votre famille. </string>
     <string name="enter_err_member_in_family"> Nous n\'avons pas trouvé votre nom dans la famille. Vérifiez son orthographe. </string>
     <string name="enter_err_member_notin_family"> Il y a déjà un membre de la famille qui porte ce nom.  </string>
-    <string name="enter_err_pwd"> Caracteres speciaux autorisés _-?!() et pas d\'espace </string>
+    <string name="enter_err_pwd"> Caracteres speciaux autorisés _-?!() et pas d\'espace. Min %1$s et max %2$s caractères. </string>
     <string name="enter_err_com"> Erreur dans les échanges avec le serveur family cookbook </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
