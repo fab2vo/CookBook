@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
@@ -27,6 +29,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -54,6 +57,7 @@ public class SplashActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private ArrayList<User> memberFamily;
     private SessionInfo mSession;
+    private NetworkUtils mNetUtils;
     private int mState;
     private static final String TAG = "DebugSplashActivity";
     private final static int NEW_FAMILY=1;
@@ -68,6 +72,7 @@ public class SplashActivity extends AppCompatActivity {
     private static final String PHPREQFAMILYCOMP="getfamilycomposition.php";
     private static final String PHPREQNEWMEMBER="createnewmember.php";
     private static final String PHPREQNEWFAMILY="createnewfamily.php";
+    private static final String PHPREQUPLOADPHOTO="uploadphotointorecipe.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,7 @@ public class SplashActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.splash_progBar);
         progressBar.setProgress(0);
         mSession= SessionInfo.get(getApplicationContext());
+        mNetUtils=new NetworkUtils(getApplicationContext());
         mEnterMessage=(TextView) findViewById(R.id.splash_edit_message);
         mEnterMessage.setText("");
         ArrayList <User> memberFamily=new ArrayList<>();
@@ -290,6 +296,8 @@ public class SplashActivity extends AppCompatActivity {
                     } else mess="membre pas créé";
                 }
                 mEnterMessage.setText(mess);
+                Boolean test=upload("f819bcc2-ab09-4ed8-8a7c-98fade172da2","f819bcc2-ab09-4ed8-8a7c-98fade172da2");
+                mEnterMessage.setText("Upload result:"+test);
               // fin
                 return null;
             }
@@ -297,76 +305,65 @@ public class SplashActivity extends AppCompatActivity {
         GoAsyncTasks getAsync = new GoAsyncTasks();
         getAsync.execute();
     }
+/* HashMap<String,String> data = new HashMap<>();
+                data.put(UPLOAD_KEY, uploadImage);
+
+                String result = rh.sendPostRequest(UPLOAD_URL,data); */
 
     private String getFamilyComp(){
-        try {
-            String link=mSession.getURLPath()+PHPREQFAMILYCOMP;
-            String data  = URLEncoder.encode("family", "UTF-8") + "=" +
-                    URLEncoder.encode(mFamilyEntered.trim(), "UTF-8");
-            data += "&" + URLEncoder.encode("pwd", "UTF-8") + "=" +
-                    URLEncoder.encode(mPwdEntered.trim(), "UTF-8");
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
-            wr.flush();
-            StringBuilder sb = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String json;
-            while ((json = bufferedReader.readLine()) != null) {
-                sb.append(json + "\n");
-            }
-            return sb.toString().trim();
-        } catch (Exception e) {
-            return null;
-        }
+        HashMap<String,String> data = new HashMap<>();
+        data.put("family", mFamilyEntered.trim());
+        data.put("pwd", mPwdEntered.trim());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQFAMILYCOMP,data);
+        return result;
     }
 
     private Boolean createMember(int flag){
-        try {
-            String link=mSession.getURLPath();
-            if (flag==NEW_MEMBER) {
-                link=link+PHPREQNEWMEMBER;
+        String link=mSession.getURLPath();
+        if (flag==NEW_MEMBER) {
+            link=link+PHPREQNEWMEMBER;
+        } else {
+            if (flag==NEW_FAMILY) {
+                link=link+PHPREQNEWFAMILY;
             } else {
-                if (flag==NEW_FAMILY) {
-                    link=link+PHPREQNEWFAMILY;
-                } else {
-                    Log.d(TAG, "Function createmember flag bad value");
-                    return false;
-                }
-            }
-            String data  = URLEncoder.encode("family", "UTF-8") + "=" +
-                    URLEncoder.encode(mFamilyEntered.trim(), "UTF-8");
-            data += "&" + URLEncoder.encode("pwd", "UTF-8") + "=" +
-                    URLEncoder.encode(mPwdEntered.trim(), "UTF-8");
-            data += "&" + URLEncoder.encode("name", "UTF-8") + "=" +
-                    URLEncoder.encode(mMemberEntered.trim(), "UTF-8");
-            data += "&" + URLEncoder.encode("iduser", "UTF-8") + "=" +
-                    URLEncoder.encode(UUID.randomUUID().toString().trim(), "UTF-8");
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write( data );
-            wr.flush();
-            StringBuilder sb = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String json;
-            while ((json = bufferedReader.readLine()) != null) {
-                sb.append(json + "\n");
-            }
-            if (sb.toString().trim().equals("1")) {
-                Log.d(TAG, "Function createmember succeed");
-                return true;
-            } else {
-                Log.d(TAG, "Function createmember failed");
+                Log.d(TAG, "Function createmember flag bad value");
                 return false;
             }
-        } catch (Exception e) {
-            Log.d(TAG, "Function createmember feedback from php req : error catched");
+        }
+        HashMap<String,String> data = new HashMap<>();
+        data.put("family", mFamilyEntered.trim());
+        data.put("pwd", mPwdEntered.trim());
+        data.put("name", mMemberEntered.trim());
+        data.put("iduser", UUID.randomUUID().toString().trim());
+        String result = mNetUtils.sendPostRequestJson(link,data);
+        if (result.trim().equals("1")) {
+            Log.d(TAG, "Function createmember succeed");
+            return true;
+        } else {
+            Log.d(TAG, "Function createmember failed");
             return false;
         }
+    }
+    public Boolean upload(String idrecipeOfPhoto, String idrecipe_destination){
+        String link=mSession.getURLPath()+PHPREQUPLOADPHOTO;
+        UUID uuid=UUID.fromString(idrecipeOfPhoto);
+        CookBook cb=CookBook.get(getApplicationContext());
+        Recipe r=cb.getRecipe(uuid);
+        File file=cb.getPhotoFile(r);
+        Bitmap bitmap=PictureUtils.getBitmap(file.getPath());
+        if (bitmap==null){
+            Log.d(TAG, "Pas de bitmap !");
+            return false;
+        }
+        String uploadImage = PictureUtils.getStringImage(bitmap);
+        HashMap<String,String> data = new HashMap<>();
+        data.put("idrecipe", idrecipe_destination);
+        data.put("image", uploadImage);
+        String result = mNetUtils.sendPostRequestJson(link,data);
+        if (!result.trim().equals("1")) {
+            Log.d(TAG, "Function upload image failed");
+            return false;}
+        return true;
     }
 
     private void getStarted(){
@@ -402,7 +399,6 @@ public class SplashActivity extends AppCompatActivity {
         catch (Exception e){
             //Log.d(TAG, "Failure in parsing JSON");
         }
-
         return ret;
     }
 

@@ -29,7 +29,10 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -375,6 +378,9 @@ public class RecipeEditFragment extends Fragment {
             Uri uri=FileProvider.getUriForFile(getActivity(),
                     "com.example.cookbook.fileprovider", mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            if (!ResizePhoto(mRecipe)){
+                // pb
+            }
             updatePhotoView();
         }
     }
@@ -443,5 +449,37 @@ public class RecipeEditFragment extends Fragment {
         mNewIngBack.setVisibility((mIngNb==0)? gone:visible);
         mNewIngEnter.setVisibility((mIngNb==imax)? gone:visible);
         return ((mIngNb==imax)?gone:visible);
+    }
+
+
+    private Boolean ResizePhoto(Recipe r) {
+        File f = CookBook.get(getActivity()).getPhotoFile(r);
+        if (f==null || !f.exists()){
+            Log.d(TAG, "No file from Cookbook for this recipe :" + r.getTitle()+" Error CB004");
+            return false;
+        } else {
+            Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity(), 600);
+            f.delete();
+            try {
+                if(!f.createNewFile()) {
+                    Log.d(TAG, "File not deleted ! Error CB001");
+                    return false;
+                }
+            } catch (IOException e) {
+                Log.d(TAG, "Error in creating new file : "+e+" Error CB002");
+                return false;
+            }
+            try {
+
+                FileOutputStream fOut = new FileOutputStream(f);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                fOut.flush();
+                fOut.close();
+                return true;
+            } catch (IOException e) {
+                Log.d(TAG, "Error in reducing and saving file "+" Error CB003");
+                return false;
+            }
+        }
     }
 }
