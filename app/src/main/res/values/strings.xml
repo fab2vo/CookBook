@@ -53,12 +53,8 @@
     <string name="splash_moto_txt">FamilyCookBook votre livre de recettes à partager en famille et avec vos amis</string>
 
     <string name="splash_button_session_txt">Ouvrir mon livre</string>
-    <string name="splash_button_session_expl"> Pour ouvrir votre livre de cuisine existant, avec votre nom, celui de la famille et son mot de passe.</string>
     <string name="splash_button_member_txt"> Nouveau membre de la famille</string>
-    <string name="splash_button_member_expl"> Pour créer un nouveau membre de la famille participant au livre de famille existant. Cela nécessite le mot de passe de la famille. </string>
     <string name="splash_button_family_txt"> Nouveau livre de famille</string>
-    <string name="splash_button_family_expl"> Pour crééer une nouvelle famille et son livre de cuisine.
-        Il faut définir un nom de famille et son mot de passe, et démarrer avec vous comme 1er membre.</string>
     <string name="splash_edit_family_label">Famille :</string>
     <string name="splash_edit_member_label">Prénom :</string>
     <string name="splash_edit_pwd_label">Mot de passe :</string>
@@ -74,6 +70,9 @@
     <string name="enter_err_member_notin_family"> Il y a déjà un membre de la famille qui porte ce nom.  </string>
     <string name="enter_err_pwd"> Caracteres speciaux autorisés _-?!() et pas d\'espace. Min %1$s et max %2$s caractères. </string>
     <string name="enter_err_com"> Erreur dans les échanges avec le serveur family cookbook </string>
+    <string name="enter_noerr_new_member"> Nouveau livre Family CookBook créé </string>
+    <string name="enter_err_new_member"> Echec dans la creation du livre CookBook Family </string>
+    <string name="enter_err_wrong_pass"> Mot de passe incorrect </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

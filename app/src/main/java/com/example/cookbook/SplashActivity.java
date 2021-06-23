@@ -2,11 +2,15 @@ package com.example.cookbook;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,13 +23,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
     private String mFamilyEntered;
     private String mMemberEntered;
     private String mPwdEntered;
+    private String mPwdRead;
     private TextView mEnterFamilyLbl;
     private EditText mEnterFamily;
     private TextView mEnterMemberLbl;
@@ -46,15 +45,11 @@ public class SplashActivity extends AppCompatActivity {
     private EditText mEnterPwd;
     private TextView mEnterMessage;
     private Button mNewSession;
-    private TextView mNewSessionTxt;
-    private ImageView mPwdLight;
     private Button mNewMember;
-    private TextView mNewMemberTxt;
-    private ImageView mMemberLight;
     private Button mNewFamily;
-    private TextView mNewFamilyTxt;
-    private ImageView mFamilyLight;
     private ProgressBar mProgressBar;
+    private ImageView mNetAnim;
+    private AnimationDrawable frameNetAnim;
     private ArrayList<User> memberFamily;
     private SessionInfo mSession;
     private NetworkUtils mNetUtils;
@@ -112,21 +107,20 @@ public class SplashActivity extends AppCompatActivity {
         ////
         mEnterFamilyLbl=(TextView) findViewById(R.id.splash_edit_family_lbl);
         mEnterFamily=(EditText) findViewById(R.id.splash_edit_family);
-        mFamilyLight=(ImageView) findViewById(R.id.splash_edit_family_light);
         mEnterMemberLbl=(TextView) findViewById(R.id.splash_edit_member_lbl);
         mEnterMember=(EditText) findViewById(R.id.splash_edit_member);
-        mMemberLight=(ImageView) findViewById(R.id.splash_edit_member_light);
         mEnterPwdLbl=(TextView) findViewById(R.id.splash_edit_pwd_lbl);
         mEnterPwd=(EditText) findViewById(R.id.splash_edit_pwd);
-        mPwdLight=(ImageView) findViewById(R.id.splash_edit_pwd_light);
         mNewSession=(Button) findViewById(R.id.splash_button_session);
-        mNewSessionTxt=(TextView) findViewById(R.id.splash_button_session_textview);
         mNewMember=(Button) findViewById(R.id.splash_button_member);
-        mNewMemberTxt=(TextView) findViewById(R.id.splash_button_member_textview);
         mNewFamily=(Button) findViewById(R.id.splash_button_family);
-        mNewFamilyTxt=(TextView) findViewById(R.id.splash_button_family_textview);
         updateTop();
         mProgressBar=(ProgressBar) findViewById(R.id.splash_progBar);
+        mNetAnim=(ImageView) findViewById(R.id.net_anim);
+        mNetAnim.setBackgroundResource(R.drawable.network_animation);
+        mNetAnim.setVisibility(View.INVISIBLE);
+        frameNetAnim = (AnimationDrawable) mNetAnim.getBackground();
+        updateDisplayOnAsync(false);
 
         mEnterFamily.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,9 +130,9 @@ public class SplashActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
                 mFamilyEntered=z;
-                Integer d=getDrawableOnCondition(z,NEW_FAMILY);
-                mFamilyLight.setImageResource(d);
-                buttonEnabled((d==R.drawable.ic_splash_light_green));
+                Integer d= getColorOnCondition(z,NEW_FAMILY);
+                mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
+                buttonEnabled((d==R.color.bg_enter_val));
             }
 
             @Override
@@ -152,9 +146,9 @@ public class SplashActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
                 mMemberEntered=z;
-                Integer d=getDrawableOnCondition(z,NEW_MEMBER);
-                mMemberLight.setImageResource(d);
-                buttonEnabled((d==R.drawable.ic_splash_light_green));
+                Integer d= getColorOnCondition(z,NEW_MEMBER);
+                mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
+                buttonEnabled((d==R.color.bg_enter_val));
             }
 
             @Override
@@ -168,9 +162,9 @@ public class SplashActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String z=s.toString();
                 mPwdEntered=z;
-                Integer d=getDrawableOnCondition(z,NEW_PWD);
-                mPwdLight.setImageResource(d);
-                buttonEnabled((d==R.drawable.ic_splash_light_green));
+                Integer d= getColorOnCondition(z,NEW_PWD);
+                mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
+                buttonEnabled((d==R.color.bg_enter_val));
             }
 
             @Override
@@ -179,8 +173,9 @@ public class SplashActivity extends AppCompatActivity {
         mNewSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectAndDisplay()){
+                if(testConnectStatus()){
                     mState=NEW_SESSION;
+                    updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
                 t.testGo();
@@ -189,8 +184,9 @@ public class SplashActivity extends AppCompatActivity {
         mNewMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectAndDisplay()){
+                if(testConnectStatus()){
                     mState=NEW_MEMBER;
+                    updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
                 t.testGo();
@@ -199,13 +195,31 @@ public class SplashActivity extends AppCompatActivity {
         mNewFamily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectAndDisplay()){
+                if(testConnectStatus()){
                     mState=NEW_FAMILY;
+                    updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
                 t.testGo();
             }
         });
+    }
+
+    public void ShowHidePass(View view){
+        if(view.getId()==R.id.show_pass_btn){
+            if(mEnterPwd.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                ((ImageView)(view)).setImageResource(R.drawable.ic_pwd_no_vis);
+                //Show Password
+                mEnterPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                ((ImageView)(view)).setImageResource(R.drawable.ic_pwd_vis);
+
+                //Hide Password
+                mEnterPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+            }
+        }
     }
     private void updateTop(){
         mEnterFamilyLbl.setText(R.string.splash_edit_family_label);
@@ -219,29 +233,54 @@ public class SplashActivity extends AppCompatActivity {
         mPwdEntered=getResources().getString(R.string.splash_edit_pwd_hint);
         mEnterMessage.setText("");
         mNewSession.setText(R.string.splash_button_session_txt);
-        mNewSessionTxt.setText(R.string.splash_button_session_expl);
         mNewMember.setText(R.string.splash_button_member_txt);
-        mNewMemberTxt.setText(R.string.splash_button_member_expl);
         mNewFamily.setText(R.string.splash_button_family_txt);
-        mNewFamilyTxt.setText(R.string.splash_button_family_expl);
     }
+
+    private void updateDisplayOnAsync(Boolean b){
+        int indNet,indClick;
+        if (b){
+            indNet=View.VISIBLE;
+            indClick=View.INVISIBLE;
+            frameNetAnim.start();
+            mProgressBar.setProgress(1);
+        }
+        else {
+            indNet=View.INVISIBLE;
+            indClick=View.VISIBLE;
+            frameNetAnim.stop();
+            mProgressBar.setProgress(0);
+        }
+        mNetAnim.setVisibility(indNet);
+        mProgressBar.setVisibility(indNet);
+        mNewFamily.setVisibility(indClick);
+        mNewMember.setVisibility(indClick);
+        mNewSession.setVisibility(indClick);
+    }
+
     private Boolean IsLenOK(String s, int min, int max){
         int l=s.length();
         return ((l>min)&&(l<max));
     }
 
-    private Integer getDrawableOnCondition(String z, Integer state){
+    private Integer getColorOnCondition(String z, Integer state){
         state=state-1;
         int retDraw =0;
+        int TRUE=R.color.bg_enter_val;
+        int FALSE=R.color.light_red;
         retDraw=((Pattern.matches(REGEX[state],z)&&(IsLenOK(z,MINMAX[state][0],MINMAX[state][1])))?
-                R.drawable.ic_splash_light_green : R.drawable.ic_splash_light_red);
+                TRUE : FALSE);
         Integer err_mess[]={R.string.enter_err_family,R.string.enter_err_member,R.string.enter_err_pwd};
-        if (retDraw==R.drawable.ic_splash_light_red){
+        if (retDraw==FALSE){
         mEnterMessage.setText(getResources().getString(err_mess[state],MINMAX[state][0],MINMAX[state][1]));}
         else {mEnterMessage.setText("");}
         return retDraw;
     }
-    private Boolean testConnectAndDisplay(){
+
+    private Boolean testConnectStatus(){
+        mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
+        mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
+        mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
         Boolean ret=true;
         String message="";
         if(!mSession.IsConnected()){
@@ -252,6 +291,7 @@ public class SplashActivity extends AppCompatActivity {
         return ret;
     }
 
+    // ******************* ASYNC *****************************************
 
     private void goAsyncTasks() {
 
@@ -265,39 +305,31 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
- /*               if (s==null){
-                    mEnterMessage.setText(R.string.enter_err_com);
-                    return;
-                }
-                else {
-                    memberFamily=parseJsonFamily(s);
-                }
-                goFamilyGet(); */
+                updateDisplayOnAsync(false);
             }
 
             @Override
             protected String doInBackground(Void... voids) {
                 String s=getFamilyComp();
+                mProgressBar.setProgress(2);
                 if (s==null){
                     mEnterMessage.setText(R.string.enter_err_com);
-                    return null;
-                }
-                else {
-                    memberFamily=parseJsonFamily(s);
-                }
+                    return null; } else {
+                    memberFamily=parseJsonFamily(s); }
                 mProgressBar.setProgress(5);
                 Integer cas=goFamilyGet();
-                Log.d(TAG, "DoBackGround Retour goFamilyGet : >"+cas+"<");
-                String mess="Attention creation";
+                Log.d(TAG, "goFamoGet :>"+cas+"<");
+                if (cas==0) { return null;}
                 if ((cas==NEW_FAMILY)||(cas==NEW_MEMBER)){
                     if (createMember(cas)){
-                        mess="membre créé";
                         mProgressBar.setProgress(10);
-                    } else mess="membre pas créé";
+                        mEnterMessage.setText(getString(R.string.enter_noerr_new_member));
+                    } else {
+                        mEnterMessage.setText(getString(R.string.enter_err_new_member));
+                        return null;}
                 }
-                mEnterMessage.setText(mess);
-                Boolean test=upload("f819bcc2-ab09-4ed8-8a7c-98fade172da2","f819bcc2-ab09-4ed8-8a7c-98fade172da2");
-                mEnterMessage.setText("Upload result:"+test);
+                //Boolean test=upload("f819bcc2-ab09-4ed8-8a7c-98fade172da2","f819bcc2-ab09-4ed8-8a7c-98fade172da2");
+                //mEnterMessage.setText("Upload result:"+test);
               // fin
                 return null;
             }
@@ -305,15 +337,10 @@ public class SplashActivity extends AppCompatActivity {
         GoAsyncTasks getAsync = new GoAsyncTasks();
         getAsync.execute();
     }
-/* HashMap<String,String> data = new HashMap<>();
-                data.put(UPLOAD_KEY, uploadImage);
-
-                String result = rh.sendPostRequest(UPLOAD_URL,data); */
 
     private String getFamilyComp(){
         HashMap<String,String> data = new HashMap<>();
         data.put("family", mFamilyEntered.trim());
-        data.put("pwd", mPwdEntered.trim());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQFAMILYCOMP,data);
         return result;
     }
@@ -382,6 +409,7 @@ public class SplashActivity extends AppCompatActivity {
         String name,dateString;
         UUID uuid;
         Date date;
+        mPwdRead="";
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
@@ -394,6 +422,7 @@ public class SplashActivity extends AppCompatActivity {
                 date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateString);
                 u.setDate(date);
                 ret.add(u);
+                mPwdRead=obj.getString("pass");
             }
         }
         catch (Exception e){
@@ -413,7 +442,7 @@ public class SplashActivity extends AppCompatActivity {
             case NEW_SESSION : {
                 if (memberFamily.size()==0) {
                     mEnterMessage.setText(R.string.enter_err_member_wo_family);
-                    mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);}
+                    mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red)); }
                 else {
                     mEnterMessage.setText("Family found");
                     User u= new User("","");
@@ -422,11 +451,14 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     if (u.getName().equals("")) {
                         mEnterMessage.setText(R.string.enter_err_member_in_family);
-                        mMemberLight.setImageResource(R.drawable.ic_splash_light_red);
+                        mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                     } else {
-                        // **** Ready to go foe a new session ********************
+                        if (!mPwdRead.equals(mPwdEntered.trim())){
+                            mEnterMessage.setText(R.string.enter_err_wrong_pass);
+                            mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
+                        } else {
                         mEnterMessage.setText("Let us go for a new session");
-                        return NEW_SESSION;
+                        return NEW_SESSION; }
                     }
                 }
                 break;
@@ -434,19 +466,18 @@ public class SplashActivity extends AppCompatActivity {
             case NEW_FAMILY : {
                 if (memberFamily.size()==0) {
                     mEnterMessage.setText("Welcome !");
-                    // create user ************************************************
                     return NEW_FAMILY;
                 }
                 else {
                     mEnterMessage.setText(R.string.enter_err_family_already);
-                    mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);;
+                    mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                 }
                 break;
             }
             case NEW_MEMBER : {
                 if (memberFamily.size()==0) {
                     mEnterMessage.setText(R.string.enter_err_member_wo_family);
-                    mFamilyLight.setImageResource(R.drawable.ic_splash_light_red);;
+                    mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                 }
                 else {
                     // family found
@@ -455,12 +486,15 @@ public class SplashActivity extends AppCompatActivity {
                         if (user.getName().equals(mMemberEntered)){u=user;}
                     }
                     if (u.getName().equals("")) {
-                        // ************** Ready to create member ****************
+                        if (!mPwdRead.equals(mPwdEntered.trim())){
+                            mEnterMessage.setText(R.string.enter_err_wrong_pass);
+                            mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
+                        } else {
                         mEnterMessage.setText("Let us go for a new member");
-                        return NEW_MEMBER;
+                        return NEW_MEMBER;}
                     } else {
                         mEnterMessage.setText(R.string.enter_err_member_notin_family);
-                        mMemberLight.setImageResource(R.drawable.ic_splash_light_red);
+                        mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                     }
                 }
                 break;

@@ -23,24 +23,35 @@
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         tools:text="@string/splash_moto_txt" />
-
-    <ProgressBar
-        android:id="@+id/splash_progBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressTint="@color/fg_icon"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="50.0dip"
-        android:layout_marginRight="50.0dip"
-        android:layout_marginTop="36dp"
-        android:focusable="false"
-        android:maxHeight="20dip"
-        android:minHeight="20dip"
-        android:paddingLeft="28dp"
-        android:paddingRight="28dp" />
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/splash_progBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50.0dip"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="50.0dip"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"
+            android:maxHeight="20dip"
+            android:minHeight="20dip"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
+            android:progressTint="@color/fg_icon" />
+        <ImageView
+            android:id="@+id/net_anim"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_wifi_0" />
+    </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,14 +69,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/splash_edit_family_label" />
-                <ImageView
-                    android:id="@+id/splash_edit_family_light"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light_green"
-                    />
                 <EditText
                     android:id="@+id/splash_edit_family"
                     style="@style/EnterValueField"
@@ -88,14 +91,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/splash_edit_member_label" />
-                <ImageView
-                    android:id="@+id/splash_edit_member_light"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light_green"
-                    />
                 <EditText
                     android:id="@+id/splash_edit_member"
                     style="@style/EnterValueField"
@@ -118,22 +113,32 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/splash_edit_pwd_label" />
-                <ImageView
-                    android:id="@+id/splash_edit_pwd_light"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_splash_light_green" />
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
                 <EditText
                     android:id="@+id/splash_edit_pwd"
                     style="@style/EnterValueField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:inputType="textPassword"
                     android:layout_marginEnd="16dp"
+                    android:inputType="textPassword"
                     android:text="@string/splash_edit_pwd_hint" />
+                <ImageView
+                    android:id="@+id/show_pass_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="24dp"
+                    android:alpha=".5"
+                    android:onClick="ShowHidePass"
+                    android:src="@drawable/ic_pwd_vis" />
+                </RelativeLayout>
             </LinearLayout>
             <TextView
                 android:id="@+id/splash_edit_message"
@@ -143,71 +148,37 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_height="60dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/splash_button_family"
                     android:layout_marginStart="16dp"
-                    android:layout_width="170dp"
-                    android:layout_height="64dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     style="@style/ButtonCookBook"
                     tools:text="@string/splash_button_family_txt"/>
-                <TextView
-                    android:id="@+id/splash_button_family_textview"
-                    android:layout_width="match_parent"
-                    style="@style/CookBookText.Small"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/splash_button_family_expl"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/splash_button_member"
                     android:layout_marginStart="16dp"
-                    android:layout_width="170dp"
-                    android:layout_height="64dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     style="@style/ButtonCookBook"
                     tools:text="@string/splash_button_member_txt"/>
 
-                <TextView
-                    android:id="@+id/splash_button_member_textview"
-                    style="@style/CookBookText.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/splash_button_member_expl"
-                    tools:padding="4dp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
                 <Button
                     android:id="@+id/splash_button_session"
                     android:layout_marginStart="16dp"
-                    android:layout_width="170dp"
-                    android:layout_height="64dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     style="@style/ButtonCookBook"
                     tools:text="@string/splash_button_session_txt"/>
-                <TextView
-                    android:id="@+id/splash_button_session_textview"
-                    style="@style/CookBookText.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/splash_button_session_expl"
-                    tools:padding="4dp" />
-            </LinearLayout>
+
+
         </LinearLayout>
 </LinearLayout>
