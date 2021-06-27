@@ -35,7 +35,7 @@ public class CookBook {
           mContext=context.getApplicationContext();
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
-          //For initialisation of recipedB database : adding random recipes
+          //For initialisation of recipedB database : adding random recipes*********************
           //for (int i = 0; i < 5; i++){addRecipe(randomRecipe());}
           //addRecipe(MyOldRecipe());
     }
@@ -74,6 +74,7 @@ public class CookBook {
 
     public void addRecipe(Recipe r){
  //       mRecipes.add(r);
+        r.setDate(new Date());
         ContentValues values=getContentValues(r);
         mDatabase.insert(RecipeDbSchema.RecipeTable.NAME, null, values);
     }
@@ -107,6 +108,8 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE, recipe.getSource());
         values.put(RecipeDbSchema.RecipeTable.Cols.SOURCE_URL, recipe.getSource_url().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.DATE, recipe.getDate().getTime());
+        if (recipe.getDatePhoto()!=null){
+        values.put(RecipeDbSchema.RecipeTable.Cols.DATE_PHOTO, recipe.getDatePhoto().getTime());}
         values.put(RecipeDbSchema.RecipeTable.Cols.NBPERS, recipe.getNbPers());
         for(int i=0;i<recipe.getNbStepMax();i++){
             values.put(RecipeDbSchema.RecipeTable.Cols.STEP[i], recipe.getStep(i+1));
@@ -117,7 +120,10 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.COMMENTS, recipe.getSerializedComments());
+        values.put(RecipeDbSchema.RecipeTable.Cols.STATUS, recipe.getStatus().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTES, recipe.getSerializedNotes());
+        values.put(RecipeDbSchema.RecipeTable.Cols.MESSAGE, recipe.getMessage());
+        values.put(RecipeDbSchema.RecipeTable.Cols.MESSAGE_FROM, recipe.getSerializedFrom());
         return values;
     }
 
@@ -136,6 +142,21 @@ public class CookBook {
             success=true;
         }
         return success;
+    }
+
+    public void clearCookBook(){
+        List<Recipe> recipes=new ArrayList<>();
+        recipes=getRecipes();
+        for (Recipe r:recipes){
+            deleteImage(r);
+            removeRecipe(r);
+        }
+    }
+
+    public void fillCookBook(List<Recipe> recipes){
+        for(Recipe r:recipes){
+            addRecipe(r);
+        }
     }
 
     // methode pour generer des recettes aléatoires pour la phase de mise au point
@@ -195,13 +216,15 @@ public class CookBook {
         r.setStep(8,"");
         r.setStep(9,"");
         r.setDate(new Date());
+        Calendar c=Calendar.getInstance();
+        c.set(2000,1,1,0,0);
+        r.setDatePhoto(c.getTime());
         int ix=rand.nextInt(7)+3;
         for(int i=0; i<ix;i++){
             r.setIngredient(i+1,iNum[rand.nextInt(5)]+" "+
                     iUnit[rand.nextInt(5)]+" de "+iIngt[rand.nextInt(8)]);
         }
         Date d=new Date();
-        Calendar c = Calendar.getInstance();
         Comment comment;
         Note note;
         for(int i=0; i<rand.nextInt(5);i++){
@@ -226,6 +249,9 @@ public class CookBook {
         fab.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
         r=new Recipe();
         r.setOwner(fab);
+        Calendar c=Calendar.getInstance();
+        c.set(2000,1,1,0,0);
+        r.setDatePhoto(c.getTime());
         r.setId(UUID.fromString("f819bcc2-ab09-4ed8-8a7c-98fade172da2")); // to recover the image
         r.setTitle("Lasagnes pour Lucile");
         r.setSource("Moi");

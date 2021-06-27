@@ -58,4 +58,10 @@ public class PictureUtils {
         return encodedImage;
     }
 
+    public static Bitmap getBitmapFromString(String s){
+        byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
+    }
+
 }

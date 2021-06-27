@@ -58,9 +58,9 @@
     <string name="splash_edit_family_label">Famille :</string>
     <string name="splash_edit_member_label">Prénom :</string>
     <string name="splash_edit_pwd_label">Mot de passe :</string>
-    <string name="splash_edit_family_hint">Bressac de Liège</string> <!-- De Parpaing de Toulouse -->
-    <string name="splash_edit_member_hint">Marie-Jeanne</string> <!-- Marie-Jeanne -->
-    <string name="splash_edit_pwd_hint">cookbookbf</string> <!-- cookbook-->
+    <string name="splash_edit_family_hint">Devaux_Lion de ML</string> <!-- De Parpaing de Toulouse -->
+    <string name="splash_edit_member_hint">Fabrice</string> <!-- Marie-Jeanne -->
+    <string name="splash_edit_pwd_hint">cookbook</string> <!-- cookbook-->
     <string name="network_err_no_connection"> Pas de connection au serveur familycookbook </string>
     <string name="enter_err_family"> Caracteres speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
     <string name="enter_err_family_already"> Ce nom de famille existe déjà. Ajoutez une rue, une ville ou un chiffre </string>

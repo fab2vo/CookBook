@@ -381,6 +381,7 @@ public class RecipeEditFragment extends Fragment {
             if (!ResizePhoto(mRecipe)){
                 // pb
             }
+            mRecipe.setDatePhoto(new Date());
             updatePhotoView();
         }
     }

@@ -16,7 +16,6 @@ import java.net.URL;
 //***********************************************************
 
 public class TestConnection {
-    private static String URLPATH="http://82.66.37.73:8085/cb/";
     private static String PHP204="return204.php";
     private static final String TAG = "DebugTestConnection";
     private SessionInfo mSession;

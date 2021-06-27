@@ -1,23 +1,22 @@
 package com.example.cookbook;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-
+enum StatusRecipe {Submitted,Visible, Deleted };
 public class Recipe {
     private UUID mId;
     private User mOwner;
-    private Date mDate;                     //date de dernière modification en local
+    private Date mLastUpdateRecipe;
+    private Date mLastUpdatePhoto;
     private String mTitle;
     private String mSource;
     private URL mSource_url;
@@ -29,12 +28,16 @@ public class Recipe {
     private RecipeSeason mSeason;
     private RecipeDifficulty mDifficulty;
     private String[] mIngredients;
+    private StatusRecipe mStatus;   // mettre à jour affichage
+    private String mMessage;
+    private User mIdFrom;
+
 
     private static final int NBSTEP_MAX=9;
     private static final int NBING_MAX=15;
     private static final int NBCOM_MAX=20;
     private String TAG="DebugRecipe";
-    private String DEFAULT_URL="https://wwww.familycookbook.com";
+    private String DEFAULT_URL="https://wwww.cookbookfamily.com";
 
 
 
@@ -44,7 +47,10 @@ public class Recipe {
 
     public Recipe( UUID id){
         mId=id;
-        mDate=new Date();
+        mLastUpdateRecipe =new Date();
+        Calendar c=Calendar.getInstance();
+        c.set(2000,1,1,0,0);
+        mLastUpdateRecipe=c.getTime();
         mSteps = new String[NBSTEP_MAX];
         mIngredients= new String[NBING_MAX];
         for(int i=0;i<NBSTEP_MAX;i++){mSteps[i]="";}
@@ -52,8 +58,10 @@ public class Recipe {
         mNbPers=4;
         mSeason=RecipeSeason.ALLYEAR;
         mDifficulty=RecipeDifficulty.UNDEFINED;
+        mStatus=StatusRecipe.Visible;
         mComments=new ArrayList<Comment>();
         mNotes=new ArrayList<Note>();
+        mIdFrom=new User(UUID.fromString( "00000000-0000-0000-0000-000000000000" ));
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
     }
@@ -63,19 +71,27 @@ public class Recipe {
         return mId;
     }
 
+    public User getUserFrom() {
+        return mIdFrom;
+    }
+
     public void setId(UUID id) {mId = id; }
 
     public Date getDate() {
-        return mDate;
+        return mLastUpdateRecipe;
+    }
+
+    public Date getDatePhoto() {
+        return mLastUpdatePhoto;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public void setDate(Date date) {
-        mDate = date;
-    }
+    public void setDate(Date date) {mLastUpdateRecipe = date;}
+
+    public void setDatePhoto(Date date) {mLastUpdatePhoto = date;}
 
     public void setTitle(String title) {
         mTitle = title;
@@ -87,6 +103,14 @@ public class Recipe {
 
     public void setNbPers(int nbPers) {
         mNbPers = nbPers;
+    }
+
+    public String getMessage() {
+        return mMessage;
+    }
+
+    public void setMessage(String message) {
+        mMessage=message;
     }
 
     // -----------------STEP-------------------
@@ -200,6 +224,15 @@ public class Recipe {
         mDifficulty = difficulty;
     }
 
+    public StatusRecipe getStatus() {return mStatus;}
+    public void setStatus(StatusRecipe s) {
+        mStatus = s;
+    }
+    public boolean IsVisible(){
+        if (mStatus==StatusRecipe.Visible) {return true;}
+        return false;
+    }
+
     //-------------------- photo filename---------------------
 
     public String getPhotoFilename(){
@@ -252,9 +285,17 @@ public class Recipe {
         Gson gson = new Gson();
         return gson.toJson(mOwner);
     }
+    public String getSerializedFrom(){
+        Gson gson = new Gson();
+        return gson.toJson(mIdFrom);
+    }
     public void getOwnerDeserialized(String raw){
         Gson gson=new Gson();
         mOwner=gson.fromJson(raw, User.class);
+    }
+    public void getFromDeserialized(String raw){
+        Gson gson=new Gson();
+        mIdFrom=gson.fromJson(raw, User.class);
     }
 
     public String getSerializedNotes(){
