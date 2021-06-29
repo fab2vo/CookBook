@@ -31,7 +31,10 @@ import android.widget.Toolbar;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 //-------------------------------------------------------------------------------------------------
 // print 24/5/2021
 // Saved GitHUb V01
@@ -119,7 +122,7 @@ public class RecipeListFragment extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.list_logout:
-                //mSession.clearStoredUser();**************************************************************
+                mSession.setReqNewSession(true);
                 Intent intent2=new Intent(getActivity().getApplicationContext(), SplashActivity.class);
                 startActivity(intent2);
                 return true;
@@ -130,7 +133,13 @@ public class RecipeListFragment extends Fragment {
 
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
-        List<Recipe> recipes=cookbook.getRecipes();
+        List<Recipe> recipes_in=cookbook.getRecipes();
+        List<Recipe> recipes=recipes_in;
+        for(Recipe r:recipes_in){
+            if (!r.IsVisible()){
+                recipes.remove(r);
+            }
+        }
         if ((mSortOption & maskSortTitle) == maskSortTitle) {
             Collections.sort(recipes,
                     (r1, r2)->{return(r1.getTitle().compareTo(r2.getTitle()));});}

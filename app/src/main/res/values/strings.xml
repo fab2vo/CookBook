@@ -70,9 +70,12 @@
     <string name="enter_err_member_notin_family"> Il y a déjà un membre de la famille qui porte ce nom.  </string>
     <string name="enter_err_pwd"> Caracteres speciaux autorisés _-?!() et pas d\'espace. Min %1$s et max %2$s caractères. </string>
     <string name="enter_err_com"> Erreur dans les échanges avec le serveur family cookbook </string>
-    <string name="enter_noerr_new_member"> Nouveau livre Family CookBook créé </string>
     <string name="enter_err_new_member"> Echec dans la creation du livre CookBook Family </string>
     <string name="enter_err_wrong_pass"> Mot de passe incorrect </string>
+    <string name="enter_noerr_fam_found"> Nom de famille trouvé. </string>
+    <string name="enter_noerr_new_session"> Ouvrons ce livre de cuisine,  </string>
+    <string name="enter_noerr_welcome"> Votre nouveau livre de cuisine est ouvert !  </string>
+    <string name="enter_noerr_new_member"> Bienvenue dans votre nouveau livre de cuisine ! </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

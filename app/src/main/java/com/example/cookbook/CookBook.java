@@ -19,7 +19,6 @@ import java.util.UUID;
 
 public class CookBook {
     private static CookBook ourInstance ;
-//    private List<Recipe> mRecipes;
     private Context mContext;
     private SQLiteDatabase mDatabase;
     private static final String TAG = "DebugCookbook";
@@ -36,6 +35,7 @@ public class CookBook {
           mDatabase=new RecipeBaseHelper(mContext)
                   .getWritableDatabase();
           //For initialisation of recipedB database : adding random recipes*********************
+        // todo effacer les recettes d'initialisation
           //for (int i = 0; i < 5; i++){addRecipe(randomRecipe());}
           //addRecipe(MyOldRecipe());
     }

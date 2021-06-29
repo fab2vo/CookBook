@@ -14,6 +14,12 @@ public class Note {
         mDate=new Date();
     }
 
+    public Note(Integer note, User u, Date d){
+        mNote=note;
+        mUser=u;
+        mDate=d;
+    }
+
     public Integer getNote() {
         return mNote;
     }

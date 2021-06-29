@@ -13,6 +13,11 @@ public class Comment {
         mUser=u;
         mDate=new Date();
     }
+    public Comment(String s, User u, Date d){
+        mTxt=s;
+        mUser=u;
+        mDate=d;
+    }
 
     public String getTxt() {
         return mTxt;

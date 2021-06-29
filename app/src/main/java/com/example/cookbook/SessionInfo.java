@@ -17,6 +17,7 @@ public class SessionInfo {
     private User mUser;
     private Context mContext;
     private Boolean mIsConnected;
+    private Boolean mReqNewSession;
     private String CB_FAMILY="family";
     private String CB_NAME="name";
     private String CB_ID="iduser";
@@ -36,6 +37,7 @@ public class SessionInfo {
     private SessionInfo(Context context) {
         mContext=context.getApplicationContext();
         mIsConnected=false;
+        mReqNewSession=false;
         String sharedPref;
         sharedPref= PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(CB_ID, NOT_FOUND);
@@ -64,6 +66,7 @@ public class SessionInfo {
                 .putString(CB_NAME, user.getName())
                 .putString(CB_ID, user.getId().toString())
                 .apply();
+        mUser=user;
     }
     public void clearStoredUser(){
         SharedPreferences settings = mContext.getSharedPreferences("PreferencesName", Context.MODE_PRIVATE);
@@ -76,6 +79,14 @@ public class SessionInfo {
     public Boolean IsEmpty(){
         if (mUser.getName().equals(NOT_FOUND)){return true;}
         return false;
+    }
+
+    public Boolean IsReqNewSession() {
+        return mReqNewSession;
+    }
+
+    public void setReqNewSession(Boolean reqNewSession) {
+        mReqNewSession = reqNewSession;
     }
 
     public void setConnection(Boolean b){
