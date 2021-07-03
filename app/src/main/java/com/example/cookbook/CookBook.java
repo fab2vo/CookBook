@@ -21,7 +21,7 @@ public class CookBook {
     private static CookBook ourInstance ;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    private static final String TAG = "DebugCookbook";
+    private static final String TAG = "CB_Cookbook";
 
     public static CookBook get(Context context) {
         if (ourInstance==null){
@@ -87,6 +87,12 @@ public class CookBook {
         return;
     }
 
+    public void markRecipeToDelete(Recipe r){
+        r.setStatus(StatusRecipe.Deleted);
+        updateRecipe(r);
+        return;
+    }
+
     public List<Recipe> getRecipes(){
           List<Recipe> recipes=new ArrayList<>();
           RecipeCursorWrapper cursor=queryRecipes(null, null);
@@ -124,6 +130,10 @@ public class CookBook {
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTES, recipe.getSerializedNotes());
         values.put(RecipeDbSchema.RecipeTable.Cols.MESSAGE, recipe.getMessage());
         values.put(RecipeDbSchema.RecipeTable.Cols.MESSAGE_FROM, recipe.getSerializedFrom());
+        values.put(RecipeDbSchema.RecipeTable.Cols.TS_RECIPE, recipe.getTS(AsynCallFlag.NEWRECIPE));
+        values.put(RecipeDbSchema.RecipeTable.Cols.TS_PHOTO, recipe.getTS(AsynCallFlag.NEWPHOTO));
+        values.put(RecipeDbSchema.RecipeTable.Cols.TS_COMMENT, recipe.getTS(AsynCallFlag.NEWCOMMENT));
+        values.put(RecipeDbSchema.RecipeTable.Cols.TS_NOTE, recipe.getTS(AsynCallFlag.NEWRATING));
         return values;
     }
 

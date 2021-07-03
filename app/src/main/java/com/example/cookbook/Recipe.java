@@ -1,5 +1,7 @@
 package com.example.cookbook;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,12 +33,15 @@ public class Recipe {
     private StatusRecipe mStatus;   // mettre à jour affichage
     private String mMessage;
     private User mIdFrom;
-
+    private Boolean mTS_recipe;
+    private Boolean mTS_photo;
+    private Boolean mTS_comment;
+    private Boolean mTS_note;
 
     private static final int NBSTEP_MAX=9;
     private static final int NBING_MAX=15;
     private static final int NBCOM_MAX=20;
-    private String TAG="DebugRecipe";
+    private String TAG="CB_Recipe";
     private String DEFAULT_URL="https://wwww.cookbookfamily.com";
 
 
@@ -64,6 +69,10 @@ public class Recipe {
         mIdFrom=new User(UUID.fromString( "00000000-0000-0000-0000-000000000000" ));
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
+        mTS_recipe=false;
+        mTS_photo=false;
+        mTS_comment=false;
+        mTS_note=false;
     }
 
 
@@ -111,6 +120,39 @@ public class Recipe {
 
     public void setMessage(String message) {
         mMessage=message;
+    }
+
+    public void updateTS(AsynCallFlag asyn, Boolean b){
+        switch(asyn){
+            case NEWRECIPE:{mTS_recipe=b;return;}
+            case NEWPHOTO:{mTS_photo=b;return;}
+            case NEWRATING:{mTS_note=b;return;}
+            case NEWCOMMENT:{mTS_comment=b;return;}
+        }
+        return;
+    }
+
+    public int getTS(AsynCallFlag asyn){
+        Boolean b=false;
+        switch(asyn){
+            case NEWRECIPE:{b=mTS_recipe; break;}
+            case NEWPHOTO:{b=mTS_photo; break;}
+            case NEWRATING:{b=mTS_note; break;}
+            case NEWCOMMENT:{b=mTS_comment; break;}
+        }
+        return (b ? 1:0);
+    }
+    public Boolean hasChanged(){
+        return (mTS_recipe || mTS_photo || mTS_note || mTS_comment);
+    }
+
+    public String getFlag(){
+        String s=mStatus.toString().substring(0,1);
+        s=s+(mTS_recipe ? "1":"0");
+        s=s+(mTS_photo ? "1":"0");
+        s=s+(mTS_comment ? "1":"0");
+        s=s+(mTS_note ? "1":"0");
+        return s;
     }
 
     // -----------------STEP-------------------
@@ -307,6 +349,24 @@ public class Recipe {
         Gson gson=new Gson();
         Type listOfNotesObject = new TypeToken<ArrayList<Note>>() {}.getType();
         mNotes=gson.fromJson(raw, listOfNotesObject);
+    }
+
+    public Boolean hasNotChangedSince(Recipe r){
+        if (!mId.toString().equals(r.getId().toString())) return false;
+        if (!mOwner.getId().toString().equals(r.getOwner().getId().toString())) return false;
+        if (!mTitle.equals(r.getTitle())) return false;
+        if (!mSource.equals(r.getSource())) return false;
+        if (!mSource_url.equals(r.getSource_url())) return false;
+        if (mNbPers!=r.getNbPers()) return false;
+        for (int i = 0; i < r.getNbStepMax(); i++) {
+            if (!mSteps[i].equals(r.getStep(i+1))) return false;
+        }
+        for (int i = 0; i < r.getNbIngMax(); i++) {
+            if (!mIngredients[i].equals(r.getIngredient(i + 1))) return false;
+        }
+        if (!mSeason.toString().equals(r.getSeason().toString())) return false;
+        if (!mDifficulty.toString().equals(r.getDifficulty().toString())) return false;
+        return true;
     }
 
 }

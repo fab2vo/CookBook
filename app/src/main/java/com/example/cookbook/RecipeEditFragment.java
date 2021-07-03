@@ -44,9 +44,11 @@ public class RecipeEditFragment extends Fragment {
     private static final String DIALOG_DATE="DialogDate";
     private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
-    private static final String TAG = "DebugRecipeEditFragment";
+    private static final String TAG = "CB_RecipeEditFragment";
+
     //Log.d(TAG, "onTextChanged de mSource_url input>" + s.toString()+"<");
     private Recipe mRecipe;
+    private Recipe mRecipeInit;
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
@@ -80,8 +82,10 @@ public class RecipeEditFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mRecipe=new Recipe();
+        mRecipeInit=new Recipe();
         UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
+        mRecipeInit=CookBook.get(getActivity()).getRecipe(recipeId);
         setHasOptionsMenu(true);
         mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
         mStepNb=mRecipe.getNbStep();
@@ -91,6 +95,11 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
+        Log.d(TAG, "Recipe initiale :"+mRecipeInit.getFlag());
+        Log.d(TAG, "Recipe finale :"+mRecipe.getFlag());
+        Log.d(TAG, "Recipe has not changed ? :"+mRecipe.hasNotChangedSince(mRecipeInit));
+        mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+        Log.d(TAG, "Recipe finale :"+mRecipe.getFlag());
         CookBook.get(getActivity()).updateRecipe(mRecipe);
     }
 
@@ -200,7 +209,7 @@ public class RecipeEditFragment extends Fragment {
                         URL url=new URL(s.toString());
                         mRecipe.setSource_url(url);
                     } catch (MalformedURLException e) {
-                        Log.d(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed");
+                        Log.d(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
                     }
                     }
             }
@@ -382,6 +391,7 @@ public class RecipeEditFragment extends Fragment {
                 // pb
             }
             mRecipe.setDatePhoto(new Date());
+            mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
             updatePhotoView();
         }
     }

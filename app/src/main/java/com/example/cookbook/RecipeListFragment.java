@@ -30,6 +30,7 @@ import android.widget.Toolbar;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +44,7 @@ public class RecipeListFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
     private SessionInfo mSession;
+    private Recipe mRecipeInit;
     private static final String SAVED_SORT_STATUS="sort";
     private int mSortOption;
     private int finalRate;
@@ -51,8 +53,7 @@ public class RecipeListFragment extends Fragment {
     private static final int maskSortNote=1 <<2;
     private static final int maskSortSeason=1 <<4;
     private static final int maskSortDifficulty=1 <<5;
-    private static final String TAG = "DebugRecipeListFragment";
-    //Log.d(TAG, "OnCreateView  coming back mSortOption=" + mSortOption);
+    private static final String TAG = "CB_RecipeListFragment";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
 
@@ -62,6 +63,7 @@ public class RecipeListFragment extends Fragment {
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
         mSortOption=0;
+        mRecipeInit=new Recipe();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
         activity.getSupportActionBar().setSubtitle(getString(R.string.recipe_display_author,u.getName(),u.getFamily()));
@@ -72,6 +74,7 @@ public class RecipeListFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
+        //todo enlever request rate reliquat
         if (requestCode == REQUEST_RATE) {
             Integer rate = (Integer) data
                     .getSerializableExtra(RatePickerFragment.EXTRA_RATE);
@@ -117,6 +120,7 @@ public class RecipeListFragment extends Fragment {
                 Recipe recipe=new Recipe();
                 SessionInfo session=SessionInfo.get(getActivity());
                 recipe.setOwner(session.getUser());
+                recipe.updateTS(AsynCallFlag.NEWRECIPE, true);
                 CookBook.get(getActivity()).addRecipe(recipe);
                 Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 startActivity(intent);
@@ -134,7 +138,8 @@ public class RecipeListFragment extends Fragment {
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes_in=cookbook.getRecipes();
-        List<Recipe> recipes=recipes_in;
+        List<Recipe> recipes=new ArrayList<>();
+        recipes.addAll(recipes_in);
         for(Recipe r:recipes_in){
             if (!r.IsVisible()){
                 recipes.remove(r);
@@ -219,12 +224,12 @@ public class RecipeListFragment extends Fragment {
                     updateUI();
                 }
             });
-            //-
+            /*
             mEditIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 }
-            });
+            });*/
             mSunIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -264,7 +269,8 @@ public class RecipeListFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
+            //mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
+            mSourceTextView.setText(mRecipe.getFlag());
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");
             mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5");
@@ -285,6 +291,7 @@ public class RecipeListFragment extends Fragment {
 
         @Override
         public void onClick(View v){
+            //todo P2 devrait se declencher sur le rating
             FragmentManager manager = getFragmentManager();
             RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
             dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);

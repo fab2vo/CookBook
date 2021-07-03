@@ -24,6 +24,10 @@ public class RecipeDbSchema {
             public static final String NOTES="notes";
             public static final String MESSAGE="message";
             public static final String MESSAGE_FROM="messagefrom";
+            public static final String TS_RECIPE="tsrecipe";
+            public static final String TS_PHOTO="tsphoto";
+            public static final String TS_COMMENT="tscomment";
+            public static final String TS_NOTE="tsnote";
         }
     }
 }

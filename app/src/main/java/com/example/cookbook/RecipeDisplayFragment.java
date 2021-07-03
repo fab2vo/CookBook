@@ -105,14 +105,14 @@ public class RecipeDisplayFragment extends Fragment {
                 startActivity(i);
                 return true;
             case R.id.recipe_menu_edit:
-                 Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
+                Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
                 startActivity(intent);
                 return true;
             case R.id.recipe_menu_delete:
                 if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
                     Log.d(TAG, "DeleteRecipeFromMenu : no delete image");
                 }
-                CookBook.get(getActivity()).removeRecipe(mRecipe);
+                CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
                 getActivity().onBackPressed();
             default:
                 return super.onOptionsItemSelected(item);
@@ -186,6 +186,7 @@ public class RecipeDisplayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mRecipe.addComment(new Comment(newcomment, mSession.getUser()));
+                mRecipe.updateTS(AsynCallFlag.NEWCOMMENT,true);
                 mDNexComment.setText("...");
                 updateUI();
             }

@@ -43,7 +43,11 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 RecipeTable.Cols.STATUS+", "+
                 RecipeTable.Cols.NOTES+", "+
                 RecipeTable.Cols.MESSAGE+", "+
-                RecipeTable.Cols.MESSAGE_FROM+
+                RecipeTable.Cols.MESSAGE_FROM+", "+
+                RecipeTable.Cols.TS_RECIPE+", "+
+                RecipeTable.Cols.TS_PHOTO+", "+
+                RecipeTable.Cols.TS_COMMENT+", "+
+                RecipeTable.Cols.TS_NOTE+
                 ")"
         );
 

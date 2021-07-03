@@ -19,7 +19,7 @@ import java.util.UUID;
 public class RatePickerFragment extends DialogFragment {
     public static final String EXTRA_RATE = "com.example.cookbook.rate";
     private static final String ARG_ID= "recipeId";
-    private static final String TAG = "RatePickerFragment";
+    private static final String TAG = "DebugRatePickerFragment";
     private int mRate;
     private UUID mUUID;
     public static RatePickerFragment newInstance(UUID uuid) {
@@ -49,6 +49,14 @@ public class RatePickerFragment extends DialogFragment {
                                 sendResult(Activity.RESULT_OK, mRate);
                             }
                         });
+        dialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return ;
+                    }
+                });
         AlertDialog dia=dialog.show();
         Button b=dia.getButton(DialogInterface.BUTTON_POSITIVE);
         if (b != null) {
@@ -61,7 +69,7 @@ public class RatePickerFragment extends DialogFragment {
         if (getTargetFragment() == null) {
             return;
         }
-        // renvoir le new rating (cela ne serta à rien, juste pour essayer)
+        // renvoie le new rating (cela ne serta à rien, juste pour essayer)
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RATE, rate);
         getTargetFragment()
@@ -73,6 +81,7 @@ public class RatePickerFragment extends DialogFragment {
          Recipe r=locookbook.getRecipe(mUUID);
          User lu=loSession.getUser();
          r.addNote(new Note(mRate, lu));
+         r.updateTS(AsynCallFlag.NEWRATING, true);
          locookbook.updateRecipe(r);
      }
 }

@@ -61,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
     private NetworkUtils mNetUtils;
     private User mUser;
     private int mState;
-    private static final String TAG = "DebugSplashActivity";
+    private static final String TAG = "CB_SplashActivity";
     private final static int NEW_FAMILY=1;
     private final static int NEW_MEMBER=2;
     private final static int NEW_SESSION=3;

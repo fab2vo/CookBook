@@ -15,7 +15,7 @@ public class RecipeCursorWrapper extends CursorWrapper {
     public RecipeCursorWrapper(Cursor cursor){
         super(cursor);
     }
-    private static final String TAG = "RecipeCursorWrapper";
+    private static final String TAG = "DebugCursorWrapper";
 
     public Recipe getRecipe(){
         String uuidString = getString(getColumnIndex(RecipeTable.Cols.UUID));
@@ -63,7 +63,14 @@ public class RecipeCursorWrapper extends CursorWrapper {
         r.setMessage(message);
         String fromString = getString(getColumnIndex(RecipeTable.Cols.MESSAGE_FROM));
         r.getFromDeserialized(fromString);
-
+        int tsrecipe = getInt(getColumnIndex(RecipeTable.Cols.TS_RECIPE));
+        r.updateTS(AsynCallFlag.NEWRECIPE, (tsrecipe==1));
+        int tsphoto = getInt(getColumnIndex(RecipeTable.Cols.TS_PHOTO));
+        r.updateTS(AsynCallFlag.NEWPHOTO, (tsphoto==1));
+        int tscomment = getInt(getColumnIndex(RecipeTable.Cols.TS_COMMENT));
+        r.updateTS(AsynCallFlag.NEWCOMMENT, (tscomment==1));
+        int tsnote = getInt(getColumnIndex(RecipeTable.Cols.TS_NOTE));
+        r.updateTS(AsynCallFlag.NEWRATING, (tsnote==1));
         return r;
     }
 }

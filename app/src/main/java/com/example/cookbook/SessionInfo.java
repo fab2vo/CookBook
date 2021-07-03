@@ -51,9 +51,6 @@ public class SessionInfo {
         }
     }
 
-    public String getUserNameComplete() {
-        return mUser.getNameComplete();
-    }
 
     public User getUser() {
         return mUser;
