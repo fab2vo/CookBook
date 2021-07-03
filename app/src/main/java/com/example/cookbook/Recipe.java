@@ -66,6 +66,7 @@ public class Recipe {
         mStatus=StatusRecipe.Visible;
         mComments=new ArrayList<Comment>();
         mNotes=new ArrayList<Note>();
+        mSource="";
         mIdFrom=new User(UUID.fromString( "00000000-0000-0000-0000-000000000000" ));
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
@@ -201,6 +202,10 @@ public class Recipe {
         return mOwner;
     }
 
+    public String getOwnerIdString() {
+        return mOwner.getId().toString();
+    }
+
     public void setOwner(User owner) {
         mOwner = owner;
     }
@@ -208,6 +213,7 @@ public class Recipe {
 
     //------------------- Source ----------------------------------
     public String getSource() {
+        if (mSource==null) return "";
         return mSource;
     }
     public void setSource(String source) {
@@ -272,6 +278,10 @@ public class Recipe {
     }
     public boolean IsVisible(){
         if (mStatus==StatusRecipe.Visible) {return true;}
+        return false;
+    }
+    public boolean IsMarkedDeleted(){
+        if (mStatus==StatusRecipe.Deleted) {return true;}
         return false;
     }
 
@@ -351,6 +361,7 @@ public class Recipe {
         mNotes=gson.fromJson(raw, listOfNotesObject);
     }
 
+    // ******************* tests **********************
     public Boolean hasNotChangedSince(Recipe r){
         if (!mId.toString().equals(r.getId().toString())) return false;
         if (!mOwner.getId().toString().equals(r.getOwner().getId().toString())) return false;

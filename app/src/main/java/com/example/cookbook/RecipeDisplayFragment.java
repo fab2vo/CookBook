@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public class RecipeDisplayFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
-    private static final String TAG = "DebugRecipeDisplayFrag";
+    private static final String TAG = "CB_RecipeDisplayFrag";
     private static final int REQUEST_PHOTO= 2;
     private Recipe mRecipe;
     private File mPhotoFile;

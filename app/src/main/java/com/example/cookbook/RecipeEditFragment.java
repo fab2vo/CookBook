@@ -40,13 +40,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class RecipeEditFragment extends Fragment {
+    // Constantes
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String DIALOG_DATE="DialogDate";
     private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
     private static final String TAG = "CB_RecipeEditFragment";
-
-    //Log.d(TAG, "onTextChanged de mSource_url input>" + s.toString()+"<");
+    // Variables internes
     private Recipe mRecipe;
     private Recipe mRecipeInit;
     private File mPhotoFile;
@@ -54,7 +54,7 @@ public class RecipeEditFragment extends Fragment {
     private EditText mSourceField;
     private EditText mSourceUrl;
     private EditText mNbPersField;
-//    private Button mDateButton;
+    //    private Button mDateButton;
     private TextView[] mSTextView;
     private EditText mNewStepField;
     private ImageButton mNewStepEnter;
@@ -95,11 +95,7 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(TAG, "Recipe initiale :"+mRecipeInit.getFlag());
-        Log.d(TAG, "Recipe finale :"+mRecipe.getFlag());
-        Log.d(TAG, "Recipe has not changed ? :"+mRecipe.hasNotChangedSince(mRecipeInit));
-        mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
-        Log.d(TAG, "Recipe finale :"+mRecipe.getFlag());
+        mRecipe.updateTS(AsynCallFlag.NEWRECIPE, !mRecipe.hasNotChangedSince(mRecipeInit));
         CookBook.get(getActivity()).updateRecipe(mRecipe);
     }
 
@@ -123,7 +119,7 @@ public class RecipeEditFragment extends Fragment {
                 if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
                     Log.d(TAG, "DeleteRecipeFromMenu : cannot delete image");
                 }
-                CookBook.get(getActivity()).removeRecipe(mRecipe);
+                CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
                 getActivity().onBackPressed();
             default:
                 return super.onOptionsItemSelected(item);

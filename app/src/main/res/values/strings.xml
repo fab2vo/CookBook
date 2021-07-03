@@ -76,6 +76,8 @@
     <string name="enter_noerr_new_session"> Ouvrons ce livre de cuisine,  </string>
     <string name="enter_noerr_welcome"> Votre nouveau livre de cuisine est ouvert !  </string>
     <string name="enter_noerr_new_member"> Bienvenue dans votre nouveau livre de cuisine ! </string>
+    <string name="menu_logout"> Sortie </string>
+    <string name="menu_sync"> Synchronisation avec serveur  </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

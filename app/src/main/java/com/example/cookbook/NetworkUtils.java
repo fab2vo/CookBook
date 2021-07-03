@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class NetworkUtils {
     private SessionInfo mSession;
+    private static final String TAG = "CB_NetworkUtils";
 
     public NetworkUtils(Context c){
         mSession=SessionInfo.get(c);
@@ -72,10 +74,10 @@ public class NetworkUtils {
 
     public String sendPostRequestJson(String requestURL,
                                   HashMap<String, String> postDataParams) {
+
         URL url;
         try {
             url = new URL(requestURL);
-
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(mSession.getReadTimeout());
             conn.setConnectTimeout(mSession.getConnectTimeout());
@@ -85,7 +87,7 @@ public class NetworkUtils {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
+            writer.write(this.getPostDataString(postDataParams));
             writer.flush();
             writer.close();
             os.close();
@@ -97,12 +99,11 @@ public class NetworkUtils {
             }
             return sb.toString().trim();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d(TAG, ">"+e);
             return null;
         }
     }
-
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
+    private String getPostDataString(HashMap<String, String> params) {
         StringBuilder result = new StringBuilder();
         boolean first = true;
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -110,9 +111,12 @@ public class NetworkUtils {
                 first = false;
             else
                 result.append("&");
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+            try {result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));}
+            catch (Exception e){
+                Log.d(TAG, "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
+            }
         }
         return result.toString();
     }

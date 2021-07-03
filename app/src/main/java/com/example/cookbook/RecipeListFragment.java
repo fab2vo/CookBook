@@ -74,7 +74,7 @@ public class RecipeListFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        //todo enlever request rate reliquat
+        //todo P3 enlever request rate reliquat
         if (requestCode == REQUEST_RATE) {
             Integer rate = (Integer) data
                     .getSerializableExtra(RatePickerFragment.EXTRA_RATE);
@@ -129,6 +129,10 @@ public class RecipeListFragment extends Fragment {
                 mSession.setReqNewSession(true);
                 Intent intent2=new Intent(getActivity().getApplicationContext(), SplashActivity.class);
                 startActivity(intent2);
+                return true;
+            case R.id.list_sync:
+                AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
+                instanceAsync.execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
