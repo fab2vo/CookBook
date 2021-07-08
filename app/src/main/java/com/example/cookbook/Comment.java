@@ -7,6 +7,11 @@ public class Comment {
     private User mUser;
     private Date mDate;
 
+    public Comment(){
+        mTxt="";
+        mUser=new User("","");
+        mDate=new Date();
+    }
 
     public Comment(String s, User u){
         mTxt=s;
@@ -35,8 +40,26 @@ public class Comment {
         mDate = date;
     }
 
-    @Override
-    public String toString(){
+    public String toTxt(){
         return mTxt+" ("+mUser.getNameComplete()+")";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null) return false;
+        if (o == this) return true;
+        if (getClass() != o.getClass()) return false;
+        Comment c=(Comment) o;
+        boolean b=(this.mTxt.equals(c.getTxt()));
+        b=b && (mDate.toString().equals(c.getDate().toString()));
+        b=b && (mUser.equals(c.getUser()));
+        return b;
+    }
+
+    public String convert(){
+        String s1=">"+mTxt+"< (";
+        s1=s1 + mDate.toString()+") de ";
+        s1=s1+mUser.getNameComplete();
+        return s1;
     }
 }

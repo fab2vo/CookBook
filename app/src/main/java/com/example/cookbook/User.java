@@ -39,7 +39,6 @@ public class User {
             default:
                 mFamily="not found";
                 mName="not found";
-                return;
         }
     }
 
@@ -83,5 +82,14 @@ public class User {
 
     public void setDate(Date date) {
         mDate = date;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null) return false;
+        if (o == this) return true;
+        if (getClass() != o.getClass()) return false;
+        User u=(User) o;
+        return u.getId().toString().equals(mId.toString());
     }
 }

@@ -12,10 +12,11 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE};
+enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE}
 
 class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     // Constantes
@@ -23,8 +24,13 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     private static final String PHP204 = "return204.php";
     private static final String PHPUPDATECREATE = "updateorcreaterecipe.php";
     private static final String PHPUPUPLOADPHOTO = "uploadphotointorecipe.php";
+    private static final String PHPDELETERECIPE = "deleterecipe.php";
+    private static final String PHPGETCOMMENTSOFRECIPE = "getcommentsofrecipe.php";
+    private static final String PHPADDCOMMENTTORECIPE = "addcommentwithdate.php";
+    private static final String PHPGETNOTESOFRECIPE = "getnotesofrecipe.php";
+    private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     // Variable
-    private Context mContext;
+    private static Context mContext;
     private SessionInfo mSession;
     private NetworkUtils mNetUtils;
     private CookBook mCookbook;
@@ -52,68 +58,52 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                 myrecipes.remove(r);
             }
         }
+        Log.d(TAG, "*************** SYNC ********************************");
         for(Recipe r:myrecipes){
             if (r.getTS(AsynCallFlag.NEWRECIPE)==1){
-                Log.d(TAG, "Recipe à updater :" + r.getTitle());
                 if (uploadRecipe(r)) {
-                    //mettre à jour TS
-                    Log.d(TAG, "Recipe updatée :" + r.getTitle());
+                    Log.d(TAG, "Recette " + r.getTitle()+" mise à jour");
                     r.updateTS(AsynCallFlag.NEWRECIPE,false);
                     mCookbook.updateRecipe(r);
                 } else{
-                    Log.d(TAG, "Recipe non updatée :" + r.getTitle());
+                    Log.d(TAG, "Recette " + r.getTitle()+" non mise à jour");
                 }
             }
             if (r.getTS(AsynCallFlag.NEWPHOTO)==1){
-                Log.d(TAG, "Photo à update" + r.getTitle());
+                if (uploadPhoto(r)) {
+                    Log.d(TAG, "Recette Photo " + r.getTitle()+" mise à jour");
+                    r.updateTS(AsynCallFlag.NEWPHOTO,false);
+                    mCookbook.updateRecipe(r);
+                } else{
+                    Log.d(TAG, "Recette Photo " + r.getTitle()+" non mise à jour");
+                }
             }
-            if (r.getTS(AsynCallFlag.NEWCOMMENT)==1){
-                Log.d(TAG, "Comments à update" + r.getTitle());
+
+            if (syncCommentsRecipe(r)) {
+                Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
+                r.updateTS(AsynCallFlag.NEWCOMMENT,false);
+                mCookbook.updateRecipe(r);
             }
             if (r.getTS(AsynCallFlag.NEWRATING)==1){
-                Log.d(TAG, "Notes à updater" + r.getTitle());
+                Log.d(TAG, "Notes à updater " + r.getTitle());
             }
             if (r.IsMarkedDeleted()){
-                Log.d(TAG, "Recette à effeacer" + r.getTitle());
+                Log.d(TAG, "Recette à effacer :" + r.getTitle());
+                if (deleteRecipeFromCB(r)) {
+                    Log.d(TAG, "Recette effacée : " + r.getTitle()+" mise à jour");
+                    mCookbook.removeRecipe(r);
+                } else{
+                    Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
+                }
             }
 
         }
-        //************ Boucle recette à effacer
-        //************ Boucle recette tiers
-        /*
-        switch (asyn) {
-            case NEWRECIPE:{
-                if (uploadRecipe(r)) { // update or create recipe
-                    r.updateTS(asyn,false);
-                    s[1]="True";
-                } else { s[1]="False";}
-                return s;
-            }
-            case NEWPHOTO:{
-                if (uploadPhoto(r)) {
-                    r.updateTS(asyn,false);
-                    s[1]="True";
-                } else { s[1]="False";}
-                return s;
-            }
-            case NEWCOMMENT:
-                return s;
-            case NEWRATING:
-                return s;
-            case DELETERECIPE:
-                return s;
-            case GLOBALSYNC:
-                return s;
-            default:
-                return s;
-        } */
         return s;
     }
 
     @Override
     protected void onPostExecute(String[] retAsyn) {
         Log.d(TAG, "Post execute " + retAsyn[0]);
-        return;
     }
 
     private Boolean test204() {
@@ -127,12 +117,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
             int status = conn.getResponseCode();
             in.close();
             conn.disconnect();
-            if (status == HttpURLConnection.HTTP_NO_CONTENT) {
-                //Log.d(TAG, "Test 204 : true ");
-                return true;
-            } else {
-                return false;
-            }
+            return (status == HttpURLConnection.HTTP_NO_CONTENT);
         } catch (Exception e) {
             Log.d(TAG, "Test 204 : " + e);
             return false;
@@ -142,7 +127,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     private Boolean uploadRecipe(Recipe r) {
         HashMap<String, String> data = new HashMap<>();
         String s1;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
         data.put("idrecipe", r.getId().toString());
         data.put("iduser", r.getOwner().getId().toString());
         data.put("title", r.getTitle());
@@ -165,28 +150,104 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPDATECREATE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            Log.d(TAG, "Retour de "+PHPUPDATECREATE+" = "+result);
+            Log.d(TAG, "Retour de "+PHPUPDATECREATE+" =>"+result+"<");
         return false;}
         return true;
     }
 
-            private Boolean uploadPhoto(Recipe r) {
-                String s1;
-                File file = mCookbook.getPhotoFile(r);
-                Bitmap bitmap = PictureUtils.getBitmap(file.getPath());
-                if (bitmap == null) {
-                    Log.d(TAG, "Pas de bitmap pour " + r.getTitle());
-                    return false;
-                }
-                String uploadImage = PictureUtils.getStringImage(bitmap);
-                HashMap<String, String> data = new HashMap<>();
-                data.put("idrecipe", r.getId().toString());
-                data.put("image", uploadImage);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  // check format
-                s1 = dateFormat.format(r.getDatePhoto());
-                data.put("date", s1);
-                String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPUPLOADPHOTO, data);
-                return (result.trim().equals("1"));
-            }
+    private Boolean uploadPhoto(Recipe r) {
+        String s1;
+        File file = mCookbook.getPhotoFile(r);
+        Bitmap bitmap = PictureUtils.getBitmap(file.getPath());
+        if (bitmap == null) {
+            Log.d(TAG, "Pas de bitmap pour " + r.getTitle());
+            return false;
+        }
+        String uploadImage = PictureUtils.getStringImage(bitmap);
+        HashMap<String, String> data = new HashMap<>();
+        data.put("idrecipe", r.getId().toString());
+        if (uploadImage==null) return false;
+        data.put("image", uploadImage);
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        s1 = dateFormat.format(r.getDatePhoto());
+        data.put("date", s1);
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPUPLOADPHOTO, data);
+        if (result==null) return false;
+        if (!result.trim().equals("1")) {
+            Log.d(TAG, "Retour de "+ PHPUPUPLOADPHOTO+" = "+result);
+            return false;}
+        return true;
+    }
+    private Boolean deleteRecipeFromCB(Recipe r) {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("idrecipe", r.getId().toString());
+        data.put("iduser", mSession.getUser().getId().toString());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPDELETERECIPE, data);
+        if (result==null) return false;
+        if (!result.trim().equals("1")) {
+            Log.d(TAG, "Retour de "+ PHPDELETERECIPE+" = "+result);
+            return false;}
+        return true;
+    }
 
+    private Boolean syncCommentsRecipe(Recipe r) {
+        boolean ret=false;
+        HashMap<String, String> data = new HashMap<>();
+        data.put("idrecipe", r.getId().toString());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETCOMMENTSOFRECIPE, data);
+        List<Comment> downloadedComments=mNetUtils.parseCommentsOfRecipe(result);
+        List<Comment> recipeComments=r.getComments();
+        //----------- boucle local
+        List<Comment> c1oc= new ArrayList<>();
+        Comment c,ci;
+        for (int i = 0; i < recipeComments.size(); i++){
+            ci=recipeComments.get(i);
+            c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
+            if (downloadedComments.indexOf(c)==-1) c1oc.add(c);
+        }
+        //----------- boucle serveur
+        List<Comment> cser= new ArrayList<>();
+        for (int i = 0; i < downloadedComments.size(); i++){
+            ci=downloadedComments.get(i);
+            c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
+            if (recipeComments.indexOf(c)==-1) {
+                cser.add(c);
+            }
+        }
+        for (int i = 0; i < cser.size(); i++){
+            r.addComment(cser.get(i));
+        }
+        if (cser.size()>0) {
+            mCookbook.updateRecipe(r);
+            ret=true;
+        }
+        if (c1oc.size()>0) {
+            if (!uploadComments(r,c1oc)) {ret=false;}
+            else {ret=true;}
+        }
+        return ret;
+    }
+
+    private Boolean uploadComments(Recipe r, List<Comment> cs){
+        if (cs==null) return false;
+        if (cs.size()==0) return true;
+        HashMap<String, String> data = new HashMap<>();
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        String s1;
+        boolean b=true;
+        for (Comment c:cs) {
+            data.clear();
+            data.put("idrecipe", r.getId().toString());
+            data.put("idfrom", c.getUser().getId().toString());
+            data.put("comment", c.getTxt());
+            s1 = dateFormat.format(c.getDate());
+            data.put("date",s1  );
+            String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDCOMMENTTORECIPE, data);
+            if (result==null) b=false;
+            if (!result.equals("1")) {
+                Log.d(TAG, "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
+                b=false;}
+        }
+        return b;
+    }
 }

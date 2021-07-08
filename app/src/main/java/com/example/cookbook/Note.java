@@ -43,4 +43,16 @@ public class Note {
     public void setDate(Date date) {
         mDate = date;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == null) return false;
+        if (o == this) return true;
+        if (getClass() != o.getClass()) return false;
+        Note n=(Note) o;
+        boolean b=(this.mNote.equals(n.getNote()));
+        b=b && (mDate.toString().equals(n.getDate().toString()));
+        b=b && (mUser.equals(n.getUser()));
+        return b;
+    }
 }

@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class SplashActivity extends AppCompatActivity {
     private static final String PHPREQGETCB="getcookbook.php";
     private static final String PHPREQGETNOTES="getnotes.php";
     private static final String PHPREQGETCOMMENTS="getcomments.php";
+    private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        mMoto=(TextView) findViewById(R.id.splash_moto);
+        //mMoto=(TextView) findViewById(R.id.splash_moto);
         mMoto.setText(R.string.splash_moto_txt);
         if (mSession.IsReqNewSession()){
             mFamilyEntered=mSession.getUser().getFamily();
@@ -411,7 +413,7 @@ public class SplashActivity extends AppCompatActivity {
             return false;
         }
     }
-    public Boolean upload(String idrecipeOfPhoto, String idrecipe_destination){
+    /*public Boolean upload(String idrecipeOfPhoto, String idrecipe_destination){
         String link=mSession.getURLPath()+PHPREQUPLOADPHOTO;
         UUID uuid=UUID.fromString(idrecipeOfPhoto);
         CookBook cb=CookBook.get(getApplicationContext());
@@ -431,7 +433,7 @@ public class SplashActivity extends AppCompatActivity {
             Log.d(TAG, "Function upload image failed");
             return false;}
         return true;
-    }
+    }*/
 
     private String downloadCB(){
         HashMap<String,String> data = new HashMap<>();
@@ -488,29 +490,34 @@ public class SplashActivity extends AppCompatActivity {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
                 JSONObject obj = jarr1.getJSONObject(i);
-                uuid=UUID.fromString(obj.getString("id_user"));
+                /*uuid=UUID.fromString(obj.getString("id_user"));
                 u=new User(obj.getString("family"), obj.getString("name") );
                 u.setId(uuid);
                 uuid=UUID.fromString(obj.getString("id_recipe"));
                 s=obj.getString("date_comment");
-                date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
-                c=new Comment(obj.getString("comment"),u,date);
-                for(Recipe r:mRecipes){
-                    if (r.getId().equals(uuid)){
-                        r.addComment(c);
-                        break;
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
+                //date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
+                c=new Comment(obj.getString("comment"),u,date);*/
+                c=mNetUtils.parseObjectComment(obj);
+                uuid=UUID.fromString(obj.getString("id_recipe"));
+                if (c!=null) {
+                    for(Recipe r:mRecipes){
+                        if (r.getId().equals(uuid)){
+                            r.addComment(c);
+                            break;
+                        }
                     }
                 }
             }
         } catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSON Comments "+e);
+            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
             return false;
         }
         return true;
     }
 
     public ArrayList<User> parseJsonFamily(String json){
-        ArrayList<User> ret=new ArrayList<User>();
+        ArrayList<User> ret=new ArrayList<>();
         User u;
         String name,dateString;
         UUID uuid;
@@ -562,12 +569,12 @@ public class SplashActivity extends AppCompatActivity {
                 r.setOwner(u);
                 //dates
                 s1 = obj.getString("lastupdate_recipe");
-                if ((s1!="null")&&(s1.length()>5)) {
+                if ((!s1.equals("null"))&&(s1.length()>5)) {
                     date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s1);
                     r.setDate(date);
                 }
                 s1 = obj.getString("lastupdate_photo");
-                if ((s1!="null")&&(s1.length()>5)) {
+                if ((!s1.equals("null"))&&(s1.length()>5)) {
                     date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s1);
                     r.setDatePhoto(date);
                 }
@@ -575,7 +582,7 @@ public class SplashActivity extends AppCompatActivity {
                 r.setTitle(obj.getString("title"));
                 r.setSource(obj.getString("source"));
                 s1 = obj.getString("source_url");
-                if (s1!="null") {
+                if (!s1.equals("null")) {
                     try {
                         url = new URL(s1);
                         r.setSource_url(url);
@@ -589,13 +596,13 @@ public class SplashActivity extends AppCompatActivity {
                 for (int i = 0; i < r.getNbStepMax(); i++) {
                     s1 = "etape" + formatter.format(i + 1);
                     s2=obj.getString(s1);
-                    if (s2!="null") {
+                    if (!s2.equals("null")) {
                     r.setStep(i + 1, s2);}
                 }
                 for (int i = 0; i < r.getNbIngMax(); i++) {
                     s1 = "ing" + formatter.format(i + 1);
                     s2=obj.getString(s1);
-                    if (s2!="null") {
+                    if (!s2.equals("null")) {
                     r.setIngredient(i + 1, s2);}
                 }
                 // --------------- photo
@@ -629,7 +636,7 @@ public class SplashActivity extends AppCompatActivity {
                 r.setMessage(obj.getString("message"));
                 r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
                 s1 = obj.getString("id_from");
-                if ((s1!="null")&&(s1.length()>5)) {
+                if ((!s1.equals("null"))&&(s1.length()>5)) {
                     uuid = UUID.fromString(s1);
                     s1 = obj.getString("from_family");
                     s2 = obj.getString("from_name");
@@ -666,7 +673,7 @@ public class SplashActivity extends AppCompatActivity {
                             mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                         } else {
                             mUser=u;
-                        mEnterMessage.setText(getString(R.string.enter_noerr_new_session)+u.getName());
+                        mEnterMessage.setText(getString(R.string.enter_noerr_new_session, u.getName()));
                         return NEW_SESSION; }
                     }
                 }

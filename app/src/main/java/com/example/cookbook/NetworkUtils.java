@@ -3,6 +3,9 @@ package com.example.cookbook;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -12,12 +15,18 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class NetworkUtils {
     private SessionInfo mSession;
     private static final String TAG = "CB_NetworkUtils";
+    private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
 
     public NetworkUtils(Context c){
         mSession=SessionInfo.get(c);
@@ -113,11 +122,42 @@ public class NetworkUtils {
                 result.append("&");
             try {result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));}
-            catch (Exception e){
+            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            } catch (Exception e){
                 Log.d(TAG, "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
             }
         }
         return result.toString();
+    }
+    public List<Comment> parseCommentsOfRecipe(String json){
+        Comment c;
+        List<Comment> cs=new ArrayList<>();
+        if ((json==null)||(json.equals(""))) return null;
+        try {
+            JSONArray jarr1=new JSONArray(json);
+            for (int i=0; i<jarr1.length(); i++){
+                JSONObject obj = jarr1.getJSONObject(i);
+                c=parseObjectComment(obj);
+                if (c!=null) cs.add(c);
+            }
+        } catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            return null;
+        }
+        return cs;
+    }
+
+    public Comment parseObjectComment(JSONObject obj){
+        try {
+        UUID uuid=UUID.fromString(obj.getString("id_user"));
+        User u=new User(obj.getString("family"), obj.getString("name") );
+        u.setId(uuid);
+        String s=obj.getString("date_comment");
+        Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
+        return new Comment(obj.getString("comment"),u,date);}
+        catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSONObject Comments "+e);
+            return null;
+        }
     }
 }
