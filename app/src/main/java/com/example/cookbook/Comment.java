@@ -1,5 +1,7 @@
 package com.example.cookbook;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Comment {
@@ -41,7 +43,9 @@ public class Comment {
     }
 
     public String toTxt(){
-        return mTxt+" ("+mUser.getNameComplete()+")";
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String s= dateFormat.format(mDate);
+        return mTxt+" ("+mUser.getNameComplete()+") - " + s;
     }
 
     @Override

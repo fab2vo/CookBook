@@ -239,7 +239,7 @@ public class RecipeDisplayFragment extends Fragment {
         mDComTitle.setText(s);
         for(int i=0;i<comMax;i++){
             if (NbCom>0){
-                if (i<NbCom) {mDComText[i].setText("- "+mRecipe.getComment(NbCom-i-1).toString());}
+                if (i<NbCom) {mDComText[i].setText("- "+mRecipe.getComment(NbCom-i-1).toTxt());}
                 else {mDComText[i].setText("");}
             }
             if (i>=0){mDComText[i].setVisibility((NbCom>i)? visible:gone);}

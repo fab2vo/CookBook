@@ -27,6 +27,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     private static final String PHPDELETERECIPE = "deleterecipe.php";
     private static final String PHPGETCOMMENTSOFRECIPE = "getcommentsofrecipe.php";
     private static final String PHPADDCOMMENTTORECIPE = "addcommentwithdate.php";
+    private static final String PHPADDNOTETORECIPE = "addnotewithdate.php";
     private static final String PHPGETNOTESOFRECIPE = "getnotesofrecipe.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     // Variable
@@ -78,14 +79,15 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                     Log.d(TAG, "Recette Photo " + r.getTitle()+" non mise à jour");
                 }
             }
-
             if (syncCommentsRecipe(r)) {
                 Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
                 r.updateTS(AsynCallFlag.NEWCOMMENT,false);
                 mCookbook.updateRecipe(r);
             }
-            if (r.getTS(AsynCallFlag.NEWRATING)==1){
-                Log.d(TAG, "Notes à updater " + r.getTitle());
+            if (syncNotesRecipe(r)) {
+                Log.d(TAG, "Notes de " + r.getTitle()+" updaté");
+                r.updateTS(AsynCallFlag.NEWRATING,false);
+                mCookbook.updateRecipe(r);
             }
             if (r.IsMarkedDeleted()){
                 Log.d(TAG, "Recette à effacer :" + r.getTitle());
@@ -246,6 +248,66 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
             if (result==null) b=false;
             if (!result.equals("1")) {
                 Log.d(TAG, "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
+                b=false;}
+        }
+        return b;
+    }
+    private Boolean syncNotesRecipe(Recipe r) {
+        boolean ret=false;
+        HashMap<String, String> data = new HashMap<>();
+        data.put("idrecipe", r.getId().toString());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETNOTESOFRECIPE, data);
+        List<Note> downloadedNotes=mNetUtils.parseNotesOfRecipe(result);
+        List<Note> recipeNotes=r.getNotes();
+        //----------- boucle local
+        List<Note> c1oc= new ArrayList<>();
+        Note c,ci;
+        for (int i = 0; i < recipeNotes.size(); i++){
+            ci=recipeNotes.get(i);
+            c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
+            if (downloadedNotes.indexOf(c)==-1) c1oc.add(c);
+        }
+        //----------- boucle serveur
+        List<Note> cser= new ArrayList<>();
+        for (int i = 0; i < downloadedNotes.size(); i++){
+            ci=downloadedNotes.get(i);
+            c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
+            if (recipeNotes.indexOf(c)==-1) {
+                cser.add(c);
+            }
+        }
+        for (int i = 0; i < cser.size(); i++){
+            r.addNote(cser.get(i));
+        }
+        if (cser.size()>0) {
+            mCookbook.updateRecipe(r);
+            ret=true;
+        }
+        if (c1oc.size()>0) {
+            if (!uploadNotes(r,c1oc)) {ret=false;}
+            else {ret=true;}
+        }
+        return ret;
+    }
+    private Boolean uploadNotes(Recipe r, List<Note> cs){
+        if (cs==null) return false;
+        if (cs.size()==0) return true;
+        HashMap<String, String> data = new HashMap<>();
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        DecimalFormat formatter = new DecimalFormat("00");
+        String s1;
+        boolean b=true;
+        for (Note c:cs) {
+            data.clear();
+            data.put("idrecipe", r.getId().toString());
+            data.put("idfrom", c.getUser().getId().toString());
+            data.put("note", formatter.format(c.getNote()));
+            s1 = dateFormat.format(c.getDate());
+            data.put("date",s1  );
+            String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
+            if (result==null) b=false;
+            if (!result.equals("1")) {
+                Log.d(TAG, "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
                 b=false;}
         }
         return b;

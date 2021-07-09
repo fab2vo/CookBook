@@ -105,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        //mMoto=(TextView) findViewById(R.id.splash_moto);
+        mMoto=(TextView) findViewById(R.id.splash_moto);
         mMoto.setText(R.string.splash_moto_txt);
         if (mSession.IsReqNewSession()){
             mFamilyEntered=mSession.getUser().getFamily();
@@ -447,22 +447,22 @@ public class SplashActivity extends AppCompatActivity {
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", mUser.getId().toString().trim());
         String json = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQGETNOTES,data);
-        User u;
-        String s;
+        //User u;
+        //String s;
         UUID uuid;
-        Date date;
+        //Date date;
         Note n;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
                 JSONObject obj = jarr1.getJSONObject(i);
-                uuid=UUID.fromString(obj.getString("id_user"));
-                u=new User(obj.getString("family"), obj.getString("name") );
-                u.setId(uuid);
+                //uuid=UUID.fromString(obj.getString("id_user"));
+                //u=new User(obj.getString("family"), obj.getString("name") );
+                //u.setId(uuid);
                 uuid=UUID.fromString(obj.getString("id_recipe"));
-                s=obj.getString("date_note");
-                date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
-                n=new Note(obj.getInt("note"),u,date);
+                //s=obj.getString("date_note");
+                //date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
+                n=mNetUtils.parseObjectNote(obj);
                 for(Recipe r:mRecipes){
                     if (r.getId().equals(uuid)){
                         r.addNote(n);

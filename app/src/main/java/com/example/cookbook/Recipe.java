@@ -309,12 +309,14 @@ public class Recipe {
     public void addNote(Note note){ mNotes.add(note);}
     public ArrayList<Note> getNotes() {return mNotes;}
     public Note getNote(int i){
+        if (mNotes==null) return null;
         if (i<mNotes.size()){ return mNotes.get(i);}
         else {return null;}
     }
 
     public double getNoteAvg() {
         mNoteAvg=0;
+        if (mNotes==null) return mNoteAvg;
         if (mNotes.size()!=0) {
             for(Note n:mNotes){mNoteAvg+=n.getNote();}
             mNoteAvg=mNoteAvg/mNotes.size();

@@ -160,4 +160,36 @@ public class NetworkUtils {
             return null;
         }
     }
+    public List<Note> parseNotesOfRecipe(String json){
+        Note n;
+        List<Note> ns=new ArrayList<>();
+        if ((json==null)||(json.equals(""))) return null;
+        try {
+            JSONArray jarr1=new JSONArray(json);
+            for (int i=0; i<jarr1.length(); i++){
+                JSONObject obj = jarr1.getJSONObject(i);
+                n=parseObjectNote(obj);
+                if (n!=null) ns.add(n);
+            }
+        } catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            return null;
+        }
+        return ns;
+    }
+
+    public Note parseObjectNote(JSONObject obj){
+        try {
+            // uuid=UUID.fromString(obj.getString("id_recipe"));
+            UUID uuid=UUID.fromString(obj.getString("id_user"));
+            User u=new User(obj.getString("family"), obj.getString("name") );
+            u.setId(uuid);
+            String s=obj.getString("date_note");
+            Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
+            return new Note(obj.getInt("note"),u,date);}
+        catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSONObject Note : "+e);
+            return null;
+        }
+    }
 }
