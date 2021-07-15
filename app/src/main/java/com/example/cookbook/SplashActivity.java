@@ -413,27 +413,6 @@ public class SplashActivity extends AppCompatActivity {
             return false;
         }
     }
-    /*public Boolean upload(String idrecipeOfPhoto, String idrecipe_destination){
-        String link=mSession.getURLPath()+PHPREQUPLOADPHOTO;
-        UUID uuid=UUID.fromString(idrecipeOfPhoto);
-        CookBook cb=CookBook.get(getApplicationContext());
-        Recipe r=cb.getRecipe(uuid);
-        File file=cb.getPhotoFile(r);
-        Bitmap bitmap=PictureUtils.getBitmap(file.getPath());
-        if (bitmap==null){
-            Log.d(TAG, "Pas de bitmap !");
-            return false;
-        }
-        String uploadImage = PictureUtils.getStringImage(bitmap);
-        HashMap<String,String> data = new HashMap<>();
-        data.put("idrecipe", idrecipe_destination);
-        data.put("image", uploadImage);
-        String result = mNetUtils.sendPostRequestJson(link,data);
-        if (!result.trim().equals("1")) {
-            Log.d(TAG, "Function upload image failed");
-            return false;}
-        return true;
-    }*/
 
     private String downloadCB(){
         HashMap<String,String> data = new HashMap<>();
@@ -532,7 +511,7 @@ public class SplashActivity extends AppCompatActivity {
                 u=new User(mFamilyEntered, name );
                 u.setId(uuid);
                 dateString=obj.getString("last_sync");
-                date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateString);
+                date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(dateString);
                 u.setDate(date);
                 ret.add(u);
                 mPwdRead=obj.getString("pass");
@@ -545,109 +524,16 @@ public class SplashActivity extends AppCompatActivity {
     }
     public ArrayList<Recipe> parseJsonCB(String json){
         ArrayList<Recipe> result=new ArrayList<>();
-        CookBook cb=CookBook.get(getApplicationContext());
-        File f;
         Recipe r;
-        User u;
-        String s1, s2;
-        UUID uuid;
-        Date date;
-        URL url;
-        Bitmap bm;
         try {
             JSONArray jarr1 = new JSONArray(json);
             for (int j = 0; j < jarr1.length(); j++) {
                 JSONObject obj = jarr1.getJSONObject(j);
-                //---------------- uusi and users
-                uuid = UUID.fromString(obj.getString("id_recipe"));
-                r = new Recipe(uuid);
-                uuid = UUID.fromString(obj.getString("id_owner"));
-                s1 = obj.getString("owner_family");
-                s2 = obj.getString("owner_name");
-                u = new User(s1, s2);
-                u.setId(uuid);
-                r.setOwner(u);
-                //dates
-                s1 = obj.getString("lastupdate_recipe");
-                if ((!s1.equals("null"))&&(s1.length()>5)) {
-                    date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s1);
-                    r.setDate(date);
-                }
-                s1 = obj.getString("lastupdate_photo");
-                if ((!s1.equals("null"))&&(s1.length()>5)) {
-                    date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s1);
-                    r.setDatePhoto(date);
-                }
-                //----------------- titre, source x2, nbpers
-                r.setTitle(obj.getString("title"));
-                r.setSource(obj.getString("source"));
-                s1 = obj.getString("source_url");
-                if (!s1.equals("null")) {
-                    try {
-                        url = new URL(s1);
-                        r.setSource_url(url);
-                    } catch (MalformedURLException e) {
-                        Log.d(TAG, "getURL from cookbook download failed");
-                    }
-                }
-                r.setNbPers(obj.getInt("nb_pers"));
-                //---------------- Etapes and ing
-                DecimalFormat formatter = new DecimalFormat("00");
-                for (int i = 0; i < r.getNbStepMax(); i++) {
-                    s1 = "etape" + formatter.format(i + 1);
-                    s2=obj.getString(s1);
-                    if (!s2.equals("null")) {
-                    r.setStep(i + 1, s2);}
-                }
-                for (int i = 0; i < r.getNbIngMax(); i++) {
-                    s1 = "ing" + formatter.format(i + 1);
-                    s2=obj.getString(s1);
-                    if (!s2.equals("null")) {
-                    r.setIngredient(i + 1, s2);}
-                }
-                // --------------- photo
-                s1 = obj.getString("photo");
-                if ((!s1.equals("null"))&&(!s1.equals(""))) {
-                    bm=PictureUtils.getBitmapFromString(s1);
-                    f=cb.getPhotoFile(r);
-                    if (f.exists()){
-                        Log.d(TAG, "file  " + f.toString()+" ne devrait pas exister. Pas ecrase !");
-                    } else {
-                        try {
-                            if(!f.createNewFile()) {
-                                Log.d(TAG, "Error in creating file  "+f.toString());
-                            }
-                        } catch (IOException e) {
-                            Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
-                        }
-                        try {
-                            FileOutputStream out = new FileOutputStream(f);
-                            bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                            out.flush();
-                            out.close();
-                        } catch (Exception e) {
-                            Log.d(TAG, "Storing bitmap error  " + e);
-                        }
-                    }
-                }
-                //----------------- enum
-                r.setSeason(RecipeSeason.valueOf(obj.getString("season")));
-                r.setDifficulty(RecipeDifficulty.valueOf(obj.getString("difficulty")));
-                r.setMessage(obj.getString("message"));
-                r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
-                s1 = obj.getString("id_from");
-                if ((!s1.equals("null"))&&(s1.length()>5)) {
-                    uuid = UUID.fromString(s1);
-                    s1 = obj.getString("from_family");
-                    s2 = obj.getString("from_name");
-                    u = new User(s1, s2);
-                    u.setId(uuid);
-                    r.setOwner(u);
-                }
-                result.add(r);
+                r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
+                if (mNetUtils.parseObjectRecipe(r,obj, true, true)) result.add(r);
             }
         } catch (Exception e) {
-            Log.d(TAG, " Error " + e);
+            Log.d(TAG, " Error parsing CB" + e);
         }
         return result;
     }

@@ -54,8 +54,9 @@ public class Recipe {
         mId=id;
         mLastUpdateRecipe =new Date();
         Calendar c=Calendar.getInstance();
-        c.set(2000,1,1,0,0);
+        c.set(2000,0,1,0,0, 0);
         mLastUpdateRecipe=c.getTime();
+        mLastUpdatePhoto=c.getTime();
         mSteps = new String[NBSTEP_MAX];
         mIngredients= new String[NBING_MAX];
         for(int i=0;i<NBSTEP_MAX;i++){mSteps[i]="";}

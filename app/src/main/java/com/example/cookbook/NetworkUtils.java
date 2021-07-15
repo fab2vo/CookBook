@@ -1,6 +1,7 @@
 package com.example.cookbook;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -8,13 +9,19 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -192,4 +199,176 @@ public class NetworkUtils {
             return null;
         }
     }
+    public Recipe parseObjectRecipeStamp(JSONObject obj){
+        try {
+            //---------------- uuid and users
+            UUID uuid = UUID.fromString(obj.getString("id_recipe"));
+            Recipe r = new Recipe(uuid);
+            uuid = UUID.fromString(obj.getString("id_owner"));
+            User u = new User(uuid);
+            r.setOwner(u);
+            //dates
+            Date date;
+            String s1 = obj.getString("lastupdate_recipe");
+            if (s1==null) return null;
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                r.setDate(date);
+            } else {return null;}
+            s1 = obj.getString("lastupdate_photo");
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                r.setDatePhoto(date);
+            }
+            s1=obj.getString("message");
+            if ((s1==null)||(s1.equals("null"))) s1="";
+            r.setMessage(s1);
+            r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
+            s1 = obj.getString("id_from");
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                uuid = UUID.fromString(s1);
+                u = new User(uuid);
+                r.setOwner(u);
+            }
+            return r;
+        }
+        catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSONObject Recette Stamp : "+e);
+            return null;
+        }
+    }
+
+    public List<Recipe> parseStampsTiers(String json){
+        Recipe r;
+        List<Recipe> rs=new ArrayList<>();
+        if ((json==null)||(json.equals(""))) return null;
+        try {
+            JSONArray jarr1=new JSONArray(json);
+            for (int i=0; i<jarr1.length(); i++){
+                JSONObject obj = jarr1.getJSONObject(i);
+                r=parseObjectRecipeStamp(obj);
+                if (r!=null) rs.add(r);
+            }
+        } catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            return null;
+        }
+        return rs;
+    }
+
+    public boolean parseObjectRecipe(Recipe r, JSONObject obj, boolean withphoto, boolean full){
+        try {
+            //---------------- uudi and users
+            //UUID uuid = UUID.fromString(obj.getString("id_recipe"));
+            // Recipe r = new Recipe(uuid);
+            UUID uuid;
+            String s1, s2;
+            User u;
+            if (full) {
+                uuid = UUID.fromString(obj.getString("id_owner"));
+                s1 = obj.getString("owner_family");
+                s2 = obj.getString("owner_name");
+                u = new User(s1, s2);
+                u.setId(uuid);
+                r.setOwner(u);
+                s1=obj.getString("message");
+                if ((s1==null)||(s1.equals("null"))) s1="";
+                r.setMessage(s1);
+                r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
+                s1 = obj.getString("id_from");
+                if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
+                    uuid = UUID.fromString(s1);
+                    s1 = obj.getString("from_family");
+                    s2 = obj.getString("from_name");
+                    u = new User(s1, s2);
+                    u.setId(uuid);
+                    r.setOwner(u);
+                }
+            }
+            //------------ dates
+            Date date;
+            s1 = obj.getString("lastupdate_recipe");
+            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                r.setDate(date);
+            } else {return false;}
+            s1 = obj.getString("lastupdate_photo");
+            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                r.setDatePhoto(date);
+            }
+            //----------------- titre, source x2, nbpers
+            s1 = obj.getString("title");
+            URL url;
+            if (s1==null) return false;
+            if (s1.equals("null")) return false;
+            r.setTitle(s1);
+            r.setSource(obj.getString("source"));
+            s1 = obj.getString("source_url");
+            if (!s1.equals("null")&&(s1!=null)) {
+                try {
+                    url = new URL(s1);
+                    r.setSource_url(url);
+                } catch (MalformedURLException e) {
+                    Log.d(TAG, "getURL from cookbook download failed in parse recipe");
+                }
+            }
+            int nbp=obj.getInt("nb_pers");
+            if (nbp==0) return false;
+            r.setNbPers(nbp);
+            //---------------- Etapes and ing
+            DecimalFormat formatter = new DecimalFormat("00");
+            for (int i = 0; i < r.getNbStepMax(); i++) {
+                s1 = "etape" + formatter.format(i + 1);
+                s2=obj.getString(s1);
+                if (!s2.equals("null")) {
+                    r.setStep(i + 1, s2);}
+            }
+            for (int i = 0; i < r.getNbIngMax(); i++) {
+                s1 = "ing" + formatter.format(i + 1);
+                s2=obj.getString(s1);
+                if (!s2.equals("null")) {
+                    r.setIngredient(i + 1, s2);}
+            }
+            //----------------- enum
+            r.setSeason(RecipeSeason.valueOf(obj.getString("season")));
+            r.setDifficulty(RecipeDifficulty.valueOf(obj.getString("difficulty")));
+
+            // --------------- photo
+            CookBook cb = CookBook.get(mSession.getContext());
+            File f=cb.getPhotoFile(r);
+            if (withphoto) {
+                s1 = obj.getString("photo");
+                if ((!s1.equals("null"))&&(!s1.equals(""))&&(s1!=null)) {
+                    Bitmap bm=PictureUtils.getBitmapFromString(s1);
+                    if (f.exists()){
+                        Log.d(TAG, "file  " + f.toString()+" non ecrasée dans parsing recipe !");
+                    } else {
+                        try {
+                            if(!f.createNewFile()) {
+                                Log.d(TAG, "Error in creating file  "+f.toString());
+                            }
+                        } catch (IOException e) {
+                            Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
+                        }
+                        try {
+                            FileOutputStream out = new FileOutputStream(f);
+                            bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            out.flush();
+                            out.close();
+                        } catch (Exception e) {
+                            Log.d(TAG, "Storing bitmap error  " + e);
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+        catch (Exception e){
+            Log.d(TAG, "Failure in parsing JSONObject Recette : "+e);
+            return false;
+        }
+    }
+
 }

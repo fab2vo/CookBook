@@ -73,8 +73,6 @@ public class CookBook {
     }
 
     public void addRecipe(Recipe r){
- //       mRecipes.add(r);
-        r.setDate(new Date());
         ContentValues values=getContentValues(r);
         mDatabase.insert(RecipeDbSchema.RecipeTable.NAME, null, values);
     }

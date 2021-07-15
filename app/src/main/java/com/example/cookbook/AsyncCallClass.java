@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -13,8 +16,11 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE}
 
@@ -29,6 +35,9 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     private static final String PHPADDCOMMENTTORECIPE = "addcommentwithdate.php";
     private static final String PHPADDNOTETORECIPE = "addnotewithdate.php";
     private static final String PHPGETNOTESOFRECIPE = "getnotesofrecipe.php";
+    private static final String PHPGETSTAMPSTIERS = "getrecipestampstiers.php";
+    private static final String PHPGETRECIPEFROMCB = "getrecipefromcb.php";
+    private static final String PHPGETRECIPEFROMCBWITHPHOTO = "getrecipefromcbwithphoto.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     // Variable
     private static Context mContext;
@@ -51,32 +60,33 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
             s[1]="false";
             return s;
         }
+        Log.d(TAG, "*************** SYNC SERVER ****************************");
+        if (!syncTiersRecipe(mSession.getUser())) {
+            Log.d(TAG, "echec stamps sync ");
+            s[1]="false";
+        }
         //************ Boucle sur recettes dont l'utilisateur est l'auteur
         List<Recipe> mrecipes=mCookbook.getRecipes();
-        List<Recipe> myrecipes=mCookbook.getRecipes();
+        Log.d(TAG, "*************** SYNC LOC ****************************");
         for(Recipe r:mrecipes){
-            if (!r.getOwnerIdString().equals(mSession.getUser().getId().toString())){
-                myrecipes.remove(r);
-            }
-        }
-        Log.d(TAG, "*************** SYNC ********************************");
-        for(Recipe r:myrecipes){
-            if (r.getTS(AsynCallFlag.NEWRECIPE)==1){
-                if (uploadRecipe(r)) {
-                    Log.d(TAG, "Recette " + r.getTitle()+" mise à jour");
-                    r.updateTS(AsynCallFlag.NEWRECIPE,false);
-                    mCookbook.updateRecipe(r);
-                } else{
-                    Log.d(TAG, "Recette " + r.getTitle()+" non mise à jour");
+            if (r.getOwnerIdString().equals(mSession.getUser().getId().toString())) {
+                if (r.getTS(AsynCallFlag.NEWRECIPE) == 1) {
+                    if (uploadRecipe(r)) {
+                        Log.d(TAG, "Recette " + r.getTitle() + " mise à jour");
+                        r.updateTS(AsynCallFlag.NEWRECIPE, false);
+                        mCookbook.updateRecipe(r);
+                    } else {
+                        Log.d(TAG, "Recette " + r.getTitle() + " non mise à jour");
+                    }
                 }
-            }
-            if (r.getTS(AsynCallFlag.NEWPHOTO)==1){
-                if (uploadPhoto(r)) {
-                    Log.d(TAG, "Recette Photo " + r.getTitle()+" mise à jour");
-                    r.updateTS(AsynCallFlag.NEWPHOTO,false);
-                    mCookbook.updateRecipe(r);
-                } else{
-                    Log.d(TAG, "Recette Photo " + r.getTitle()+" non mise à jour");
+                if (r.getTS(AsynCallFlag.NEWPHOTO) == 1) {
+                    if (uploadPhoto(r)) {
+                        Log.d(TAG, "Recette Photo " + r.getTitle() + " mise à jour");
+                        r.updateTS(AsynCallFlag.NEWPHOTO, false);
+                        mCookbook.updateRecipe(r);
+                    } else {
+                        Log.d(TAG, "Recette Photo " + r.getTitle() + " non mise à jour");
+                    }
                 }
             }
             if (syncCommentsRecipe(r)) {
@@ -98,7 +108,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                     Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
                 }
             }
-
         }
         return s;
     }
@@ -311,5 +320,93 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                 b=false;}
         }
         return b;
+    }
+    private Boolean syncTiersRecipe(User user) {
+        boolean ret=false;
+        HashMap<String, String> data = new HashMap<>();
+        data.put("iduser", user.getId().toString());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETSTAMPSTIERS, data);
+        if (result==null)return ret;
+        List<Recipe> tiersRecipe=mNetUtils.parseStampsTiers(result);
+        if (tiersRecipe==null) return ret;
+        boolean withphoto=false,update=false;
+        Recipe rloc, rnew;
+        for(Recipe r:tiersRecipe) {
+            rloc=mCookbook.getRecipe(r.getId());
+            if (rloc==null) {
+                rnew=downloadRecipe(r);
+                mCookbook.addRecipe(rnew);
+                Log.d(TAG, "Recette "+ rloc.getTitle()+" downloadée");
+            } else {
+                if (rloc.IsVisible()){
+                    withphoto=IsAfterAndNonNull(r.getDatePhoto(), rloc.getDatePhoto());
+                    update=IsAfterAndNonNull(r.getDate(), rloc.getDate());
+                    if(update || withphoto){
+                        if (updateRecipe(rloc, withphoto)){
+                            mCookbook.updateRecipe(rloc);
+                            Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée with photo"+withphoto);
+                            ret=true;
+                        }
+                  } else continue;
+                }
+            }
+        }
+        return ret;
+    }
+    private boolean IsAfterAndNonNull(Date ds, Date dl){
+        Calendar c=Calendar.getInstance();
+        c.set(2000,0,1,0,0, 0);
+        Date d0=c.getTime();
+        boolean morerecent=(ds.compareTo(dl)==1);
+        boolean isnotnull=(ds.compareTo(d0)==1);
+        return morerecent && isnotnull;
+    }
+
+    private Recipe downloadRecipe(Recipe ref){
+        if (ref==null) return null;
+        HashMap<String,String> data = new HashMap<>();
+        data.put("idrecipe", ref.getId().toString().trim());
+        data.put("iduser", mSession.getUser().getId().toString().trim());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPGETRECIPEFROMCBWITHPHOTO,data);
+        Recipe r=new Recipe();
+        try {
+            JSONArray jarr1 = new JSONArray(result);
+            if (jarr1.length()!=1){
+                Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+                return null;
+            } else {
+                JSONObject obj = jarr1.getJSONObject(0);
+                r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
+                if (!mNetUtils.parseObjectRecipe(r,obj, true, true)) return null;
+            }
+        } catch (Exception e) {
+            Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+        }
+        return r;
+    }
+    private Boolean updateRecipe(Recipe ref, boolean withphoto){
+        if (ref==null) return null;
+        HashMap<String,String> data = new HashMap<>();
+        data.put("idrecipe", ref.getId().toString().trim());
+        data.put("withphoto", (withphoto)?"1":"0");
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPGETRECIPEFROMCB,data);
+        Recipe r=new Recipe();
+        try {
+            JSONArray jarr1 = new JSONArray(result);
+            if (jarr1.length()!=1){
+                Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+                return null;
+            } else {
+                JSONObject obj = jarr1.getJSONObject(0);
+                if (!mNetUtils.parseObjectRecipe(ref,obj, withphoto, false)) {
+                    Log.d(TAG, " Null recipe from JSOn object" + result);
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+            return false;
+        }
+        return true;
     }
 }
