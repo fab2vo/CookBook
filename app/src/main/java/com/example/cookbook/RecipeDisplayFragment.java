@@ -35,7 +35,7 @@ public class RecipeDisplayFragment extends Fragment {
     private int mStepNb;
     private int mIngNb;
     private String newcomment;
-    private String DEFAULT_URL="https://wwww.familycookbook.com";
+    private String DEFAULT_URL="https://wwww.cookbookfamily.com";
 
     private SessionInfo mSession;
     private ImageView mDPhotoView;
@@ -109,9 +109,6 @@ public class RecipeDisplayFragment extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.recipe_menu_delete:
-                if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
-                    Log.d(TAG, "DeleteRecipeFromMenu : no delete image");
-                }
                 CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
                 getActivity().onBackPressed();
             default:
@@ -165,6 +162,9 @@ public class RecipeDisplayFragment extends Fragment {
         }
         updateUI();
         mDNexComment=(EditText) v.findViewById(R.id.recipe_display_enter_comment);
+        mDNexComment.setText("");
+        mDNexComment.setHint(getString(R.string.recipe_comment_hint));
+        //todo test comment versus pattern
         mDNexComment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

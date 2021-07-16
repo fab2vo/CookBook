@@ -116,9 +116,6 @@ public class RecipeEditFragment extends Fragment {
                 startActivity(i);
                 return true;
             case R.id.recipe_menu_delete:
-                if(!CookBook.get(getActivity()).deleteImage(mRecipe)) {
-                    Log.d(TAG, "DeleteRecipeFromMenu : cannot delete image");
-                }
                 CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
                 getActivity().onBackPressed();
             default:

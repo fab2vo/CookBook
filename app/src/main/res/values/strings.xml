@@ -46,7 +46,7 @@
     <string name="recipe_display_title_step">Etapes</string>
     <string name="recipe_display_title_comment">Commentaires (%1$s)</string>
     <string name="recipe_C_label"> - Plus de sel ! de Arthur @ Family Malin</string>
-    <string name="recipe_comment_hint"> Nouveau commentaire ...</string>
+    <string name="recipe_comment_hint"> Votre commentaire ...</string>
     <string name="recipe_rate_please">Avez-vous aimé cette recette ?</string>
     <string name="dialog_star_done">Fait !</string>
     <string name="dialog_star_title">Note</string>

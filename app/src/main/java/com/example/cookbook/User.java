@@ -92,4 +92,8 @@ public class User {
         User u=(User) o;
         return u.getId().toString().equals(mId.toString());
     }
+    //todo P2 épurer affichage quand champs vides
+    //todo P2 tuto swipe page
+    //todo P1 messagerie
+
 }

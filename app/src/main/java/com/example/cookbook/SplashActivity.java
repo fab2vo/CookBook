@@ -93,7 +93,6 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
         mNetUtils=new NetworkUtils(getApplicationContext());
-        // todo check why memberFamily is not used in SplashActivity
         ArrayList<User> memberFamily=new ArrayList<>();
         ArrayList<Recipe> mRecipes=new ArrayList<>();
         TestConnection t;
@@ -112,7 +111,6 @@ public class SplashActivity extends AppCompatActivity {
             mMemberEntered=mSession.getUser().getName();
             mPwdEntered="";
         } else {
-            // todo Is there a way to suggest a name but not show it as in input (in gray for instance)
             mFamilyEntered=getString(R.string.splash_edit_family_hint);
             mMemberEntered=getString(R.string.splash_edit_member_hint);
             mPwdEntered=getString(R.string.splash_edit_pwd_hint);
@@ -435,12 +433,7 @@ public class SplashActivity extends AppCompatActivity {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
                 JSONObject obj = jarr1.getJSONObject(i);
-                //uuid=UUID.fromString(obj.getString("id_user"));
-                //u=new User(obj.getString("family"), obj.getString("name") );
-                //u.setId(uuid);
                 uuid=UUID.fromString(obj.getString("id_recipe"));
-                //s=obj.getString("date_note");
-                //date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
                 n=mNetUtils.parseObjectNote(obj);
                 for(Recipe r:mRecipes){
                     if (r.getId().equals(uuid)){
@@ -460,23 +453,12 @@ public class SplashActivity extends AppCompatActivity {
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", mUser.getId().toString().trim());
         String json = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQGETCOMMENTS,data);
-        User u;
-        String s;
         UUID uuid;
-        Date date;
         Comment c;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
                 JSONObject obj = jarr1.getJSONObject(i);
-                /*uuid=UUID.fromString(obj.getString("id_user"));
-                u=new User(obj.getString("family"), obj.getString("name") );
-                u.setId(uuid);
-                uuid=UUID.fromString(obj.getString("id_recipe"));
-                s=obj.getString("date_comment");
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
-                //date=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(s);
-                c=new Comment(obj.getString("comment"),u,date);*/
                 c=mNetUtils.parseObjectComment(obj);
                 uuid=UUID.fromString(obj.getString("id_recipe"));
                 if (c!=null) {

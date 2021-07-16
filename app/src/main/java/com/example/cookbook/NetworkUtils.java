@@ -258,9 +258,6 @@ public class NetworkUtils {
 
     public boolean parseObjectRecipe(Recipe r, JSONObject obj, boolean withphoto, boolean full){
         try {
-            //---------------- uudi and users
-            //UUID uuid = UUID.fromString(obj.getString("id_recipe"));
-            // Recipe r = new Recipe(uuid);
             UUID uuid;
             String s1, s2;
             User u;
@@ -342,24 +339,25 @@ public class NetworkUtils {
                 if ((!s1.equals("null"))&&(!s1.equals(""))&&(s1!=null)) {
                     Bitmap bm=PictureUtils.getBitmapFromString(s1);
                     if (f.exists()){
-                        Log.d(TAG, "file  " + f.toString()+" non ecrasée dans parsing recipe !");
-                    } else {
-                        try {
-                            if(!f.createNewFile()) {
-                                Log.d(TAG, "Error in creating file  "+f.toString());
-                            }
-                        } catch (IOException e) {
-                            Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
-                        }
-                        try {
-                            FileOutputStream out = new FileOutputStream(f);
-                            bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                            out.flush();
-                            out.close();
-                        } catch (Exception e) {
-                            Log.d(TAG, "Storing bitmap error  " + e);
-                        }
+                        Log.d(TAG, "file  " + f.toString()+" ecrasée dans parsing recipe !");
+                        f.delete();
                     }
+                    try {
+                        if(!f.createNewFile()) {
+                            Log.d(TAG, "Error in creating file  "+f.toString());
+                        }
+                    } catch (IOException e) {
+                        Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
+                    }
+                    try {
+                        FileOutputStream out = new FileOutputStream(f);
+                        bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                        out.flush();
+                        out.close();
+                    } catch (Exception e) {
+                        Log.d(TAG, "Storing bitmap error  " + e);
+                    }
+
                 }
             }
 

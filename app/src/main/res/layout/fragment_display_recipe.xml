@@ -489,12 +489,14 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/recipe_display_enter_comment"
                     style="@style/EnterValueField"
                     android:layout_width="310dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/recipe_comment_hint"/>
+                    android:inputType="text"
+                    android:text="@string/recipe_comment_hint" />
                 <ImageView
                     android:id="@+id/recipe_img_enter"
                     android:layout_width="20dp"

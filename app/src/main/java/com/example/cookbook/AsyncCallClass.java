@@ -24,7 +24,7 @@ import java.util.UUID;
 
 enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE}
 
-class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
+class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     // Constantes
     private static final String TAG = "CB_AsynCalls";
     private static final String PHP204 = "return204.php";
@@ -53,21 +53,14 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
     }
 
     @Override
-    protected String[] doInBackground(Void... params) {
-        String[] s = {"Init", "true"};
+    protected Boolean doInBackground(Void... params) {
+        Boolean isChanged=false;
         if (!test204()) {
-            s[0]="Pas de connection";
-            s[1]="false";
-            return s;
+            return false;
         }
-        Log.d(TAG, "*************** SYNC SERVER ****************************");
-        if (!syncTiersRecipe(mSession.getUser())) {
-            Log.d(TAG, "echec stamps sync ");
-            s[1]="false";
-        }
-        //************ Boucle sur recettes dont l'utilisateur est l'auteur
+        Log.d(TAG, "*************** SYNC ****************************");
+        if (syncTiersRecipe(mSession.getUser())) isChanged=true;
         List<Recipe> mrecipes=mCookbook.getRecipes();
-        Log.d(TAG, "*************** SYNC LOC ****************************");
         for(Recipe r:mrecipes){
             if (r.getOwnerIdString().equals(mSession.getUser().getId().toString())) {
                 if (r.getTS(AsynCallFlag.NEWRECIPE) == 1) {
@@ -75,6 +68,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                         Log.d(TAG, "Recette " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWRECIPE, false);
                         mCookbook.updateRecipe(r);
+                        isChanged=true;
                     } else {
                         Log.d(TAG, "Recette " + r.getTitle() + " non mise à jour");
                     }
@@ -84,6 +78,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                         Log.d(TAG, "Recette Photo " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWPHOTO, false);
                         mCookbook.updateRecipe(r);
+                        isChanged=true;
                     } else {
                         Log.d(TAG, "Recette Photo " + r.getTitle() + " non mise à jour");
                     }
@@ -91,30 +86,34 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
             }
             if (syncCommentsRecipe(r)) {
                 Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
+                isChanged=true;
                 r.updateTS(AsynCallFlag.NEWCOMMENT,false);
                 mCookbook.updateRecipe(r);
             }
             if (syncNotesRecipe(r)) {
                 Log.d(TAG, "Notes de " + r.getTitle()+" updaté");
+                isChanged=true;
                 r.updateTS(AsynCallFlag.NEWRATING,false);
                 mCookbook.updateRecipe(r);
             }
             if (r.IsMarkedDeleted()){
-                Log.d(TAG, "Recette à effacer :" + r.getTitle());
                 if (deleteRecipeFromCB(r)) {
-                    Log.d(TAG, "Recette effacée : " + r.getTitle()+" mise à jour");
+                    Log.d(TAG, "Recette effacée : " + r.getTitle());
                     mCookbook.removeRecipe(r);
+                    mCookbook.deleteImage(r);
+                    isChanged=true;
                 } else{
                     Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
                 }
             }
         }
-        return s;
+        return isChanged;
     }
 
     @Override
-    protected void onPostExecute(String[] retAsyn) {
-        Log.d(TAG, "Post execute " + retAsyn[0]);
+    protected void onPostExecute(Boolean isChanged) {
+        super.onPostExecute(isChanged);
+        Log.d(TAG, "Has changed ? " + isChanged);
     }
 
     private Boolean test204() {
@@ -337,6 +336,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                 rnew=downloadRecipe(r);
                 mCookbook.addRecipe(rnew);
                 Log.d(TAG, "Recette "+ rloc.getTitle()+" downloadée");
+                ret=true;
             } else {
                 if (rloc.IsVisible()){
                     withphoto=IsAfterAndNonNull(r.getDatePhoto(), rloc.getDatePhoto());
@@ -344,7 +344,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, String[]> {
                     if(update || withphoto){
                         if (updateRecipe(rloc, withphoto)){
                             mCookbook.updateRecipe(rloc);
-                            Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée with photo"+withphoto);
+                            Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
                             ret=true;
                         }
                   } else continue;

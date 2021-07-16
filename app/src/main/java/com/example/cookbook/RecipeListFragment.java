@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //-------------------------------------------------------------------------------------------------
-// print 24/5/2021
-// Saved GitHUb V01
+// print 16/07/2021
+// Saved GitHUb V02
 //----------------------------------------------------------------------------------------------
 public class RecipeListFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
@@ -67,6 +67,8 @@ public class RecipeListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
         activity.getSupportActionBar().setSubtitle(getString(R.string.recipe_display_author,u.getName(),u.getFamily()));
+        AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
+        instanceAsync.execute();
     }
 
     @Override
@@ -273,8 +275,8 @@ public class RecipeListFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            //mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
-            mSourceTextView.setText(mRecipe.getFlag());
+            mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
+            // mSourceTextView.setText(mRecipe.getFlag()); for debug
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");
             mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5");
