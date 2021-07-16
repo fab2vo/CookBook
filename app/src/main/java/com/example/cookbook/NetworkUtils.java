@@ -279,7 +279,7 @@ public class NetworkUtils {
                     s2 = obj.getString("from_name");
                     u = new User(s1, s2);
                     u.setId(uuid);
-                    r.setOwner(u);
+                    r.setUserFrom(u);
                 }
             }
             //------------ dates
@@ -302,7 +302,7 @@ public class NetworkUtils {
             r.setTitle(s1);
             r.setSource(obj.getString("source"));
             s1 = obj.getString("source_url");
-            if (!s1.equals("null")&&(s1!=null)) {
+            if (!s1.equals("null")&&(s1.length()>5)&&(s1!=null)) {
                 try {
                     url = new URL(s1);
                     r.setSource_url(url);

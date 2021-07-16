@@ -141,7 +141,8 @@ public class RecipeListFragment extends Fragment {
                 instanceAsync.execute();
                 return true;
             case R.id.new_mail:
-                // call
+                Intent intent3= RecipeMailDisplayActivity.newIntent(getActivity());
+                startActivity(intent3);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

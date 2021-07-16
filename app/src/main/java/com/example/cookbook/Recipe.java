@@ -86,6 +86,10 @@ public class Recipe {
         return mIdFrom;
     }
 
+    public void setUserFrom(User idFrom) {
+        mIdFrom = idFrom;
+    }
+
     public void setId(UUID id) {mId = id; }
 
     public Date getDate() {

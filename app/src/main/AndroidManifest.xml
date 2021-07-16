@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".RecipeListActivity">
         </activity>
+        <activity android:name=".RecipeMailDisplayActivity">
+        </activity>
         <activity android:name=".RecipeActivity"
             android:parentActivityName=".RecipeListActivity">
         </activity>

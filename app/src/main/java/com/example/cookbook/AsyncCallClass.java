@@ -335,7 +335,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             if (rloc==null) {
                 rnew=downloadRecipe(r);
                 mCookbook.addRecipe(rnew);
-                Log.d(TAG, "Recette "+ rloc.getTitle()+" downloadée");
+                Log.d(TAG, "Recette "+ rnew.getTitle()+" downloadée");
                 ret=true;
             } else {
                 if (rloc.IsVisible()){
