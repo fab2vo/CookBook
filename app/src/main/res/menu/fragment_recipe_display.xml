@@ -2,11 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <item
+        android:id="@+id/recipe_mail"
+        android:icon="@drawable/ic_mailsend"
+        android:title="@string/recipe_menu_send_hint"
+        app:showAsAction="always|withText"/>
+
     <item
         android:id="@+id/recipe_menu_report"
         android:icon="@drawable/ic_menu_share"
         android:title="@string/recipe_menu_report_text"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always|withText"/>
 
     <item
         android:id="@+id/recipe_menu_delete"

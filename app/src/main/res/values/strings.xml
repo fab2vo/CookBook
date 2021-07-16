@@ -78,6 +78,8 @@
     <string name="enter_noerr_new_member"> Bienvenue dans votre nouveau livre de cuisine ! </string>
     <string name="menu_logout"> Sortie </string>
     <string name="menu_sync"> Synchronisation avec serveur  </string>
+    <string name="new_message"> Un message !  </string>
+    <string name="recipe_menu_send_hint"> Envoyer par messagerie</string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

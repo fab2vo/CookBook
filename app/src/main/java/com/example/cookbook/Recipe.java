@@ -281,6 +281,10 @@ public class Recipe {
         if (mStatus==StatusRecipe.Visible) {return true;}
         return false;
     }
+    public boolean IsMessage(){
+        if (mStatus==StatusRecipe.Submitted) {return true;}
+        return false;
+    }
     public boolean IsMarkedDeleted(){
         if (mStatus==StatusRecipe.Deleted) {return true;}
         return false;

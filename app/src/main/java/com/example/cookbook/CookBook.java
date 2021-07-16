@@ -162,4 +162,14 @@ public class CookBook {
             addRecipe(r);
         }
     }
+
+    public Boolean isThereMail(){
+        List<Recipe> recipes=new ArrayList<>();
+        recipes=getRecipes();
+        for(Recipe r:recipes){
+            if (r.IsMessage())
+                return true;
+        }
+        return false;
+    }
 }

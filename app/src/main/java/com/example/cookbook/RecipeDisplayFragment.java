@@ -108,6 +108,9 @@ public class RecipeDisplayFragment extends Fragment {
                 Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
                 startActivity(intent);
                 return true;
+            case R.id.recipe_mail:
+                // call
+                return true;
             case R.id.recipe_menu_delete:
                 CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
                 getActivity().onBackPressed();

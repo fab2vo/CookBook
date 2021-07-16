@@ -7,6 +7,12 @@
     app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
 
     <item
+        android:id="@+id/new_mail"
+        android:icon="@drawable/ic_message"
+        android:title="@string/new_message"
+        app:showAsAction="ifRoom|withText"/>
+
+    <item
         android:id="@+id/new_recipe"
         android:icon="@drawable/ic_menu_add"
         android:title="@string/new_recipe"

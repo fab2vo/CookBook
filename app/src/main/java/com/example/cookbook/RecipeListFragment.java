@@ -38,13 +38,14 @@ import java.util.stream.Collectors;
 
 //-------------------------------------------------------------------------------------------------
 // print 16/07/2021
-// Saved GitHUb V02
+// Saved GitHUb V2.0
 //----------------------------------------------------------------------------------------------
 public class RecipeListFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
     private SessionInfo mSession;
     private Recipe mRecipeInit;
+    private MenuItem mMessageItem;
     private static final String SAVED_SORT_STATUS="sort";
     private int mSortOption;
     private int finalRate;
@@ -113,6 +114,9 @@ public class RecipeListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_list, menu);
+        mMessageItem = menu.findItem(R.id.new_mail);
+        CookBook cookbook=CookBook.get(getActivity());
+        mMessageItem.setVisible(cookbook.isThereMail());
     }
 
     @Override
@@ -135,6 +139,9 @@ public class RecipeListFragment extends Fragment {
             case R.id.list_sync:
                 AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
                 instanceAsync.execute();
+                return true;
+            case R.id.new_mail:
+                // call
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
