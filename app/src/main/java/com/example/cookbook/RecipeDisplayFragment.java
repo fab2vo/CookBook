@@ -36,6 +36,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class RecipeDisplayFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
@@ -69,6 +70,9 @@ public class RecipeDisplayFragment extends Fragment {
     private EditText mDNexComment;
     private ImageView mDEnterComment;
     private ScrollView mScroll;
+    private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
+    private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
+    private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
 
     public static RecipeDisplayFragment newInstance(UUID recipeId) {
         Bundle args=new Bundle();
@@ -127,16 +131,16 @@ public class RecipeDisplayFragment extends Fragment {
                 LinearLayout layout = new LinearLayout(getContext());
                 layout.setOrientation(LinearLayout.VERTICAL);
                 final EditText familyBox = new EditText(getContext());
-                familyBox.setHint("Nom de la famille");
+                familyBox.setHint(getString(R.string.splash_edit_family_hint));
                 layout.addView(familyBox);
                 final EditText memberBox = new EditText(getContext());
-                memberBox.setHint("Prénom");
+                memberBox.setHint(getString(R.string.splash_edit_member_hint));
                 layout.addView(memberBox);
                 final EditText messageBox = new EditText(getContext());
-                messageBox.setHint("Message au destinataire");
+                messageBox.setHint(getString(R.string.mail_message_to));
                 layout.addView(messageBox);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Destinataire de la recette");
+                builder.setTitle(getString(R.string.mail_box_title));
                 builder.setView(layout);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -144,9 +148,18 @@ public class RecipeDisplayFragment extends Fragment {
                         mToFamily = familyBox.getText().toString();
                         mToMember = memberBox.getText().toString();
                         mToMessage = messageBox.getText().toString();
-                        Log.d(TAG, mToMessage+" => "+ mToMember +" @ "+mToFamily);
+                        Boolean b=(Pattern.matches(REGEX_FAMILY,mToFamily));
+                        b=b&&(Pattern.matches(REGEX_MEMBER,mToMember));
+                        b=b&&(IsLenOK(mToFamily,MINMAX[0][0],MINMAX[0][1]));
+                        b=b&&(IsLenOK(mToMember,MINMAX[1][0],MINMAX[1][1]));
+                        //todo test comment versus pattern message
+                        if (b) {
                         sendMailAsync sendmail = new sendMailAsync();
                         sendmail.execute();
+                        } else {
+                            mDSourceText.setText(getString(R.string.mail_send_fail_error));
+                            mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -294,23 +307,34 @@ public class RecipeDisplayFragment extends Fragment {
             if (i>=0){mDComText[i].setVisibility((NbCom>i)? visible:gone);}
         }
     }
+    private Boolean IsLenOK(String s, int min, int max){
+        int l=s.length();
+        return ((l>min)&&(l<max));
+    }
     private String getRecipeReport(){
         String report;
         Integer iplus;
         report =getString(R.string.recipe_report_title, mRecipe.getTitle())+"\n";
         report +=getString(R.string.recipe_report_owner,mRecipe.getOwner().getNameComplete())+"\n";
-        //String dateFormat = "dd MMM yyyy";
-        //String dateString=DateFormat.format(dateFormat,mRecipe.getDate()).toString();
+        if(!mRecipe.getSource().equals("")){
+            report +=  getString(R.string.recipe_report_source, mRecipe.getSource())+"\n";
+        }
         if(!mRecipe.getSource_url_name().equals("")){
-            report += getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
+            report +=  getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
         }
-        for(int i=0;i<mRecipe.getNbIng();i++){
-            report += getString(R.string.recipe_report_ing, mRecipe.getIngredient(i+1))+"\n";
+        if (mRecipe.getNbIng()>0){
+            report +=getString(R.string.recipe_report_name_ingredient)+"\n";
+            for(int i=0;i<mRecipe.getNbIng();i++){
+                report += getString(R.string.recipe_report_ing, mRecipe.getIngredient(i+1))+"\n";
+            }
         }
-        for(int i=0;i<mRecipe.getNbStep();i++){
-            iplus=i+1;
-            report += getString(R.string.recipe_report_step, iplus+"",
-                    mRecipe.getStep(i+1))+"\n";
+        if (mRecipe.getNbStep()>0) {
+            report +=getString(R.string.recipe_report_name_step)+"\n";
+            for (int i = 0; i < mRecipe.getNbStep(); i++) {
+                iplus = i + 1;
+                report += getString(R.string.recipe_report_step, iplus + "",
+                        mRecipe.getStep(i + 1)) + "\n";
+            }
         }
         report +=getString(R.string.recipe_report_final);
         return report;
@@ -328,14 +352,18 @@ public class RecipeDisplayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d(TAG, "Debut envoi");
+            mDSourceText.setText(getString(R.string.mail_send_start));
+            mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
-            if (b) Log.d(TAG, "Envoi : succès ");
-            else Log.d(TAG, "Envoi : echec ");
+            if (b) {
+                mDSourceText.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
+                mDSourceText.setTextColor(getResources().getColor(R.color.light_green));
+            }
+            else mDSourceText.setText(getString(R.string.mail_send_fail));
             return;
         }
 
@@ -347,7 +375,6 @@ public class RecipeDisplayFragment extends Fragment {
             }
             HashMap<String, String> data = new HashMap<>();
             data.put("idrecipe", mRecipe.getId().toString());
-            //todo check with proper pattern
             if ((mToFamily==null)||(mToFamily.length()<5)) return false;
             data.put("family",mToFamily.trim());
             if ((mToMember==null)||(mToMember.length()<5)) return false;

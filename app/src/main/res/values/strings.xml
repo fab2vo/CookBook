@@ -36,10 +36,11 @@
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
     <string name="recipe_report_title">==%1$s ==</string>
     <string name="recipe_report_owner">de %1$s </string>
-    <string name="recipe_report_url"> lien %1$s </string>
+    <string name="recipe_report_url"> Lien : %1$s </string>
+    <string name="recipe_report_source"> Source : %1$s </string>
     <string name="recipe_report_ing">- %1$s</string>
     <string name="recipe_report_step">-Etape %1$s : %2$s</string>
-    <string name="recipe_report_final">Téléchargez FamilyCookBook </string>
+    <string name="recipe_report_final">Téléchargez CookBookFamily </string>
     <string name="list_item_difficulty">Difficulty </string>
     <string name="recipe_display_author">%1$s de %2$s</string>
     <string name="recipe_display_title_ing"> Ingredients pour %1$s personnes </string>
@@ -51,7 +52,6 @@
     <string name="dialog_star_done">Fait !</string>
     <string name="dialog_star_title">Note</string>
     <string name="splash_moto_txt">FamilyCookBook votre livre de recettes à partager en famille et avec vos amis</string>
-
     <string name="splash_button_session_txt">Ouvrir mon livre</string>
     <string name="splash_button_member_txt"> Nouveau membre de la famille</string>
     <string name="splash_button_family_txt"> Nouveau livre de famille</string>
@@ -80,6 +80,14 @@
     <string name="menu_sync"> Synchronisation avec serveur  </string>
     <string name="new_message"> Un message !  </string>
     <string name="recipe_menu_send_hint"> Envoyer par messagerie</string>
+    <string name="mail_send_start"> Envoi de la recette en cours ...</string>
+    <string name="mail_send_success"> Rectte envoyée à %1$s@%2$s </string>
+    <string name="mail_send_fail"> Echec de l\'envoi de recette </string>
+    <string name="mail_send_fail_error"> Erreur dans le nombre ou le genre de caractères </string>
+    <string name="mail_message_to"> Votre message au destinataire </string>
+    <string name="mail_box_title"> Destinataire de la recette </string>
+    <string name="recipe_report_name_ingredient"> Ingrédients : </string>
+    <string name="recipe_report_name_step"> Etapes : </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>
