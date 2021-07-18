@@ -77,21 +77,6 @@ public class Recipe {
         mTS_note=false;
     }
 
-
-    public UUID getId() {
-        return mId;
-    }
-
-    public User getUserFrom() {
-        return mIdFrom;
-    }
-
-    public void setUserFrom(User idFrom) {
-        mIdFrom = idFrom;
-    }
-
-    public void setId(UUID id) {mId = id; }
-
     public Date getDate() {
         return mLastUpdateRecipe;
     }
@@ -128,38 +113,7 @@ public class Recipe {
         mMessage=message;
     }
 
-    public void updateTS(AsynCallFlag asyn, Boolean b){
-        switch(asyn){
-            case NEWRECIPE:{mTS_recipe=b;return;}
-            case NEWPHOTO:{mTS_photo=b;return;}
-            case NEWRATING:{mTS_note=b;return;}
-            case NEWCOMMENT:{mTS_comment=b;return;}
-        }
-        return;
-    }
 
-    public int getTS(AsynCallFlag asyn){
-        Boolean b=false;
-        switch(asyn){
-            case NEWRECIPE:{b=mTS_recipe; break;}
-            case NEWPHOTO:{b=mTS_photo; break;}
-            case NEWRATING:{b=mTS_note; break;}
-            case NEWCOMMENT:{b=mTS_comment; break;}
-        }
-        return (b ? 1:0);
-    }
-    public Boolean hasChanged(){
-        return (mTS_recipe || mTS_photo || mTS_note || mTS_comment);
-    }
-
-    public String getFlag(){
-        String s=mStatus.toString().substring(0,1);
-        s=s+(mTS_recipe ? "1":"0");
-        s=s+(mTS_photo ? "1":"0");
-        s=s+(mTS_comment ? "1":"0");
-        s=s+(mTS_note ? "1":"0");
-        return s;
-    }
 
     // -----------------STEP-------------------
     public void setStep(Integer i, String step) {
@@ -202,7 +156,21 @@ public class Recipe {
 
     public int getNbIngMax(){return NBING_MAX;}
 
-    //------------------- Owner ----------------------------------
+    //------------------- Users  ----------------------------------
+    public UUID getId() {
+        return mId;
+    }
+
+    public User getUserFrom() {
+        return mIdFrom;
+    }
+
+    public void setUserFrom(User idFrom) {
+        mIdFrom = idFrom;
+    }
+
+    public void setId(UUID id) {mId = id; }
+
     public User getOwner() {
         return mOwner;
     }
@@ -214,7 +182,6 @@ public class Recipe {
     public void setOwner(User owner) {
         mOwner = owner;
     }
-
 
     //------------------- Source ----------------------------------
     public String getSource() {
@@ -294,14 +261,44 @@ public class Recipe {
         return false;
     }
 
-    //-------------------- photo filename---------------------
+    public void updateTS(AsynCallFlag asyn, Boolean b){
+        switch(asyn){
+            case NEWRECIPE:{mTS_recipe=b;return;}
+            case NEWPHOTO:{mTS_photo=b;return;}
+            case NEWRATING:{mTS_note=b;return;}
+            case NEWCOMMENT:{mTS_comment=b;return;}
+        }
+        return;
+    }
 
+    public int getTS(AsynCallFlag asyn){
+        Boolean b=false;
+        switch(asyn){
+            case NEWRECIPE:{b=mTS_recipe; break;}
+            case NEWPHOTO:{b=mTS_photo; break;}
+            case NEWRATING:{b=mTS_note; break;}
+            case NEWCOMMENT:{b=mTS_comment; break;}
+        }
+        return (b ? 1:0);
+    }
+    public Boolean hasChanged(){
+        return (mTS_recipe || mTS_photo || mTS_note || mTS_comment);
+    }
+
+    public String getFlag(){
+        String s=mStatus.toString().substring(0,1);
+        s=s+(mTS_recipe ? "1":"0");
+        s=s+(mTS_photo ? "1":"0");
+        s=s+(mTS_comment ? "1":"0");
+        s=s+(mTS_note ? "1":"0");
+        return s;
+    }
+    //-------------------- photo filename---------------------
     public String getPhotoFilename(){
         return "IMG"+getId().toString()+".jpg";
     }
 
     //--------------------- Arraylist Comments et Notes------------------------
-
     public void addComment(Comment c){ mComments.add(c);}
 
     public ArrayList<Comment> getComments() {return mComments;}

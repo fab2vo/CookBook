@@ -67,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
     private final static int NEW_MEMBER=2;
     private final static int NEW_SESSION=3;
     private final static int NEW_PWD=3;
-    private final static Integer MINMAX[][]={{8,45},{1,25},{4,25}}; // min max pour family, member, pwd strings
+    private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
     private static final String REGEX_PWD="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()]*";

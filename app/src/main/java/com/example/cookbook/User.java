@@ -71,7 +71,7 @@ public class User {
     }
 
     public String getNameComplete() {
-        return mName+" de "+ mFamily;
+        return mName+"@"+ mFamily;
     }
 
     public boolean IsEqual(User r){return (mId==r.getId());}

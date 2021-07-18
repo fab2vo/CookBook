@@ -46,6 +46,7 @@ public class RecipeListFragment extends Fragment {
     private SessionInfo mSession;
     private Recipe mRecipeInit;
     private MenuItem mMessageItem;
+    private Menu mMenu;
     private static final String SAVED_SORT_STATUS="sort";
     private int mSortOption;
     private int finalRate;
@@ -141,8 +142,11 @@ public class RecipeListFragment extends Fragment {
                 instanceAsync.execute();
                 return true;
             case R.id.new_mail:
+                CookBook cookbook=CookBook.get(getActivity());
+                if (cookbook.isThereMail()) {
                 Intent intent3= RecipeMailDisplayActivity.newIntent(getActivity());
-                startActivity(intent3);
+                startActivity(intent3); } else {
+                mMessageItem.setVisible(cookbook.isThereMail());}
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

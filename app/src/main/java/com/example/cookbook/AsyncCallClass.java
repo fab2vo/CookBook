@@ -38,6 +38,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private static final String PHPGETSTAMPSTIERS = "getrecipestampstiers.php";
     private static final String PHPGETRECIPEFROMCB = "getrecipefromcb.php";
     private static final String PHPGETRECIPEFROMCBWITHPHOTO = "getrecipefromcbwithphoto.php";
+    private static final String PHPACCEPTRECIPE = "acceptrecipe.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     // Variable
     private static Context mContext;
@@ -280,9 +281,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         for (int i = 0; i < downloadedNotes.size(); i++){
             ci=downloadedNotes.get(i);
             c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
-            if (recipeNotes.indexOf(c)==-1) {
-                cser.add(c);
-            }
+            if (recipeNotes.indexOf(c)==-1) cser.add(c);
         }
         for (int i = 0; i < cser.size(); i++){
             r.addNote(cser.get(i));
@@ -332,22 +331,28 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         Recipe rloc, rnew;
         for(Recipe r:tiersRecipe) {
             rloc=mCookbook.getRecipe(r.getId());
-            if (rloc==null) {
+            if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
                 mCookbook.addRecipe(rnew);
                 Log.d(TAG, "Recette "+ rnew.getTitle()+" downloadée");
                 ret=true;
             } else {
-                if (rloc.IsVisible()){
+                if (rloc.IsVisible()){ // case recipe tiers active and to be updated if necessary
                     withphoto=IsAfterAndNonNull(r.getDatePhoto(), rloc.getDatePhoto());
                     update=IsAfterAndNonNull(r.getDate(), rloc.getDate());
+                    if (r.IsMessage()){// case recipe tiers active and status needs update
+                        if (recipeAccepted(r)){
+                            Log.d(TAG, "Recette "+ rloc.getTitle()+" made visible on server");
+                        }
+                    }
                     if(update || withphoto){
                         if (updateRecipe(rloc, withphoto)){
                             mCookbook.updateRecipe(rloc);
                             Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
                             ret=true;
                         }
-                  } else continue;
+                    }
+                    else continue;
                 }
             }
         }
@@ -407,6 +412,18 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
             return false;
         }
+        return true;
+    }
+
+    private Boolean recipeAccepted(Recipe r){
+        if (r==null) return null;
+        HashMap<String,String> data = new HashMap<>();
+        data.put("idrecipe", r.getId().toString().trim());
+        data.put("iduser", mSession.getUser().getId().toString());
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPACCEPTRECIPE,data);
+        if (!result.equals("1")) {
+            Log.d(TAG, "Retour de "+ PHPACCEPTRECIPE+" = "+result);
+            return false;}
         return true;
     }
 }

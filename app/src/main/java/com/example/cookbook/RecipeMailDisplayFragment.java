@@ -95,14 +95,18 @@ public class RecipeMailDisplayFragment extends Fragment {
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "Delete :" + mRecipe.getTitle());
+                    mRecipe.setStatus(StatusRecipe.Deleted);
+                    CookBook cookbook=CookBook.get(getActivity());
+                    cookbook.updateRecipe(mRecipe);
                     updateUI();
                 }
             });
             mAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "Add :" + mRecipe.getTitle());
+                    mRecipe.setStatus(StatusRecipe.Visible);
+                    CookBook cookbook=CookBook.get(getActivity());
+                    cookbook.updateRecipe(mRecipe);
                     updateUI();
                 }
             });
