@@ -1,12 +1,16 @@
 package com.example.cookbook;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +21,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RecipeDisplayFragment extends Fragment {
@@ -36,7 +47,6 @@ public class RecipeDisplayFragment extends Fragment {
     private int mIngNb;
     private String newcomment;
     private String DEFAULT_URL="https://wwww.cookbookfamily.com";
-
     private SessionInfo mSession;
     private ImageView mDPhotoView;
     private TextView mDTitleText;
@@ -50,6 +60,9 @@ public class RecipeDisplayFragment extends Fragment {
     private TextView mDSourceUrl;
     private TextView mDIngTitle;
     private TextView mDComTitle;
+    private String mToFamily;
+    private String mToMember;
+    private String mToMessage;
     private TextView[] mDStepText;
     private TextView[] mDIngText;
     private TextView[] mDComText;
@@ -76,6 +89,8 @@ public class RecipeDisplayFragment extends Fragment {
         setHasOptionsMenu(true);
         mStepNb=mRecipe.getNbStep();
         mIngNb=mRecipe.getNbIng();
+        mToFamily="";
+        mToMember="";
     }
     @Override
     public void onPause(){
@@ -109,7 +124,38 @@ public class RecipeDisplayFragment extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.recipe_mail:
-                // call
+                LinearLayout layout = new LinearLayout(getContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                final EditText familyBox = new EditText(getContext());
+                familyBox.setHint("Nom de la famille");
+                layout.addView(familyBox);
+                final EditText memberBox = new EditText(getContext());
+                memberBox.setHint("Prénom");
+                layout.addView(memberBox);
+                final EditText messageBox = new EditText(getContext());
+                messageBox.setHint("Message au destinataire");
+                layout.addView(messageBox);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Destinataire de la recette");
+                builder.setView(layout);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mToFamily = familyBox.getText().toString();
+                        mToMember = memberBox.getText().toString();
+                        mToMessage = messageBox.getText().toString();
+                        Log.d(TAG, mToMessage+" => "+ mToMember +" @ "+mToFamily);
+                        sendMailAsync sendmail = new sendMailAsync();
+                        sendmail.execute();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
                 return true;
             case R.id.recipe_menu_delete:
                 CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
@@ -268,6 +314,73 @@ public class RecipeDisplayFragment extends Fragment {
         }
         report +=getString(R.string.recipe_report_final);
         return report;
+    }
+
+    /******************************************************************************************
+     *                            ASYNC                                                        *
+     *******************************************************************************************/
+
+
+    class sendMailAsync extends AsyncTask<Void, Void, Boolean> {
+        private static final String PHP204 = "return204.php";
+        private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
+        private static final String PHPSENDMAIL = "sendmail.php";
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "Debut envoi");
+        }
+
+        @Override
+        protected void onPostExecute(Boolean b) {
+            super.onPostExecute(b);
+            if (b) Log.d(TAG, "Envoi : succès ");
+            else Log.d(TAG, "Envoi : echec ");
+            return;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            NetworkUtils mNetUtils = new NetworkUtils(getContext());
+            if (!test204()) {
+                return false;
+            }
+            HashMap<String, String> data = new HashMap<>();
+            data.put("idrecipe", mRecipe.getId().toString());
+            //todo check with proper pattern
+            if ((mToFamily==null)||(mToFamily.length()<5)) return false;
+            data.put("family",mToFamily.trim());
+            if ((mToMember==null)||(mToMember.length()<5)) return false;
+            data.put("membre", mToMember.trim());
+            data.put("idfrom", mSession.getUser().getId().toString());
+            if (mToMessage==null) return false;
+            data.put("message", mToMessage.trim());
+            String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPSENDMAIL, data);
+            if (result==null) return false;
+            if (!result.trim().equals("1")) {
+                Log.d(TAG, "Retour de "+PHPSENDMAIL+" =>"+result+"<");
+                return false;}
+            return true;
+        }
+
+        private Boolean test204() {
+            try {
+                URL url = new URL(mSession.getURLPath() + PHP204);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(mSession.getConnectTimeout());
+                conn.setReadTimeout(mSession.getReadTimeout());
+                conn.setRequestMethod("HEAD");
+                InputStream in = conn.getInputStream();
+                int status = conn.getResponseCode();
+                in.close();
+                conn.disconnect();
+                return (status == HttpURLConnection.HTTP_NO_CONTENT);
+            } catch (Exception e) {
+                Log.d(TAG, "Test 204 : " + e);
+                return false;
+            }
+        }
+
     }
 
 }
