@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cookbook">
+    package="com.fdx.cookbook">
     <uses-feature android:name="android.hardware.camera"
         android:required="false"
         />
@@ -14,21 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name="com.fdx.cookbook.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipeListActivity">
+        <activity android:name="com.fdx.cookbook.RecipeListActivity">
         </activity>
-        <activity android:name=".RecipeMailDisplayActivity">
+        <activity android:name="com.fdx.cookbook.RecipeMailDisplayActivity">
         </activity>
-        <activity android:name=".RecipeActivity"
-            android:parentActivityName=".RecipeListActivity">
+        <activity android:name="com.fdx.cookbook.RecipeActivity"
+            android:parentActivityName="com.fdx.cookbook.RecipeListActivity">
         </activity>
-        <activity android:name=".RecipeDisplayActivity"
-            android:parentActivityName=".RecipeListActivity">
+        <activity android:name="com.fdx.cookbook.RecipeDisplayActivity"
+            android:parentActivityName="com.fdx.cookbook.RecipeListActivity">
         </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
