@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fdx.cookbook.R;
 
@@ -46,9 +47,12 @@ public class RecipeEditFragment extends Fragment {
     private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
     private static final String TAG = "CB_RecipeEditFragment";
+    private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
+    private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
     // Variables internes
     private Recipe mRecipe;
     private Recipe mRecipeInit;
+    private UUID mRecipeId;
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mSourceField;
@@ -83,11 +87,18 @@ public class RecipeEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mRecipe=new Recipe();
         mRecipeInit=new Recipe();
-        UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
-        mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
-        mRecipeInit=CookBook.get(getActivity()).getRecipe(recipeId);
+        mRecipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
         setHasOptionsMenu(true);
-        mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+        SessionInfo session=SessionInfo.get(getActivity());
+        if (!IsRecipeNew(mRecipeId)) {
+            mRecipe=CookBook.get(getActivity()).getRecipe(mRecipeId);
+            mRecipeInit=CookBook.get(getActivity()).getRecipe(mRecipeId);
+            mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+        } else {
+            mRecipe.setOwner(session.getUser());
+            mRecipeInit.setOwner(session.getUser());
+            mRecipeInit.setId(mRecipe.getId());
+        }
         mStepNb=mRecipe.getNbStep();
         mIngNb=mRecipe.getNbIng();
     }
@@ -95,8 +106,8 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        mRecipe.updateTS(AsynCallFlag.NEWRECIPE, !mRecipe.hasNotChangedSince(mRecipeInit));
-        CookBook.get(getActivity()).updateRecipe(mRecipe);
+        //mRecipe.updateTS(AsynCallFlag.NEWRECIPE, !mRecipe.hasNotChangedSince(mRecipeInit));
+        //CookBook.get(getActivity()).updateRecipe(mRecipe);
     }
 
     @Override
@@ -108,16 +119,23 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.recipe_menu_report:
-                Intent i=new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, getRecipeReport());
-                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.recipe_report_subject));
-                startActivity(i);
+            case R.id.recipe_menu_done:
+                if ((!mRecipe.hasNotChangedSince(mRecipeInit))&&(mRecipe.getTitle().length()>0)){
+                    mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+                    if (IsRecipeNew(mRecipeId)){
+                        CookBook.get(getActivity()).addRecipe(mRecipe);
+                    } else {
+                        CookBook.get(getActivity()).updateRecipe(mRecipe);
+                    }
+                }
+                getActivity().onBackPressed();
                 return true;
             case R.id.recipe_menu_delete:
-                CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
+                if (!IsRecipeNew(mRecipeId)){
+                    CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
+                }
                 getActivity().onBackPressed();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -136,7 +154,7 @@ public class RecipeEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Uri uri= FileProvider.getUriForFile(getActivity(),
-                        "com.fdx.cookbook.fileprovider", mPhotoFile);
+                        FPROVIDER, mPhotoFile);
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 List<ResolveInfo> cameraActivities=getActivity()
                         .getPackageManager().queryIntentActivities(captureImage,
@@ -378,7 +396,7 @@ public class RecipeEditFragment extends Fragment {
 
         if (requestCode==REQUEST_PHOTO){
             Uri uri=FileProvider.getUriForFile(getActivity(),
-                    "com.fdx.cookbook.fileprovider", mPhotoFile);
+                    FPROVIDER, mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             if (!ResizePhoto(mRecipe)){
                 // pb
@@ -455,6 +473,9 @@ public class RecipeEditFragment extends Fragment {
         return ((mIngNb==imax)?gone:visible);
     }
 
+    private Boolean IsRecipeNew(UUID uuid){
+        return uuid.toString().equals(UUIDNULL);
+    }
 
     private Boolean ResizePhoto(Recipe r) {
         File f = CookBook.get(getActivity()).getPhotoFile(r);

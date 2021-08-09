@@ -114,7 +114,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean isChanged) {
         super.onPostExecute(isChanged);
-        Log.d(TAG, "Has changed ? " + isChanged);
+        //fdx Log.d(TAG, "Has changed ? " + isChanged);
     }
 
     private Boolean test204() {

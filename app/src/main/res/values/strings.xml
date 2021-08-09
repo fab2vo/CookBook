@@ -32,6 +32,7 @@
      <string name="subtitle_format">%1$d recettes</string>
     <string name="recipe_menu_report_text">Partager la recette</string>
     <string name="recipe_menu_delete_text">Effacer la recette</string>
+    <string name="recipe_menu_done_text">Fait</string>
     <string name="recipe_menu_edit_text">Editer la recette</string>
     <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
     <string name="recipe_report_title">==%1$s ==</string>

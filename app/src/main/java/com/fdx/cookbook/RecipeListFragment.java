@@ -20,13 +20,12 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.fdx.cookbook.R;
-
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 //-------------------------------------------------------------------------------------------------
 // print 16/07/2021
@@ -50,6 +49,7 @@ public class RecipeListFragment extends Fragment {
     private static final String TAG = "CB_RecipeListFragment";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
+    private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,13 +117,14 @@ public class RecipeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_recipe:
-                Recipe recipe=new Recipe();
-                SessionInfo session=SessionInfo.get(getActivity());
-                recipe.setOwner(session.getUser());
-                recipe.updateTS(AsynCallFlag.NEWRECIPE, true);
-                recipe.setTitle(getString(R.string.recipe_title_label));
-                CookBook.get(getActivity()).addRecipe(recipe);
-                Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
+                //Recipe recipe=new Recipe();
+                //SessionInfo session=SessionInfo.get(getActivity());
+                //recipe.setOwner(session.getUser());
+                //recipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+                //recipe.setTitle(getString(R.string.recipe_title_label));
+                //CookBook.get(getActivity()).addRecipe(recipe);
+                //Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
+                Intent intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
                 startActivity(intent);
                 return true;
             case R.id.list_logout:

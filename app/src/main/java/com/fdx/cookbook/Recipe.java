@@ -28,7 +28,7 @@ public class Recipe {
     private RecipeSeason mSeason;
     private RecipeDifficulty mDifficulty;
     private String[] mIngredients;
-    private StatusRecipe mStatus;   // mettre à jour affichage
+    private StatusRecipe mStatus;
     private String mMessage;
     private User mIdFrom;
     private Boolean mTS_recipe;
@@ -41,6 +41,7 @@ public class Recipe {
     private static final int NBCOM_MAX=20;
     private String TAG="CB_Recipe";
     private String DEFAULT_URL="https://wwww.cookbookfamily.com";
+    private String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
 
 
@@ -50,6 +51,7 @@ public class Recipe {
 
     public Recipe( UUID id){
         mId=id;
+        mTitle="";
         mLastUpdateRecipe =new Date();
         Calendar c=Calendar.getInstance();
         c.set(2000,0,1,0,0, 0);
@@ -66,7 +68,7 @@ public class Recipe {
         mComments=new ArrayList<Comment>();
         mNotes=new ArrayList<Note>();
         mSource="";
-        mIdFrom=new User(UUID.fromString( "00000000-0000-0000-0000-000000000000" ));
+        mIdFrom=new User(UUID.fromString( UUIDNULL));
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
         mTS_recipe=false;
