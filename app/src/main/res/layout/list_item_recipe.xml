@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/list_item_bg"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
-    android:elevation="2dp">
-
+    android:id="@+id/linearLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/list_item_bg"
+    android:elevation="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="4dp">
     <ImageView
         android:id="@+id/recipe_photo"
         android:layout_width="50dp"
@@ -30,66 +28,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/list_item_recipe_title_label"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textSize="14sp"
-        />
+        tools:textSize="14sp" />
 
     <TextView
         android:id="@+id/recipe_source"
         android:layout_width="0dp"
         android:layout_height="21dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
         android:gravity="right"
         android:text="@string/list_item_recipe_source_label"
-        app:layout_constraintStart_toEndOf="@+id/recipe_title"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RatingBar
-        android:id="@+id/recipe_list_ratingBar"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:progressTint="@color/fg_enter_label"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:stepSize="0.1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
-        tools:numStars="5" />
-
-    <TextView
-        android:id="@+id/recipe_note"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/list_item_recipe_note_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipe_list_ratingBar" />
-
-    <TextView
-        android:id="@+id/recipe_difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:textStyle="italic"
-        android:text="@string/list_item_difficulty"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recipe_img_sun" />
+        app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
 
     <ImageView
         android:id="@+id/recipe_edit"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -98,24 +63,52 @@
         android:id="@+id/recipe_img_sun"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_recipe_sun"
         android:tint="@color/fg_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/recipe_photo"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_source" />
 
     <ImageView
         android:id="@+id/recipe_img_ice"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:tint="@color/fg_icon"
         android:src="@drawable/ic_recipe_ice"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipe_img_sun" />
+        android:tint="@color/fg_icon"
+        app:layout_constraintStart_toEndOf="@+id/recipe_img_sun"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_source" />
 
+    <RatingBar
+        android:id="@+id/recipe_list_ratingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:progressTint="@color/fg_enter_label"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toEndOf="@+id/recipe_img_ice"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_source"
+        tools:numStars="5" />
+
+    <TextView
+        android:id="@+id/recipe_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/list_item_recipe_note_label"
+        app:layout_constraintStart_toEndOf="@+id/recipe_list_ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_source" />
+
+    <TextView
+        android:id="@+id/recipe_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:text="@string/list_item_difficulty"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/recipe_source"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
 </android.support.constraint.ConstraintLayout>
