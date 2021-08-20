@@ -52,7 +52,7 @@
     <string name="recipe_rate_please">Avez-vous aimé cette recette ?</string>
     <string name="dialog_star_done">Fait !</string>
     <string name="dialog_star_title">Note</string>
-    <string name="splash_moto_txt">FamilyCookBook votre livre de recettes à partager en famille et avec vos amis</string>
+    <string name="splash_moto_txt">Family CookBook </string>
     <string name="splash_button_session_txt">Ouvrir mon livre</string>
     <string name="splash_button_member_txt"> Nouveau membre de la famille</string>
     <string name="splash_button_family_txt"> Nouveau livre de famille</string>
@@ -82,13 +82,14 @@
     <string name="new_message"> Un message !  </string>
     <string name="recipe_menu_send_hint"> Envoyer par messagerie</string>
     <string name="mail_send_start"> Envoi de la recette en cours ...</string>
-    <string name="mail_send_success"> Rectte envoyée à %1$s@%2$s </string>
+    <string name="mail_send_success"> Recette envoyée à %1$s@%2$s </string>
     <string name="mail_send_fail"> Echec de l\'envoi de recette </string>
     <string name="mail_send_fail_error"> Erreur dans le nombre ou le genre de caractères </string>
     <string name="mail_message_to"> Votre message au destinataire </string>
     <string name="mail_box_title"> Destinataire de la recette </string>
     <string name="recipe_report_name_ingredient"> Ingrédients : </string>
     <string name="recipe_report_name_step"> Etapes : </string>
+    <string name="display_source_de"> de %1$s </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

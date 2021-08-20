@@ -3,7 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="bg_enter_val">#185E0C</color>
+    <color name="bg_enter_val">#226F10</color>
     <color name="fg_enter_label">#84AA9C</color>
     <color name="bg_list">#0B1B0B</color>
     <color name="bg_disabled">#25251F</color>
@@ -12,4 +12,6 @@
     <color name="fg_icon">#D3A356</color>
     <color name="light_red">#D62C30</color>
     <color name="light_green">#81D62C</color>
+    <color name="white">#FFFFFF</color>
 </resources>
+<!-- #2E2E23-->

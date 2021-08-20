@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fdx.cookbook.R;
 
@@ -66,6 +67,7 @@ public class RecipeDisplayFragment extends Fragment {
     private EditText mDNexComment;
     private ImageView mDEnterComment;
     private ScrollView mScroll;
+    //private Snackbar snack;
     private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
@@ -153,8 +155,11 @@ public class RecipeDisplayFragment extends Fragment {
                         sendMailAsync sendmail = new sendMailAsync();
                         sendmail.execute();
                         } else {
-                            mDSourceText.setText(getString(R.string.mail_send_fail_error));
-                            mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
+                            //snack.setText(R.string.mail_send_fail_error);
+                            //snack.show();
+                            //mDSourceText.setText(getString(R.string.mail_send_fail_error));
+                            //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
+                            Toast.makeText(getActivity(),getString(R.string.mail_send_fail_error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -177,6 +182,7 @@ public class RecipeDisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View v=inflater.inflate(R.layout.fragment_display_recipe, container, false);
+       //snack=Snackbar.make(v, "Message is deleted", Snackbar.LENGTH_LONG);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         mDTitleText =(TextView) v.findViewById(R.id.recipe_display_title);
         mDPhotoView=(ImageView) v.findViewById(R.id.recipe_display_photo);
@@ -348,18 +354,28 @@ public class RecipeDisplayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mDSourceText.setText(getString(R.string.mail_send_start));
-            mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
+            //snack.setText(R.string.mail_send_start);
+            //snack.show();
+            //mDSourceText.setText(getString(R.string.mail_send_start));
+            //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
+            Toast.makeText(getActivity(),getString(R.string.mail_send_start), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
             if (b) {
-                mDSourceText.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
-                mDSourceText.setTextColor(getResources().getColor(R.color.light_green));
+                //snack.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
+                //mDSourceText.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
+                //mDSourceText.setTextColor(getResources().getColor(R.color.light_green));
+                Toast.makeText(getActivity(), getString(R.string.mail_send_success,mToMember,mToFamily), Toast.LENGTH_LONG).show();
             }
-            else mDSourceText.setText(getString(R.string.mail_send_fail));
+            else {
+                //snack.setText(getString(R.string.mail_send_fail));
+                //mDSourceText.setText(getString(R.string.mail_send_fail));
+                Toast.makeText(getActivity(), getString(R.string.mail_send_fail), Toast.LENGTH_LONG).show();
+            }
+            //snack.show();
             return;
         }
 

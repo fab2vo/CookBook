@@ -3,6 +3,9 @@ package com.fdx.cookbook;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -57,6 +60,7 @@ public class RecipeListFragment extends Fragment {
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
         mSortOption=0;
+        mSortOption=mSortOption ^ maskSortTitle;
         mRecipeInit=new Recipe();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
@@ -76,7 +80,6 @@ public class RecipeListFragment extends Fragment {
                     .getSerializableExtra(RatePickerFragment.EXTRA_RATE);
             updateUI();
         }
-        //todo test retour recipeeditfragment => remove empty recipe
     }
 
     @Override
@@ -213,14 +216,17 @@ public class RecipeListFragment extends Fragment {
             mRating.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(getActivity(), "Call star", Toast.LENGTH_SHORT).show();
+                    FragmentManager manager = getFragmentManager();
+                    RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
+                    dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
+                    dialog.show(manager, DIALOG_RATE);
                 }
             });
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSortOption=mSortOption ^ maskSortTitle;
-                    updateUI();
+                    Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
+                    startActivity(intent);
                 }
             });
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
@@ -274,16 +280,18 @@ public class RecipeListFragment extends Fragment {
             mPhotoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
-                    startActivity(intent);
+                    FragmentManager manager = getFragmentManager();
+                    RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
+                    dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
+                    dialog.show(manager, DIALOG_RATE);
                 }
             });
         }
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mSourceTextView.setText("("+mRecipe.getOwner().getName()+")");
-            // mSourceTextView.setText(mRecipe.getFlag()); for debug
+            mSourceTextView.setText(getString(R.string.display_source_de, mRecipe.getOwner().getName()));
+            //mSourceTextView.setText(mRecipe.getFlag()); // for debug
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");
             mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5");
@@ -304,11 +312,11 @@ public class RecipeListFragment extends Fragment {
 
         @Override
         public void onClick(View v){
-            //todo P2 devrait se declencher sur le rating
+            /*
             FragmentManager manager = getFragmentManager();
             RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
             dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
-            dialog.show(manager, DIALOG_RATE);
+            dialog.show(manager, DIALOG_RATE);*/
         }
     }
 

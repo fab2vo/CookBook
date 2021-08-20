@@ -120,8 +120,9 @@ public class RecipeEditFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.recipe_menu_done:
-                if ((!mRecipe.hasNotChangedSince(mRecipeInit))&&(mRecipe.getTitle().length()>0)){
-                    mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+                if (mRecipe.getTitle().length()>0){
+                    if (!mRecipe.hasNotChangedSince(mRecipeInit)){
+                    mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);}
                     if (IsRecipeNew(mRecipeId)){
                         CookBook.get(getActivity()).addRecipe(mRecipe);
                     } else {
