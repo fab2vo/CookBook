@@ -3,9 +3,6 @@ package com.fdx.cookbook;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -40,15 +39,16 @@ public class RecipeListFragment extends Fragment {
     private SessionInfo mSession;
     private Recipe mRecipeInit;
     private MenuItem mMessageItem;
-    private Menu mMenu;
+    //private Menu mMenu;
     private static final String SAVED_SORT_STATUS="sort";
-    private int mSortOption;
-    private int finalRate;
-    private static final int maskSortTitle=1 <<3;
-    private static final int maskSortSource=1;
-    private static final int maskSortNote=1 <<2;
-    private static final int maskSortSeason=1 <<4;
-    private static final int maskSortDifficulty=1 <<5;
+    //private int mSortOption;
+    //private int finalRate;
+    private ListMask mListMask;
+    //private static final int maskSortTitle=1 <<3;
+    //private static final int maskSortSource=1;
+    //private static final int maskSortNote=1 <<2;
+    //private static final int maskSortSeason=1 <<4;
+    //private static final int maskSortDifficulty=1 <<5;
     private static final String TAG = "CB_RecipeListFragment";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
@@ -59,14 +59,15 @@ public class RecipeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
-        mSortOption=0;
-        mSortOption=mSortOption ^ maskSortTitle;
+        //mSortOption=0;
+        //mSortOption=mSortOption ^ maskSortTitle;
         mRecipeInit=new Recipe();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
         activity.getSupportActionBar().setSubtitle(getString(R.string.recipe_display_author,u.getName(),u.getFamily()));
         AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
         instanceAsync.execute();
+        mListMask=new ListMask(mSession.getUser());
     }
 
     @Override
@@ -89,8 +90,9 @@ public class RecipeListFragment extends Fragment {
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState!=null){
-            mSortOption=savedInstanceState.getInt(SAVED_SORT_STATUS);
+            mListMask.updateFromString(savedInstanceState.getString(SAVED_SORT_STATUS));
         }
+
         updateUI();
         return view;
     }
@@ -104,7 +106,7 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SAVED_SORT_STATUS, mSortOption);
+        outState.putString(SAVED_SORT_STATUS, mListMask.convertToString());
     }
 
     @Override
@@ -120,13 +122,6 @@ public class RecipeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_recipe:
-                //Recipe recipe=new Recipe();
-                //SessionInfo session=SessionInfo.get(getActivity());
-                //recipe.setOwner(session.getUser());
-                //recipe.updateTS(AsynCallFlag.NEWRECIPE, true);
-                //recipe.setTitle(getString(R.string.recipe_title_label));
-                //CookBook.get(getActivity()).addRecipe(recipe);
-                //Intent intent= RecipeActivity.newIntent(getActivity(),recipe.getId());
                 Intent intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
                 startActivity(intent);
                 return true;
@@ -146,6 +141,10 @@ public class RecipeListFragment extends Fragment {
                 startActivity(intent3); } else {
                 mMessageItem.setVisible(cookbook.isThereMail());}
                 return true;
+            case R.id.list_filter:
+                mListMask.reset();
+                updateUI();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -157,27 +156,25 @@ public class RecipeListFragment extends Fragment {
         List<Recipe> recipes=new ArrayList<>();
         recipes.addAll(recipes_in);
         for(Recipe r:recipes_in){
-            if (!r.IsVisible()){
+            if (!mListMask.isRecipeSelected(r)){
                 recipes.remove(r);
             }
         }
-        if ((mSortOption & maskSortTitle) == maskSortTitle) {
+        if (recipes.isEmpty()){
+            Toast.makeText(getContext(), getString(R.string.tog_empty), Toast.LENGTH_LONG).show();
+        } else {
             Collections.sort(recipes,
-                    (r1, r2)->{return(r1.getTitle().compareTo(r2.getTitle()));});}
-        if ((mSortOption & maskSortNote) == maskSortNote) {
-            Collections.sort(recipes,
-                    (r1, r2)->{return((int)(r2.getNoteAvg()-r1.getNoteAvg()));});}
-        if ((mSortOption & maskSortSource) == maskSortSource) {
-            Collections.sort(recipes,
-                    (r1, r2)->{return(r1.getOwner().getName().compareTo(r2.getOwner().getName()));});}
-        if ((mSortOption & maskSortSeason) == maskSortSeason) {
-            Collections.sort(recipes,
-                    (r1, r2)->{return(RecipeSeason.getIndex(r1.getSeason())
-                            -RecipeSeason.getIndex(r2.getSeason()));});}
-        if ((mSortOption & maskSortDifficulty) == maskSortDifficulty) {
-            Collections.sort(recipes,
-                    (r1, r2)->{return(RecipeDifficulty.getIndex(r1.getDifficulty())
-                            -RecipeDifficulty.getIndex(r2.getDifficulty()));});}
+                      (r1, r2) -> {
+                            return (r1.getTitle().compareTo(r2.getTitle()));
+                        });
+
+            if (mListMask.isNoteSorted()) {
+                Collections.sort(recipes,
+                        (r1, r2) -> {
+                            return ((int) (r2.getNoteAvg() - r1.getNoteAvg()));
+                        });
+            }
+        }
         if (mAdapter==null){
             mAdapter=new RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
@@ -213,15 +210,6 @@ public class RecipeListFragment extends Fragment {
             mPhotoView=(ImageView) itemView.findViewById(R.id.recipe_photo);
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
-            mRating.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentManager manager = getFragmentManager();
-                    RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
-                    dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
-                    dialog.show(manager, DIALOG_RATE);
-                }
-            });
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -232,41 +220,40 @@ public class RecipeListFragment extends Fragment {
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    mSortOption=mSortOption ^ maskSortNote;
+                    Toast.makeText(getContext(), getString(mListMask.toggleSortNote()),
+                            Toast.LENGTH_SHORT ).show();
                     updateUI();
                 }
             });
             mSourceTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSortOption=mSortOption ^ maskSortSource;
+                    Toast.makeText(getContext(), getString(mListMask.toggleUser(mRecipe.getOwner()),
+                            mRecipe.getOwner().getName()),Toast.LENGTH_SHORT ).show();
                     updateUI();
                 }
             });
-            /*
-            mEditIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });*/
             mSunIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSortOption=mSortOption ^ maskSortSeason;
+                    Toast.makeText(getContext(), getString(mListMask.toggleSun()),Toast.LENGTH_SHORT ).show();
                     updateUI();
                 }
             });
             mIceIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSortOption=mSortOption ^ maskSortSeason;
+                    Toast.makeText(getContext(), getString(mListMask.toggleWinter()),
+                            Toast.LENGTH_SHORT ).show();
                     updateUI();
                 }
             });
             mDifficulty.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSortOption=mSortOption ^ maskSortDifficulty;
+                    Toast.makeText(getContext(),
+                            getString(mListMask.toggleDifficulty(mRecipe.getDifficulty())),
+                            Toast.LENGTH_SHORT ).show();
                     updateUI();
                 }
             });
@@ -312,11 +299,7 @@ public class RecipeListFragment extends Fragment {
 
         @Override
         public void onClick(View v){
-            /*
-            FragmentManager manager = getFragmentManager();
-            RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
-            dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
-            dialog.show(manager, DIALOG_RATE);*/
+
         }
     }
 

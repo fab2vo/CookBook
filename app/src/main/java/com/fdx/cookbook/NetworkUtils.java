@@ -37,7 +37,7 @@ public class NetworkUtils {
         mSession=SessionInfo.get(c);
     }
 
-    public String sendGetRequest(String uri) {
+    /*public String sendGetRequest(String uri) {
         try {
             URL url = new URL(uri);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -85,6 +85,7 @@ public class NetworkUtils {
         }
         return response;
     }
+    */
 
     public String sendPostRequestJson(String requestURL,
                                   HashMap<String, String> postDataParams) {

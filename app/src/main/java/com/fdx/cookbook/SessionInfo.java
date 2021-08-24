@@ -23,8 +23,8 @@ public class SessionInfo {
     private String NOT_FOUND="Not found";
     private static final String TAG = "DebugSessionInfo";
     private static String URLPATH="http://82.66.37.73:8085/cb/";
-    public static int CONNECT_TIMEOUT = 10000;
-    public static int READ_TIMEOUT = 10000;
+    public static int CONNECT_TIMEOUT = 7000;
+    public static int READ_TIMEOUT = 7000;
 
     public static SessionInfo get(Context context) {
         if (ourInstance==null){

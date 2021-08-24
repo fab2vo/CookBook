@@ -48,7 +48,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/CookBookText"
+                        style="@style/CookBookText.EnterTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -68,7 +68,7 @@
             </LinearLayout>
 
             <TextView
-                style="@style/CookBookText"
+                style="@style/CookBookText.EnterTitle"
                 android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                  />
 
             <TextView
-                style="@style/CookBookText"
+                style="@style/CookBookText.EnterTitle"
                 android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    style="@style/CookBookText"
+                    style="@style/CookBookText.EnterTitle"
                     android:layout_width="0dp"
                     android:layout_height="29dp"
                     android:layout_marginStart="8dp"
@@ -301,34 +301,53 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/recipe_new_ing_label" />
 
-            <LinearLayout
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal">
+                android:layout_marginLeft="8dp">
 
                 <ImageButton
                     android:id="@+id/recipe_ing_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="left"
-                    android:src="@drawable/ic_recipe_back" />
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_recipe_back"
+                    app:layout_constraintEnd_toStartOf="@+id/recipe_new_ing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/recipe_new_ing"
                     style="@style/EnterValueField"
-                    android:layout_width="290dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp"
                     android:inputType="text"
-                    android:text="@string/recipe_new_ing_hint" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/recipe_ing_enter"
+                    app:layout_constraintStart_toEndOf="@+id/recipe_ing_back"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/recipe_new_ing_hint"
+                     />
 
                 <ImageButton
                     android:id="@+id/recipe_ing_enter"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_recipe_enter" />
-            </LinearLayout>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_recipe_enter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/recipe_new_ing"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 style="@style/CookBookText.SubTitle"
@@ -418,7 +437,8 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/recipe_new_recipe_label" />
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -426,26 +446,43 @@
 
                 <ImageButton
                     android:id="@+id/recipe_step_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="left"
-                    android:src="@drawable/ic_recipe_back" />
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_recipe_back"
+                    app:layout_constraintEnd_toStartOf="@+id/recipe_new_step"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
                     android:id="@+id/recipe_new_step"
                     style="@style/EnterValueField"
-                    android:layout_width="290dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@string/recipe_new_recipe_hint" />
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/recipe_new_recipe_hint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/recipe_step_enter"
+                    app:layout_constraintStart_toEndOf="@+id/recipe_step_back"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
                     android:id="@+id/recipe_step_enter"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_recipe_enter" />
-            </LinearLayout>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/ic_recipe_enter"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/recipe_new_step"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

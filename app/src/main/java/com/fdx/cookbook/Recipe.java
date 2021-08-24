@@ -11,7 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-enum StatusRecipe {Submitted,Visible, Deleted };
+
+enum StatusRecipe {Submitted,Visible, Deleted }
 public class Recipe {
     private UUID mId;
     private User mOwner;

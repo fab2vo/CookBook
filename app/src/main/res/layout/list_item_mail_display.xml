@@ -2,13 +2,13 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/list_item_bg"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/list_item_bg"
+    android:elevation="2dp"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:elevation="2dp">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/recipe_MD_photo"
@@ -40,24 +40,26 @@
 
     <TextView
         android:id="@+id/mail_display_message"
-        style="@style/CookBookText"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        style="@style/CookBookText.Small"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="Message d'essai qui peut etre assez grand et original "
+        android:layout_marginEnd="8dp"
+        android:text="Message d'essai qui peut etre assez grand et original et s'afficher sur deux lignes "
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
         app:layout_constraintTop_toBottomOf="@+id/recipe_MD_title" />
 
     <TextView
         android:id="@+id/mail_display_author"
         style="@style/CookBookText.Small"
-        android:textStyle="italic"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="Fabrice de Devaux_Lion de ML "
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
         app:layout_constraintTop_toBottomOf="@+id/mail_display_message" />
 
@@ -65,24 +67,23 @@
         android:id="@+id/mail_display_add"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:tint="@color/fg_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <ImageView
         android:id="@+id/mail_display_delete"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/ic_recipe_delete"
         android:tint="@color/fg_icon"
-        app:layout_constraintEnd_toStartOf="@+id/mail_display_add"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

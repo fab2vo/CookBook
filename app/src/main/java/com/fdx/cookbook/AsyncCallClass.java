@@ -207,32 +207,40 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("idrecipe", r.getId().toString());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETCOMMENTSOFRECIPE, data);
         List<Comment> downloadedComments=mNetUtils.parseCommentsOfRecipe(result);
+        if (downloadedComments==null) downloadedComments=new ArrayList<>();
         List<Comment> recipeComments=r.getComments();
+        if (recipeComments==null) recipeComments=new ArrayList<>();
         //----------- boucle local
         List<Comment> c1oc= new ArrayList<>();
         Comment c,ci;
-        for (int i = 0; i < recipeComments.size(); i++){
-            ci=recipeComments.get(i);
-            c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
-            if (downloadedComments.indexOf(c)==-1) c1oc.add(c);
+        if (!recipeComments.isEmpty()){
+            for (int i = 0; i < recipeComments.size(); i++){
+                ci=recipeComments.get(i);
+                c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
+                if (downloadedComments.isEmpty()) {c1oc.add(c);} else {
+                if (downloadedComments.indexOf(c)==-1) c1oc.add(c);}
+            }
         }
         //----------- boucle serveur
         List<Comment> cser= new ArrayList<>();
-        for (int i = 0; i < downloadedComments.size(); i++){
-            ci=downloadedComments.get(i);
-            c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
-            if (recipeComments.indexOf(c)==-1) {
-                cser.add(c);
+        if (!downloadedComments.isEmpty()){
+            for (int i = 0; i < downloadedComments.size(); i++){
+                ci=downloadedComments.get(i);
+                c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
+                if (recipeComments.isEmpty()) {cser.add(c);} else {
+                if (recipeComments.indexOf(c)==-1) cser.add(c);}
             }
         }
-        for (int i = 0; i < cser.size(); i++){
-            r.addComment(cser.get(i));
+        if (!cser.isEmpty()){
+            for (int i = 0; i < cser.size(); i++){
+                r.addComment(cser.get(i));
+            }
+            if (cser.size()>0) {
+                mCookbook.updateRecipe(r);
+                ret=true;
+            }
         }
-        if (cser.size()>0) {
-            mCookbook.updateRecipe(r);
-            ret=true;
-        }
-        if (c1oc.size()>0) {
+        if (!c1oc.isEmpty()) {
             if (!uploadComments(r,c1oc)) {ret=false;}
             else {ret=true;}
         }
@@ -267,30 +275,44 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("idrecipe", r.getId().toString());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETNOTESOFRECIPE, data);
         List<Note> downloadedNotes=mNetUtils.parseNotesOfRecipe(result);
+        if (downloadedNotes==null) downloadedNotes=new ArrayList<>();
         List<Note> recipeNotes=r.getNotes();
+        if (recipeNotes==null) recipeNotes=new ArrayList<>();
         //----------- boucle local
         List<Note> c1oc= new ArrayList<>();
         Note c,ci;
-        for (int i = 0; i < recipeNotes.size(); i++){
-            ci=recipeNotes.get(i);
-            c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
-            if (downloadedNotes.indexOf(c)==-1) c1oc.add(c);
+        if (!recipeNotes.isEmpty()){
+            for (int i = 0; i < recipeNotes.size(); i++){
+                ci=recipeNotes.get(i);
+                c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
+                if (downloadedNotes.isEmpty()) {
+                    c1oc.add(c);}
+                else {
+                    if (downloadedNotes.indexOf(c)==-1) c1oc.add(c);}
+            }
         }
         //----------- boucle serveur
         List<Note> cser= new ArrayList<>();
-        for (int i = 0; i < downloadedNotes.size(); i++){
-            ci=downloadedNotes.get(i);
-            c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
-            if (recipeNotes.indexOf(c)==-1) cser.add(c);
+        if (!downloadedNotes.isEmpty()){
+            for (int i = 0; i < downloadedNotes.size(); i++){
+                ci=downloadedNotes.get(i);
+                c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
+                if (recipeNotes.isEmpty()){
+                    cser.add(c);}
+                else{
+                    if (recipeNotes.indexOf(c)==-1) cser.add(c);}
+            }
         }
-        for (int i = 0; i < cser.size(); i++){
-            r.addNote(cser.get(i));
+        if (!cser.isEmpty()){
+            for (int i = 0; i < cser.size(); i++){
+                r.addNote(cser.get(i));
+            }
+            if (cser.size()>0) {
+                mCookbook.updateRecipe(r);
+                ret=true;
+            }
         }
-        if (cser.size()>0) {
-            mCookbook.updateRecipe(r);
-            ret=true;
-        }
-        if (c1oc.size()>0) {
+        if (!c1oc.isEmpty()) {
             if (!uploadNotes(r,c1oc)) {ret=false;}
             else {ret=true;}
         }

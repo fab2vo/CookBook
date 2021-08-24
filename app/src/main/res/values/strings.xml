@@ -12,7 +12,7 @@
     <string name="recipe_I_label"> Ingrédient </string>
     <string name="recipe_step">Descriptions des étapes (max 9)</string>
     <string name="recipe_new_ing_label">Entrer un nouvel ingrédient :</string>
-    <string name="recipe_new_ing_hint"></string>
+    <string name="recipe_new_ing_hint"> </string>
     <string name="recipe_S1_label"> Descripton de l\'étape 1</string>
     <string name="recipe_S2_label">Descripton de l\'étape 2</string>
     <string name="recipe_S3_label">Descripton de l\'étape 3</string>
@@ -23,7 +23,7 @@
     <string name="recipe_S8_label">Descripton de l\'étape 8</string>
     <string name="recipe_S9_label">Descripton de l\'étape 9</string>
     <string name="recipe_new_recipe_label">Entrer une nouvelle étape :</string>
-    <string name="recipe_new_recipe_hint"></string>
+    <string name="recipe_new_recipe_hint"> </string>
     <string name="list_item_recipe_title_label">Nom de la recette</string>
     <string name="list_item_recipe_source_label">Source ou auteur</string>
     <string name="list_item_recipe_note_label">Note</string>
@@ -79,6 +79,7 @@
     <string name="enter_noerr_new_member"> Bienvenue dans votre nouveau livre de cuisine ! </string>
     <string name="menu_logout"> Sortie </string>
     <string name="menu_sync"> Synchronisation avec serveur  </string>
+    <string name="menu_filter"> Annulation filtre</string>
     <string name="new_message"> Un message !  </string>
     <string name="recipe_menu_send_hint"> Envoyer par messagerie</string>
     <string name="mail_send_start"> Envoi de la recette en cours ...</string>
@@ -90,6 +91,17 @@
     <string name="recipe_report_name_ingredient"> Ingrédients : </string>
     <string name="recipe_report_name_step"> Etapes : </string>
     <string name="display_source_de"> de %1$s </string>
+    <string name="tog_sun_on">Sélection des recettes pour l\'été</string>
+    <string name="tog_sun_off">Sélection été annulée</string>
+    <string name="tog_win_on">Sélection des recettes pour l\'hiver</string>
+    <string name="tog_win_off">Sélection hiver annulé</string>
+    <string name="tog_diff_on">Sélection des recettes par difficulté</string>
+    <string name="tog_diff_off">Sélection par diffciluté annulé</string>
+    <string name="tog_src_on">Sélection des recettes de %1$s</string>
+    <string name="tog_src_off">Sélection des recettes de %1$s annulé</string>
+    <string name="tog_not_on">Tri par notes</string>
+    <string name="tog_not_off">Tri par notes annulé</string>
+    <string name="tog_empty"> Voir le menu pour annuler les filtres</string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

@@ -63,15 +63,11 @@ public class User {
         mName = name;
     }
 
-    public boolean IsEqualUser(User u){
-        return (this==u);
-    }
-
     public String getNameComplete() {
         return mName+"@"+ mFamily;
     }
 
-    public boolean IsEqual(User r){return (mId==r.getId());}
+    public boolean IsEqual(User r){return (mId.toString().equals(r.getId().toString()));}
 
     public Date getDate() {
         return mDate;
