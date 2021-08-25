@@ -1,9 +1,5 @@
 package com.fdx.cookbook;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class ListMask {
@@ -67,11 +63,11 @@ public class ListMask {
         if (SeasonFiltered){
             SeasonFiltered=false;
             SeasonState=RecipeSeason.ALLYEAR;
-            i=R.string.tog_sun_off;
+            i=R.string.TSOFF;
         } else {
             SeasonFiltered=true;
             SeasonState=RecipeSeason.SUMMER;
-            i=R.string.tog_sun_on;
+            i=R.string.TSON;
         }
         return i;
     }
@@ -81,11 +77,11 @@ public class ListMask {
         if (SeasonFiltered){
             SeasonFiltered=false;
             SeasonState=RecipeSeason.ALLYEAR;
-            i=R.string.tog_win_off;
+            i=R.string.TWOFF;
         } else {
             SeasonFiltered=true;
             SeasonState=RecipeSeason.WINTER;
-            i=R.string.tog_win_on;
+            i=R.string.TWON;
         }
         return i;
     }
@@ -94,11 +90,11 @@ public class ListMask {
         Integer i;
         if (UserFiltered){
             UserFiltered=false;
-            i=R.string.tog_src_off;
+            i=R.string.TROFF;
         }else{
             UserState=u;
             UserFiltered=true;
-            i=R.string.tog_src_on;
+            i=R.string.TRON;
         }
         return i;
     }
@@ -108,11 +104,11 @@ public class ListMask {
         if (DifficultyFiltered){
             DifficultyFiltered=false;
             DifficultyState=RecipeDifficulty.UNDEFINED;
-            i=R.string.tog_diff_off;
+            i=R.string.TDOFF;
         }else{
             DifficultyFiltered=true;
             DifficultyState=rd;
-            i=R.string.tog_diff_on;
+            i=R.string.TDON;
         }
         return i;
     }
@@ -121,10 +117,10 @@ public class ListMask {
         Integer i;
         if (IsNoteSorted){
             IsNoteSorted=false;
-            i=R.string.tog_not_off;
+            i=R.string.TNOFF;
         }else{
             IsNoteSorted=true;
-            i=R.string.tog_not_on;
+            i=R.string.TNON;
         }
         return i;
     }

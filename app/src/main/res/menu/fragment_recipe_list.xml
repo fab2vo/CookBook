@@ -9,7 +9,7 @@
     <item
         android:id="@+id/new_mail"
         android:icon="@drawable/ic_message"
-        android:title="@string/new_message"
+        android:title="@string/P1MU_receive"
         app:showAsAction="ifRoom|withText"/>
 
     <item
@@ -20,18 +20,23 @@
     <item
         android:id="@+id/list_logout"
         android:icon="@drawable/ic_logout"
-        android:title="@string/menu_logout"
+        android:title="@string/P1MU_out"
         app:showAsAction="never|withText"/>
     <item
         android:id="@+id/list_sync"
         android:icon="@drawable/ic_logout"
-        android:title="@string/menu_sync"
+        android:title="@string/P1MU_sync"
         app:showAsAction="never|withText"/>
 
     <item
         android:id="@+id/list_filter"
         android:icon="@drawable/ic_filter"
-        android:title="@string/menu_filter"
+        android:title="@string/P1MU_raz"
+        app:showAsAction="never|withText"/>
+
+    <item
+        android:id="@+id/feedback"
+        android:title="@string/P1MU_fb"
         app:showAsAction="never|withText"/>
 
 </menu>

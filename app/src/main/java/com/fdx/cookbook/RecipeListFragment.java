@@ -3,6 +3,7 @@ package com.fdx.cookbook;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,16 +39,8 @@ public class RecipeListFragment extends Fragment {
     private SessionInfo mSession;
     private Recipe mRecipeInit;
     private MenuItem mMessageItem;
-    //private Menu mMenu;
     private static final String SAVED_SORT_STATUS="sort";
-    //private int mSortOption;
-    //private int finalRate;
     private ListMask mListMask;
-    //private static final int maskSortTitle=1 <<3;
-    //private static final int maskSortSource=1;
-    //private static final int maskSortNote=1 <<2;
-    //private static final int maskSortSeason=1 <<4;
-    //private static final int maskSortDifficulty=1 <<5;
     private static final String TAG = "CB_RecipeListFragment";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
@@ -59,12 +51,10 @@ public class RecipeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
-        //mSortOption=0;
-        //mSortOption=mSortOption ^ maskSortTitle;
         mRecipeInit=new Recipe();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
-        activity.getSupportActionBar().setSubtitle(getString(R.string.recipe_display_author,u.getName(),u.getFamily()));
+        activity.getSupportActionBar().setSubtitle(getString(R.string.P2U_txt,u.getName(),u.getFamily()));
         AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
         instanceAsync.execute();
         mListMask=new ListMask(mSession.getUser());
@@ -92,7 +82,6 @@ public class RecipeListFragment extends Fragment {
         if (savedInstanceState!=null){
             mListMask.updateFromString(savedInstanceState.getString(SAVED_SORT_STATUS));
         }
-
         updateUI();
         return view;
     }
@@ -145,6 +134,14 @@ public class RecipeListFragment extends Fragment {
                 mListMask.reset();
                 updateUI();
                 return true;
+            case R.id.feedback:
+                Intent intent3 = new Intent(Intent.ACTION_SENDTO);
+                intent3.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");
+                intent3.putExtra(Intent.EXTRA_TEXT, "Your comment");
+                intent3.setData(Uri.parse("mailto:cookbookfamily.founder@gmail.com"));
+                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent3);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -161,7 +158,7 @@ public class RecipeListFragment extends Fragment {
             }
         }
         if (recipes.isEmpty()){
-            Toast.makeText(getContext(), getString(R.string.tog_empty), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.TEY), Toast.LENGTH_LONG).show();
         } else {
             Collections.sort(recipes,
                       (r1, r2) -> {
@@ -277,7 +274,7 @@ public class RecipeListFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mSourceTextView.setText(getString(R.string.display_source_de, mRecipe.getOwner().getName()));
+            mSourceTextView.setText(getString(R.string.P1_de, mRecipe.getOwner().getName()));
             //mSourceTextView.setText(mRecipe.getFlag()); // for debug
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");

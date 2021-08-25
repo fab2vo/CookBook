@@ -22,7 +22,8 @@
         </activity>
         <activity android:name="com.fdx.cookbook.RecipeListActivity">
         </activity>
-        <activity android:name="com.fdx.cookbook.RecipeMailDisplayActivity">
+        <activity android:name="com.fdx.cookbook.RecipeMailDisplayActivity"
+            android:parentActivityName="com.fdx.cookbook.RecipeListActivity">
         </activity>
         <activity android:name="com.fdx.cookbook.RecipeActivity"
             android:parentActivityName="com.fdx.cookbook.RecipeListActivity">

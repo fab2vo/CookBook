@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,8 +22,6 @@ import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.fdx.cookbook.R;
 
 import java.io.File;
 import java.io.InputStream;
@@ -129,16 +126,16 @@ public class RecipeDisplayFragment extends Fragment {
                 LinearLayout layout = new LinearLayout(getContext());
                 layout.setOrientation(LinearLayout.VERTICAL);
                 final EditText familyBox = new EditText(getContext());
-                familyBox.setHint(getString(R.string.splash_edit_family_hint));
+                familyBox.setHint(getString(R.string.P0HF));
                 layout.addView(familyBox);
                 final EditText memberBox = new EditText(getContext());
-                memberBox.setHint(getString(R.string.splash_edit_member_hint));
+                memberBox.setHint(getString(R.string.P0HM));
                 layout.addView(memberBox);
                 final EditText messageBox = new EditText(getContext());
-                messageBox.setHint(getString(R.string.mail_message_to));
+                messageBox.setHint(getString(R.string.P4M_mes));
                 layout.addView(messageBox);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getString(R.string.mail_box_title));
+                builder.setTitle(getString(R.string.P4M_title));
                 builder.setView(layout);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -159,7 +156,7 @@ public class RecipeDisplayFragment extends Fragment {
                             //snack.show();
                             //mDSourceText.setText(getString(R.string.mail_send_fail_error));
                             //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
-                            Toast.makeText(getActivity(),getString(R.string.mail_send_fail_error), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),getString(R.string.P4M_err), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -227,7 +224,7 @@ public class RecipeDisplayFragment extends Fragment {
         updateUI();
         mDNexComment=(EditText) v.findViewById(R.id.recipe_display_enter_comment);
         mDNexComment.setText("");
-        mDNexComment.setHint(getString(R.string.recipe_comment_hint));
+        mDNexComment.setHint(getString(R.string.P2C_hint));
         //todo test comment versus pattern
         mDNexComment.addTextChangedListener(new TextWatcher() {
             @Override
@@ -278,7 +275,7 @@ public class RecipeDisplayFragment extends Fragment {
         mDTitleText.setText(mRecipe.getTitle());
         mDRatingBar.setRating((float) mRecipe.getNoteAvg());
         mDRatingBarText.setText(df.format(mRecipe.getNoteAvg())+"  ("+ mRecipe.getNotes().size()+")");
-        s=getString(R.string.recipe_display_author,u.getName(),u.getFamily());
+        s=getString(R.string.P2U_txt,u.getName(),u.getFamily());
         int idiff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
         String[] stringArrayDiff = getResources().getStringArray(R.array.recipe_difficulty_array);
         mDDifficulty.setText(stringArrayDiff[idiff]);
@@ -289,7 +286,7 @@ public class RecipeDisplayFragment extends Fragment {
         if (mRecipe.getSource_url_name().equals(DEFAULT_URL)) {
             mDSourceUrl.setText(""); }
         else {mDSourceUrl.setText(mRecipe.getSource_url_name());}
-        s=getString(R.string.recipe_display_title_ing, ""+mRecipe.getNbPers());
+        s=getString(R.string.P2IT, ""+mRecipe.getNbPers());
         mDIngTitle.setText(s);
         for(int i=0;i<ingMax;i++){
             if (mIngNb>0){mDIngText[i].setText("- "+mRecipe.getIngredient(i+1));}
@@ -299,7 +296,7 @@ public class RecipeDisplayFragment extends Fragment {
             if (mStepNb>0){mDStepText[i].setText((i+1)+". "+mRecipe.getStep(i+1));}
             if (i>=0){mDStepText[i].setVisibility((mStepNb>i)? visible:gone);}
         }
-        s=getString(R.string.recipe_display_title_comment, ""+mRecipe.getComments().size());
+        s=getString(R.string.P2CT, ""+mRecipe.getComments().size());
         mDComTitle.setText(s);
         for(int i=0;i<comMax;i++){
             if (NbCom>0){
@@ -325,13 +322,13 @@ public class RecipeDisplayFragment extends Fragment {
             report +=  getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
         }
         if (mRecipe.getNbIng()>0){
-            report +=getString(R.string.recipe_report_name_ingredient)+"\n";
+            report +=getString(R.string.P1R_ing)+"\n";
             for(int i=0;i<mRecipe.getNbIng();i++){
                 report += getString(R.string.recipe_report_ing, mRecipe.getIngredient(i+1))+"\n";
             }
         }
         if (mRecipe.getNbStep()>0) {
-            report +=getString(R.string.recipe_report_name_step)+"\n";
+            report +=getString(R.string.P1R_step)+"\n";
             for (int i = 0; i < mRecipe.getNbStep(); i++) {
                 iplus = i + 1;
                 report += getString(R.string.recipe_report_step, iplus + "",
@@ -358,7 +355,7 @@ public class RecipeDisplayFragment extends Fragment {
             //snack.show();
             //mDSourceText.setText(getString(R.string.mail_send_start));
             //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
-            Toast.makeText(getActivity(),getString(R.string.mail_send_start), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),getString(R.string.P4_start), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -368,12 +365,12 @@ public class RecipeDisplayFragment extends Fragment {
                 //snack.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
                 //mDSourceText.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
                 //mDSourceText.setTextColor(getResources().getColor(R.color.light_green));
-                Toast.makeText(getActivity(), getString(R.string.mail_send_success,mToMember,mToFamily), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.P4_OK,mToMember,mToFamily), Toast.LENGTH_LONG).show();
             }
             else {
                 //snack.setText(getString(R.string.mail_send_fail));
                 //mDSourceText.setText(getString(R.string.mail_send_fail));
-                Toast.makeText(getActivity(), getString(R.string.mail_send_fail), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.P4_fail), Toast.LENGTH_LONG).show();
             }
             //snack.show();
             return;

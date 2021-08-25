@@ -5,7 +5,7 @@
     <item
         android:id="@+id/recipe_mail"
         android:icon="@drawable/ic_mailsend"
-        android:title="@string/recipe_menu_send_hint"
+        android:title="@string/P4MU_send"
         app:showAsAction="always|withText"/>
 
     <item

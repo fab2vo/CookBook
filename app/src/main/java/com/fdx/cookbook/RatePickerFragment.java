@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
-import com.fdx.cookbook.R;
-
 import java.util.UUID;
 
 public class RatePickerFragment extends DialogFragment {
@@ -39,7 +37,7 @@ public class RatePickerFragment extends DialogFragment {
         ratingBar.setRating(4);
         AlertDialog.Builder dialog= new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle(R.string.dialog_star_title)
+                .setTitle(R.string.DS_title)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             @Override

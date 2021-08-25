@@ -10,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,8 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.fdx.cookbook.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,6 +52,7 @@ public class SplashActivity extends AppCompatActivity {
     private SessionInfo mSession;
     private NetworkUtils mNetUtils;
     private User mUser;
+    private TestConnection tc;
     private int mState;
     private static final String TAG = "CB_SplashActivity";
     private final static int NEW_FAMILY=1;
@@ -81,33 +79,31 @@ public class SplashActivity extends AppCompatActivity {
 
         mSession= SessionInfo.get(getApplicationContext());
         if ((!mSession.IsEmpty())&&(!mSession.IsReqNewSession())){
-            // ******************  SYNC ******************
             Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
             startActivity(intent);
             finish();
         }
         mNetUtils=new NetworkUtils(getApplicationContext());
-        ArrayList<User> memberFamily=new ArrayList<>();
-        ArrayList<Recipe> mRecipes=new ArrayList<>();
-        TestConnection t;
-        t = new TestConnection();
-        t.setTestConnexion(getApplicationContext());
-        t.testGo();
+        memberFamily=new ArrayList<>();
+        mRecipes=new ArrayList<>();
+        tc = new TestConnection();
+        tc.setTestConnexion(getApplicationContext());
+        tc.testGo();
 
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mMoto=(TextView) findViewById(R.id.splash_moto);
-        mMoto.setText(R.string.splash_moto_txt);
+        mMoto.setText(R.string.P0_moto);
         if (mSession.IsReqNewSession()){
             mFamilyEntered=mSession.getUser().getFamily();
             mMemberEntered=mSession.getUser().getName();
             mPwdEntered="";
         } else {
-            mFamilyEntered=getString(R.string.splash_edit_family_hint);
-            mMemberEntered=getString(R.string.splash_edit_member_hint);
-            mPwdEntered=getString(R.string.splash_edit_pwd_hint);
+            mFamilyEntered=getString(R.string.P0HF);
+            mMemberEntered=getString(R.string.P0HM);
+            mPwdEntered=getString(R.string.P0HP);
         }
         mProgressBar=(ProgressBar) findViewById(R.id.splash_progBar);
         mProgressBar.setProgress(0);
@@ -185,7 +181,7 @@ public class SplashActivity extends AppCompatActivity {
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
-                t.testGo();
+                tc.testGo();
             }
         });
         mNewMember.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +192,7 @@ public class SplashActivity extends AppCompatActivity {
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
-                t.testGo();
+                tc.testGo();
             }
         });
         mNewFamily.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +203,7 @@ public class SplashActivity extends AppCompatActivity {
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
                 }
-                t.testGo();
+                tc.testGo();
             }
         });
     }
@@ -226,16 +222,16 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
     private void updateTop(){
-        mEnterFamilyLbl.setText(R.string.splash_edit_family_label);
+        mEnterFamilyLbl.setText(R.string.P0LF);
         mEnterFamily.setText(mFamilyEntered);
-        mEnterMemberLbl.setText(R.string.splash_edit_member_label);
+        mEnterMemberLbl.setText(R.string.P0LM);
         mEnterMember.setText(mMemberEntered);
-        mEnterPwdLbl.setText(R.string.splash_edit_pwd_label);
+        mEnterPwdLbl.setText(R.string.P0LP);
         mEnterPwd.setText(mPwdEntered);
         mEnterMessage.setText("");
-        mNewSession.setText(R.string.splash_button_session_txt);
-        mNewMember.setText(R.string.splash_button_member_txt);
-        mNewFamily.setText(R.string.splash_button_family_txt);
+        mNewSession.setText(R.string.P0BP);
+        mNewMember.setText(R.string.P0BM);
+        mNewFamily.setText(R.string.P0BF);
     }
 
     private void updateDisplayOnAsync(Boolean b){
@@ -271,7 +267,7 @@ public class SplashActivity extends AppCompatActivity {
         int FALSE=R.color.light_red;
         retDraw=((Pattern.matches(REGEX[state],z)&&(IsLenOK(z,MINMAX[state][0],MINMAX[state][1])))?
                 TRUE : FALSE);
-        Integer err_mess[]={R.string.enter_err_family,R.string.enter_err_member,R.string.enter_err_pwd};
+        Integer err_mess[]={R.string.P0RUF,R.string.P0RUM,R.string.P0RUP};
         if (retDraw==FALSE){
         mEnterMessage.setText(getResources().getString(err_mess[state],MINMAX[state][0],MINMAX[state][1]));}
         else {mEnterMessage.setText("");}
@@ -286,7 +282,7 @@ public class SplashActivity extends AppCompatActivity {
         String message="";
         if(!mSession.IsConnected()){
             ret=false;
-            message += getResources().getString(R.string.network_err_no_connection)+"\n";
+            message += getResources().getString(R.string.P0ER_nocon)+"\n";
         }
         mEnterMessage.setText(message);
         return ret;
@@ -329,7 +325,7 @@ public class SplashActivity extends AppCompatActivity {
                 String s=getFamilyComp();
                 mProgressBar.setProgress(2);
                 if (s==null){
-                    mEnterMessage.setText(R.string.enter_err_com);
+                    mEnterMessage.setText(R.string.P0ER_com);
                     return false; } else {
                     memberFamily=parseJsonFamily(s); }
                 mProgressBar.setProgress(5);
@@ -338,9 +334,9 @@ public class SplashActivity extends AppCompatActivity {
                 if ((cas==NEW_FAMILY)||(cas==NEW_MEMBER)){
                     if (createMember(cas)){
                         mProgressBar.setProgress(10);
-                        mEnterMessage.setText(getString(R.string.enter_noerr_new_member));
+                        mEnterMessage.setText(getString(R.string.P0OKM));
                     } else {
-                        mEnterMessage.setText(getString(R.string.enter_err_new_member));
+                        mEnterMessage.setText(getString(R.string.P0ERM_new));
                         return false;}
                 }
                 cb.clearCookBook();
@@ -518,24 +514,24 @@ public class SplashActivity extends AppCompatActivity {
         switch(mState){
             case NEW_SESSION : {
                 if (memberFamily.size()==0) {
-                    mEnterMessage.setText(R.string.enter_err_member_wo_family);
+                    mEnterMessage.setText(R.string.P0ERM_nofam);
                     mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red)); }
                 else {
-                    mEnterMessage.setText(R.string.enter_noerr_fam_found);
+                    mEnterMessage.setText(R.string.P0OKF);
                     User u= new User("","");
                     for(User user:memberFamily){
                         if (user.getName().equals(mMemberEntered)){u=user;}
                     }
                     if (u.getName().equals("")) {
-                        mEnterMessage.setText(R.string.enter_err_member_in_family);
+                        mEnterMessage.setText(R.string.P0ERF_nomem);
                         mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                     } else {
                         if (!mPwdRead.equals(mPwdEntered.trim())){
-                            mEnterMessage.setText(R.string.enter_err_wrong_pass);
+                            mEnterMessage.setText(R.string.P0ERP_wrong);
                             mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                         } else {
                             mUser=u;
-                        mEnterMessage.setText(getString(R.string.enter_noerr_new_session, u.getName()));
+                        mEnterMessage.setText(getString(R.string.P0OKP, u.getName()));
                         return NEW_SESSION; }
                     }
                 }
@@ -543,18 +539,18 @@ public class SplashActivity extends AppCompatActivity {
             }
             case NEW_FAMILY : {
                 if (memberFamily.size()==0) {
-                    mEnterMessage.setText(R.string.enter_noerr_welcome);
+                    mEnterMessage.setText(R.string.P0OK_done);
                     return NEW_FAMILY;
                 }
                 else {
-                    mEnterMessage.setText(R.string.enter_err_family_already);
+                    mEnterMessage.setText(R.string.P0ERF_notnew);
                     mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                 }
                 break;
             }
             case NEW_MEMBER : {
                 if (memberFamily.size()==0) {
-                    mEnterMessage.setText(R.string.enter_err_member_wo_family);
+                    mEnterMessage.setText(R.string.P0ERM_nofam);
                     mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                 }
                 else {
@@ -565,13 +561,13 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     if (u.getName().equals("")) {
                         if (!mPwdRead.equals(mPwdEntered.trim())){
-                            mEnterMessage.setText(R.string.enter_err_wrong_pass);
+                            mEnterMessage.setText(R.string.P0ERP_wrong);
                             mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                         } else {
-                        mEnterMessage.setText(R.string.enter_noerr_new_member);
+                        mEnterMessage.setText(R.string.P0OKM);
                         return NEW_MEMBER;}
                     } else {
-                        mEnterMessage.setText(R.string.enter_err_member_notin_family);
+                        mEnterMessage.setText(R.string.P0ERM_notnew);
                         mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red));
                     }
                 }

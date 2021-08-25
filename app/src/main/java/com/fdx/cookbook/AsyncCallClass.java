@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,7 +26,6 @@ import java.util.UUID;
 enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE}
 
 class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
-    // Constantes
     private static final String TAG = "CB_AsynCalls";
     private static final String PHP204 = "return204.php";
     private static final String PHPUPDATECREATE = "updateorcreaterecipe.php";
@@ -40,7 +40,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private static final String PHPGETRECIPEFROMCBWITHPHOTO = "getrecipefromcbwithphoto.php";
     private static final String PHPACCEPTRECIPE = "acceptrecipe.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
-    // Variable
     private static Context mContext;
     private SessionInfo mSession;
     private NetworkUtils mNetUtils;
@@ -57,54 +56,53 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     protected Boolean doInBackground(Void... params) {
         Boolean isChanged=false;
         if (!test204()) {
-            return false;
+            return isChanged;
         }
-        Log.d(TAG, "*************** SYNC ****************************");
         if (syncTiersRecipe(mSession.getUser())) isChanged=true;
         List<Recipe> mrecipes=mCookbook.getRecipes();
         for(Recipe r:mrecipes){
             if (r.getOwnerIdString().equals(mSession.getUser().getId().toString())) {
                 if (r.getTS(AsynCallFlag.NEWRECIPE) == 1) {
                     if (uploadRecipe(r)) {
-                        Log.d(TAG, "Recette " + r.getTitle() + " mise à jour");
+                        //fdx Log.d(TAG, "Recette " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWRECIPE, false);
                         mCookbook.updateRecipe(r);
                         isChanged=true;
                     } else {
-                        Log.d(TAG, "Recette " + r.getTitle() + " non mise à jour");
+                        //fdx Log.d(TAG, "Recette " + r.getTitle() + " non mise à jour");
                     }
                 }
                 if (r.getTS(AsynCallFlag.NEWPHOTO) == 1) {
                     if (uploadPhoto(r)) {
-                        Log.d(TAG, "Recette Photo " + r.getTitle() + " mise à jour");
+                        //fdx Log.d(TAG, "Recette Photo " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWPHOTO, false);
                         mCookbook.updateRecipe(r);
                         isChanged=true;
                     } else {
-                        Log.d(TAG, "Recette Photo " + r.getTitle() + " non mise à jour");
+                        //fdx Log.d(TAG, "Recette Photo " + r.getTitle() + " non mise à jour");
                     }
                 }
             }
             if (syncCommentsRecipe(r)) {
-                Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
+                //fdx  Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
                 isChanged=true;
                 r.updateTS(AsynCallFlag.NEWCOMMENT,false);
                 mCookbook.updateRecipe(r);
             }
             if (syncNotesRecipe(r)) {
-                Log.d(TAG, "Notes de " + r.getTitle()+" updaté");
+                //fdx Log.d(TAG, "Notes de " + r.getTitle()+" updaté");
                 isChanged=true;
                 r.updateTS(AsynCallFlag.NEWRATING,false);
                 mCookbook.updateRecipe(r);
             }
             if (r.IsMarkedDeleted()){
                 if (deleteRecipeFromCB(r)) {
-                    Log.d(TAG, "Recette effacée : " + r.getTitle());
+                    //fdx Log.d(TAG, "Recette effacée : " + r.getTitle());
                     mCookbook.removeRecipe(r);
                     mCookbook.deleteImage(r);
                     isChanged=true;
                 } else{
-                    Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
+                    //fdx Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
                 }
             }
         }
@@ -115,6 +113,8 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean isChanged) {
         super.onPostExecute(isChanged);
         //fdx Log.d(TAG, "Has changed ? " + isChanged);
+        if (isChanged)
+        Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
     }
 
     private Boolean test204() {
@@ -130,7 +130,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             conn.disconnect();
             return (status == HttpURLConnection.HTTP_NO_CONTENT);
         } catch (Exception e) {
-            Log.d(TAG, "Test 204 : " + e);
+            //fdx Log.d(TAG, "Test 204 : " + e);
             return false;
         }
     }
@@ -161,7 +161,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPDATECREATE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            Log.d(TAG, "Retour de "+PHPUPDATECREATE+" =>"+result+"<");
+            //fdx Log.d(TAG, "Retour de "+PHPUPDATECREATE+" =>"+result+"<");
         return false;}
         return true;
     }
@@ -171,7 +171,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         File file = mCookbook.getPhotoFile(r);
         Bitmap bitmap = PictureUtils.getBitmap(file.getPath());
         if (bitmap == null) {
-            Log.d(TAG, "Pas de bitmap pour " + r.getTitle());
+            //fdx Log.d(TAG, "Pas de bitmap pour " + r.getTitle());
             return false;
         }
         String uploadImage = PictureUtils.getStringImage(bitmap);
@@ -185,7 +185,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPUPLOADPHOTO, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            Log.d(TAG, "Retour de "+ PHPUPUPLOADPHOTO+" = "+result);
+            //fdx Log.d(TAG, "Retour de "+ PHPUPUPLOADPHOTO+" = "+result);
             return false;}
         return true;
     }
@@ -196,7 +196,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPDELETERECIPE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            Log.d(TAG, "Retour de "+ PHPDELETERECIPE+" = "+result);
+            //fdx Log.d(TAG, "Retour de "+ PHPDELETERECIPE+" = "+result);
             return false;}
         return true;
     }
@@ -264,7 +264,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDCOMMENTTORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
-                Log.d(TAG, "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
+                //fdx Log.d(TAG, "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
                 b=false;}
         }
         return b;
@@ -336,7 +336,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
-                Log.d(TAG, "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
+                //fdx Log.d(TAG, "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
                 b=false;}
         }
         return b;
@@ -356,7 +356,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
                 mCookbook.addRecipe(rnew);
-                Log.d(TAG, "Recette "+ rnew.getTitle()+" downloadée");
+                //fdx Log.d(TAG, "Recette "+ rnew.getTitle()+" downloadée");
                 ret=true;
             } else {
                 if (rloc.IsVisible()){ // case recipe tiers active and to be updated if necessary
@@ -364,13 +364,13 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                     update=IsAfterAndNonNull(r.getDate(), rloc.getDate());
                     if (r.IsMessage()){// case recipe tiers active and status needs update
                         if (recipeAccepted(r)){
-                            Log.d(TAG, "Recette "+ rloc.getTitle()+" made visible on server");
+                            //fdx Log.d(TAG, "Recette "+ rloc.getTitle()+" made visible on server");
                         }
                     }
                     if(update || withphoto){
                         if (updateRecipe(rloc, withphoto)){
                             mCookbook.updateRecipe(rloc);
-                            Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
+                            //fdx Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
                             ret=true;
                         }
                     }
@@ -399,7 +399,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         try {
             JSONArray jarr1 = new JSONArray(result);
             if (jarr1.length()!=1){
-                Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+                //fdx Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
                 return null;
             } else {
                 JSONObject obj = jarr1.getJSONObject(0);
@@ -407,7 +407,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                 if (!mNetUtils.parseObjectRecipe(r,obj, true, true)) return null;
             }
         } catch (Exception e) {
-            Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+            //fdx Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
         }
         return r;
     }
@@ -421,17 +421,17 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         try {
             JSONArray jarr1 = new JSONArray(result);
             if (jarr1.length()!=1){
-                Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+                //fdx Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
                 return null;
             } else {
                 JSONObject obj = jarr1.getJSONObject(0);
                 if (!mNetUtils.parseObjectRecipe(ref,obj, withphoto, false)) {
-                    Log.d(TAG, " Null recipe from JSOn object" + result);
+                    //fdx Log.d(TAG, " Null recipe from JSOn object" + result);
                     return false;
                 }
             }
         } catch (Exception e) {
-            Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+            //fdx Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
             return false;
         }
         return true;
@@ -444,7 +444,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("iduser", mSession.getUser().getId().toString());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPACCEPTRECIPE,data);
         if (!result.equals("1")) {
-            Log.d(TAG, "Retour de "+ PHPACCEPTRECIPE+" = "+result);
+            //fdx Log.d(TAG, "Retour de "+ PHPACCEPTRECIPE+" = "+result);
             return false;}
         return true;
     }

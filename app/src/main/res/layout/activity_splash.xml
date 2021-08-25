@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        tools:text="@string/splash_moto_txt" />
+        tools:text="@string/P0_moto" />
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -69,7 +69,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@string/splash_edit_family_label" />
+                    android:text="@string/P0LF" />
                 <EditText
                     android:id="@+id/splash_edit_family"
                     style="@style/EnterValueField"
@@ -78,7 +78,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
                     android:inputType="text"
-                    android:text="@string/splash_edit_family_hint" />
+                    android:text="@string/P0HF" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@string/splash_edit_member_label" />
+                    android:text="@string/P0LM" />
                 <EditText
                     android:id="@+id/splash_edit_member"
                     style="@style/EnterValueField"
@@ -101,7 +101,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
                     android:inputType="text"
-                    android:text="@string/splash_edit_member_hint" />
+                    android:text="@string/P0HM" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@string/splash_edit_pwd_label" />
+                    android:text="@string/P0LP" />
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
                     android:inputType="textPassword"
-                    android:text="@string/splash_edit_pwd_hint" />
+                    android:text="@string/P0HP" />
                 <ImageView
                     android:id="@+id/show_pass_btn"
                     android:layout_width="24dp"
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     style="@style/ButtonCookBook"
-                    tools:text="@string/splash_button_session_txt"/>
+                    tools:text="@string/P0BP"/>
 
                 <Button
                     android:id="@+id/splash_button_member"
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     style="@style/ButtonCookBook"
-                    tools:text="@string/splash_button_member_txt"/>
+                    tools:text="@string/P0BM"/>
                 <Button
                     android:id="@+id/splash_button_family"
                     android:layout_marginStart="16dp"
@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     style="@style/ButtonCookBook"
-                    tools:text="@string/splash_button_family_txt"/>
+                    tools:text="@string/P0BF"/>
 
 
 

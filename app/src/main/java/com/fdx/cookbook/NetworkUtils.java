@@ -130,7 +130,7 @@ public class NetworkUtils {
             result.append("=");
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
             } catch (Exception e){
-                Log.d(TAG, "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
+                //fdx Log.d(TAG, "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
             }
         }
         return result.toString();
@@ -147,7 +147,7 @@ public class NetworkUtils {
                 if (c!=null) cs.add(c);
             }
         } catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return cs;
@@ -162,7 +162,7 @@ public class NetworkUtils {
         Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
         return new Comment(obj.getString("comment"),u,date);}
         catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSONObject Comments "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSONObject Comments "+e);
             return null;
         }
     }
@@ -178,7 +178,7 @@ public class NetworkUtils {
                 if (n!=null) ns.add(n);
             }
         } catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return ns;
@@ -194,7 +194,7 @@ public class NetworkUtils {
             Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
             return new Note(obj.getInt("note"),u,date);}
         catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSONObject Note : "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSONObject Note : "+e);
             return null;
         }
     }
@@ -232,7 +232,7 @@ public class NetworkUtils {
             return r;
         }
         catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSONObject Recette Stamp : "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSONObject Recette Stamp : "+e);
             return null;
         }
     }
@@ -249,7 +249,7 @@ public class NetworkUtils {
                 if (r!=null) rs.add(r);
             }
         } catch (Exception e){
-            Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return rs;
@@ -343,10 +343,10 @@ public class NetworkUtils {
                     }
                     try {
                         if(!f.createNewFile()) {
-                            Log.d(TAG, "Error in creating file  "+f.toString());
+                            //fdx Log.d(TAG, "Error in creating file  "+f.toString());
                         }
                     } catch (IOException e) {
-                        Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
+                        //fdx Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
                     }
                     try {
                         FileOutputStream out = new FileOutputStream(f);

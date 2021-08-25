@@ -11,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.fdx.cookbook.R;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,6 +60,9 @@ public class RecipeMailDisplayFragment extends Fragment {
         List<Recipe> recipes=new ArrayList<>();
         for(Recipe r:recipes_in){
             if (r.IsMessage()) recipes.add(r);
+        }
+        if (recipes.isEmpty()){
+            Toast.makeText(getContext(), getString(R.string.P4M0),Toast.LENGTH_LONG ).show();
         }
         if (mAdapter==null){
             mAdapter=new RecipeMailDisplayFragment.RecipeAdapter(recipes);
