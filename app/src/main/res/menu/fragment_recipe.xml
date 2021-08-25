@@ -4,12 +4,12 @@
         <item
             android:id="@+id/recipe_menu_done"
             android:icon="@drawable/ic_menu_done"
-            android:title="@string/recipe_menu_done_text"
+            android:title="@string/P3MU_done"
             app:showAsAction="always|withText"/>
 
         <item
             android:id="@+id/recipe_menu_delete"
             android:icon="@drawable/ic_recipe_delete"
-            android:title="@string/recipe_menu_delete_text"
+            android:title="@string/P3MU_del"
             app:showAsAction="always|withText"/>
 </menu>

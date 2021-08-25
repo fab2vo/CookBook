@@ -115,7 +115,7 @@ public class RecipeDisplayFragment extends Fragment {
                 Intent i=new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, getRecipeReport());
-                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.recipe_report_subject));
+                i.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.P2MU_send));
                 startActivity(i);
                 return true;
             case R.id.recipe_menu_edit:
@@ -313,29 +313,29 @@ public class RecipeDisplayFragment extends Fragment {
     private String getRecipeReport(){
         String report;
         Integer iplus;
-        report =getString(R.string.recipe_report_title, mRecipe.getTitle())+"\n";
-        report +=getString(R.string.recipe_report_owner,mRecipe.getOwner().getNameComplete())+"\n";
+        report =getString(R.string.P2RE_title, mRecipe.getTitle())+"\n";
+        report +=getString(R.string.P2RE_user,mRecipe.getOwner().getNameComplete())+"\n";
         if(!mRecipe.getSource().equals("")){
-            report +=  getString(R.string.recipe_report_source, mRecipe.getSource())+"\n";
+            report +=  getString(R.string.P2RE_src, mRecipe.getSource())+"\n";
         }
         if(!mRecipe.getSource_url_name().equals("")){
-            report +=  getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
+            report +=  getString(R.string.P2RE_url, mRecipe.getSource_url_name())+"\n";
         }
         if (mRecipe.getNbIng()>0){
             report +=getString(R.string.P1R_ing)+"\n";
             for(int i=0;i<mRecipe.getNbIng();i++){
-                report += getString(R.string.recipe_report_ing, mRecipe.getIngredient(i+1))+"\n";
+                report += getString(R.string.P2RE_ing, mRecipe.getIngredient(i+1))+"\n";
             }
         }
         if (mRecipe.getNbStep()>0) {
             report +=getString(R.string.P1R_step)+"\n";
             for (int i = 0; i < mRecipe.getNbStep(); i++) {
                 iplus = i + 1;
-                report += getString(R.string.recipe_report_step, iplus + "",
+                report += getString(R.string.P2RE_step, iplus + "",
                         mRecipe.getStep(i + 1)) + "\n";
             }
         }
-        report +=getString(R.string.recipe_report_final);
+        report +=getString(R.string.P2RE_end);
         return report;
     }
 

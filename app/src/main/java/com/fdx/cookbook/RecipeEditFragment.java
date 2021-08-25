@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,9 +26,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.fdx.cookbook.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -411,21 +407,21 @@ public class RecipeEditFragment extends Fragment {
     private String getRecipeReport(){
         String report="";
         Integer iplus=0;
-        report =getString(R.string.recipe_report_title, mRecipe.getTitle())+"\n";
-        report +=getString(R.string.recipe_report_owner,mRecipe.getOwner().getNameComplete())+"\n";
+        report =getString(R.string.P2RE_title, mRecipe.getTitle())+"\n";
+        report +=getString(R.string.P2RE_user,mRecipe.getOwner().getNameComplete())+"\n";
 
          if(!mRecipe.getSource_url_name().equals("")){
-            report += getString(R.string.recipe_report_url, mRecipe.getSource_url_name())+"\n";
+            report += getString(R.string.P2RE_url, mRecipe.getSource_url_name())+"\n";
         }
         for(int i=0;i<mRecipe.getNbIng();i++){
-            report += getString(R.string.recipe_report_ing, mRecipe.getIngredient(i+1))+"\n";
+            report += getString(R.string.P2RE_ing, mRecipe.getIngredient(i+1))+"\n";
         }
         for(int i=0;i<mRecipe.getNbStep();i++){
             iplus=i+1;
-            report += getString(R.string.recipe_report_step, iplus+"",
+            report += getString(R.string.P2RE_step, iplus+"",
                     mRecipe.getStep(i+1))+"\n";
         }
-        report +=getString(R.string.recipe_report_final);
+        report +=getString(R.string.P2RE_end);
         return report;
     }
 

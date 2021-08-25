@@ -1,58 +1,6 @@
 <resources>
     <string name="app_name">CookBook</string>
-    <string name="recipe_title_label">Nom de la recette</string>
-    <string name="recipe_title_hint">Merveilleux couscous à l\indienne</string>
-    <string name="recipe_source_label">Source de la recette (texte)</string>
-    <string name="recipe_source_hint">Oui Chef de Lignac page 118</string>
-    <string name="recipe_source_url_label">Lien vers la recette (url)</string>
-    <string name="recipe_source_url_hint">http://...</string>
-    <string name="recipe_nbpers_label">Nombre de personne (max 12) </string>
-    <string name="recipe_nbpers_hint">4</string>
-    <string name="recipe_ingredient">Liste des ingrédients (max 15)</string>
-    <string name="recipe_I_label"> Ingrédient </string>
-    <string name="recipe_step">Descriptions des étapes (max 9)</string>
-    <string name="recipe_new_ing_label">Entrer un nouvel ingrédient :</string>
-    <string name="recipe_new_ing_hint"> </string>
-    <string name="recipe_S1_label"> Descripton de l\'étape 1</string>
-    <string name="recipe_S2_label">Descripton de l\'étape 2</string>
-    <string name="recipe_S3_label">Descripton de l\'étape 3</string>
-    <string name="recipe_S4_label">Descripton de l\'étape 4</string>
-    <string name="recipe_S5_label">Descripton de l\'étape 5</string>
-    <string name="recipe_S6_label">Descripton de l\'étape 6</string>
-    <string name="recipe_S7_label">Descripton de l\'étape 7</string>
-    <string name="recipe_S8_label">Descripton de l\'étape 8</string>
-    <string name="recipe_S9_label">Descripton de l\'étape 9</string>
-    <string name="recipe_new_recipe_label">Entrer une nouvelle étape :</string>
-    <string name="recipe_new_recipe_hint"> </string>
-    <string name="list_item_recipe_title_label">Nom de la recette</string>
-    <string name="list_item_recipe_source_label">Source ou auteur</string>
-    <string name="list_item_recipe_note_label">Note</string>
-    <string name="date_picker_title">Date de creation de la recette</string>
-    <string name="new_recipe">Nouvelle recette</string>
-     <string name="subtitle_format">%1$d recettes</string>
-    <string name="recipe_menu_report_text">Partager la recette</string>
-    <string name="recipe_menu_delete_text">Effacer la recette</string>
-    <string name="recipe_menu_done_text">Fait</string>
-    <string name="recipe_menu_edit_text">Editer la recette</string>
-    <string name="recipe_report_subject">Envoyer une recette à vos amis</string>
-    <string name="recipe_report_title">==%1$s ==</string>
-    <string name="recipe_report_owner">de %1$s </string>
-    <string name="recipe_report_url"> Lien : %1$s </string>
-    <string name="recipe_report_source"> Source : %1$s </string>
-    <string name="recipe_report_ing">- %1$s</string>
-    <string name="recipe_report_step">-Etape %1$s : %2$s</string>
-    <string name="recipe_report_final">Téléchargez CookBookFamily </string>
-    <string name="list_item_difficulty">Difficulty </string>
-    <string name="P2U_txt">%1$s de %2$s</string>
-    <string name="P2IT"> Ingredients pour %1$s personnes </string>
-    <string name="P2ST">Etapes</string>
-    <string name="P2CT">Commentaires (%1$s)</string>
-    <string name="P2I_txt"> - Plus de sel ! de Arthur @ Family Malin</string>
-    <string name="P2C_hint"> Votre commentaire ...</string>
-    <string name="DS_invit">Avez-vous aimé cette recette ?</string>
-    <string name="DS_done">Fait !</string>
-    <string name="DS_title">Note</string>
-    <string name="P0_moto">Family CookBook </string>
+
     <string name="P0BP">Ouvrir mon livre</string>
     <string name="P0BM"> Nouveau membre de la famille</string>
     <string name="P0BF"> Nouveau livre de famille</string>
@@ -63,7 +11,7 @@
     <string name="P0HM">Emilie</string>
     <string name="P0HP">cookbook</string>
     <string name="P0ER_nocon"> Pas de connection au serveur familycookbook </string>
-    <string name="P0RUF"> Caracteres speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
+    <string name="P0ERUF"> Caracteres speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
     <string name="P0ERF_notnew"> Ce nom de famille existe déjà. Ajoutez une rue, une ville ou un chiffre </string>
     <string name="P0RUM"> Caracteres speciaux autorisés _- et pas d\'espace. Min %1$s et max %2$s caractères. </string>
     <string name="P0ERM_nofam"> Nous n\'avons pas trouvé ce nom de famille. Vérifiez le menu sur l\'application d\'un membre de votre famille. </string>
@@ -73,15 +21,76 @@
     <string name="P0ER_com"> Erreur dans les échanges avec le serveur family cookbook </string>
     <string name="P0ERM_new"> Echec dans la creation du livre CookBook Family </string>
     <string name="P0ERP_wrong"> Mot de passe incorrect </string>
+    <string name="P0_moto">Family CookBook </string>
     <string name="P0OKF"> Nom de famille trouvé. </string>
     <string name="P0OKP"> Ouvrons ce livre de cuisine, %1$s !  </string>
     <string name="P0OK_done"> Votre nouveau livre de cuisine est ouvert !  </string>
     <string name="P0OKM"> Bienvenue dans votre nouveau livre de cuisine ! </string>
+
+    <string name="P1ITTL">Nom de la recette</string>
+    <string name="P1ITSRCL">Source ou auteur</string>
+    <string name="P1ITNL">Note</string>
+    <string name="P1MU_new">Nouvelle recette</string>
+    <string name="P1IT_dif">Difficulty </string>
     <string name="P1MU_out"> Sortie </string>
     <string name="P1MU_sync"> Synchronisation avec serveur  </string>
     <string name="P1MU_raz"> Annulation filtre</string>
     <string name="P1MU_receive"> Un message !  </string>
     <string name="P1MU_fb"> Feedback sur l\'appli </string>
+    <string name="P1R_ing"> Ingrédients : </string>
+    <string name="P1R_step"> Etapes : </string>
+    <string name="P1_de"> de %1$s </string>
+    <string name="P1_sync"> Synchronisé</string>
+
+    <string name="P2MU_report">Partager la recette</string>
+    <string name="P2MU_edit">Editer la recette</string>
+    <string name="P2MU_send">Envoyer une recette à vos amis</string>
+    <string name="P2U_txt">%1$s de %2$s</string>
+    <string name="P2RE_title">==%1$s ==</string>
+    <string name="P2RE_user">de %1$s </string>
+    <string name="P2RE_url"> Lien : %1$s </string>
+    <string name="P2RE_src"> Source : %1$s </string>
+    <string name="P2RE_ing">- %1$s</string>
+    <string name="P2RE_step">-Etape %1$s : %2$s</string>
+    <string name="P2RE_end">Téléchargez CookBookFamily </string>
+    <string name="P2IT"> Ingredients pour %1$s personnes </string>
+    <string name="P2ST">Etapes</string>
+    <string name="P2CT">Commentaires (%1$s)</string>
+    <string name="P2I_txt"> - Plus de sel ! de Arthur @ Family Malin</string>
+    <string name="P2C_hint"> Votre commentaire ...</string>
+
+    <string name="P3TL">Nom de la recette</string>
+    <string name="P3TH">Merveilleux couscous à l\indienne</string>
+    <string name="P3SRCL">Source de la recette (texte)</string>
+    <string name="P3SRCH">Oui Chef de Lignac page 118</string>
+    <string name="P3SRCURLL">Lien vers la recette (url)</string>
+    <string name="P3SRCURLH">http://...</string>
+    <string name="P3NBL">Nombre de personne (max 12) </string>
+    <string name="P3NBH">4</string>
+    <string name="P3LIT">Liste des ingrédients (max 15)</string>
+    <string name="P3IT"> Ingrédient </string>
+    <string name="P3LST">Descriptions des étapes (max 9)</string>
+    <string name="P3NIL">Entrer un nouvel ingrédient :</string>
+    <string name="P3NIH"> </string>
+    <string name="P3S1H"> Descripton de l\'étape 1</string>
+    <string name="P3S2H">Descripton de l\'étape 2</string>
+    <string name="P3S3H">Descripton de l\'étape 3</string>
+    <string name="P3S4H">Descripton de l\'étape 4</string>
+    <string name="P3S5H">Descripton de l\'étape 5</string>
+    <string name="P3S6H">Descripton de l\'étape 6</string>
+    <string name="P3S7H">Descripton de l\'étape 7</string>
+    <string name="P3S8H">Descripton de l\'étape 8</string>
+    <string name="P3S9H">Descripton de l\'étape 9</string>
+    <string name="P3NSL">Entrer une nouvelle étape :</string>
+    <string name="P3NSH"> </string>
+    <string name="P3MU_del">Effacer la recette</string>
+    <string name="P3MU_done">Fait</string>
+    <!-- <string name="date_picker_title">Date de creation de la recette</string> -->
+    <!--<string name="subtitle_format">%1$d recettes</string> -->
+    <string name="DS_invit">Avez-vous aimé cette recette ?</string>
+    <string name="DS_done">Fait !</string>
+    <string name="DS_title">Note</string>
+
     <string name="P4MU_send"> Envoyer par messagerie</string>
     <string name="P4_start"> Envoi de la recette en cours ...</string>
     <string name="P4_OK"> Recette envoyée à %1$s@%2$s </string>
@@ -89,9 +98,8 @@
     <string name="P4M_err"> Erreur dans le nombre ou le genre de caractères </string>
     <string name="P4M_mes"> Votre message au destinataire </string>
     <string name="P4M_title"> Destinataire de la recette </string>
-    <string name="P1R_ing"> Ingrédients : </string>
-    <string name="P1R_step"> Etapes : </string>
-    <string name="P1_de"> de %1$s </string>
+    <string name="P4M0"> Pas de message ! Appuyez sur retour.</string>
+
     <string name="TSON">Sélection des recettes pour l\'été</string>
     <string name="TSOFF">Sélection été annulée</string>
     <string name="TWON">Sélection des recettes pour l\'hiver</string>
@@ -103,8 +111,8 @@
     <string name="TNON">Tri par notes</string>
     <string name="TNOFF">Tri par notes annulé</string>
     <string name="TEY"> Voir le menu pour annuler les filtres</string>
-    <string name="P4M0"> Pas de message ! Appuyez sur retour.</string>
-    <string name="P1_sync"> Synchronisé</string>
+
+
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>

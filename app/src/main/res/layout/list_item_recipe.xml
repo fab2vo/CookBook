@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="@string/list_item_recipe_title_label"
+        android:text="@string/P1ITTL"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
@@ -43,7 +43,7 @@
         android:layout_height="21dp"
         android:layout_marginStart="8dp"
         android:gravity="left"
-        android:text="@string/list_item_recipe_source_label"
+        android:text="@string/P1ITSRCL"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
         app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
 
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         style="@style/CookBookText.Small"
-        android:text="@string/list_item_recipe_note_label"
+        android:text="@string/P1ITNL"
         app:layout_constraintStart_toEndOf="@+id/recipe_list_ratingBar"
         app:layout_constraintTop_toBottomOf="@+id/recipe_source" />
 
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
         style="@style/CookBookText.Small"
-        android:text="@string/list_item_difficulty"
+        android:text="@string/P1IT_dif"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@+id/recipe_source"
         app:layout_constraintTop_toBottomOf="@+id/recipe_title" />

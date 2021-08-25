@@ -267,7 +267,7 @@ public class SplashActivity extends AppCompatActivity {
         int FALSE=R.color.light_red;
         retDraw=((Pattern.matches(REGEX[state],z)&&(IsLenOK(z,MINMAX[state][0],MINMAX[state][1])))?
                 TRUE : FALSE);
-        Integer err_mess[]={R.string.P0RUF,R.string.P0RUM,R.string.P0RUP};
+        Integer err_mess[]={R.string.P0ERUF,R.string.P0RUM,R.string.P0RUP};
         if (retDraw==FALSE){
         mEnterMessage.setText(getResources().getString(err_mess[state],MINMAX[state][0],MINMAX[state][1]));}
         else {mEnterMessage.setText("");}

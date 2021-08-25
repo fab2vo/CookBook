@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="@string/list_item_recipe_title_label"
+        android:text="@string/P1ITTL"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
