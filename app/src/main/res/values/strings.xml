@@ -32,6 +32,7 @@
     <string name="P1ITNL">Note</string>
     <string name="P1MU_new">Nouvelle recette</string>
     <string name="P1IT_dif">Difficulty </string>
+    <string name="P1IT_type">Type </string>
     <string name="P1MU_out"> Sortie </string>
     <string name="P1MU_sync"> Synchronisation avec serveur  </string>
     <string name="P1MU_raz"> Annulation filtre</string>
@@ -45,7 +46,7 @@
     <string name="P2MU_report">Partager la recette</string>
     <string name="P2MU_edit">Editer la recette</string>
     <string name="P2MU_send">Envoyer une recette à vos amis</string>
-    <string name="P2U_txt">%1$s de %2$s</string>
+    <string name="P2U_txt">%1$s@%2$s</string>
     <string name="P2RE_title">==%1$s ==</string>
     <string name="P2RE_user">de %1$s </string>
     <string name="P2RE_url"> Lien : %1$s </string>
@@ -105,7 +106,9 @@
     <string name="TWON">Sélection des recettes pour l\'hiver</string>
     <string name="TWOFF">Sélection hiver annulé</string>
     <string name="TDON">Sélection des recettes par difficulté</string>
-    <string name="TDOFF">Sélection par diffciluté annulé</string>
+    <string name="TDOFF">Sélection par difficulté annulé</string>
+    <string name="TTON">Sélection des recettes par type</string>
+    <string name="TTOFF">Sélection par type annulé</string>
     <string name="TRON">Sélection des recettes de %1$s</string>
     <string name="TROFF">Sélection des recettes de %1$s annulé</string>
     <string name="TNON">Tri par notes</string>
@@ -123,6 +126,14 @@
         <item>Facile</item>
         <item>Elaboré</item>
         <item>Sophistiqué</item>
-        <item> non défini </item>
+        <item>Non défini </item>
+    </string-array>
+    <string-array name="recipe_type_array">
+        <item>Aperitif</item>
+        <item>Entrée</item>
+        <item>Plat</item>
+        <item>Dessert</item>
+        <item>Accompagn.</item>
+        <item>Autre</item>
     </string-array>
 </resources>

@@ -37,6 +37,7 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
                 si +
                 RecipeDbSchema.RecipeTable.Cols.SEASON+", "+
                 RecipeDbSchema.RecipeTable.Cols.DIFFICULTY+","+
+                RecipeDbSchema.RecipeTable.Cols.TYPE+","+
                 RecipeDbSchema.RecipeTable.Cols.COMMENTS+", "+
                 RecipeDbSchema.RecipeTable.Cols.STATUS+", "+
                 RecipeDbSchema.RecipeTable.Cols.NOTES+", "+

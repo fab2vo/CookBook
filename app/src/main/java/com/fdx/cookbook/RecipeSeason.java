@@ -15,11 +15,4 @@ public enum RecipeSeason {
         }
         return 0;
     }
-
-    public static RecipeSeason NextSeason(RecipeSeason r){
-        int i=getIndex(r);
-        i=i+1;
-        if (i==list.length) i=0;
-        return getSeason(i);
-    }
 }

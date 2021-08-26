@@ -39,8 +39,6 @@ import java.util.UUID;
 public class RecipeEditFragment extends Fragment {
     // Constantes
     private static final String ARG_RECIPE_ID="recipe_id";
-    private static final String DIALOG_DATE="DialogDate";
-    private static final int REQUEST_DATE=0;
     private static final int REQUEST_PHOTO= 2;
     private static final String TAG = "CB_RecipeEditFragment";
     private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
@@ -66,6 +64,7 @@ public class RecipeEditFragment extends Fragment {
     private ImageButton mNewIngBack;
     private int mIngNb;
     private Spinner mSeasonSpinner;
+    private Spinner mTypeSpinner;
     private Spinner mDifficultySpinner;
     private ScrollView mScroll;
     private ImageView mPhotoView;
@@ -102,8 +101,6 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        //mRecipe.updateTS(AsynCallFlag.NEWRECIPE, !mRecipe.hasNotChangedSince(mRecipeInit));
-        //CookBook.get(getActivity()).updateRecipe(mRecipe);
     }
 
     @Override
@@ -118,7 +115,9 @@ public class RecipeEditFragment extends Fragment {
             case R.id.recipe_menu_done:
                 if (mRecipe.getTitle().length()>0){
                     if (!mRecipe.hasNotChangedSince(mRecipeInit)){
-                    mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);}
+                    mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+                    mRecipe.setDate(new Date());
+                    }
                     if (IsRecipeNew(mRecipeId)){
                         CookBook.get(getActivity()).addRecipe(mRecipe);
                     } else {
@@ -169,7 +168,6 @@ public class RecipeEditFragment extends Fragment {
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
             }
 
             @Override
@@ -179,7 +177,6 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //blank
             }
         });
 
@@ -188,7 +185,6 @@ public class RecipeEditFragment extends Fragment {
         mSourceField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
             }
 
             @Override
@@ -198,7 +194,6 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -219,12 +214,11 @@ public class RecipeEditFragment extends Fragment {
                     } catch (MalformedURLException e) {
                         //fdx Log(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
                     }
-                    }
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -252,8 +246,6 @@ public class RecipeEditFragment extends Fragment {
             }
         });
 
-
-
         mSeasonSpinner= (Spinner) v.findViewById(R.id.recipe_season);
         ArrayAdapter<CharSequence> adapterSeason = ArrayAdapter.createFromResource(getContext(),
                 R.array.recipe_season_array, android.R.layout.simple_spinner_item);
@@ -263,6 +255,23 @@ public class RecipeEditFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mRecipe.setSeason(RecipeSeason.getSeason(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mTypeSpinner= (Spinner) v.findViewById(R.id.recipe_type);
+        ArrayAdapter<CharSequence> adapterType = ArrayAdapter.createFromResource(getContext(),
+                R.array.recipe_type_array, android.R.layout.simple_spinner_item);
+        mTypeSpinner.setAdapter(adapterType);
+        mTypeSpinner.setSelection(RecipeType.getIndex(mRecipe.getType()));
+        mTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mRecipe.setType(RecipeType.getType(position));
             }
 
             @Override
@@ -318,8 +327,6 @@ public class RecipeEditFragment extends Fragment {
         mNewStepEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getActivity(), mRecipe.getStep(mStepNb+1)+"/"+mStepNb,
-//                        Toast.LENGTH_SHORT).show();
                 mNewStepField.setVisibility(updateListStep(v));
                 mNewStepField.getText().clear();
             }

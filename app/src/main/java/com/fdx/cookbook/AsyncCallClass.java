@@ -158,6 +158,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         }
         data.put("season", r.getSeason().toString());
         data.put("difficulty", r.getDifficulty().toString());
+        data.put("type", r.getType().toString());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPDATECREATE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {

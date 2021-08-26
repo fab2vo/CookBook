@@ -15,6 +15,7 @@
         android:scrollbarStyle="insideInset">
 
         <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -69,9 +70,9 @@
 
             <TextView
                 style="@style/CookBookText.EnterTitle"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3SRCL" />
 
             <EditText
@@ -80,14 +81,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:text="@string/P3SRCH"
-                 />
+                android:text="@string/P3SRCH" />
 
             <TextView
                 style="@style/CookBookText.EnterTitle"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3SRCURLL" />
 
             <EditText
@@ -142,161 +142,177 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/recipe_season"
+                    android:id="@+id/recipe_type"
                     style="@style/EnterValueField"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_toStartOf="@+id/recipe_difficulty"
-                    android:minWidth="150dp"
+                    android:minWidth="80dp"
                     android:spinnerMode="dropdown"
                     tools:background="@color/bg_enter_val" />
 
                 <Spinner
+                    android:id="@+id/recipe_season"
                     style="@style/EnterValueField"
-                    android:id="@+id/recipe_difficulty"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
-                    android:minWidth="150dp"
+                    android:layout_toRightOf="@+id/recipe_type"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="start"
+                    android:minWidth="80dp"
                     android:spinnerMode="dropdown"
-                    tools:background="@color/bg_enter_val"
-                    android:layout_alignParentEnd="true"/>
+                    tools:background="@color/bg_enter_val" />
+
+                <Spinner
+                    android:id="@+id/recipe_difficulty"
+                    style="@style/EnterValueField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="8dp"
+                    android:minWidth="90dp"
+                    android:spinnerMode="dropdown"
+                    tools:background="@color/bg_enter_val" />
 
             </RelativeLayout>
 
             <TextView
                 style="@style/CookBookText.SubTitle"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/P3LIT" />
 
             <TextView
                 android:id="@+id/recipe_I01"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I02"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I03"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I04"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I05"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I06"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I07"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I08"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I09"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I10"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I11"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I12"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I13"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I14"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
                 android:id="@+id/recipe_I15"
                 style="@style/CookBookText"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="@string/P3IT" />
 
             <TextView
+                style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/CookBookText"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/P3NIL" />
@@ -329,12 +345,11 @@
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="8dp"
                     android:inputType="text"
+                    android:text="@string/P3NIH"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/recipe_ing_enter"
                     app:layout_constraintStart_toEndOf="@+id/recipe_ing_back"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="@string/P3NIH"
-                     />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
                     android:id="@+id/recipe_ing_enter"
@@ -353,8 +368,8 @@
                 style="@style/CookBookText.SubTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/P3LST" />
 
             <TextView
@@ -430,9 +445,9 @@
                 android:text="@string/P3S9H" />
 
             <TextView
+                style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/CookBookText"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/P3NSL" />
@@ -453,7 +468,7 @@
                     android:src="@drawable/ic_recipe_back"
                     app:layout_constraintEnd_toStartOf="@+id/recipe_new_step"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/recipe_new_step"

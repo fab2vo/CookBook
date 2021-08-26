@@ -27,6 +27,7 @@ public class Recipe {
     private ArrayList<Note> mNotes;
     private ArrayList<Comment> mComments;
     private RecipeSeason mSeason;
+    private RecipeType mType;
     private RecipeDifficulty mDifficulty;
     private String[] mIngredients;
     private StatusRecipe mStatus;
@@ -64,6 +65,7 @@ public class Recipe {
         for(int i=0;i<NBING_MAX;i++){mIngredients[i]="";}
         mNbPers=4;
         mSeason=RecipeSeason.ALLYEAR;
+        mType=RecipeType.MAIN;
         mDifficulty=RecipeDifficulty.UNDEFINED;
         mStatus=StatusRecipe.Visible;
         mComments=new ArrayList<Comment>();
@@ -236,6 +238,12 @@ public class Recipe {
                 return false;
         }
     }
+    public RecipeType getType() {
+        return mType;
+    }
+    public void setType(RecipeType type) {
+        mType = type;
+    }
 
     public RecipeDifficulty getDifficulty() {
         return mDifficulty;
@@ -282,18 +290,7 @@ public class Recipe {
         }
         return (b ? 1:0);
     }
-    public Boolean hasChanged(){
-        return (mTS_recipe || mTS_photo || mTS_note || mTS_comment);
-    }
 
-    public String getFlag(){
-        String s=mStatus.toString().substring(0,1);
-        s=s+(mTS_recipe ? "1":"0");
-        s=s+(mTS_photo ? "1":"0");
-        s=s+(mTS_comment ? "1":"0");
-        s=s+(mTS_note ? "1":"0");
-        return s;
-    }
     //-------------------- photo filename---------------------
     public String getPhotoFilename(){
         return "IMG"+getId().toString()+".jpg";
@@ -385,8 +382,8 @@ public class Recipe {
             if (!mIngredients[i].equals(r.getIngredient(i + 1))) return false;
         }
         if (!mSeason.toString().equals(r.getSeason().toString())) return false;
+        if (!mType.toString().equals(r.getType().toString())) return false;
         if (!mDifficulty.toString().equals(r.getDifficulty().toString())) return false;
         return true;
     }
-
 }

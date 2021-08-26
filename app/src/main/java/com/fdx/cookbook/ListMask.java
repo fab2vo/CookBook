@@ -7,6 +7,8 @@ public class ListMask {
     private RecipeSeason SeasonState;
     private boolean DifficultyFiltered;
     private RecipeDifficulty DifficultyState;
+    private boolean TypeFiltered;
+    private RecipeType TypeState;
     private boolean UserFiltered;
     private User UserState;
     private boolean IsNoteSorted;
@@ -14,20 +16,24 @@ public class ListMask {
     public ListMask(User u){
         SeasonFiltered=false;
         DifficultyFiltered=false;
+        TypeFiltered=false;
         UserFiltered=false;
         IsNoteSorted=false;
         UserState=u;
         SeasonState=RecipeSeason.ALLYEAR;
         DifficultyState=RecipeDifficulty.UNDEFINED;
+        TypeState=RecipeType.MAIN;
     }
 
     public void reset(){
         SeasonFiltered=false;
         DifficultyFiltered=false;
+        TypeFiltered=false;
         UserFiltered=false;
         IsNoteSorted=false;
         SeasonState=RecipeSeason.ALLYEAR;
         DifficultyState=RecipeDifficulty.UNDEFINED;
+        TypeState=RecipeType.MAIN;
     }
 
     public String display(){
@@ -113,6 +119,20 @@ public class ListMask {
         return i;
     }
 
+    public Integer toggleType(RecipeType rt){
+        Integer i;
+        if (TypeFiltered){
+            TypeFiltered=false;
+            TypeState=RecipeType.MAIN;
+            i=R.string.TTOFF;
+        }else{
+            TypeFiltered=true;
+            TypeState=rt;
+            i=R.string.TTON;
+        }
+        return i;
+    }
+
     public Integer toggleSortNote(){
         Integer i;
         if (IsNoteSorted){
@@ -138,6 +158,9 @@ public class ListMask {
         if (DifficultyFiltered){
             if (r.getDifficulty()!=DifficultyState) return false;
         }
+        if (TypeFiltered){
+            if (r.getType()!=TypeState) return false;
+        }
         if (UserFiltered){
             if (!r.getOwner().IsEqual(UserState)) return false;
         }
@@ -150,6 +173,8 @@ public class ListMask {
         s+=SeasonState.toString()+sep;
         s+=(DifficultyFiltered ? "Y":"N")+sep;
         s+=DifficultyState.toString()+sep;
+        s+=(TypeFiltered ? "Y":"N")+sep;
+        s+=TypeState.toString()+sep;
         s+=(IsNoteSorted ? "Y":"N")+sep;
         s+=(UserFiltered ? "Y":"N")+sep;
         s+=UserState.getFamily()+sep;
@@ -161,14 +186,16 @@ public class ListMask {
     public void updateFromString(String s){
         String sep=";";
         String[] tokens = s.split(sep);
-        if (tokens.length<9) return;
+        if (tokens.length<11) return;
         SeasonFiltered=( tokens[0].equals("Y")? true:false);
         SeasonState=RecipeSeason.valueOf(tokens[1]);
         DifficultyFiltered=( tokens[2].equals("Y")? true:false);
         DifficultyState=RecipeDifficulty.valueOf(tokens[3]);
-        IsNoteSorted=( tokens[4].equals("Y")? true:false);
-        UserFiltered=( tokens[5].equals("Y")? true:false);
-        UserState=new User(tokens[6], tokens[7]);
-        UserState.setId(UUID.fromString(tokens[8]));
+        TypeFiltered=( tokens[4].equals("Y")? true:false);
+        TypeState=RecipeType.valueOf(tokens[5]);
+        IsNoteSorted=( tokens[6].equals("Y")? true:false);
+        UserFiltered=( tokens[7].equals("Y")? true:false);
+        UserState=new User(tokens[8], tokens[9]);
+        UserState.setId(UUID.fromString(tokens[10]));
     }
 }

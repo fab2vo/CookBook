@@ -6,13 +6,6 @@ import android.os.AsyncTask;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-// ********************************************************************
-//  to use :
-//        TestConnection t;
-//        t = new TestConnection();
-//        t.setTestConnexion(getApplicationContext());
-//        t.testGo(); start async => result in Boolean  mSession.IsConnected()
-//***********************************************************
 
 public class TestConnection {
     private static String PHP204="return204.php";

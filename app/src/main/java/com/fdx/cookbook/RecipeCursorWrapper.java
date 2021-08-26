@@ -53,6 +53,8 @@ public class RecipeCursorWrapper extends CursorWrapper {
         r.setSeason(RecipeSeason.valueOf(season));
         String difficulty = getString(getColumnIndex(RecipeTable.Cols.DIFFICULTY));
         r.setDifficulty(RecipeDifficulty.valueOf(difficulty));
+        String type = getString(getColumnIndex(RecipeTable.Cols.TYPE));
+        r.setType(RecipeType.valueOf(type));
         String comments = getString(getColumnIndex(RecipeTable.Cols.COMMENTS));
         r.getCommentsDeserialised(comments);
         String status = getString(getColumnIndex(RecipeTable.Cols.STATUS));

@@ -114,6 +114,7 @@ public class CookBook {
         }
         values.put(RecipeDbSchema.RecipeTable.Cols.SEASON, recipe.getSeason().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.DIFFICULTY, recipe.getDifficulty().name());
+        values.put(RecipeDbSchema.RecipeTable.Cols.TYPE, recipe.getType().name());
         values.put(RecipeDbSchema.RecipeTable.Cols.COMMENTS, recipe.getSerializedComments());
         values.put(RecipeDbSchema.RecipeTable.Cols.STATUS, recipe.getStatus().toString());
         values.put(RecipeDbSchema.RecipeTable.Cols.NOTES, recipe.getSerializedNotes());

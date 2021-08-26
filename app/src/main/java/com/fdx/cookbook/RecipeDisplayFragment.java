@@ -49,6 +49,7 @@ public class RecipeDisplayFragment extends Fragment {
     private TextView mDRatingBarText;
     private TextView mDAuthorText;
     private TextView mDDifficulty;
+    private TextView mDType;
     private ImageView mSunIcon;
     private ImageView mIceIcon;
     private TextView mDSourceText;
@@ -147,15 +148,11 @@ public class RecipeDisplayFragment extends Fragment {
                         b=b&&(Pattern.matches(REGEX_MEMBER,mToMember));
                         b=b&&(IsLenOK(mToFamily,MINMAX[0][0],MINMAX[0][1]));
                         b=b&&(IsLenOK(mToMember,MINMAX[1][0],MINMAX[1][1]));
-                        //todo test comment versus pattern message
+                        b=b&&(Pattern.matches(REGEX_FAMILY,mToMessage));
                         if (b) {
                         sendMailAsync sendmail = new sendMailAsync();
                         sendmail.execute();
                         } else {
-                            //snack.setText(R.string.mail_send_fail_error);
-                            //snack.show();
-                            //mDSourceText.setText(getString(R.string.mail_send_fail_error));
-                            //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
                             Toast.makeText(getActivity(),getString(R.string.P4M_err), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -187,6 +184,7 @@ public class RecipeDisplayFragment extends Fragment {
         mDRatingBar=(RatingBar) v.findViewById(R.id.recipe_display_ratingBar);
         mDRatingBarText=(TextView) v.findViewById(R.id.recipe_display_ratingBar_txt);
         mDDifficulty=(TextView) v.findViewById(R.id.recipe_display_difficulty);
+        mDType=(TextView) v.findViewById(R.id.recipe_display_type);
         mSunIcon=(ImageView) v.findViewById(R.id.recipe_img_sun) ;
         mIceIcon=(ImageView) v.findViewById(R.id.recipe_img_ice) ;
         mDAuthorText=(TextView) v.findViewById(R.id.recipe_display_author);
@@ -279,6 +277,9 @@ public class RecipeDisplayFragment extends Fragment {
         int idiff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
         String[] stringArrayDiff = getResources().getStringArray(R.array.recipe_difficulty_array);
         mDDifficulty.setText(stringArrayDiff[idiff]);
+        int ityp= RecipeType.getIndex(mRecipe.getType());
+        String[] stringArrayTyp = getResources().getStringArray(R.array.recipe_type_array);
+        mDType.setText(stringArrayTyp[ityp]);
         mSunIcon.setImageResource((mRecipe.IsSummer()) ? R.drawable.ic_recipe_sun : R.drawable.ic_recipe_sun_disabled);
         mIceIcon.setImageResource((mRecipe.IsWinter()) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
         mDAuthorText.setText(s);
@@ -351,10 +352,6 @@ public class RecipeDisplayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //snack.setText(R.string.mail_send_start);
-            //snack.show();
-            //mDSourceText.setText(getString(R.string.mail_send_start));
-            //mDSourceText.setTextColor(getResources().getColor(R.color.light_red));
             Toast.makeText(getActivity(),getString(R.string.P4_start), Toast.LENGTH_SHORT).show();
         }
 
@@ -362,17 +359,11 @@ public class RecipeDisplayFragment extends Fragment {
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
             if (b) {
-                //snack.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
-                //mDSourceText.setText(getString(R.string.mail_send_success,mToMember,mToFamily));
-                //mDSourceText.setTextColor(getResources().getColor(R.color.light_green));
                 Toast.makeText(getActivity(), getString(R.string.P4_OK,mToMember,mToFamily), Toast.LENGTH_LONG).show();
             }
             else {
-                //snack.setText(getString(R.string.mail_send_fail));
-                //mDSourceText.setText(getString(R.string.mail_send_fail));
                 Toast.makeText(getActivity(), getString(R.string.P4_fail), Toast.LENGTH_LONG).show();
             }
-            //snack.show();
             return;
         }
 

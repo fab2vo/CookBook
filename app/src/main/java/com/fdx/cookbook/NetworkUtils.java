@@ -37,56 +37,6 @@ public class NetworkUtils {
         mSession=SessionInfo.get(c);
     }
 
-    /*public String sendGetRequest(String uri) {
-        try {
-            URL url = new URL(uri);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String result;
-            StringBuilder sb = new StringBuilder();
-            while((result = bufferedReader.readLine())!=null){
-                sb.append(result);
-            }
-            return sb.toString();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public String sendPostRequest(String requestURL,
-                                  HashMap<String, String> postDataParams) {
-        URL url;
-        String response = "";
-        try {
-            url = new URL(requestURL);
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(mSession.getReadTimeout());
-            conn.setConnectTimeout(mSession.getConnectTimeout());
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
-            writer.flush();
-            writer.close();
-            os.close();
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                response = br.readLine();
-            } else {
-                response = "Error Registering";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return response;
-    }
-    */
-
     public String sendPostRequestJson(String requestURL,
                                   HashMap<String, String> postDataParams) {
 
@@ -329,7 +279,7 @@ public class NetworkUtils {
             //----------------- enum
             r.setSeason(RecipeSeason.valueOf(obj.getString("season")));
             r.setDifficulty(RecipeDifficulty.valueOf(obj.getString("difficulty")));
-
+            r.setType(RecipeType.valueOf(obj.getString("type")));
             // --------------- photo
             CookBook cb = CookBook.get(mSession.getContext());
             File f=cb.getPhotoFile(r);

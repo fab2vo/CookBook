@@ -24,10 +24,7 @@ public class RecipeMailDisplayFragment extends Fragment {
     private static final String TAG = "CB_R.MailDisplayFrag";
 
     public static RecipeMailDisplayFragment newInstance() {
-        //Bundle args=new Bundle();
-        //args.putSerializable(ARG_RECIPE_ID, recipeId);
         RecipeMailDisplayFragment fragment=new RecipeMailDisplayFragment();
-        //fragment.setArguments(args);
         return fragment;
     }
 

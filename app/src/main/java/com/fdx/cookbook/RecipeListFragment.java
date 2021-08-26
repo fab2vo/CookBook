@@ -65,12 +65,6 @@ public class RecipeListFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        //todo P3 enlever request rate reliquat
-        if (requestCode == REQUEST_RATE) {
-            Integer rate = (Integer) data
-                    .getSerializableExtra(RatePickerFragment.EXTRA_RATE);
-            updateUI();
-        }
     }
 
     @Override
@@ -187,6 +181,7 @@ public class RecipeListFragment extends Fragment {
         private TextView mSourceTextView;
         private TextView mNoteTextView;
         private TextView mDifficulty;
+        private TextView mType;
         private ImageView mEditIcon;
         private ImageView mPhotoView;
         private ImageView mSunIcon;
@@ -204,6 +199,7 @@ public class RecipeListFragment extends Fragment {
             mSunIcon=(ImageView) itemView.findViewById(R.id.recipe_img_sun);
             mIceIcon=(ImageView) itemView.findViewById(R.id.recipe_img_ice);
             mDifficulty=(TextView) itemView.findViewById(R.id.recipe_difficulty);
+            mType=(TextView) itemView.findViewById(R.id.recipe_type);
             mPhotoView=(ImageView) itemView.findViewById(R.id.recipe_photo);
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
@@ -254,6 +250,15 @@ public class RecipeListFragment extends Fragment {
                     updateUI();
                 }
             });
+            mType.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),
+                            getString(mListMask.toggleType(mRecipe.getType())),
+                            Toast.LENGTH_SHORT ).show();
+                    updateUI();
+                }
+            });
             mEditIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -283,6 +288,9 @@ public class RecipeListFragment extends Fragment {
             int idff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
             String[] stringArray = getResources().getStringArray(R.array.recipe_difficulty_array);
             mDifficulty.setText(stringArray[idff]);
+            int ityp= RecipeType.getIndex(mRecipe.getType());
+            String[] stringArrayTyp = getResources().getStringArray(R.array.recipe_type_array);
+            mType.setText(stringArrayTyp[ityp]);
             if (mPhotoFile==null || !mPhotoFile.exists()){
                 mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_see));
             } else {
