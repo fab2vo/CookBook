@@ -248,7 +248,7 @@ public class RecipeEditFragment extends Fragment {
 
         mSeasonSpinner= (Spinner) v.findViewById(R.id.recipe_season);
         ArrayAdapter<CharSequence> adapterSeason = ArrayAdapter.createFromResource(getContext(),
-                R.array.recipe_season_array, android.R.layout.simple_spinner_item);
+                R.array.recipe_season_array, R.layout.edit_spinner_item);
         mSeasonSpinner.setAdapter(adapterSeason);
         mSeasonSpinner.setSelection(RecipeSeason.getIndex(mRecipe.getSeason()));
         mSeasonSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -265,7 +265,7 @@ public class RecipeEditFragment extends Fragment {
 
         mTypeSpinner= (Spinner) v.findViewById(R.id.recipe_type);
         ArrayAdapter<CharSequence> adapterType = ArrayAdapter.createFromResource(getContext(),
-                R.array.recipe_type_array, android.R.layout.simple_spinner_item);
+                R.array.recipe_type_array, R.layout.edit_spinner_item);
         mTypeSpinner.setAdapter(adapterType);
         mTypeSpinner.setSelection(RecipeType.getIndex(mRecipe.getType()));
         mTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -282,7 +282,7 @@ public class RecipeEditFragment extends Fragment {
 
         mDifficultySpinner= (Spinner) v.findViewById(R.id.recipe_difficulty);
         ArrayAdapter<CharSequence> adapterDifficulty = ArrayAdapter.createFromResource(getContext(),
-                R.array.recipe_difficulty_array, android.R.layout.simple_spinner_item);
+                R.array.recipe_difficulty_array, R.layout.edit_spinner_item);
         mDifficultySpinner.setAdapter(adapterDifficulty);
         mDifficultySpinner.setSelection(RecipeDifficulty.getIndex(mRecipe.getDifficulty()));
         mDifficultySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

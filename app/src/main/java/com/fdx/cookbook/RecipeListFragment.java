@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +42,7 @@ public class RecipeListFragment extends Fragment {
     private Recipe mRecipeInit;
     private MenuItem mMessageItem;
     private static final String SAVED_SORT_STATUS="sort";
+    private AsyncCallClass mInstanceAsync;
     private ListMask mListMask;
     private static final String TAG = "CB_RecipeListFragment";
     private static final String DIALOG_RATE = "DialogRate";
@@ -55,8 +58,8 @@ public class RecipeListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
         activity.getSupportActionBar().setSubtitle(getString(R.string.P2U_txt,u.getName(),u.getFamily()));
-        AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
-        instanceAsync.execute();
+        mInstanceAsync = new AsyncCallClass(getContext());
+        startSync();
         mListMask=new ListMask(mSession.getUser());
     }
 
@@ -114,8 +117,7 @@ public class RecipeListFragment extends Fragment {
                 startActivity(intent2);
                 return true;
             case R.id.list_sync:
-                AsyncCallClass instanceAsync = new AsyncCallClass(getContext());
-                instanceAsync.execute();
+                startSync();
                 return true;
             case R.id.new_mail:
                 CookBook cookbook=CookBook.get(getActivity());
@@ -141,6 +143,23 @@ public class RecipeListFragment extends Fragment {
         }
     }
 
+    private void startSync(){
+        AsyncTask.Status as=mInstanceAsync.getStatus();
+        if (as== AsyncTask.Status.RUNNING){
+            //fdx Log.d(TAG,"Async  running " +as.toString());
+        }
+        if (as== AsyncTask.Status.PENDING){
+            //fdx Log.d(TAG,"Async  to lauch " +as.toString());
+            mInstanceAsync.execute();
+        }
+        if (as== AsyncTask.Status.FINISHED){
+            //fdx Log.d(TAG,"Async  finished  " +as.toString());
+            mInstanceAsync=new AsyncCallClass(getContext());
+            //fdx Log.d(TAG,">new one " +as.toString());
+            mInstanceAsync.execute();
+        }
+    }
+
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes_in=cookbook.getRecipes();
@@ -162,7 +181,7 @@ public class RecipeListFragment extends Fragment {
             if (mListMask.isNoteSorted()) {
                 Collections.sort(recipes,
                         (r1, r2) -> {
-                            return ((int) (r2.getNoteAvg() - r1.getNoteAvg()));
+                            return ((int)(100* (r2.getNoteAvg() - r1.getNoteAvg())));
                         });
             }
         }

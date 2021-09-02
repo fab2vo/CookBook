@@ -159,13 +159,14 @@
                     style="@style/EnterValueField"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
-                    android:layout_toRightOf="@+id/recipe_type"
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="8dp"
+                    android:layout_toRightOf="@+id/recipe_type"
                     android:gravity="start"
                     android:minWidth="80dp"
                     android:spinnerMode="dropdown"
-                    tools:background="@color/bg_enter_val" />
+                    tools:background="@color/bg_enter_val"
+                    tools:paddingLeft="8dp" />
 
                 <Spinner
                     android:id="@+id/recipe_difficulty"
@@ -177,7 +178,8 @@
                     android:layout_marginStart="8dp"
                     android:minWidth="90dp"
                     android:spinnerMode="dropdown"
-                    tools:background="@color/bg_enter_val" />
+                    tools:background="@color/bg_enter_val"
+                    tools:paddingLeft="8dp" />
 
             </RelativeLayout>
 

@@ -72,7 +72,7 @@
         android:tint="@color/fg_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:src="@drawable/ic_menu_done" />
 
     <ImageView
         android:id="@+id/mail_display_delete"

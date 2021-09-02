@@ -311,7 +311,9 @@ public class Recipe {
     public int getNbComMax(){return NBCOM_MAX;} // nb max affiché
 
     public void addNote(Note note){ mNotes.add(note);}
+
     public ArrayList<Note> getNotes() {return mNotes;}
+
     public Note getNote(int i){
         if (mNotes==null) return null;
         if (i<mNotes.size()){ return mNotes.get(i);}

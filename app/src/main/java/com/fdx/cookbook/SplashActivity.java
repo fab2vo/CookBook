@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -96,29 +97,45 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         mMoto=(TextView) findViewById(R.id.splash_moto);
         mMoto.setText(R.string.P0_moto);
-        if (mSession.IsReqNewSession()){
-            mFamilyEntered=mSession.getUser().getFamily();
-            mMemberEntered=mSession.getUser().getName();
-            mPwdEntered="";
-        } else {
-            mFamilyEntered=getString(R.string.P0HF);
-            mMemberEntered=getString(R.string.P0HM);
-            mPwdEntered=getString(R.string.P0HP);
-        }
         mProgressBar=(ProgressBar) findViewById(R.id.splash_progBar);
         mProgressBar.setProgress(0);
         mEnterMessage=(TextView) findViewById(R.id.splash_edit_message);
         mEnterMessage.setText("");
         mEnterFamilyLbl=(TextView) findViewById(R.id.splash_edit_family_lbl);
+        mEnterFamilyLbl.setText(R.string.P0LF);
         mEnterFamily=(EditText) findViewById(R.id.splash_edit_family);
         mEnterMemberLbl=(TextView) findViewById(R.id.splash_edit_member_lbl);
+        mEnterMemberLbl.setText(R.string.P0LM);
         mEnterMember=(EditText) findViewById(R.id.splash_edit_member);
         mEnterPwdLbl=(TextView) findViewById(R.id.splash_edit_pwd_lbl);
         mEnterPwd=(EditText) findViewById(R.id.splash_edit_pwd);
+        mEnterPwdLbl.setText(R.string.P0LP);
         mNewSession=(Button) findViewById(R.id.splash_button_session);
         mNewMember=(Button) findViewById(R.id.splash_button_member);
         mNewFamily=(Button) findViewById(R.id.splash_button_family);
-        updateTop();
+        if (mSession.IsReqNewSession()){
+            mFamilyEntered=mSession.getUser().getFamily();
+            mEnterFamily.setText(mFamilyEntered);
+            mMemberEntered=mSession.getUser().getName();
+            mEnterMember.setText(mMemberEntered);
+            mPwdEntered="";
+            mEnterPwd.setText(mPwdEntered);
+        } else {
+            mFamilyEntered="";
+            mEnterFamily.setText(mFamilyEntered);
+            mEnterFamily.setHint(R.string.P0HF);
+            mMemberEntered="";
+            mEnterMember.setText(mMemberEntered);
+            mEnterMember.setHint(R.string.P0HM);
+            mPwdEntered="";
+            mEnterPwd.setText(mPwdEntered);
+            mEnterPwd.setHint(R.string.P0HP);
+        }
+        mEnterMessage.setText("");
+        mNewSession.setText(R.string.P0BP);
+        mNewMember.setText(R.string.P0BM);
+        mNewFamily.setText(R.string.P0BF);
+        //updateTop();
         mNetAnim=(ImageView) findViewById(R.id.net_anim);
         mNetAnim.setBackgroundResource(R.drawable.network_animation);
         mNetAnim.setVisibility(View.INVISIBLE);
@@ -180,8 +197,8 @@ public class SplashActivity extends AppCompatActivity {
                     mState=NEW_SESSION;
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
-                }
-                tc.testGo();
+                } else {
+                tc.testGo();}
             }
         });
         mNewMember.setOnClickListener(new View.OnClickListener() {
@@ -191,8 +208,8 @@ public class SplashActivity extends AppCompatActivity {
                     mState=NEW_MEMBER;
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
-                }
-                tc.testGo();
+                } else {
+                tc.testGo();}
             }
         });
         mNewFamily.setOnClickListener(new View.OnClickListener() {
@@ -202,8 +219,8 @@ public class SplashActivity extends AppCompatActivity {
                     mState=NEW_FAMILY;
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
-                }
-                tc.testGo();
+                } else {
+                tc.testGo(); }
             }
         });
     }
@@ -221,7 +238,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
-    private void updateTop(){
+    /*private void updateTop(){
         mEnterFamilyLbl.setText(R.string.P0LF);
         mEnterFamily.setText(mFamilyEntered);
         mEnterMemberLbl.setText(R.string.P0LM);
@@ -232,7 +249,7 @@ public class SplashActivity extends AppCompatActivity {
         mNewSession.setText(R.string.P0BP);
         mNewMember.setText(R.string.P0BM);
         mNewFamily.setText(R.string.P0BF);
-    }
+    }*/
 
     private void updateDisplayOnAsync(Boolean b){
         int indNet,indClick;
@@ -279,12 +296,13 @@ public class SplashActivity extends AppCompatActivity {
         mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
         mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
         Boolean ret=true;
-        String message="";
+        //String message="";
         if(!mSession.IsConnected()){
             ret=false;
-            message += getResources().getString(R.string.P0ER_nocon)+"\n";
+            Toast.makeText(getApplicationContext(), getString(R.string.P0ER_nocon), Toast.LENGTH_LONG).show();
+            //message += getResources().getString(R.string.P0ER_nocon)+"\n";
         }
-        mEnterMessage.setText(message);
+        //mEnterMessage.setText(message);
         return ret;
     }
 
@@ -315,6 +333,7 @@ public class SplashActivity extends AppCompatActivity {
                     mSession.setStoredUser(mUser);
                     Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 return;
             }
@@ -358,7 +377,6 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 mProgressBar.setProgress(70);
                 cb.fillCookBook(mRecipes);
-                mEnterMessage.setText("Number of recipes : "+mRecipes.size());
                 mProgressBar.setProgress(90);
                 return true;
             }
@@ -517,7 +535,7 @@ public class SplashActivity extends AppCompatActivity {
                     mEnterMessage.setText(R.string.P0ERM_nofam);
                     mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_red)); }
                 else {
-                    mEnterMessage.setText(R.string.P0OKF);
+                    //mEnterMessage.setText(R.string.P0OKF);
                     User u= new User("","");
                     for(User user:memberFamily){
                         if (user.getName().equals(mMemberEntered)){u=user;}

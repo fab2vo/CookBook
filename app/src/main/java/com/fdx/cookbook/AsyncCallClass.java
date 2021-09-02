@@ -1,8 +1,10 @@
 package com.fdx.cookbook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -110,11 +112,18 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        //Toast.makeText(mContext, "Start", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onPostExecute(Boolean isChanged) {
         super.onPostExecute(isChanged);
-        //fdx Log.d(TAG, "Has changed ? " + isChanged);
         if (isChanged)
         Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
+        //else Toast.makeText(mContext, "End", Toast.LENGTH_SHORT).show();
+
     }
 
     private Boolean test204() {
