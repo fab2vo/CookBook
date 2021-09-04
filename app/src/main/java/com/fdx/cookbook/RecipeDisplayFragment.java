@@ -364,8 +364,7 @@ public class RecipeDisplayFragment extends Fragment {
             else {
                 Toast.makeText(getActivity(), getString(R.string.P4_fail), Toast.LENGTH_LONG).show();
             }
-            return;
-        }
+         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {

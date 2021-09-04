@@ -60,51 +60,52 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         if (!test204()) {
             return isChanged;
         }
+        deBugShow("----------- Start Sync-------------");
         if (syncTiersRecipe(mSession.getUser())) isChanged=true;
         List<Recipe> mrecipes=mCookbook.getRecipes();
         for(Recipe r:mrecipes){
             if (r.getOwnerIdString().equals(mSession.getUser().getId().toString())) {
                 if (r.getTS(AsynCallFlag.NEWRECIPE) == 1) {
                     if (uploadRecipe(r)) {
-                        //fdx Log.d(TAG, "Recette " + r.getTitle() + " mise à jour");
+                        deBugShow("Recette " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWRECIPE, false);
                         mCookbook.updateRecipe(r);
                         isChanged=true;
                     } else {
-                        //fdx Log.d(TAG, "Recette " + r.getTitle() + " non mise à jour");
+                        deBugShow( "Recette " + r.getTitle() + " non mise à jour");
                     }
                 }
                 if (r.getTS(AsynCallFlag.NEWPHOTO) == 1) {
                     if (uploadPhoto(r)) {
-                        //fdx Log.d(TAG, "Recette Photo " + r.getTitle() + " mise à jour");
+                        deBugShow( "Recette Photo " + r.getTitle() + " mise à jour");
                         r.updateTS(AsynCallFlag.NEWPHOTO, false);
                         mCookbook.updateRecipe(r);
                         isChanged=true;
                     } else {
-                        //fdx Log.d(TAG, "Recette Photo " + r.getTitle() + " non mise à jour");
+                        deBugShow( "Recette Photo " + r.getTitle() + " non mise à jour");
                     }
                 }
             }
             if (syncCommentsRecipe(r)) {
-                //fdx  Log.d(TAG, "Comments de " + r.getTitle()+" updaté");
+                deBugShow( "Comments de " + r.getTitle()+" updaté");
                 isChanged=true;
                 r.updateTS(AsynCallFlag.NEWCOMMENT,false);
                 mCookbook.updateRecipe(r);
             }
             if (syncNotesRecipe(r)) {
-                //fdx Log.d(TAG, "Notes de " + r.getTitle()+" updaté");
+                deBugShow( "Notes de " + r.getTitle()+" updaté");
                 isChanged=true;
                 r.updateTS(AsynCallFlag.NEWRATING,false);
                 mCookbook.updateRecipe(r);
             }
             if (r.IsMarkedDeleted()){
                 if (deleteRecipeFromCB(r)) {
-                    //fdx Log.d(TAG, "Recette effacée : " + r.getTitle());
+                    deBugShow( "Recette effacée : " + r.getTitle());
                     mCookbook.removeRecipe(r);
                     mCookbook.deleteImage(r);
                     isChanged=true;
                 } else{
-                    //fdx Log.d(TAG, "Recette " + r.getTitle()+" non effacée");
+                    deBugShow("Recette " + r.getTitle()+" non effacée");
                 }
             }
         }
@@ -122,8 +123,10 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         super.onPostExecute(isChanged);
         if (isChanged)
         Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
-        //else Toast.makeText(mContext, "End", Toast.LENGTH_SHORT).show();
+    }
 
+    private void deBugShow(String s){
+        //fdx Log.d(TAG, s);
     }
 
     private Boolean test204() {
@@ -139,7 +142,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             conn.disconnect();
             return (status == HttpURLConnection.HTTP_NO_CONTENT);
         } catch (Exception e) {
-            //fdx Log.d(TAG, "Test 204 : " + e);
+            deBugShow( "Test 204 : " + e);
             return false;
         }
     }
@@ -171,7 +174,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPDATECREATE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            //fdx Log.d(TAG, "Retour de "+PHPUPDATECREATE+" =>"+result+"<");
+            deBugShow( "Retour de "+PHPUPDATECREATE+" =>"+result+"<");
         return false;}
         return true;
     }
@@ -181,7 +184,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         File file = mCookbook.getPhotoFile(r);
         Bitmap bitmap = PictureUtils.getBitmap(file.getPath());
         if (bitmap == null) {
-            //fdx Log.d(TAG, "Pas de bitmap pour " + r.getTitle());
+           deBugShow( "Pas de bitmap pour " + r.getTitle());
             return false;
         }
         String uploadImage = PictureUtils.getStringImage(bitmap);
@@ -195,7 +198,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPUPLOADPHOTO, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            //fdx Log.d(TAG, "Retour de "+ PHPUPUPLOADPHOTO+" = "+result);
+            deBugShow( "Retour de "+ PHPUPUPLOADPHOTO+" = "+result);
             return false;}
         return true;
     }
@@ -206,7 +209,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPDELETERECIPE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
-            //fdx Log.d(TAG, "Retour de "+ PHPDELETERECIPE+" = "+result);
+            deBugShow( "Retour de "+ PHPDELETERECIPE+" = "+result);
             return false;}
         return true;
     }
@@ -274,7 +277,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDCOMMENTTORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
-                //fdx Log.d(TAG, "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
+                deBugShow( "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
                 b=false;}
         }
         return b;
@@ -346,7 +349,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
-                //fdx Log.d(TAG, "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
+                deBugShow( "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
                 b=false;}
         }
         return b;
@@ -365,22 +368,27 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             rloc=mCookbook.getRecipe(r.getId());
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
-                mCookbook.addRecipe(rnew);
-                //fdx Log.d(TAG, "Recette "+ rnew.getTitle()+" downloadée");
-                ret=true;
+                if (rnew==null) {
+                    deBugShow( "Erreur ds download de recette "+ rnew.getTitle());
+                    ret=false;
+                } else {
+                    mCookbook.addRecipe(rnew);
+                    deBugShow( "Recette "+ rnew.getTitle()+" downloadée");
+                    ret=true;
+                }
             } else {
                 if (rloc.IsVisible()){ // case recipe tiers active and to be updated if necessary
                     withphoto=IsAfterAndNonNull(r.getDatePhoto(), rloc.getDatePhoto());
                     update=IsAfterAndNonNull(r.getDate(), rloc.getDate());
                     if (r.IsMessage()){// case recipe tiers active and status needs update
                         if (recipeAccepted(r)){
-                            //fdx Log.d(TAG, "Recette "+ rloc.getTitle()+" made visible on server");
+                            deBugShow("Recette "+ rloc.getTitle()+" made visible on server");
                         }
                     }
                     if(update || withphoto){
                         if (updateRecipe(rloc, withphoto)){
                             mCookbook.updateRecipe(rloc);
-                            //fdx Log.d(TAG, "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
+                            deBugShow( "Recette "+ rloc.getTitle()+" updatée (with photo :"+withphoto+")");
                             ret=true;
                         }
                     }
@@ -408,16 +416,17 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         Recipe r=new Recipe();
         try {
             JSONArray jarr1 = new JSONArray(result);
-            if (jarr1.length()!=1){
-                //fdx Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+            if (jarr1.length()==0){
+                deBugShow( " No json objects from download <"+ref.getId()+">");
                 return null;
             } else {
+                if (jarr1.length()>1) deBugShow( " Recette non unique dans cookbook : <"+ref.getId()+">");
                 JSONObject obj = jarr1.getJSONObject(0);
                 r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
                 if (!mNetUtils.parseObjectRecipe(r,obj, true, true)) return null;
             }
         } catch (Exception e) {
-            //fdx Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+            deBugShow( " Error parsing CB in downloadRecipe" + e);
         }
         return r;
     }
@@ -431,17 +440,17 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         try {
             JSONArray jarr1 = new JSONArray(result);
             if (jarr1.length()!=1){
-                //fdx Log.d(TAG, " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
+                deBugShow( " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
                 return null;
             } else {
                 JSONObject obj = jarr1.getJSONObject(0);
                 if (!mNetUtils.parseObjectRecipe(ref,obj, withphoto, false)) {
-                    //fdx Log.d(TAG, " Null recipe from JSOn object" + result);
+                    deBugShow( " Null recipe from JSOn object" + result);
                     return false;
                 }
             }
         } catch (Exception e) {
-            //fdx Log.d(TAG, " Error parsing CB in downloadRecipe" + e);
+            deBugShow( " Error parsing CB in downloadRecipe" + e);
             return false;
         }
         return true;
@@ -454,7 +463,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("iduser", mSession.getUser().getId().toString());
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPACCEPTRECIPE,data);
         if (!result.equals("1")) {
-            //fdx Log.d(TAG, "Retour de "+ PHPACCEPTRECIPE+" = "+result);
+            deBugShow( "Retour de "+ PHPACCEPTRECIPE+" = "+result);
             return false;}
         return true;
     }
