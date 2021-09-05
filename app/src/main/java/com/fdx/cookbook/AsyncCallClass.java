@@ -115,7 +115,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //Toast.makeText(mContext, "Start", Toast.LENGTH_SHORT).show();
     }
 
     @Override

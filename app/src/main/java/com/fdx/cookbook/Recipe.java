@@ -291,6 +291,24 @@ public class Recipe {
         return (b ? 1:0);
     }
 
+    public boolean containQuery(String s){
+        if (mTitle.indexOf(s)!=-1) return true;
+        if (mOwner.getFamily().toString().indexOf(s)!=-1) return true;
+        for(String sloop:mIngredients){
+            if (sloop==null) break;
+            if (sloop.indexOf(s)!=-1) return true;
+        }
+        for(String sloop:mSteps){
+            if (sloop==null) break;
+            if (sloop.indexOf(s)!=-1) return true;
+        }
+        for(Comment c:mComments){
+            if (c==null) break;
+            if (c.getTxt().indexOf(s)!=-1) return true;
+        }
+        return false;
+    }
+
     //-------------------- photo filename---------------------
     public String getPhotoFilename(){
         return "IMG"+getId().toString()+".jpg";

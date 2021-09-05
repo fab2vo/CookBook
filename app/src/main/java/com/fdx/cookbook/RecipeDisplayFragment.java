@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
 public class RecipeDisplayFragment extends Fragment {
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final String TAG = "CB_RecipeDisplayFrag";
-    private static final int REQUEST_PHOTO= 2;
     private Recipe mRecipe;
     private File mPhotoFile;
     private int mStepNb;
@@ -65,7 +64,6 @@ public class RecipeDisplayFragment extends Fragment {
     private EditText mDNexComment;
     private ImageView mDEnterComment;
     private ScrollView mScroll;
-    //private Snackbar snack;
     private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
@@ -104,7 +102,6 @@ public class RecipeDisplayFragment extends Fragment {
         inflater.inflate(R.menu.fragment_recipe_display, menu);
         MenuItem menuItem = menu.findItem(R.id.recipe_menu_edit);
         if(!mRecipe.getOwner().getId().equals(mSession.getUser().getId())){
-            //getActivity().invalidateOptionsMenu();
             menuItem.setVisible(false);
         }
     }
@@ -176,7 +173,6 @@ public class RecipeDisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View v=inflater.inflate(R.layout.fragment_display_recipe, container, false);
-       //snack=Snackbar.make(v, "Message is deleted", Snackbar.LENGTH_LONG);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         mDTitleText =(TextView) v.findViewById(R.id.recipe_display_title);
         mDPhotoView=(ImageView) v.findViewById(R.id.recipe_display_photo);

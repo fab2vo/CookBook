@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +33,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-//-------------------------------------------------------------------------------------------------
-// print 16/07/2021
-// Saved GitHUb V2.0
-//----------------------------------------------------------------------------------------------
 public class RecipeListFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
@@ -44,7 +42,7 @@ public class RecipeListFragment extends Fragment {
     private static final String SAVED_SORT_STATUS="sort";
     private AsyncCallClass mInstanceAsync;
     private ListMask mListMask;
-    private static final String TAG = "CB_RecipeListFragment";
+    private static final String TAG = "CB_ListFra";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
@@ -61,6 +59,8 @@ public class RecipeListFragment extends Fragment {
         mInstanceAsync = new AsyncCallClass(getContext());
         startSync();
         mListMask=new ListMask(mSession.getUser());
+        String mask=mSession.getListMask();
+        if ((!mask.equals(""))&&(mask!=null)) mListMask.updateFromString(mask);
     }
 
     @Override
@@ -86,7 +86,15 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        String mask=mSession.getListMask();
+        if ((!mask.equals(""))&&(mask!=null)) mListMask.updateFromString(mask);
         updateUI();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mSession.setListMask(mListMask.convertToString());
     }
 
     @Override
@@ -102,6 +110,27 @@ public class RecipeListFragment extends Fragment {
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
         mMessageItem.setVisible(cookbook.isThereMail());
+
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Toast.makeText(getContext(), getString(mListMask.toggleSearch(s)),
+                        Toast.LENGTH_SHORT ).show();
+                updateUI();
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.equals("")){
+                    Toast.makeText(getContext(), getString(mListMask.toggleSearch(s)),
+                        Toast.LENGTH_SHORT ).show();
+                    updateUI();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -129,6 +158,8 @@ public class RecipeListFragment extends Fragment {
             case R.id.list_filter:
                 mListMask.reset();
                 updateUI();
+                return true;
+            case R.id.menu_item_clear:
                 return true;
             case R.id.feedback:
                 Intent intent3 = new Intent(Intent.ACTION_SENDTO);

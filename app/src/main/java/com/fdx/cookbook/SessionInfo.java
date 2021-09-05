@@ -5,12 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.UUID;
-//************************************************************
-// to invoke :
-//      public SessionInfo mSession;
-//      mSession= SessionInfo.get(getApplicationContext());
-//           or   SessionInfo.get(getActivity());
-//**************************************************************
+
 public class SessionInfo {
     private static SessionInfo ourInstance;
     private User mUser;
@@ -21,6 +16,7 @@ public class SessionInfo {
     private String CB_NAME="name";
     private String CB_ID="iduser";
     private String NOT_FOUND="Not found";
+    private String mMaskSerialized;
     private static final String TAG = "DebugSessionInfo";
     private static String URLPATH="http://82.66.37.73:8085/cb/";
     public static int CONNECT_TIMEOUT = 10000;
@@ -37,6 +33,7 @@ public class SessionInfo {
         mContext=context.getApplicationContext();
         mIsConnected=false;
         mReqNewSession=false;
+        mMaskSerialized="";
         String sharedPref;
         sharedPref= PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(CB_ID, NOT_FOUND);
@@ -69,7 +66,6 @@ public class SessionInfo {
         settings.edit().remove("CB_FAMILY").commit();
         settings.edit().remove("CB_NAME").commit();
         settings.edit().remove("CB_ID").commit();
-
     }
 
     public Boolean IsEmpty(){
@@ -97,5 +93,7 @@ public class SessionInfo {
     public String getURLPath(){return URLPATH;}
     public int getConnectTimeout(){return CONNECT_TIMEOUT;}
     public int getReadTimeout(){return READ_TIMEOUT;}
+    public String getListMask(){return mMaskSerialized;}
+    public void setListMask(String s){mMaskSerialized=s;}
 
 }

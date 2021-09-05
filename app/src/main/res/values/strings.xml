@@ -33,6 +33,8 @@
     <string name="P1MU_new">Nouvelle recette</string>
     <string name="P1IT_dif">Difficulty </string>
     <string name="P1IT_type">Type </string>
+    <string name="P1MU_search"> Recherche </string>
+    <string name="P1MU_clear"> Vider champs </string>
     <string name="P1MU_out"> Sortie </string>
     <string name="P1MU_sync"> Synchronisation avec serveur  </string>
     <string name="P1MU_raz"> Annulation filtre</string>
@@ -111,6 +113,8 @@
     <string name="TTOFF">Sélection par type annulé</string>
     <string name="TRON">Sélection des recettes de %1$s</string>
     <string name="TROFF">Sélection des recettes de %1$s annulé</string>
+    <string name="TSEON">Recettes selon recherche</string>
+    <string name="TSEOFF">Annulation recherche</string>
     <string name="TNON">Tri par notes</string>
     <string name="TNOFF">Tri par notes annulé</string>
     <string name="TEY"> Voir le menu pour annuler les filtres</string>
