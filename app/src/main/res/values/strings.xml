@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CookBook</string>
-
+    <!-- Splash -->
     <string name="P0BP">Ouvrir mon livre</string>
     <string name="P0BM"> Nouveau membre de la famille</string>
     <string name="P0BF"> Nouveau livre de famille</string>
@@ -9,7 +9,7 @@
     <string name="P0LP">Mot de passe :</string>
     <string name="P0HF">Lefevre avenue Mouchez</string>
     <string name="P0HM">Emilie</string>
-    <string name="P0HP">cookbook</string>
+    <string name="P0HP">pas123niAZER</string>
     <string name="P0ER_nocon"> Serveur familycookbook non disponible </string>
     <string name="P0ERUF"> Caractères speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
     <string name="P0ERF_notnew"> Ce nom de famille existe déjà. Ajoutez une rue, une ville ou un chiffre </string>
@@ -26,7 +26,7 @@
     <string name="P0OKP"> Ouvrons ce livre de cuisine, %1$s !  </string>
     <string name="P0OK_done"> Votre nouveau livre de cuisine est ouvert !  </string>
     <string name="P0OKM"> Bienvenue dans votre nouveau livre de cuisine ! </string>
-
+    <!-- List -->
     <string name="P1ITTL">Nom de la recette</string>
     <string name="P1ITSRCL">Source ou auteur</string>
     <string name="P1ITNL">Note</string>
@@ -38,13 +38,13 @@
     <string name="P1MU_out"> Sortie </string>
     <string name="P1MU_sync"> Synchronisation avec serveur  </string>
     <string name="P1MU_raz"> Annulation filtre</string>
-    <string name="P1MU_receive"> Un message !  </string>
+    <string name="P1MU_receive"> Nouveau message !  </string>
     <string name="P1MU_fb"> Feedback sur l\'appli </string>
     <string name="P1R_ing"> Ingrédients : </string>
     <string name="P1R_step"> Etapes : </string>
     <string name="P1_de"> de %1$s </string>
     <string name="P1_sync"> Synchronisé</string>
-
+    <!-- Display -->
     <string name="P2MU_report">Partager la recette</string>
     <string name="P2MU_edit">Editer la recette</string>
     <string name="P2MU_send">Envoyer une recette à vos amis</string>
@@ -61,7 +61,7 @@
     <string name="P2CT">Commentaires (%1$s)</string>
     <string name="P2I_txt"> - Plus de sel ! de Arthur @ Family Malin</string>
     <string name="P2C_hint"> Votre commentaire ...</string>
-
+    <!-- Edit -->
     <string name="P3TL">Nom de la recette</string>
     <string name="P3TH">Merveilleux couscous à l\indienne</string>
     <string name="P3SRCL">Source de la recette (texte)</string>
@@ -88,12 +88,11 @@
     <string name="P3NSH"> </string>
     <string name="P3MU_del">Effacer la recette</string>
     <string name="P3MU_done">Fait</string>
-    <!-- <string name="date_picker_title">Date de creation de la recette</string> -->
-    <!--<string name="subtitle_format">%1$d recettes</string> -->
+    <!--Dialog -->
     <string name="DS_invit">Avez-vous aimé cette recette ?</string>
     <string name="DS_done">Fait !</string>
     <string name="DS_title">Note</string>
-
+    <!--Envoi par messagerie -->
     <string name="P4MU_send"> Envoyer par messagerie</string>
     <string name="P4_start"> Envoi de la recette en cours ...</string>
     <string name="P4_OK"> Recette envoyée à %1$s@%2$s </string>
@@ -102,7 +101,7 @@
     <string name="P4M_mes"> Votre message au destinataire </string>
     <string name="P4M_title"> Destinataire de la recette </string>
     <string name="P4M0"> Pas de message ! Appuyez sur retour.</string>
-
+    <!--ListMask -->
     <string name="TSON">Sélection des recettes pour l\'été</string>
     <string name="TSOFF">Sélection été annulée</string>
     <string name="TWON">Sélection des recettes pour l\'hiver</string>
@@ -111,13 +110,17 @@
     <string name="TDOFF">Sélection par difficulté annulé</string>
     <string name="TTON">Sélection des recettes par type</string>
     <string name="TTOFF">Sélection par type annulé</string>
+    <string name="TTION">Classement alphabetique</string>
+    <string name="TTIOFF">Classement par date</string>
     <string name="TRON">Sélection des recettes de %1$s</string>
     <string name="TROFF">Sélection des recettes de %1$s annulé</string>
     <string name="TSEON">Recettes selon recherche</string>
     <string name="TSEOFF">Annulation recherche</string>
     <string name="TNON">Tri par notes</string>
     <string name="TNOFF">Tri par notes annulé</string>
-    <string name="TEY"> Voir le menu pour annuler les filtres</string>
+    <string name="TEY"> Pas de recettes à afficher. Voir le menu pour annuler les filtres</string>
+    <string name="TEZ"> Livre de recette vide. Créer une recette en cliquant sur +.</string>
+    <string name="TEW"> Livre de recette vide mais vous avez un message !</string>
 
 
     <string-array name="recipe_season_array">

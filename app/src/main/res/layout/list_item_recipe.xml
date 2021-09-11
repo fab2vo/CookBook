@@ -70,6 +70,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recipe_photo"
         app:layout_constraintTop_toBottomOf="@+id/recipe_source" />
+    <TextView
+        android:id="@+id/textEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="                  "
+        android:layout_marginStart="48dp"
+        app:layout_constraintStart_toEndOf="@+id/recipe_img_ice"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_source"
+        />
 
     <ImageView
         android:id="@+id/recipe_img_ice"
@@ -127,4 +136,6 @@
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/recipe_difficulty"
         app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+
+
 </android.support.constraint.ConstraintLayout>

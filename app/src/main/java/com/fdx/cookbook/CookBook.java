@@ -64,8 +64,10 @@ public class CookBook {
     }
 
     public void addRecipe(Recipe r){
-        ContentValues values=getContentValues(r);
-        mDatabase.insert(RecipeDbSchema.RecipeTable.NAME, null, values);
+        if (this.getRecipe(r.getId())==null) {
+            ContentValues values=getContentValues(r);
+            mDatabase.insert(RecipeDbSchema.RecipeTable.NAME, null, values);
+        }
     }
 
     public void removeRecipe(Recipe r){
@@ -93,6 +95,14 @@ public class CookBook {
               }
           } finally { cursor.close();}
           return recipes;
+    }
+
+    public List<Recipe> getRecipesVisibles(){
+        List<Recipe> recipes=this.getRecipes();
+        for(Recipe r:recipes){
+            if (!r.IsVisible()) recipes.remove(r);
+        }
+        return recipes;
     }
 
     private static ContentValues getContentValues(Recipe recipe) {
@@ -160,11 +170,9 @@ public class CookBook {
     }
 
     public Boolean isThereMail(){
-        List<Recipe> recipes=new ArrayList<>();
-        recipes=getRecipes();
+        List<Recipe> recipes=this.getRecipes();
         for(Recipe r:recipes){
-            if (r.IsMessage())
-                return true;
+            if (r.IsMessage()) return true;
         }
         return false;
     }

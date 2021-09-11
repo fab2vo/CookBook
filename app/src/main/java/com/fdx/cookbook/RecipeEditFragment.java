@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +32,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -39,7 +42,8 @@ import java.util.UUID;
 public class RecipeEditFragment extends Fragment {
     // Constantes
     private static final String ARG_RECIPE_ID="recipe_id";
-    private static final int REQUEST_PHOTO= 2;
+    //private static final int REQUEST_PHOTO= 2;
+    private static final int PICK_IMAGE= 3;
     private static final String TAG = "CB_RecipeEditFragment";
     private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
@@ -68,6 +72,7 @@ public class RecipeEditFragment extends Fragment {
     private Spinner mDifficultySpinner;
     private ScrollView mScroll;
     private ImageView mPhotoView;
+    private Bitmap mBmp;
 
     public static RecipeEditFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -118,11 +123,18 @@ public class RecipeEditFragment extends Fragment {
                     mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
                     mRecipe.setDate(new Date());
                     }
+                    if (mBmp!=null){
+                        NetworkUtils networkutils=new NetworkUtils(getContext());
+                        networkutils.saveBmpInRecipe(mBmp, mRecipe);
+                        ResizePhoto(mRecipe);
+                        mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
+                    }
                     if (IsRecipeNew(mRecipeId)){
                         CookBook.get(getActivity()).addRecipe(mRecipe);
                     } else {
                         CookBook.get(getActivity()).updateRecipe(mRecipe);
                     }
+
                 }
                 getActivity().onBackPressed();
                 return true;
@@ -141,15 +153,15 @@ public class RecipeEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View v=inflater.inflate(R.layout.fragment_recipe_edit, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
-        PackageManager packageManager=getActivity().getPackageManager();
+        /*PackageManager packageManager=getActivity().getPackageManager();
             final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             boolean canTakePhoto=(mPhotoFile != null) &&
-                    (captureImage.resolveActivity(packageManager)!=null);
+                    (captureImage.resolveActivity(packageManager)!=null);*/
         mPhotoView=(ImageView) v.findViewById(R.id.recipe_photo);
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri= FileProvider.getUriForFile(getActivity(),
+                /*Uri uri= FileProvider.getUriForFile(getActivity(),
                         FPROVIDER, mPhotoFile);
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 List<ResolveInfo> cameraActivities=getActivity()
@@ -159,7 +171,11 @@ public class RecipeEditFragment extends Fragment {
                     getActivity().grantUriPermission(activity.activityInfo.packageName,
                             uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 }
-                startActivityForResult(captureImage, REQUEST_PHOTO);
+                startActivityForResult(captureImage, REQUEST_PHOTO);*/
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
         updatePhotoView();
@@ -398,38 +414,27 @@ public class RecipeEditFragment extends Fragment {
             return;
         }
 
-        if (requestCode==REQUEST_PHOTO){
+        /*if (requestCode==REQUEST_PHOTO){
             Uri uri=FileProvider.getUriForFile(getActivity(),
                     FPROVIDER, mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             if (!ResizePhoto(mRecipe)){
-                // pb
+                //fdx Log.d(TAG,"pb resize photo");
             }
             mRecipe.setDatePhoto(new Date());
             mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
             updatePhotoView();
+        }*/
+        if (requestCode==PICK_IMAGE){
+            if (data == null) return ;
+            try{
+            InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
+            mBmp= BitmapFactory.decodeStream(inputStream);
+            mPhotoView.setImageBitmap(mBmp);
+            } catch(Exception e) {
+                //fdx Log.d(TAG,"recover data error:"+e);
+            }
         }
-    }
-
-    private String getRecipeReport(){
-        String report="";
-        Integer iplus=0;
-        report =getString(R.string.P2RE_title, mRecipe.getTitle())+"\n";
-        report +=getString(R.string.P2RE_user,mRecipe.getOwner().getNameComplete())+"\n";
-
-         if(!mRecipe.getSource_url_name().equals("")){
-            report += getString(R.string.P2RE_url, mRecipe.getSource_url_name())+"\n";
-        }
-        for(int i=0;i<mRecipe.getNbIng();i++){
-            report += getString(R.string.P2RE_ing, mRecipe.getIngredient(i+1))+"\n";
-        }
-        for(int i=0;i<mRecipe.getNbStep();i++){
-            iplus=i+1;
-            report += getString(R.string.P2RE_step, iplus+"",
-                    mRecipe.getStep(i+1))+"\n";
-        }
-        report +=getString(R.string.P2RE_end);
-        return report;
     }
 
     private void updatePhotoView(){

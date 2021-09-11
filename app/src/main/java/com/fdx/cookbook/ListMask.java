@@ -13,6 +13,7 @@ public class ListMask {
     private User UserState;
     private boolean IsNoteSorted;
     private boolean IsSearched;
+    private boolean IsTitleAlphaSorted;
     private String Query;
 
     public ListMask(User u){
@@ -22,6 +23,7 @@ public class ListMask {
         UserFiltered=false;
         IsNoteSorted=false;
         IsSearched=false;
+        IsTitleAlphaSorted=false;
         Query="";
         UserState=u;
         SeasonState=RecipeSeason.ALLYEAR;
@@ -36,6 +38,7 @@ public class ListMask {
         UserFiltered=false;
         IsNoteSorted=false;
         IsSearched=false;
+        IsTitleAlphaSorted=false;
         Query="";
         SeasonState=RecipeSeason.ALLYEAR;
         DifficultyState=RecipeDifficulty.UNDEFINED;
@@ -69,6 +72,19 @@ public class ListMask {
         }
         return i;
     }
+
+    public Integer toggleTitle(){
+        Integer i;
+        if (IsTitleAlphaSorted){
+            IsTitleAlphaSorted=false;
+            i=R.string.TTIOFF;
+        } else {
+            IsTitleAlphaSorted=true;
+            i=R.string.TTION;
+        }
+        return i;
+    }
+    public boolean isTitleSorted(){return IsTitleAlphaSorted;}
 
     public Integer toggleUser(User u){
         Integer i;
@@ -171,19 +187,20 @@ public class ListMask {
         s+=(TypeFiltered ? "Y":"N")+sep;        //4
         s+=TypeState.toString()+sep;            //5
         s+=(IsNoteSorted ? "Y":"N")+sep;        //6
-        s+=(IsSearched ? "Y":"N")+sep;          //7
-        s+=Query+sep;                           //8
-        s+=(UserFiltered ? "Y":"N")+sep;        //9
-        s+=UserState.getFamily()+sep;           //10
-        s+=UserState.getName()+sep;             //11
-        s+=UserState.getId().toString();        //12
+        s+=(IsTitleAlphaSorted ? "Y":"N")+sep;  //7
+        s+=(IsSearched ? "Y":"N")+sep;          //8
+        s+=Query+sep;                           //9
+        s+=(UserFiltered ? "Y":"N")+sep;        //10
+        s+=UserState.getFamily()+sep;           //11
+        s+=UserState.getName()+sep;             //12
+        s+=UserState.getId().toString();        //13
         return s;
     }
 
     public void updateFromString(String s){
         String sep=";";
         String[] tokens = s.split(sep);
-        if (tokens.length<13) return;
+        if (tokens.length<14) return;
         SeasonFiltered=( tokens[0].equals("Y")? true:false);
         SeasonState=RecipeSeason.valueOf(tokens[1]);
         DifficultyFiltered=( tokens[2].equals("Y")? true:false);
@@ -191,10 +208,11 @@ public class ListMask {
         TypeFiltered=( tokens[4].equals("Y")? true:false);
         TypeState=RecipeType.valueOf(tokens[5]);
         IsNoteSorted=( tokens[6].equals("Y")? true:false);
-        IsSearched=( tokens[7].equals("Y")? true:false);
-        Query=tokens[8];
-        UserFiltered=( tokens[9].equals("Y")? true:false);
-        UserState=new User(tokens[10], tokens[11]);
-        UserState.setId(UUID.fromString(tokens[12]));
+        IsTitleAlphaSorted=( tokens[7].equals("Y")? true:false);
+        IsSearched=( tokens[8].equals("Y")? true:false);
+        Query=tokens[9];
+        UserFiltered=( tokens[10].equals("Y")? true:false);
+        UserState=new User(tokens[11], tokens[12]);
+        UserState.setId(UUID.fromString(tokens[13]));
     }
 }

@@ -62,5 +62,4 @@ public class PictureUtils {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
     }
-
 }

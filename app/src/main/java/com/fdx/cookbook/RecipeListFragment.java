@@ -55,7 +55,9 @@ public class RecipeListFragment extends Fragment {
         mRecipeInit=new Recipe();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         User u=mSession.getUser();
-        activity.getSupportActionBar().setSubtitle(getString(R.string.P2U_txt,u.getName(),u.getFamily()));
+        //String nameInSubtitle=getString(R.string.P2U_txt,u.getName(),u.getFamily());
+        String nameInSubtitle=u.getName();
+        activity.getSupportActionBar().setSubtitle(nameInSubtitle);
         mInstanceAsync = new AsyncCallClass(getContext());
         startSync();
         mListMask=new ListMask(mSession.getUser());
@@ -159,8 +161,6 @@ public class RecipeListFragment extends Fragment {
                 mListMask.reset();
                 updateUI();
                 return true;
-            case R.id.menu_item_clear:
-                return true;
             case R.id.feedback:
                 Intent intent3 = new Intent(Intent.ACTION_SENDTO);
                 intent3.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");
@@ -177,16 +177,12 @@ public class RecipeListFragment extends Fragment {
     private void startSync(){
         AsyncTask.Status as=mInstanceAsync.getStatus();
         if (as== AsyncTask.Status.RUNNING){
-            //fdx Log.d(TAG,"Async  running " +as.toString());
         }
         if (as== AsyncTask.Status.PENDING){
-            //fdx Log.d(TAG,"Async  to lauch " +as.toString());
             mInstanceAsync.execute();
         }
         if (as== AsyncTask.Status.FINISHED){
-            //fdx Log.d(TAG,"Async  finished  " +as.toString());
             mInstanceAsync=new AsyncCallClass(getContext());
-            //fdx Log.d(TAG,">new one " +as.toString());
             mInstanceAsync.execute();
         }
     }
@@ -197,18 +193,26 @@ public class RecipeListFragment extends Fragment {
         List<Recipe> recipes=new ArrayList<>();
         recipes.addAll(recipes_in);
         for(Recipe r:recipes_in){
-            if (!mListMask.isRecipeSelected(r)){
-                recipes.remove(r);
-            }
+            if (!mListMask.isRecipeSelected(r)) recipes.remove(r);
         }
         if (recipes.isEmpty()){
-            Toast.makeText(getContext(), getString(R.string.TEY), Toast.LENGTH_LONG).show();
+            Integer message;
+            if (cookbook.getRecipesVisibles().isEmpty())
+                message = (cookbook.isThereMail() ? R.string.TEW : R.string.TEZ);
+            else message=R.string.TEY;
+            Toast.makeText(getContext(), getString(message), Toast.LENGTH_LONG).show();
         } else {
-            Collections.sort(recipes,
-                      (r1, r2) -> {
+            if (mListMask.isTitleSorted()) {
+                Collections.sort(recipes,
+                        (r1, r2) -> {
                             return (r1.getTitle().compareTo(r2.getTitle()));
                         });
-
+            } else {
+                Collections.sort(recipes,
+                        (r1, r2) -> {
+                            return (r2.getDate().compareTo(r1.getDate()));
+                        });
+            }
             if (mListMask.isNoteSorted()) {
                 Collections.sort(recipes,
                         (r1, r2) -> {
@@ -230,6 +234,7 @@ public class RecipeListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mSourceTextView;
         private TextView mNoteTextView;
+        private TextView mRatingTextView;
         private TextView mDifficulty;
         private TextView mType;
         private ImageView mEditIcon;
@@ -245,6 +250,7 @@ public class RecipeListFragment extends Fragment {
             mTitleTextView= (TextView) itemView.findViewById(R.id.recipe_title);
             mSourceTextView= (TextView) itemView.findViewById(R.id.recipe_source);
             mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
+            mNoteTextView= (TextView) itemView.findViewById(R.id.recipe_note);
             mEditIcon=(ImageView) itemView.findViewById(R.id.recipe_edit);
             mSunIcon=(ImageView) itemView.findViewById(R.id.recipe_img_sun);
             mIceIcon=(ImageView) itemView.findViewById(R.id.recipe_img_ice);
@@ -253,11 +259,23 @@ public class RecipeListFragment extends Fragment {
             mPhotoView=(ImageView) itemView.findViewById(R.id.recipe_photo);
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             mRating=(RatingBar) itemView.findViewById(R.id.recipe_list_ratingBar);
+            mRatingTextView= (TextView) itemView.findViewById(R.id.textEmpty);
+            mRatingTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager manager = getFragmentManager();
+                    RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
+                    dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
+                    dialog.show(manager, DIALOG_RATE);
+                }
+            });
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
-                    startActivity(intent);
+                    Toast.makeText(getContext(),
+                            getString(mListMask.toggleTitle()),
+                            Toast.LENGTH_SHORT ).show();
+                    updateUI();
                 }
             });
             mNoteTextView.setOnClickListener(new View.OnClickListener(){
@@ -319,10 +337,8 @@ public class RecipeListFragment extends Fragment {
             mPhotoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager manager = getFragmentManager();
-                    RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
-                    dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
-                    dialog.show(manager, DIALOG_RATE);
+                    Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
+                    startActivity(intent);
                 }
             });
         }
@@ -333,7 +349,7 @@ public class RecipeListFragment extends Fragment {
             //mSourceTextView.setText(mRecipe.getFlag()); // for debug
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");
-            mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5");
+            mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5 ("+mRecipe.getNbNotes()+")");
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             int idff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
             String[] stringArray = getResources().getStringArray(R.array.recipe_difficulty_array);

@@ -7,10 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/bg_list</item>
     </style>
-
-    <style name="ToolbarSubtitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:textSize">6dp</item>
+    <style name="MyToobarSubtitleStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+        <item name="android:textSize">5dp</item>
     </style>
+
 <!-- Mettre aussi TitleEnterField -->
     <style name="EnterValueField">
         <item name="android:background">@color/bg_enter_val</item>

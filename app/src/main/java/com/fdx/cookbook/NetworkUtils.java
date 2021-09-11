@@ -318,4 +318,24 @@ public class NetworkUtils {
         }
     }
 
+    public boolean saveBmpInRecipe(Bitmap bmp, Recipe r){
+        CookBook cb = CookBook.get(mSession.getContext());
+        File f=cb.getPhotoFile(r);
+        if (f.exists()) f.delete();
+        try {
+            if(!f.createNewFile()) {
+                //fdx Log.d(TAG, "Error in creating file  "+f.toString());
+            }
+            FileOutputStream out = new FileOutputStream(f);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            //fdx Log.d(TAG, "Storing bitmap error  " + e);
+            return false;
+        }
+    }
+
+
 }
