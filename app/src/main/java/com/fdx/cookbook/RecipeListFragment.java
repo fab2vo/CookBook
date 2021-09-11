@@ -216,7 +216,7 @@ public class RecipeListFragment extends Fragment {
             if (mListMask.isNoteSorted()) {
                 Collections.sort(recipes,
                         (r1, r2) -> {
-                            return ((int)(100* (r2.getNoteAvg() - r1.getNoteAvg())));
+                            return (r2.getNbNotes()-r1.getNbNotes()+(int)(100* (r2.getNoteAvg() - r1.getNoteAvg())));
                         });
             }
         }
@@ -349,7 +349,7 @@ public class RecipeListFragment extends Fragment {
             //mSourceTextView.setText(mRecipe.getFlag()); // for debug
             mRating.setRating((float) mRecipe.getNoteAvg());
             DecimalFormat df = new DecimalFormat("#.#");
-            mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+"/5 ("+mRecipe.getNbNotes()+")");
+            mNoteTextView.setText(df.format(mRecipe.getNoteAvg())+" ("+mRecipe.getNbNotes()+")");
             mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             int idff= RecipeDifficulty.getIndex(mRecipe.getDifficulty());
             String[] stringArray = getResources().getStringArray(R.array.recipe_difficulty_array);
