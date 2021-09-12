@@ -637,13 +637,16 @@ public class RecipeEditFragment extends Fragment {
             if ((i == i_cur)&&(i_cur==i_max)) cas = "ACTIVE";
             switch (cas) {
                 case "FIRST":
-                    if (mRecipe.getNbStep() == 0) mStepTextEdit[i].setHint(R.string.P3S1H);
+                    if (mRecipe.getNbStep() == 0) {
+                        mStepTextEdit[i].setText("");
+                        mStepTextEdit[i].setHint(R.string.P3S1H);}
                     else mStepTextEdit[i].setText(mRecipe.getStep(i + 1));
                     break;
                 case "ACTIVE":
                     mStepTextNum[i].setVisibility(View.VISIBLE);
                     mStepTextEdit[i].setVisibility(View.VISIBLE);
                     mStepTextEdit[i].setText(mRecipe.getStep(i + 1));
+                    mStepTextEdit[i].setHint("");
                     break;
                 case "EMPTY_READY":
                     mStepTextNum[i].setVisibility(View.VISIBLE);
@@ -654,6 +657,8 @@ public class RecipeEditFragment extends Fragment {
                 case "NOTVISIBLE":
                     mStepTextNum[i].setVisibility(View.GONE);
                     mStepTextEdit[i].setVisibility(View.GONE);
+                    mStepTextEdit[i].setText("");
+                    mStepTextEdit[i].setHint("");
             }
         }
     }
@@ -670,13 +675,16 @@ public class RecipeEditFragment extends Fragment {
             if ((i == i_cur)&&(i_cur==i_max)) cas = "ACTIVE";
             switch (cas) {
                 case "FIRST":
-                    if (mRecipe.getNbIng() == 0) mIngTextEdit[i].setHint(R.string.P3IT);
+                    if (mRecipe.getNbIng() == 0) {
+                        mIngTextEdit[i].setText("");
+                        mIngTextEdit[i].setHint(R.string.P3IT);}
                     else mIngTextEdit[i].setText(mRecipe.getIngredient(i + 1));
                     break;
                 case "ACTIVE":
                     mIngTextNum[i].setVisibility(View.VISIBLE);
                     mIngTextEdit[i].setVisibility(View.VISIBLE);
                     mIngTextEdit[i].setText(mRecipe.getIngredient(i + 1));
+                    mIngTextEdit[i].setHint("");
                     break;
                 case "EMPTY_READY":
                     mIngTextNum[i].setVisibility(View.VISIBLE);
@@ -687,6 +695,8 @@ public class RecipeEditFragment extends Fragment {
                 case "NOTVISIBLE":
                     mIngTextNum[i].setVisibility(View.GONE);
                     mIngTextEdit[i].setVisibility(View.GONE);
+                    mIngTextEdit[i].setText("");
+                    mIngTextEdit[i].setHint("");
             }
         }
     }
