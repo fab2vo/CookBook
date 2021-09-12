@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbarStyle="insideInset">
-
+        <!-- HEADER AVEC PHOTO        -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,25 +30,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <ImageView
                         android:id="@+id/recipe_display_photo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="132dp"
+                        android:layout_height="132dp"
                         android:layout_marginBottom="8dp"
                         android:background="@android:color/darker_gray"
                         android:cropToPadding="true"
                         android:scaleType="centerCrop" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
-
                     <TextView
                         android:id="@+id/recipe_display_title"
                         style="@style/CookBookText.Title"
@@ -56,14 +51,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/P3TH" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal">
-
                         <RatingBar
                             android:id="@+id/recipe_display_ratingBar"
                             style="?android:attr/ratingBarStyleSmall"
@@ -78,7 +71,6 @@
                             android:rating="3"
                             android:stepSize="0.1"
                             />
-
                         <TextView
                             android:id="@+id/recipe_display_ratingBar_txt"
                             style="@style/CookBookText.Small"
@@ -87,7 +79,6 @@
                             android:layout_height="wrap_content"
                             android:text="@string/P1ITNL" />
                     </LinearLayout>
-
                     <TextView
                         android:id="@+id/recipe_display_author"
                         style="@style/CookBookText.Small"
@@ -95,48 +86,58 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/P2U_txt" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/recipe_display_type"
-                            style="@style/CookBookText"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Type de plat" />
-
-                        <TextView
-                            android:id="@+id/recipe_display_difficulty"
-                            style="@style/CookBookText"
-                            android:layout_width="80dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="difficulty" />
-                        <ImageView
-                            android:id="@+id/recipe_img_sun"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="4dp"
-                            android:tint="@color/fg_icon"
-                            android:src="@drawable/ic_recipe_sun" />
-                        <ImageView
-                            android:id="@+id/recipe_img_ice"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="4dp"
-                            android:tint="@color/fg_icon"
-                            android:src="@drawable/ic_recipe_ice" />
-                    </LinearLayout>
-
                 </LinearLayout>
-
             </LinearLayout>
-
+            <!-- LIGNE ATTRIBUTS       -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/recipe_display_type"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="APERITIF ----" />
+                <TextView
+                    android:id="@+id/recipe_display_difficulty"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="SOPHISTICATED -----" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+                <ImageView
+                    android:id="@+id/recipe_img_sun"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:tint="@color/fg_icon"
+                    android:src="@drawable/ic_recipe_sun" />
+                <ImageView
+                    android:id="@+id/recipe_img_ice"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="4dp"
+                    android:tint="@color/fg_icon"
+                    android:src="@drawable/ic_recipe_ice" />
+            </LinearLayout>
+            <!-- PARTIE SOURCE       -->
+            <TextView
+                android:id="@+id/recipe_display_source_title"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                style="@style/CookBookText.SubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/P2RT"/>
             <TextView
                 android:id="@+id/recipe_display_source"
                 style="@style/CookBookText"
@@ -144,7 +145,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/P3SRCH" />
-
             <TextView
                 android:id="@+id/recipe_display_source_url"
                 style="@style/CookBookText"
@@ -153,8 +153,9 @@
                 android:layout_marginStart="8dp"
                 android:autoLink="web|none"
                 android:textColorLink="@color/fg_icon"
+                android:maxLines="1"
                 android:text="@string/P3SRCURLH" />
-
+            <!-- INGREDIENTS      -->
             <TextView
                 android:id="@+id/recipe_display_title_ing"
                 android:layout_marginStart="8dp"
@@ -269,8 +270,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/P3IT"/>
-
+            <!-- ETAPE      -->
             <TextView
+                android:id="@+id/recipe_display_title_step"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 style="@style/CookBookText.SubTitle"
@@ -291,35 +293,35 @@
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S2H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S3"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S3H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S4"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S4H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S5"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S5H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S6"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S6H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S7"
                 android:layout_marginStart="8dp"
@@ -333,14 +335,14 @@
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S8H"/>
+                android:text="@string/P3S1H"/>
             <TextView
                 android:id="@+id/recipe_display_S9"
                 android:layout_marginStart="8dp"
                 style="@style/CookBookText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/P3S9H"/>
+                android:text="@string/P3S1H"/>
 
             <TextView
                 android:id="@+id/recipe_display_comment_title"

@@ -54,6 +54,8 @@ public class RecipeDisplayFragment extends Fragment {
     private TextView mDSourceText;
     private TextView mDSourceUrl;
     private TextView mDIngTitle;
+    private TextView mDStepTitle;
+    private TextView mDSourceTitle;
     private TextView mDComTitle;
     private String mToFamily;
     private String mToMember;
@@ -187,6 +189,8 @@ public class RecipeDisplayFragment extends Fragment {
         mDSourceText=(TextView) v.findViewById(R.id.recipe_display_source);
         mDSourceUrl=(TextView) v.findViewById(R.id.recipe_display_source_url);
         mDIngTitle=(TextView) v.findViewById(R.id.recipe_display_title_ing);
+        mDStepTitle=(TextView) v.findViewById(R.id.recipe_display_title_step);
+        mDSourceTitle=(TextView) v.findViewById(R.id.recipe_display_source_title);
         mDComTitle=(TextView)v.findViewById(R.id.recipe_display_comment_title);
         final int[] rIngID= {R.id.recipe_display_I01,R.id.recipe_display_I02,R.id.recipe_display_I03,
                 R.id.recipe_display_I04,R.id.recipe_display_I05,R.id.recipe_display_I06,
@@ -257,14 +261,13 @@ public class RecipeDisplayFragment extends Fragment {
         }
     }
     private void updateUI(){
-        String s;
+        String s,s2;
         User u=mRecipe.getOwner();
         int ingMax=mRecipe.getNbIngMax();
         int stepMax=mRecipe.getNbStepMax();
         int comMax=mRecipe.getNbComMax();
         int NbCom=mRecipe.getComments().size();
-        int gone=View.GONE;
-        int visible=View.VISIBLE;
+        int gone=View.GONE, visible=View.VISIBLE;
         DecimalFormat df = new DecimalFormat("#.#");
         mDTitleText.setText(mRecipe.getTitle());
         mDRatingBar.setRating((float) mRecipe.getNoteAvg());
@@ -279,20 +282,30 @@ public class RecipeDisplayFragment extends Fragment {
         mSunIcon.setImageResource((mRecipe.IsSummer()) ? R.drawable.ic_recipe_sun : R.drawable.ic_recipe_sun_disabled);
         mIceIcon.setImageResource((mRecipe.IsWinter()) ? R.drawable.ic_recipe_ice : R.drawable.ic_recipe_ice_disabled);
         mDAuthorText.setText(s);
-        mDSourceText.setText(mRecipe.getSource());
-        if (mRecipe.getSource_url_name().equals(DEFAULT_URL)) {
-            mDSourceUrl.setText(""); }
-        else {mDSourceUrl.setText(mRecipe.getSource_url_name());}
+        // source
+        s=mRecipe.getSource();
+        s2=mRecipe.getSource_url_name();
+        if (s.equals("")) mDSourceText.setVisibility(gone);
+        else mDSourceText.setText(s);
+        if ((s2.equals(DEFAULT_URL)) || (s2.equals(""))) {
+            mDSourceUrl.setVisibility(gone);
+            if (s.equals(""))  mDSourceTitle.setVisibility(gone);
+        }
+        else mDSourceUrl.setText(s2);
+        // ingredients
         s=getString(R.string.P2IT, ""+mRecipe.getNbPers());
-        mDIngTitle.setText(s);
+        if (mRecipe.getNbIng()>0) mDIngTitle.setText(s); else mDIngTitle.setVisibility(gone);
         for(int i=0;i<ingMax;i++){
             if (mIngNb>0){mDIngText[i].setText("- "+mRecipe.getIngredient(i+1));}
             if (i>=0){mDIngText[i].setVisibility((mIngNb>i)? visible:gone);}
         }
+        // steps
+        if (mRecipe.getNbStep()==0)  mDStepTitle.setVisibility(gone);
         for(int i=0;i<stepMax;i++){
             if (mStepNb>0){mDStepText[i].setText((i+1)+". "+mRecipe.getStep(i+1));}
             if (i>=0){mDStepText[i].setVisibility((mStepNb>i)? visible:gone);}
         }
+        // comments
         s=getString(R.string.P2CT, ""+mRecipe.getComments().size());
         mDComTitle.setText(s);
         for(int i=0;i<comMax;i++){

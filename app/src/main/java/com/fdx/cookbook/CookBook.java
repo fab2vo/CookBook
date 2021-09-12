@@ -45,7 +45,7 @@ public class CookBook {
 
     public void updateRecipe(Recipe r) {
         String uuidString=r.getId().toString();
-        r.setDate(new Date());                          //last modification
+        //r.setDate(new Date());
         ContentValues values=getContentValues(r);
         mDatabase.update(RecipeDbSchema.RecipeTable.NAME, values,
                 RecipeDbSchema.RecipeTable.Cols.UUID+" =?",

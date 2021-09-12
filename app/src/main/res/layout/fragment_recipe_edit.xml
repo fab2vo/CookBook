@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,10 +63,7 @@
                         android:text="@string/P3TH" />
 
                 </LinearLayout>
-
-
             </LinearLayout>
-
             <TextView
                 style="@style/CookBookText.EnterTitle"
                 android:layout_width="match_parent"
@@ -183,6 +179,7 @@
 
             </RelativeLayout>
 
+            <!-- Ingrédients             -->
             <TextView
                 style="@style/CookBookText.SubTitle"
                 android:layout_width="match_parent"
@@ -190,182 +187,362 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/P3LIT" />
-
-            <TextView
-                android:id="@+id/recipe_I01"
-                style="@style/CookBookText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I02"
-                style="@style/CookBookText"
+                android:orientation="horizontal"
+                 android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_I01"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="01. " />
+                <EditText
+                    android:id="@+id/recipe_I01_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:inputType="textMultiLine|text"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_I02"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="02. " />
+                <EditText
+                    android:id="@+id/recipe_I02_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I03"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I04"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I05"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I06"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I07"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I08"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I09"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I10"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I11"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I12"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I13"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I14"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                android:id="@+id/recipe_I15"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3IT" />
-
-            <TextView
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/P3NIL" />
-
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginLeft="8dp">
-
-                <ImageButton
-                    android:id="@+id/recipe_ing_back"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_recipe_back"
-                    app:layout_constraintEnd_toStartOf="@+id/recipe_new_ing"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/recipe_I03"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="03. " />
+                <EditText
+                    android:id="@+id/recipe_I03_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I04"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="04. " />
+                <EditText
+                    android:id="@+id/recipe_I04_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I05"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="05. " />
 
                 <EditText
-                    android:id="@+id/recipe_new_ing"
+                    android:id="@+id/recipe_I05_in"
                     style="@style/EnterValueField"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="8dp"
-                    android:inputType="text"
-                    android:text="@string/P3NIH"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/recipe_ing_enter"
-                    app:layout_constraintStart_toEndOf="@+id/recipe_ing_back"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I06"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="06. " />
+                <EditText
+                    android:id="@+id/recipe_I06_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I07"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="07. " />
+                <EditText
+                    android:id="@+id/recipe_I07_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I08"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="08. " />
+                <EditText
+                    android:id="@+id/recipe_I08_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I09"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="09. " />
+                <EditText
+                    android:id="@+id/recipe_I09_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I10"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="10. " />
+                <EditText
+                    android:id="@+id/recipe_I10_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I11"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="11. " />
+                <EditText
+                    android:id="@+id/recipe_I11_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I12"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="12. " />
+                <EditText
+                    android:id="@+id/recipe_I12_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I13"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="13. " />
 
-                <ImageButton
-                    android:id="@+id/recipe_ing_enter"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/ic_recipe_enter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/recipe_new_ing"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+                <EditText
+                    android:id="@+id/recipe_I13_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I14"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="14. " />
+                <EditText
+                    android:id="@+id/recipe_I14_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp" >
+                <TextView
+                    android:id="@+id/recipe_I15"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="15. " />
+                <EditText
+                    android:id="@+id/recipe_I15_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3IT" />
+            </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/ing_add"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_menu_add" />
+
+            <!-- Etapes             -->
             <TextView
                 style="@style/CookBookText.SubTitle"
                 android:layout_width="match_parent"
@@ -373,133 +550,222 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/P3LST" />
-
-            <TextView
-                android:id="@+id/recipe_S1"
-                style="@style/CookBookText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S1H" />
-
-            <TextView
-                android:id="@+id/recipe_S2"
-                style="@style/CookBookText"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S1"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="01. " />
+                <EditText
+                    android:id="@+id/recipe_S1_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine|text"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S2H" />
-
-            <TextView
-                android:id="@+id/recipe_S3"
-                style="@style/CookBookText"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S2"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="02. " />
+                <EditText
+                    android:id="@+id/recipe_S2_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S3H" />
-
-            <TextView
-                android:id="@+id/recipe_S4"
-                style="@style/CookBookText"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S3"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="03. " />
+                <EditText
+                    android:id="@+id/recipe_S3_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S4H" />
-
-            <TextView
-                android:id="@+id/recipe_S5"
-                style="@style/CookBookText"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S4"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="04. " />
+                <EditText
+                    android:id="@+id/recipe_S4_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S5H" />
-
-            <TextView
-                android:id="@+id/recipe_S6"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S6H" />
-
-            <TextView
-                android:id="@+id/recipe_S7"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S7H" />
-
-            <TextView
-                android:id="@+id/recipe_S8"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S8H" />
-
-            <TextView
-                android:id="@+id/recipe_S9"
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="@string/P3S9H" />
-
-            <TextView
-                style="@style/CookBookText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/P3NSL" />
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/linearLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/recipe_step_back"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_recipe_back"
-                    app:layout_constraintEnd_toStartOf="@+id/recipe_new_step"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S5"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="05. " />
 
                 <EditText
-                    android:id="@+id/recipe_new_step"
+                    android:id="@+id/recipe_S5_in"
                     style="@style/EnterValueField"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="8dp"
                     android:inputType="textMultiLine"
-                    android:text="@string/P3NSH"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/recipe_step_enter"
-                    app:layout_constraintStart_toEndOf="@+id/recipe_step_back"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/recipe_step_enter"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:src="@drawable/ic_recipe_enter"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/recipe_new_step"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S6"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="06. " />
+                <EditText
+                    android:id="@+id/recipe_S6_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S7"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="07. " />
+                <EditText
+                    android:id="@+id/recipe_S7_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S8"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="08. " />
+                <EditText
+                    android:id="@+id/recipe_S8_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
+                <TextView
+                    android:id="@+id/recipe_S9"
+                    style="@style/CookBookText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="09. " />
+                <EditText
+                    android:id="@+id/recipe_S9_in"
+                    style="@style/EnterValueField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/P3S1H" />
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/step_add"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_menu_add" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

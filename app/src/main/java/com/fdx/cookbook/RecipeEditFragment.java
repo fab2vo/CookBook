@@ -42,9 +42,8 @@ import java.util.UUID;
 public class RecipeEditFragment extends Fragment {
     // Constantes
     private static final String ARG_RECIPE_ID="recipe_id";
-    //private static final int REQUEST_PHOTO= 2;
     private static final int PICK_IMAGE= 3;
-    private static final String TAG = "CB_RecipeEditFragment";
+    private static final String TAG = "CB_EditFrag";
     private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
     // Variables internes
@@ -57,16 +56,22 @@ public class RecipeEditFragment extends Fragment {
     private EditText mSourceUrl;
     private EditText mNbPersField;
     //    private Button mDateButton;
-    private TextView[] mSTextView;
-    private EditText mNewStepField;
-    private ImageButton mNewStepEnter;
-    private ImageButton mNewStepBack;
+    private TextView[] mStepTextNum;
+    private EditText[] mStepTextEdit;
+    private ImageButton mStepInc;
+    //private EditText mNewStepField;
+    //private ImageButton mNewStepEnter;
+    //private ImageButton mNewStepBack;
     private int mStepNb;
-    private TextView[] mSTextIngView;
-    private EditText mNewIngField;
-    private ImageButton mNewIngEnter;
-    private ImageButton mNewIngBack;
+    private int mStepNbDisplay;
+    private TextView[] mIngTextNum;
+    private EditText[] mIngTextEdit;
+    private ImageButton mIngInc;
+    //private EditText mNewIngField;
+    //private ImageButton mNewIngEnter;
+    //private ImageButton mNewIngBack;
     private int mIngNb;
+    private int mIngNbDisplay;
     private Spinner mSeasonSpinner;
     private Spinner mTypeSpinner;
     private Spinner mDifficultySpinner;
@@ -161,17 +166,6 @@ public class RecipeEditFragment extends Fragment {
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Uri uri= FileProvider.getUriForFile(getActivity(),
-                        FPROVIDER, mPhotoFile);
-                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                List<ResolveInfo> cameraActivities=getActivity()
-                        .getPackageManager().queryIntentActivities(captureImage,
-                                PackageManager.MATCH_DEFAULT_ONLY);
-                for(ResolveInfo activity : cameraActivities){
-                    getActivity().grantUriPermission(activity.activityInfo.packageName,
-                            uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-                startActivityForResult(captureImage, REQUEST_PHOTO);*/
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -312,49 +306,114 @@ public class RecipeEditFragment extends Fragment {
 
             }
         });
-
         final int[] rID= {R.id.recipe_S1,R.id.recipe_S2,R.id.recipe_S3,R.id.recipe_S4,
                 R.id.recipe_S5,R.id.recipe_S6,R.id.recipe_S7,R.id.recipe_S8,R.id.recipe_S9};
-        mSTextView= new TextView[mRecipe.getNbStepMax()];
+        final int[] rID_in= {R.id.recipe_S1_in,R.id.recipe_S2_in,R.id.recipe_S3_in,R.id.recipe_S4_in,
+                R.id.recipe_S5_in,R.id.recipe_S6_in,R.id.recipe_S7_in,R.id.recipe_S8_in,R.id.recipe_S9_in};
+        mStepTextNum= new TextView[mRecipe.getNbStepMax()];
+        mStepTextEdit=new EditText[mRecipe.getNbStepMax()];
         for(int i=0;i<mRecipe.getNbStepMax();i++) {
-            mSTextView[i] = (TextView) v.findViewById(rID[i]);
+            mStepTextNum[i] = (TextView) v.findViewById(rID[i]);
+            mStepTextEdit[i] = (EditText) v.findViewById(rID_in[i]);
         }
-        mNewStepEnter=(ImageButton) v.findViewById(R.id.recipe_step_enter);
-        mNewStepBack=(ImageButton) v.findViewById(R.id.recipe_step_back);
+        mStepInc=(ImageButton) v.findViewById(R.id.step_add);
         updateListStep(v);
 
-        mNewStepField= (EditText) v.findViewById(R.id.recipe_new_step);
-        mNewStepField.addTextChangedListener(new TextWatcher() {
+        mStepTextEdit[0].addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // blank
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(mStepNb+1, s.toString());
+                mRecipe.setStep(0+1, s.toString());
             }
             @Override
-            public void afterTextChanged(Editable s) {
-
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[1].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(1+1, s.toString());
             }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[2].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(2+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[3].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(3+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[4].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(4+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[5].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(5+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[6].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(6+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[7].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(7+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mStepTextEdit[8].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setStep(8+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
 
-        mNewStepEnter.setOnClickListener(new View.OnClickListener() {
+        mStepInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNewStepField.setVisibility(updateListStep(v));
-                mNewStepField.getText().clear();
-            }
-        });
-
-        mNewStepBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRecipe.setStep(mStepNb, "");
-                mRecipe.setStep(mStepNb+1, "");
-                mNewStepField.setVisibility(updateListStep(v));
-                mNewStepField.getText().clear();
+                updateListStep(v);
             }
         });
 
@@ -362,45 +421,177 @@ public class RecipeEditFragment extends Fragment {
                 R.id.recipe_I05,R.id.recipe_I06,R.id.recipe_I07,R.id.recipe_I08,
                 R.id.recipe_I09,R.id.recipe_I10,R.id.recipe_I11,R.id.recipe_I12,
                 R.id.recipe_I13,R.id.recipe_I14,R.id.recipe_I15};
-        mSTextIngView= new TextView[mRecipe.getNbIngMax()];
+        final int[] rIngID_in= {R.id.recipe_I01_in,R.id.recipe_I02_in,R.id.recipe_I03_in,R.id.recipe_I04_in,
+                R.id.recipe_I05_in,R.id.recipe_I06_in,R.id.recipe_I07_in,R.id.recipe_I08_in,
+                R.id.recipe_I09_in,R.id.recipe_I10_in,R.id.recipe_I11_in,R.id.recipe_I12_in,
+                R.id.recipe_I13_in,R.id.recipe_I14_in,R.id.recipe_I15_in};
+        mIngTextNum= new TextView[mRecipe.getNbIngMax()];
+        mIngTextEdit=new EditText[mRecipe.getNbIngMax()];
         for(int i=0;i<mRecipe.getNbIngMax();i++) {
-            mSTextIngView[i] = (TextView) v.findViewById(rIngID[i]);
+            mIngTextNum[i] = (TextView) v.findViewById(rIngID[i]);
+            mIngTextEdit[i] = (EditText) v.findViewById(rIngID_in[i]);
         }
-        mNewIngEnter=(ImageButton) v.findViewById(R.id.recipe_ing_enter);
-        mNewIngBack=(ImageButton) v.findViewById(R.id.recipe_ing_back);
+        mIngInc=(ImageButton) v.findViewById(R.id.ing_add);
+        mIngTextEdit[0].setText(mRecipe.getIngredient(0 + 1));
+        mIngTextEdit[1].setText(mRecipe.getIngredient(1 + 1));
+        mIngTextEdit[2].setText(mRecipe.getIngredient(2 + 1));
+        mIngInc=(ImageButton) v.findViewById(R.id.ing_add);
         updateListIng(v);
 
-        mNewIngField= (EditText) v.findViewById(R.id.recipe_new_ing);
-        mNewIngField.addTextChangedListener(new TextWatcher() {
+        mIngTextEdit[0].addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(mIngNb+1, s.toString());
+                mRecipe.setIngredient(0+1, s.toString());
             }
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
-        mNewIngEnter.setOnClickListener(new View.OnClickListener() {
+        mIngTextEdit[1].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(1+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[2].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(2+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[3].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(3+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[4].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(4+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[5].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(5+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[6].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(6+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[7].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(7+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[8].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(8+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[9].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(9+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[10].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(10+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[11].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(11+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[12].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(12+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[13].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(13+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngTextEdit[14].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mRecipe.setIngredient(14+1, s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+        mIngInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNewIngField.setVisibility(updateListIng(v));
-                mNewIngField.getText().clear();
-            }
-        });
-        mNewIngBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRecipe.setIngredient(mIngNb, "");
-                mRecipe.setIngredient(mIngNb+1, "");
-                mNewIngField.setVisibility(updateListIng(v));
-                mNewIngField.getText().clear();
+                updateListIng(v);
             }
         });
 
@@ -413,18 +604,6 @@ public class RecipeEditFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-
-        /*if (requestCode==REQUEST_PHOTO){
-            Uri uri=FileProvider.getUriForFile(getActivity(),
-                    FPROVIDER, mPhotoFile);
-            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            if (!ResizePhoto(mRecipe)){
-                //fdx Log.d(TAG,"pb resize photo");
-            }
-            mRecipe.setDatePhoto(new Date());
-            mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
-            updatePhotoView();
-        }*/
         if (requestCode==PICK_IMAGE){
             if (data == null) return ;
             try{
@@ -446,40 +625,70 @@ public class RecipeEditFragment extends Fragment {
         }
     }
 
-    private int updateListStep(View v) {
-        int imax=mRecipe.getNbStepMax(), iplus;
-        String[] display=new String[imax];
-        mStepNb = mRecipe.getNbStep();
-        int gone=View.GONE;
-        int visible=View.VISIBLE;
-        mSTextView[0].setText("1...");
-        mSTextView[0].setVisibility(visible);
-        for(int i=0;i<imax;i++){
-            iplus=i+1; display[i]=iplus+". "+mRecipe.getStep(i+1);
-            if (mStepNb>0){mSTextView[i].setText(display[i]);}
-            if (i>=0){mSTextView[i].setVisibility((mStepNb>i)? visible:gone);}
+    private void updateListStep(View v) {
+        String cas;
+        int i_cur=mRecipe.getNbStep();
+        int i_max=mRecipe.getNbStepMax();
+        for (int i=0;i<mRecipe.getNbStepMax();i++) {
+            cas = "NOTVISIBLE";
+            if (i == 0) cas = "FIRST";
+            if (i < i_cur) cas = "ACTIVE";
+            if ((i == i_cur)&&(i_cur<i_max)) cas = "EMPTY_READY";
+            if ((i == i_cur)&&(i_cur==i_max)) cas = "ACTIVE";
+            switch (cas) {
+                case "FIRST":
+                    if (mRecipe.getNbStep() == 0) mStepTextEdit[i].setHint(R.string.P3S1H);
+                    else mStepTextEdit[i].setText(mRecipe.getStep(i + 1));
+                    break;
+                case "ACTIVE":
+                    mStepTextNum[i].setVisibility(View.VISIBLE);
+                    mStepTextEdit[i].setVisibility(View.VISIBLE);
+                    mStepTextEdit[i].setText(mRecipe.getStep(i + 1));
+                    break;
+                case "EMPTY_READY":
+                    mStepTextNum[i].setVisibility(View.VISIBLE);
+                    mStepTextEdit[i].setVisibility(View.VISIBLE);
+                    mStepTextEdit[i].setText("");
+                    mStepTextEdit[i].setHint(R.string.P3S1H);
+                    break;
+                case "NOTVISIBLE":
+                    mStepTextNum[i].setVisibility(View.GONE);
+                    mStepTextEdit[i].setVisibility(View.GONE);
+            }
         }
-        mNewStepBack.setVisibility((mStepNb==0)? gone:visible);
-        mNewStepEnter.setVisibility((mStepNb==imax)? gone:visible);
-        return ((mStepNb==imax)?gone:visible);
     }
 
-    private int updateListIng(View v) {
-        int imax=mRecipe.getNbIngMax(), iplus;
-        String[] display=new String[imax];
-        mIngNb = mRecipe.getNbIng();
-        int gone=View.GONE;
-        int visible=View.VISIBLE;
-        mSTextIngView[0].setText("-...");
-        mSTextIngView[0].setVisibility(visible);
-        for(int i=0;i<imax;i++){
-            iplus=i+1; display[i]="-"+mRecipe.getIngredient(i+1);
-            if (mIngNb>0){mSTextIngView[i].setText(display[i]);}
-            if (i>=0){mSTextIngView[i].setVisibility((mIngNb>i)? visible:gone);}
+    private void updateListIng(View v) {
+        String cas;
+        int i_cur=mRecipe.getNbIng();
+        int i_max=mRecipe.getNbIngMax();
+        for (int i=0;i<mRecipe.getNbIngMax();i++) {
+            cas = "NOTVISIBLE";
+            if (i == 0) cas = "FIRST";
+            if (i < i_cur) cas = "ACTIVE";
+            if ((i == i_cur)&&(i_cur<i_max)) cas = "EMPTY_READY";
+            if ((i == i_cur)&&(i_cur==i_max)) cas = "ACTIVE";
+            switch (cas) {
+                case "FIRST":
+                    if (mRecipe.getNbIng() == 0) mIngTextEdit[i].setHint(R.string.P3IT);
+                    else mIngTextEdit[i].setText(mRecipe.getIngredient(i + 1));
+                    break;
+                case "ACTIVE":
+                    mIngTextNum[i].setVisibility(View.VISIBLE);
+                    mIngTextEdit[i].setVisibility(View.VISIBLE);
+                    mIngTextEdit[i].setText(mRecipe.getIngredient(i + 1));
+                    break;
+                case "EMPTY_READY":
+                    mIngTextNum[i].setVisibility(View.VISIBLE);
+                    mIngTextEdit[i].setVisibility(View.VISIBLE);
+                    mIngTextEdit[i].setText("");
+                    mIngTextEdit[i].setHint(R.string.P3IT);
+                    break;
+                case "NOTVISIBLE":
+                    mIngTextNum[i].setVisibility(View.GONE);
+                    mIngTextEdit[i].setVisibility(View.GONE);
+            }
         }
-        mNewIngBack.setVisibility((mIngNb==0)? gone:visible);
-        mNewIngEnter.setVisibility((mIngNb==imax)? gone:visible);
-        return ((mIngNb==imax)?gone:visible);
     }
 
     private Boolean IsRecipeNew(UUID uuid){
