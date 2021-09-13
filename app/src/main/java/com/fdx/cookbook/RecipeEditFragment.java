@@ -46,7 +46,6 @@ public class RecipeEditFragment extends Fragment {
     private static final String TAG = "CB_EditFrag";
     private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
-    // Variables internes
     private Recipe mRecipe;
     private Recipe mRecipeInit;
     private UUID mRecipeId;
@@ -55,21 +54,14 @@ public class RecipeEditFragment extends Fragment {
     private EditText mSourceField;
     private EditText mSourceUrl;
     private EditText mNbPersField;
-    //    private Button mDateButton;
     private TextView[] mStepTextNum;
     private EditText[] mStepTextEdit;
     private ImageButton mStepInc;
-    //private EditText mNewStepField;
-    //private ImageButton mNewStepEnter;
-    //private ImageButton mNewStepBack;
     private int mStepNb;
     private int mStepNbDisplay;
     private TextView[] mIngTextNum;
     private EditText[] mIngTextEdit;
     private ImageButton mIngInc;
-    //private EditText mNewIngField;
-    //private ImageButton mNewIngEnter;
-    //private ImageButton mNewIngBack;
     private int mIngNb;
     private int mIngNbDisplay;
     private Spinner mSeasonSpinner;
@@ -611,7 +603,7 @@ public class RecipeEditFragment extends Fragment {
             mBmp= BitmapFactory.decodeStream(inputStream);
             mPhotoView.setImageBitmap(mBmp);
             } catch(Exception e) {
-                //fdx Log.d(TAG,"recover data error:"+e);
+                deBug("recover data error:"+e);
             }
         }
     }
@@ -708,18 +700,18 @@ public class RecipeEditFragment extends Fragment {
     private Boolean ResizePhoto(Recipe r) {
         File f = CookBook.get(getActivity()).getPhotoFile(r);
         if (f==null || !f.exists()){
-            //fdx Log(TAG, "No file from Cookbook for this recipe :" + r.getTitle()+" Error CB004");
+            deBug( "No file from Cookbook for this recipe :" + r.getTitle()+" Error CB004");
             return false;
         } else {
             Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity(), 600);
             f.delete();
             try {
                 if(!f.createNewFile()) {
-                    //fdx Log(TAG, "File not deleted ! Error CB001");
+                    deBug("File not deleted ! Error CB001");
                     return false;
                 }
             } catch (IOException e) {
-                //fdx Log(TAG, "Error in creating new file : "+e+" Error CB002");
+                deBug("Error in creating new file : "+e+" Error CB002");
                 return false;
             }
             try {
@@ -730,9 +722,12 @@ public class RecipeEditFragment extends Fragment {
                 fOut.close();
                 return true;
             } catch (IOException e) {
-                //fdx Log(TAG, "Error in reducing and saving file "+" Error CB003");
+                deBug("Error in reducing and saving file "+" Error CB003");
                 return false;
             }
         }
+    }
+    private void deBug(String s){
+        // Log(TAG, s);
     }
 }
