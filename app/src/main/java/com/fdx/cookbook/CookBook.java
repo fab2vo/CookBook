@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 import java.io.File;
@@ -99,7 +100,8 @@ public class CookBook {
 
     public List<Recipe> getRecipesVisibles(){
         List<Recipe> recipes=this.getRecipes();
-        for(Recipe r:recipes){
+        List<Recipe> recipeloop=this.getRecipes();
+        for(Recipe r:recipeloop){
             if (!r.IsVisible()) recipes.remove(r);
         }
         return recipes;

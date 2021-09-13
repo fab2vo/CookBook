@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -112,7 +113,7 @@ public class RecipeListFragment extends Fragment {
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
         mMessageItem.setVisible(cookbook.isThereMail());
-
+        MenuCompat.setGroupDividerEnabled(menu, true);
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
