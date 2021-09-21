@@ -1,5 +1,7 @@
 package com.fdx.cookbook;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,6 +39,7 @@ public class Recipe {
     private Boolean mTS_photo;
     private Boolean mTS_comment;
     private Boolean mTS_note;
+    private Bitmap mImage;
 
     private static final int NBSTEP_MAX=9;
     private static final int NBING_MAX=15;
@@ -207,7 +210,7 @@ public class Recipe {
         mSource_url = source_url;
     }
 
-    // -----------------------Enum ------------------------m
+    // -----------------------Enum ------------------------
 
     public RecipeSeason getSeason() {
         return mSeason;
@@ -409,5 +412,18 @@ public class Recipe {
             if (c.getTxt().indexOf(s)!=-1) return true;
         }
         return false;
+    }
+
+    public boolean isTheSame(Recipe rtotest){
+        return (rtotest.getId().toString().equals(mId.toString()));
+    }
+    // -----------------------Image ------------------------
+
+    public Bitmap getImage() {
+        return mImage;
+    }
+
+    public void setImage(Bitmap image) {
+        mImage = image;
     }
 }

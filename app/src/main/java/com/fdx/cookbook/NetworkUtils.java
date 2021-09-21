@@ -64,7 +64,7 @@ public class NetworkUtils {
             }
             return sb.toString().trim();
         } catch (Exception e) {
-            Log.d(TAG, ">"+e);
+            deBugShow( "SendPostRequest error>"+e);
             return null;
         }
     }
@@ -80,7 +80,7 @@ public class NetworkUtils {
             result.append("=");
             result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
             } catch (Exception e){
-                //fdx Log.d(TAG, "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
+                deBugShow( "Pb with >"+entry.getKey()+":"+entry.getValue()+"<");
             }
         }
         return result.toString();
@@ -97,7 +97,7 @@ public class NetworkUtils {
                 if (c!=null) cs.add(c);
             }
         } catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            deBugShow( "Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return cs;
@@ -112,7 +112,7 @@ public class NetworkUtils {
         Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
         return new Comment(obj.getString("comment"),u,date);}
         catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSONObject Comments "+e);
+            deBugShow("Failure in parsing JSONObject Comments "+e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class NetworkUtils {
                 if (n!=null) ns.add(n);
             }
         } catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            deBugShow("Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return ns;
@@ -136,7 +136,6 @@ public class NetworkUtils {
 
     public Note parseObjectNote(JSONObject obj){
         try {
-            // uuid=UUID.fromString(obj.getString("id_recipe"));
             UUID uuid=UUID.fromString(obj.getString("id_user"));
             User u=new User(obj.getString("family"), obj.getString("name") );
             u.setId(uuid);
@@ -144,7 +143,7 @@ public class NetworkUtils {
             Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
             return new Note(obj.getInt("note"),u,date);}
         catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSONObject Note : "+e);
+            deBugShow("Failure in parsing JSONObject Note : "+e);
             return null;
         }
     }
@@ -182,7 +181,7 @@ public class NetworkUtils {
             return r;
         }
         catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSONObject Recette Stamp : "+e);
+            deBugShow( "Failure in parsing JSONObject Recette Stamp : "+e);
             return null;
         }
     }
@@ -199,7 +198,7 @@ public class NetworkUtils {
                 if (r!=null) rs.add(r);
             }
         } catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSON Array Comments "+e);
+            deBugShow( "Failure in parsing JSON Array Comments "+e);
             return null;
         }
         return rs;
@@ -256,7 +255,7 @@ public class NetworkUtils {
                     url = new URL(s1);
                     r.setSource_url(url);
                 } catch (MalformedURLException e) {
-                    //fdx Log.d(TAG, "getURL from cookbook download failed in parse recipe");
+                    deBugShow("getURL from cookbook download failed in parse recipe");
                 }
             }
             int nbp=obj.getInt("nb_pers");
@@ -288,15 +287,15 @@ public class NetworkUtils {
                 if ((!s1.equals("null"))&&(!s1.equals(""))&&(s1!=null)) {
                     Bitmap bm=PictureUtils.getBitmapFromString(s1);
                     if (f.exists()){
-                        //fdx Log.d(TAG, "file  " + f.toString()+" ecrasée dans parsing recipe !");
+                        deBugShow( "file  " + f.toString()+" ecrasée dans parsing recipe !");
                         f.delete();
                     }
                     try {
                         if(!f.createNewFile()) {
-                            //fdx Log.d(TAG, "Error in creating file  "+f.toString());
+                            deBugShow( "Error in creating file  "+f.toString());
                         }
                     } catch (IOException e) {
-                        //fdx Log.d(TAG, "Error in creating file "+f.toString()+":" +e);
+                        deBugShow( "Error in creating file "+f.toString()+":" +e);
                     }
                     try {
                         FileOutputStream out = new FileOutputStream(f);
@@ -304,7 +303,7 @@ public class NetworkUtils {
                         out.flush();
                         out.close();
                     } catch (Exception e) {
-                        //fdx Log.d(TAG, "Storing bitmap error  " + e);
+                        deBugShow("Storing bitmap error  " + e);
                     }
 
                 }
@@ -313,7 +312,7 @@ public class NetworkUtils {
             return true;
         }
         catch (Exception e){
-            //fdx Log.d(TAG, "Failure in parsing JSONObject Recette : "+e);
+            deBugShow( "Failure in parsing JSONObject Recette : "+e);
             return false;
         }
     }
@@ -332,10 +331,74 @@ public class NetworkUtils {
             out.close();
             return true;
         } catch (Exception e) {
-            //fdx Log.d(TAG, "Storing bitmap error  " + e);
+            deBugShow( "Storing bitmap error  " + e);
             return false;
         }
     }
 
+    public List<Recipe> parseRecipesOfCommunity(String json, boolean withphoto){
+        Recipe r;
+        List<Recipe> rs=new ArrayList<>();
+        if ((json==null)||(json.equals(""))) return null;
+        try {
+            JSONArray jarr1=new JSONArray(json);
+            for (int i=0; i<jarr1.length(); i++){
+                JSONObject obj = jarr1.getJSONObject(i);
+                r=new Recipe();
+                if (!parseObjectRecipeShort(r,obj, withphoto)) {
+                    deBugShow("Error in parsing");
+                    return null;}
+                if (r!=null) rs.add(r);
+            }
+        } catch (Exception e){
+            deBugShow("Failure in parsing JSON Array Recipes for community "+e);
+            return null;
+        }
+        return rs;
+    }
+
+    public Boolean parseObjectRecipeShort(Recipe r,JSONObject obj, boolean withphoto){
+        try {
+            UUID uuid;
+            String s1, s2;
+            User u;
+            uuid = UUID.fromString(obj.getString("id_recipe"));
+            r.setId(uuid);
+            uuid = UUID.fromString(obj.getString("id_user"));
+            s1 = obj.getString("family");
+            s2 = obj.getString("name");
+            u = new User(s1, s2);
+            u.setId(uuid);
+            r.setOwner(u);
+            //------------ dates
+            Date date;
+            s1 = obj.getString("lastupdate_recipe");
+            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                r.setDate(date);
+            } else {return false;}
+            //----------------- titre, source x2, nbpers
+            s1 = obj.getString("title");
+            r.setTitle(s1);
+            //----------------- enum
+            r.setSeason(RecipeSeason.valueOf(obj.getString("season")));
+            r.setDifficulty(RecipeDifficulty.valueOf(obj.getString("difficulty")));
+            r.setType(RecipeType.valueOf(obj.getString("type")));
+            // --------------- photo
+            if (withphoto) {
+                s1 = obj.getString("photo");
+                if ((s1!=null)&&(!s1.equals("")))
+                    r.setImage(PictureUtils.getBitmapFromString(s1));
+                }
+            return true;
+        }
+        catch (Exception e){
+            deBugShow( "Failure in parsing JSONObject Recette : "+e);
+            return false;
+        }
+    }
+    private void deBugShow(String s){
+        Log.d(TAG, s);
+    }
 
 }

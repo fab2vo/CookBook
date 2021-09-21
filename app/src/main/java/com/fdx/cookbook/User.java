@@ -20,6 +20,7 @@ public class User {
     public User(UUID uuid){
         mId =uuid;
         // waiting for user database
+        //todo erase !
         switch(mId.toString()){
             case "c81d4e2e-bcf2-11e6-869b-7df92533d2db":
                 mFamily="Devaux_Lion de ML";

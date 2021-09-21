@@ -432,10 +432,7 @@ public class SplashActivity extends AppCompatActivity {
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", mUser.getId().toString().trim());
         String json = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQGETNOTES,data);
-        //User u;
-        //String s;
         UUID uuid;
-        //Date date;
         Note n;
         try {
             JSONArray jarr1=new JSONArray(json);

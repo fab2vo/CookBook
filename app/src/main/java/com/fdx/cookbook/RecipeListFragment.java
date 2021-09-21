@@ -162,6 +162,10 @@ public class RecipeListFragment extends Fragment {
                 mListMask.reset();
                 updateUI();
                 return true;
+            case R.id.list_com:
+                Intent intent4= RecipeCommunityActivity.newIntent(getActivity());
+                startActivity(intent4);
+                return true;
             case R.id.feedback:
                 Intent intent3 = new Intent(Intent.ACTION_SENDTO);
                 intent3.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");

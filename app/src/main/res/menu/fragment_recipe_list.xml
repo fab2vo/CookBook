@@ -37,6 +37,11 @@
             android:title="@string/P1MU_raz"
             app:showAsAction="never|withText"
             android:orderInCategory="3"/>
+        <item
+            android:id="@+id/list_com"
+            android:title="@string/P1MU_com"
+            app:showAsAction="never|withText"
+            android:orderInCategory="5"/>
     </group>
     <group android:id="@+id/out_of_menu_list"
         android:enabled="true"

@@ -38,8 +38,17 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/fg_icon</item>
     </style>
+    <style name="CookBookText.ComTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">casual</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/fg_icon</item>
+    </style>
     <style name="CookBookText.Small">
         <item name="android:textSize">11sp</item>
+    </style>
+    <style name="CookBookText.UltraSmall">
+        <item name="android:textSize">8sp</item>
     </style>
     <style name="CookBookText.EnterTitle">
         <item name="android:textColor">@color/fg_icon</item>
