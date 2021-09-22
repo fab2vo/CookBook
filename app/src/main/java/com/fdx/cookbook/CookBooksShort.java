@@ -15,6 +15,14 @@ public class CookBooksShort {
     private static CookBooksShort ourInstance ;
     private Context mContext;
     private List<Recipe> mCookBook;
+    private Integer mSelectType;
+    private Integer mDLStatus;
+    private static final Integer COMPLETED=2;
+    private static final Integer STARTED=1;
+    private static final Integer INACTIVE=0;
+    private static final Integer RECENT=1;
+    private static final Integer POPULAR=2;
+    private static final Integer BESTNOTE=3;
     private static final String TAG = "CB_Community";
 
     public static CookBooksShort get(Context context) {
@@ -26,6 +34,8 @@ public class CookBooksShort {
     private CookBooksShort(Context context) {
         mContext=context.getApplicationContext();
         mCookBook=new ArrayList<>();
+        mDLStatus=INACTIVE;
+        mSelectType=RECENT;
         // fill while debugging ****************************
         Recipe r;
         User u;
@@ -103,4 +113,25 @@ public class CookBooksShort {
         if (mCookBook.isEmpty()) return 0;
         return mCookBook.size();
     }
+
+    public Integer getSelectType() {
+        return mSelectType;
+    }
+
+    public void setSelectType(Integer selectType) {
+        mSelectType = selectType;
+    }
+
+    public Integer getDLStatus() {
+        return mDLStatus;
+    }
+
+    public void getDLStarted() {
+        mDLStatus = STARTED;
+    }
+    public void setDLCompleted() {
+        mDLStatus = COMPLETED;
+    }
+    public Boolean isDownloading(){return mDLStatus==STARTED;}
+    public Boolean isNew(){return mDLStatus==INACTIVE;}
 }

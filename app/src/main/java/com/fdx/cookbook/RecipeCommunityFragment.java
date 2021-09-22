@@ -1,14 +1,13 @@
 package com.fdx.cookbook;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +38,8 @@ public class RecipeCommunityFragment extends Fragment {
     private MenuItem mMenuP;
     private MenuItem mMenuN;
     private CookBooksShort mCookbookShort;
-    private static final String TAG = "CB_CommunityFrag";
+    private getShortRecipesFromCommunity getAsyncShorties;
+    private static final String TAG = "CB_ComFrag";
 
     public static RecipeCommunityFragment newInstance() {
         RecipeCommunityFragment fragment=new RecipeCommunityFragment();
@@ -53,10 +51,12 @@ public class RecipeCommunityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
-        mSelectType=RECENT;
         mCookbookShort=CookBooksShort.get(getActivity());
-        getShortRecipesFromCommunity getAsyncShorties=new getShortRecipesFromCommunity();
-        getAsyncShorties.execute(20);
+        mSelectType=mCookbookShort.getSelectType();
+        if (mCookbookShort.isNew()){
+            getAsyncShorties=new getShortRecipesFromCommunity();
+            getAsyncShorties.execute(20);
+        }
     }
 
     @Override
@@ -66,29 +66,32 @@ public class RecipeCommunityFragment extends Fragment {
         mMenuR = menu.findItem(R.id.com_recent);
         mMenuN = menu.findItem(R.id.com_bestnote);
         mMenuP = menu.findItem(R.id.com_popular);
-        mMenuR.setVisible(mSelectType!=RECENT);
-        mMenuN.setVisible(mSelectType!=BESTNOTE);
-        mMenuP.setVisible(mSelectType!=POPULAR);
+        mMenuR.setEnabled(mSelectType!=RECENT);
+        mMenuN.setEnabled(mSelectType!=BESTNOTE);
+        mMenuP.setEnabled(mSelectType!=POPULAR);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mCookbookShort.isDownloading()) return true;
         switch (item.getItemId()) {
             case R.id.com_recent:
-                mSelectType=RECENT;
+                mCookbookShort.setSelectType(RECENT);
                 break;
             case R.id.com_popular:
-                mSelectType=POPULAR;
+                mCookbookShort.setSelectType(POPULAR);
                 break;
             case R.id.com_bestnote:
-                mSelectType=BESTNOTE;
+                mCookbookShort.setSelectType(BESTNOTE);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
         }
-        mMenuR.setVisible(mSelectType!=RECENT);
-        mMenuN.setVisible(mSelectType!=BESTNOTE);
-        mMenuP.setVisible(mSelectType!=POPULAR);
-        // refresh
+        mSelectType=mCookbookShort.getSelectType();
+        mMenuR.setEnabled(mSelectType!=RECENT);
+        mMenuN.setEnabled(mSelectType!=BESTNOTE);
+        mMenuP.setEnabled(mSelectType!=POPULAR);
+        getAsyncShorties=new getShortRecipesFromCommunity();
+        getAsyncShorties.execute(20);
         return true;
     }
 
@@ -97,10 +100,20 @@ public class RecipeCommunityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_community, container, false);
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);
-        mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RecipeCommunityActivity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int ncol = (Integer) displayMetrics.widthPixels/350;
+        if (ncol<3) ncol=3;
+        mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),ncol));
         updateUI();
         return view;
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        //if (mCookbookShort.isDownloading()) getAsyncShorties.cancel(true);
+    }
+
     private void updateUI() {
         List<Recipe> recipes=mCookbookShort.getRecipes();
         if (recipes.isEmpty()){
@@ -119,7 +132,7 @@ public class RecipeCommunityFragment extends Fragment {
             implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mName;
-        private TextView mFamily;
+        //private TextView mFamily;
         private ImageView mPhotoView;
         private Recipe mRecipe;
 
@@ -128,16 +141,21 @@ public class RecipeCommunityFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView= (TextView) itemView.findViewById(R.id.com_title);
             mName=(TextView) itemView.findViewById(R.id.com_name);
-            mFamily=(TextView) itemView.findViewById(R.id.com_family);
+            //mFamily=(TextView) itemView.findViewById(R.id.com_family);
             mPhotoView=(ImageView) itemView.findViewById(R.id.com_photo);
-            //mPhotoView on click listener
+            mPhotoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mName.setText(mRecipe.getOwner().getName());
-            mFamily.setText("@"+mRecipe.getOwner().getFamily());
+            mName.setText(mRecipe.getOwner().getNameComplete());
+            //mFamily.setText("@"+mRecipe.getOwner().getFamily());
             Bitmap bm=mRecipe.getImage();
             if (bm!=null) mPhotoView.setImageBitmap(bm);
         }
@@ -181,24 +199,25 @@ public class RecipeCommunityFragment extends Fragment {
 
     class getShortRecipesFromCommunity extends AsyncTask<Integer, Integer, Boolean> {
         private static final String PHP204 = "return204.php";
-        private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
         private static final String PHPGETSHORTRECIPES = "getcommunitynews.php";
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getActivity(),"Debut sync", Toast.LENGTH_SHORT).show();
+            mCookbookShort.getDLStarted();
+            mSelectType=mCookbookShort.getSelectType();
+            //Toast.makeText(getActivity(),"Debut : "+mSelectType, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
+            mCookbookShort.setDLCompleted();
             if (b) {
-                Toast.makeText(getActivity(), "Succès", Toast.LENGTH_LONG).show();
-                //updateUI();
+                //Toast.makeText(getActivity(), "Succès de "+mSelectType, Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -213,6 +232,7 @@ public class RecipeCommunityFragment extends Fragment {
             publishProgress(1);
             // download photo i
             for(Integer i=0;i<mCookbookShort.getsize();i++) {
+                if(isCancelled()) {deBugShow("Interrupted)"); return false;}
                 s = getStringRecipesFromServer(i, 1, mSelectType, true);
                 if (s.equals("")) {
                     deBugShow("Echec query "+i);
@@ -225,12 +245,7 @@ public class RecipeCommunityFragment extends Fragment {
 
         @Override
         protected void onProgressUpdate(Integer ... values){
-            deBugShow("Progress "+values[0]);
             updateUI();
-        }
-
-        private void deBugShow(String s){
-            Log.d(TAG, s);
         }
 
         private String getStringRecipesFromServer(Integer start, Integer count, Integer type, Boolean withphoto){
@@ -289,6 +304,9 @@ public class RecipeCommunityFragment extends Fragment {
             }
         }
 
+    }
+    private void deBugShow(String s){
+        Log.d(TAG, s);
     }
 
 }
