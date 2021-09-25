@@ -238,18 +238,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
-    /*private void updateTop(){
-        mEnterFamilyLbl.setText(R.string.P0LF);
-        mEnterFamily.setText(mFamilyEntered);
-        mEnterMemberLbl.setText(R.string.P0LM);
-        mEnterMember.setText(mMemberEntered);
-        mEnterPwdLbl.setText(R.string.P0LP);
-        mEnterPwd.setText(mPwdEntered);
-        mEnterMessage.setText("");
-        mNewSession.setText(R.string.P0BP);
-        mNewMember.setText(R.string.P0BM);
-        mNewFamily.setText(R.string.P0BF);
-    }*/
 
     private void updateDisplayOnAsync(Boolean b){
         int indNet,indClick;
@@ -300,9 +288,7 @@ public class SplashActivity extends AppCompatActivity {
         if(!mSession.IsConnected()){
             ret=false;
             Toast.makeText(getApplicationContext(), getString(R.string.P0ER_nocon), Toast.LENGTH_LONG).show();
-            //message += getResources().getString(R.string.P0ER_nocon)+"\n";
         }
-        //mEnterMessage.setText(message);
         return ret;
     }
 
@@ -330,6 +316,8 @@ public class SplashActivity extends AppCompatActivity {
                 super.onPostExecute(b);
                 updateDisplayOnAsync(false);
                 if (b) {
+                    CookBooksShort cbshort=CookBooksShort.get(getApplicationContext());
+                    cbshort.clearCompletely();
                     mSession.setStoredUser(mUser);
                     Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
                     startActivity(intent);

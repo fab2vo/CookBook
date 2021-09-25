@@ -58,12 +58,10 @@ public class RecipeEditFragment extends Fragment {
     private EditText[] mStepTextEdit;
     private ImageButton mStepInc;
     private int mStepNb;
-    private int mStepNbDisplay;
     private TextView[] mIngTextNum;
     private EditText[] mIngTextEdit;
     private ImageButton mIngInc;
     private int mIngNb;
-    private int mIngNbDisplay;
     private Spinner mSeasonSpinner;
     private Spinner mTypeSpinner;
     private Spinner mDifficultySpinner;
@@ -123,7 +121,6 @@ public class RecipeEditFragment extends Fragment {
                     if (mBmp!=null){
                         NetworkUtils networkutils=new NetworkUtils(getContext());
                         networkutils.saveBmpInRecipe(mBmp, mRecipe);
-                        ResizePhoto(mRecipe);
                         mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
                     }
                     if (IsRecipeNew(mRecipeId)){
@@ -150,11 +147,8 @@ public class RecipeEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View v=inflater.inflate(R.layout.fragment_recipe_edit, container, false);
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
-        /*PackageManager packageManager=getActivity().getPackageManager();
-            final Intent captureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            boolean canTakePhoto=(mPhotoFile != null) &&
-                    (captureImage.resolveActivity(packageManager)!=null);*/
         mPhotoView=(ImageView) v.findViewById(R.id.recipe_photo);
+        updatePhotoView();
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +158,6 @@ public class RecipeEditFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
             }
         });
-        updatePhotoView();
         mTitleField= (EditText) v.findViewById(R.id.recipe_title);
         mTitleField.setText(mRecipe.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -600,10 +593,12 @@ public class RecipeEditFragment extends Fragment {
             if (data == null) return ;
             try{
             InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
-            mBmp= BitmapFactory.decodeStream(inputStream);
+            PictureUtils picutil=new PictureUtils();
+            Bitmap bmp=BitmapFactory.decodeStream(inputStream);
+            mBmp=picutil.getScaledBitmap(bmp,600);
             mPhotoView.setImageBitmap(mBmp);
             } catch(Exception e) {
-                deBug("recover data error:"+e);
+                deBug("recover onActivityResult error:"+e);
             }
         }
     }
@@ -697,37 +692,7 @@ public class RecipeEditFragment extends Fragment {
         return uuid.toString().equals(UUIDNULL);
     }
 
-    private Boolean ResizePhoto(Recipe r) {
-        File f = CookBook.get(getActivity()).getPhotoFile(r);
-        if (f==null || !f.exists()){
-            deBug( "No file from Cookbook for this recipe :" + r.getTitle()+" Error CB004");
-            return false;
-        } else {
-            Bitmap bitmap=PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity(), 600);
-            f.delete();
-            try {
-                if(!f.createNewFile()) {
-                    deBug("File not deleted ! Error CB001");
-                    return false;
-                }
-            } catch (IOException e) {
-                deBug("Error in creating new file : "+e+" Error CB002");
-                return false;
-            }
-            try {
-
-                FileOutputStream fOut = new FileOutputStream(f);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
-                fOut.flush();
-                fOut.close();
-                return true;
-            } catch (IOException e) {
-                deBug("Error in reducing and saving file "+" Error CB003");
-                return false;
-            }
-        }
-    }
     private void deBug(String s){
-        // Log(TAG, s);
+        // Log.d(TAG, s);
     }
 }

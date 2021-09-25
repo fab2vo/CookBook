@@ -27,6 +27,11 @@ public class PictureUtils {
         return BitmapFactory.decodeFile(path, options);
     }
 
+    public static Bitmap getScaledBitmap(Bitmap bmpin, int w) {
+        Integer h=(Integer)(bmpin.getHeight()*w/bmpin.getWidth());
+        return bmpin.createScaledBitmap(bmpin, w, h, true);
+    }
+
     public static Bitmap getBitmap(String path) {
         BitmapFactory.Options options=new BitmapFactory.Options();
         options.inJustDecodeBounds=true;

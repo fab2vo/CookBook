@@ -38,7 +38,7 @@
     <string name="P1MU_out"> Sortie </string>
     <string name="P1MU_sync"> Synchronisation avec serveur  </string>
     <string name="P1MU_raz"> Annulation filtre</string>
-    <string name="P1MU_receive"> Nouveau message !  </string>
+    <string name="P1MU_receive"> Messagerie  </string>
     <string name="P1MU_fb"> Feedback sur l\'appli </string>
     <string name="P1MU_com"> Communauté </string>
     <string name="P1R_ing"> Ingrédients : </string>

@@ -37,7 +37,7 @@ public class CookBooksShort {
         mDLStatus=INACTIVE;
         mSelectType=RECENT;
         // fill while debugging ****************************
-        Recipe r;
+        /*Recipe r;
         User u;
         UUID uuid;
         //1
@@ -75,7 +75,7 @@ public class CookBooksShort {
         u.setFamily("Devaux_Lion de ML");
         r.setOwner(u);
         r.setTitle("Guacamole maison");
-        mCookBook.add(r);
+        mCookBook.add(r);*/
     }
 
     public void addRecipe(Recipe r){
@@ -89,6 +89,11 @@ public class CookBooksShort {
     }
 
     public void clear(){
+        mCookBook.clear();
+    }
+    public void clearCompletely (){
+        mDLStatus=INACTIVE;
+        mSelectType=RECENT;
         mCookBook.clear();
     }
 

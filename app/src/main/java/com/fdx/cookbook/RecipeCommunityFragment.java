@@ -116,9 +116,9 @@ public class RecipeCommunityFragment extends Fragment {
 
     private void updateUI() {
         List<Recipe> recipes=mCookbookShort.getRecipes();
-        if (recipes.isEmpty()){
+        /*if (recipes.isEmpty()){
             Toast.makeText(getContext(), "Vide !!!",Toast.LENGTH_LONG ).show();
-        }
+        }*/
         if (mAdapter==null){
             mAdapter=new RecipeCommunityFragment.RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
@@ -158,6 +158,7 @@ public class RecipeCommunityFragment extends Fragment {
             //mFamily.setText("@"+mRecipe.getOwner().getFamily());
             Bitmap bm=mRecipe.getImage();
             if (bm!=null) mPhotoView.setImageBitmap(bm);
+            else mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_see));
         }
 
         @Override

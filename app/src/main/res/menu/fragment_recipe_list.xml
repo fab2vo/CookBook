@@ -20,7 +20,7 @@
         android:id="@+id/new_mail"
         android:icon="@drawable/ic_message"
         android:title="@string/P1MU_receive"
-        app:showAsAction="always|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="2"/>
     <group android:id="@+id/add_to_menu_list"
         android:enabled="true"
