@@ -46,7 +46,6 @@ public class CookBook {
 
     public void updateRecipe(Recipe r) {
         String uuidString=r.getId().toString();
-        //r.setDate(new Date());
         ContentValues values=getContentValues(r);
         mDatabase.update(RecipeDbSchema.RecipeTable.NAME, values,
                 RecipeDbSchema.RecipeTable.Cols.UUID+" =?",
@@ -177,5 +176,15 @@ public class CookBook {
             if (r.IsMessage()) return true;
         }
         return false;
+    }
+
+    public void deBugShowCB(){
+        List<Recipe> recipes=this.getRecipes();
+        String s="";
+        //Log.d(TAG, "Local database -------------------------");
+        for (Recipe r:recipes){
+            s=r.getTitle()+" / " + r.getStatus().toString()+" :"+r.getDate()+" and photo :"+r.getDatePhoto().toString();
+            //Log.d(TAG, s);
+        }
     }
 }

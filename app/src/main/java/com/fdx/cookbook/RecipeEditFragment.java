@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.MenuCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -107,6 +108,7 @@ public class RecipeEditFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe, menu);
+
     }
 
     @Override
@@ -121,6 +123,7 @@ public class RecipeEditFragment extends Fragment {
                     if (mBmp!=null){
                         NetworkUtils networkutils=new NetworkUtils(getContext());
                         networkutils.saveBmpInRecipe(mBmp, mRecipe);
+                        mRecipe.setDatePhoto(new Date());
                         mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
                     }
                     if (IsRecipeNew(mRecipeId)){

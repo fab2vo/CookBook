@@ -125,7 +125,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     }
 
     private void deBugShow(String s){
-        //fdx Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
     private Boolean test204() {
@@ -354,6 +354,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         return b;
     }
     private Boolean syncTiersRecipe(User user) {
+        mCookbook.deBugShowCB();
         boolean ret=false;
         HashMap<String, String> data = new HashMap<>();
         data.put("iduser", user.getId().toString());
@@ -365,6 +366,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         Recipe rloc, rnew;
         for(Recipe r:tiersRecipe) {
             rloc=mCookbook.getRecipe(r.getId());
+            deBugShow("Loop on tiers recipe => "+rloc.getTitle());
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
                 if (rnew==null) {
@@ -376,13 +378,16 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                     ret=true;
                 }
             } else {
-                if (rloc.IsVisible()){ // case recipe tiers active and to be updated if necessary
+                deBugShow("Exists localy. Remote status : status "+r.getStatus().toString()+
+                        " ("+r.getDate().toString()+") photo :"+r.getDatePhoto().toString());
+                if (rloc.IsVisible()){ // if local recipe submitted then skip
                     withphoto=IsAfterAndNonNull(r.getDatePhoto(), rloc.getDatePhoto());
                     update=IsAfterAndNonNull(r.getDate(), rloc.getDate());
+                    deBugShow("Test : Server more recent ? "+update+" and photo ?"+withphoto);
                     if (r.IsMessage()){// case recipe tiers active and status needs update
                         if (recipeAccepted(r)){
                             deBugShow("Recette "+ rloc.getTitle()+" made visible on server");
-                        }
+                        } else deBugShow("Error in accepting server recipe");
                     }
                     if(update || withphoto){
                         if (updateRecipe(rloc, withphoto)){

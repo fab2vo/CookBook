@@ -15,47 +15,47 @@
         android:icon="@drawable/ic_menu_add"
         android:title="@string/P1MU_new"
         app:showAsAction="always|withText"
-        android:orderInCategory="1"/>
+        />
     <item
         android:id="@+id/new_mail"
         android:icon="@drawable/ic_message"
         android:title="@string/P1MU_receive"
         app:showAsAction="ifRoom|withText"
-        android:orderInCategory="2"/>
-    <group android:id="@+id/add_to_menu_list"
-        android:enabled="true"
-        android:visible="true">
+        />
+
+<group android:id="@+id/add_to_menu_list">
         <item
             android:id="@+id/list_sync"
             android:icon="@drawable/ic_logout"
             android:orderInCategory="4"
             android:title="@string/P1MU_sync"
-            app:showAsAction="never|withText" />
+            app:showAsAction="never|withText"
+            />
         <item
             android:id="@+id/list_filter"
             android:icon="@drawable/ic_filter"
             android:title="@string/P1MU_raz"
             app:showAsAction="never|withText"
-            android:orderInCategory="3"/>
+            />
         <item
             android:id="@+id/list_com"
             android:title="@string/P1MU_com"
             app:showAsAction="never|withText"
-            android:orderInCategory="5"/>
-    </group>
-    <group android:id="@+id/out_of_menu_list"
-        android:enabled="true"
-        android:visible="true">
-        <item
-            android:id="@+id/feedback"
-            android:orderInCategory="5"
-            android:title="@string/P1MU_fb"
-            app:showAsAction="never|withText" />
-        <item
-            android:id="@+id/list_logout"
-            android:icon="@drawable/ic_logout"
-            android:orderInCategory="6"
-            android:title="@string/P1MU_out"
-            app:showAsAction="never|withText" />
-    </group>
+        />
+</group>
+<group android:id="@+id/out_of_menu_list">
+    <item
+        android:id="@+id/feedback"
+        android:orderInCategory="5"
+        android:title="@string/P1MU_fb"
+        app:showAsAction="never|withText"
+    />
+<item
+    android:id="@+id/list_logout"
+    android:icon="@drawable/ic_logout"
+    android:title="@string/P1MU_out"
+    app:showAsAction="never|withText"
+    />
+</group>
+
 </menu>

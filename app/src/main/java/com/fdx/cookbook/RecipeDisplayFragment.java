@@ -95,6 +95,7 @@ public class RecipeDisplayFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
+        //todo pourquoi update recipe ?
         CookBook.get(getActivity()).updateRecipe(mRecipe);
     }
 

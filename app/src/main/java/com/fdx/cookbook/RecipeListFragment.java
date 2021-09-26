@@ -112,7 +112,6 @@ public class RecipeListFragment extends Fragment {
         inflater.inflate(R.menu.fragment_recipe_list, menu);
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
-        //mMessageItem.setVisible(cookbook.isThereMail());
         mMessageItem.setShowAsAction(cookbook.isThereMail() ?
                 MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
         MenuCompat.setGroupDividerEnabled(menu, true);

@@ -6,10 +6,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/bg_list</item>
+        <item name="android:itemBackground">@color/bg_list2</item>
+        <item name="android:itemTextAppearance">@style/itemTextStyle.AppTheme</item>
+        <item name="android:dividerHeight">2dp</item>
+        <!--item name="android:dropDownListViewStyle">@style/MyDropDownListView</item-->
     </style>
+
+<!-- Menu -->
     <style name="MyToobarSubtitleStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
-        <item name="android:textSize">5dp</item>
+        <item name="android:textSize">5dp</item> <!-- Ne marche pas -->
     </style>
+
+    <style name="itemTextStyle.AppTheme" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!-- fonctionne mais donne un séparateur pour chaque ligne
+    <style name="MyDropDownListView" parent="@android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/fg_title</item>
+    </style> -->
 
 <!-- Mettre aussi TitleEnterField -->
     <style name="EnterValueField">
@@ -65,5 +79,4 @@
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
 </resources>
