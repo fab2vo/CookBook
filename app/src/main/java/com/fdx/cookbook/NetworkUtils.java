@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -255,7 +256,7 @@ public class NetworkUtils {
                     url = new URL(s1);
                     r.setSource_url(url);
                 } catch (MalformedURLException e) {
-                    deBugShow("getURL from cookbook download failed in parse recipe");
+                    deBugShow("getURL from cookbook download failed in parse recipe "+e);
                 }
             }
             int nbp=obj.getInt("nb_pers");
@@ -397,8 +398,59 @@ public class NetworkUtils {
             return false;
         }
     }
+
+    public MailCard parseObjectRequest(JSONObject obj){
+        MailCard mc=new MailCard();
+        mc.setRequest();
+        String s1, s2;
+        User u;
+        Integer n;
+        try {
+            UUID uuid=UUID.fromString(obj.getString("id_recipe"));
+            mc.setIdRecipe(uuid);
+            uuid=UUID.fromString(obj.getString("id_from"));
+            s1 = obj.getString("family");
+            s2 = obj.getString("name");
+            u = new User(s1, s2);
+            u.setId(uuid);
+            mc.setUser(u);
+            s1 = obj.getString("message");
+            mc.setMessage(s1);
+            n=obj.getInt("pknum");
+            mc.setRequestId(n);
+            s1 = obj.getString("status");
+            if (s1.equals("ISSUED")) mc.setSubmitted();
+            if (s1.equals("DENIED")) mc.setRefused();
+            if (s1.equals("ACCEPTED")) mc.setAccepted();
+            return mc;
+        }
+        catch (Exception e){
+            deBugShow( "Failure in parsing JSONObject Request : "+e);
+            return null;
+        }
+    }
+
+    public Boolean test204() {
+        String PHP204 = "return204.php";
+        try {
+            URL url = new URL(mSession.getURLPath() + PHP204);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(mSession.getConnectTimeout());
+            conn.setReadTimeout(mSession.getReadTimeout());
+            conn.setRequestMethod("HEAD");
+            InputStream in = conn.getInputStream();
+            int status = conn.getResponseCode();
+            in.close();
+            conn.disconnect();
+            return (status == HttpURLConnection.HTTP_NO_CONTENT);
+        } catch (Exception e) {
+            deBugShow("Test 204 : " + e);
+            return false;
+        }
+    }
+
     private void deBugShow(String s){
-        Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
 }

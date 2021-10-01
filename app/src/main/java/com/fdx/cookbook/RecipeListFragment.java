@@ -276,6 +276,7 @@ public class RecipeListFragment extends Fragment {
                     RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
                     dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
                     dialog.show(manager, DIALOG_RATE);
+                    updateUI();
                 }
             });
             mTitleTextView.setOnClickListener(new View.OnClickListener() {

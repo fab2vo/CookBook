@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,7 +20,7 @@
         android:background="@android:color/darker_gray"
         android:cropToPadding="true"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mail_display_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,25 +30,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/P1ITTL"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/mail_display_delete"
         app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mail_display_author"
         tools:textSize="14sp" />
 
     <TextView
         android:id="@+id/mail_display_message"
         style="@style/CookBookText.Small"
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Message d'essai qui peut etre assez grand et original et s'afficher sur deux lignes "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipe_MD_title" />
 
     <TextView
@@ -57,33 +59,36 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="Fabrice de Devaux_Lion de ML "
+        android:layout_marginTop="8dp"
+        android:text="Fabrice de Devaux_Lion de ML vous demande la recette  "
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/recipe_MD_photo"
-        app:layout_constraintTop_toBottomOf="@+id/mail_display_message" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/mail_display_add"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:tint="@color/fg_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_menu_done"
+        android:tint="@color/light_green"
+        app:layout_constraintBottom_toTopOf="@+id/mail_display_message"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_menu_done" />
+        app:layout_constraintTop_toBottomOf="@+id/mail_display_author" />
 
     <ImageView
         android:id="@+id/mail_display_delete"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_recipe_delete"
         android:tint="@color/fg_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintBottom_toTopOf="@+id/mail_display_message"
+        app:layout_constraintEnd_toStartOf="@+id/mail_display_add"
+        app:layout_constraintTop_toBottomOf="@+id/mail_display_author" />
 
 </android.support.constraint.ConstraintLayout>

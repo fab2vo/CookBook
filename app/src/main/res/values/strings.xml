@@ -84,7 +84,7 @@
     <string name="DS_invit">Avez-vous aimé cette recette ?</string>
     <string name="DS_done">Fait !</string>
     <string name="DS_title">Note</string>
-    <!--Envoi par messagerie -->
+    <!--messagerie -->
     <string name="P4MU_send"> Envoyer par messagerie</string>
     <string name="P4_start"> Envoi de la recette en cours ...</string>
     <string name="P4_OK"> Recette envoyée à %1$s@%2$s </string>
@@ -93,6 +93,8 @@
     <string name="P4M_mes"> Votre message au destinataire </string>
     <string name="P4M_title"> Destinataire de la recette </string>
     <string name="P4M0"> Pas de message ! Appuyez sur retour.</string>
+    <string name="P4MES_IN"> Vous avez reçu une recette de %1$s </string>
+    <string name="P4MES_OUT"> %1$s vous demande la recette  </string>
     <!--ListMask -->
     <string name="TSON">Sélection des recettes pour l\'été</string>
     <string name="TSOFF">Sélection été annulée</string>

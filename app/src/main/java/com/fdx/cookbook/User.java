@@ -17,6 +17,12 @@ public class User {
         mDate=new Date();
     }
 
+    public User(){
+        mFamily="not found";
+        mName="not found";
+        mId =UUID.randomUUID();
+        mDate=new Date();
+    }
     public User(UUID uuid){
         mId =uuid;
         // waiting for user database
