@@ -139,15 +139,16 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
         switch (item.getItemId()){
             case R.id.new_recipe:
-                Intent intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
+                intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
                 startActivity(intent);
                 return true;
             case R.id.list_logout:
                 mSession.setReqNewSession(true);
-                Intent intent2=new Intent(getActivity().getApplicationContext(), SplashActivity.class);
-                startActivity(intent2);
+                intent=new Intent(getActivity().getApplicationContext(), SplashActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.list_sync:
                 startSync();
@@ -155,28 +156,28 @@ public class RecipeListFragment extends Fragment {
             case R.id.new_mail:
                 CookBook cookbook=CookBook.get(getActivity());
                 if (cookbook.isThereMail()) {
-                Intent intent3= RecipeMailDisplayActivity.newIntent(getActivity());
-                startActivity(intent3); } else {
-                //mMessageItem.setVisible(cookbook.isThereMail());
+                    mMessageItem.setVisible(cookbook.isThereMail());
                     mMessageItem.setShowAsAction(cookbook.isThereMail() ?
-                            MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
+                                MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
                 }
+                intent= RecipeMailDisplayActivity.newIntent(getActivity());
+                startActivity(intent);
                 return true;
             case R.id.list_filter:
                 mListMask.reset();
                 updateUI();
                 return true;
             case R.id.list_com:
-                Intent intent4= RecipeCommunityActivity.newIntent(getActivity());
-                startActivity(intent4);
+                intent= RecipeCommunityActivity.newIntent(getActivity());
+                startActivity(intent);
                 return true;
             case R.id.feedback:
-                Intent intent3 = new Intent(Intent.ACTION_SENDTO);
-                intent3.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");
-                intent3.putExtra(Intent.EXTRA_TEXT, "Your comment");
-                intent3.setData(Uri.parse("mailto:cookbookfamily.founder@gmail.com"));
-                intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent3);
+                intent = new Intent(Intent.ACTION_SENDTO);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");
+                intent.putExtra(Intent.EXTRA_TEXT, "Your comment");
+                intent.setData(Uri.parse("mailto:cookbookfamily.founder@gmail.com"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

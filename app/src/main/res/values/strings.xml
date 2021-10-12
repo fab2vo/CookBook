@@ -122,6 +122,8 @@
     <string name="P5OP"> Populaires</string>
     <string name="P5OR"> Récentes</string>
     <string name="P5ON"> Mieux notées</string>
+    <string name="P5MES"> Votre demande de recette a été acceptée </string>
+    <string name="P5MESNO"> Votre demande de recette a été refusée </string>
 
     <string-array name="recipe_season_array">
         <item>Hiver</item>

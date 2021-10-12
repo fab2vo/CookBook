@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,9 +72,9 @@ public class RecipeMailDisplayFragment extends Fragment {
         for(MailCard mc:mMailCards){
             if (mc.isSubmitted()) mailcards.add(mc);
         }
-        if (mailcards.isEmpty()){
+        /*if (mailcards.isEmpty()){
             Toast.makeText(getContext(), getString(R.string.P4M0),Toast.LENGTH_SHORT ).show();
-        }
+        }*/
         if (mAdapter==null){
             mAdapter=new RecipeMailDisplayFragment.RecipeAdapter(mailcards);
             mRecipeRecyclerView.setAdapter(mAdapter);
@@ -110,12 +111,18 @@ public class RecipeMailDisplayFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (mMailCard.isReceived()){
+                        deBugShow("Onclick del received"+mRecipe.getTitle());
                         mRecipe.setStatus(StatusRecipe.Deleted);
                         CookBook cookbook=CookBook.get(getActivity());
                         cookbook.updateRecipe(mRecipe);
                         mMailCard.setRefused();
-                        deBugShow("Received "+mRecipe.getTitle()+" refused");
                         updateUI();
+                    }
+                    if (mMailCard.isRequest()){
+                        deBugShow("Onclick del request :"+mMailCard.getRequestId());
+                        mMailCard.setMessage(getString(R.string.P5MESNO));
+                        updateRequest uR=new updateRequest();
+                        uR.execute(mMailCard.getRequestId(),1);
                     }
                 }
             });
@@ -123,12 +130,19 @@ public class RecipeMailDisplayFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (mMailCard.isReceived()){
+                        deBugShow("Onclick add received"+mRecipe.getTitle());
                         mRecipe.setStatus(StatusRecipe.Visible);
                         CookBook cookbook=CookBook.get(getActivity());
                         cookbook.updateRecipe(mRecipe);
                         mMailCard.setAccepted();
-                        deBugShow("Received "+mRecipe.getTitle()+" accepted");
                         updateUI();
+                    }
+                    if (mMailCard.isRequest()){
+                        deBugShow("Onclick add request : "+mMailCard.getRequestId());
+                        mMailCard.setMessage(getString(R.string.P5MES));
+                        mMailCard.setAccepted();
+                        updateRequest uR=new updateRequest();
+                        uR.execute(mMailCard.getRequestId(),0);
                     }
                 }
             });
@@ -235,6 +249,73 @@ public class RecipeMailDisplayFragment extends Fragment {
             }
             return true;
         }
+    }
+
+    /******************************************************************************************
+     *                            ASYNC                                                        *
+     *******************************************************************************************/
+
+    class updateRequest extends AsyncTask<Integer, Integer, Integer[]> {
+        private static final String PHPAORD = "acceptorrefuserequest.php";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            deBugShow("Debut accept or deny" );
+        }
+
+        @Override
+        protected void onPostExecute(Integer[] result) {
+            super.onPostExecute(result);
+            String status=(result[1]==0 ? "ACCEPTED":"DENIED");
+            if (result[2]==1) {
+                //Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
+                deBugShow("Succes card  "+ result[0]+" in operation "+status);
+                updateUI();
+            }
+            else {
+                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
+                deBugShow("Echec card  "+ result[0]+" in operation "+status);
+            }
+        }
+
+        @Override
+        protected Integer[] doInBackground(Integer ... integers) {
+            Integer pknum=integers[0];
+            Integer j=integers[1];
+            String status=(j==0 ? "ACCEPTED":"DENIED");
+            Integer[] result={pknum,j,0};
+            deBugShow("Start request pknum "+ pknum+" in operation "+status);
+            MailCard mc=findMailCard(pknum);
+            if (mc==null) {deBugShow("Request "+pknum+" not found"); return result;}
+            NetworkUtils netutil=new NetworkUtils(getContext());
+            if (!netutil.test204()) {deBugShow(" request => 204!"); return result;}
+            HashMap<String, String> data = new HashMap<>();
+            DecimalFormat formatter = new DecimalFormat("######");
+            data.put("pknum", formatter.format( pknum));
+            data.put("status", status);
+            data.put("iduser", mSession.getUser().getId().toString());
+            data.put("message", mc.getMessage());
+            String json = netutil.sendPostRequestJson(mSession.getURLPath() + PHPAORD, data);
+            if (json.equals("1")){
+                if (mMailCards.indexOf(mc)==-1){
+                    deBugShow("Can't find the card to be deleted");
+                    return result;
+                }
+                mMailCards.remove(mMailCards.indexOf(mc));
+                result[2]=1;
+            } else {
+                deBugShow("Request "+pknum+" to accept or deny did not work");
+                return result;}
+            return result;
+        }
+    }
+
+    private MailCard findMailCard(Integer i){
+        for(MailCard m:mMailCards){
+            if (m.getRequestId()==i) return m;
+        }
+        return null;
     }
 
     private void deBugShow(String s){
