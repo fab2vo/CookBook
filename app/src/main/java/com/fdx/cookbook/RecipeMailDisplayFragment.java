@@ -207,19 +207,18 @@ public class RecipeMailDisplayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getActivity(),"Debut sync ", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
             if (b) {
-                Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
                 //deBugShow("Nombre de cards post async: "+mMailCards.size());
                 updateUI();
             }
             else {
-                Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -261,7 +260,6 @@ public class RecipeMailDisplayFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            deBugShow("Debut accept or deny" );
         }
 
         @Override
@@ -270,12 +268,12 @@ public class RecipeMailDisplayFragment extends Fragment {
             String status=(result[1]==0 ? "ACCEPTED":"DENIED");
             if (result[2]==1) {
                 //Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
-                deBugShow("Succes card  "+ result[0]+" in operation "+status);
+                deBugShow("Succes mailcard  "+ result[0]+" is "+status);
                 updateUI();
             }
             else {
                 //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
-                deBugShow("Echec card  "+ result[0]+" in operation "+status);
+                deBugShow("Echec mailcard  "+ result[0]+" could not be "+status);
             }
         }
 
@@ -285,7 +283,6 @@ public class RecipeMailDisplayFragment extends Fragment {
             Integer j=integers[1];
             String status=(j==0 ? "ACCEPTED":"DENIED");
             Integer[] result={pknum,j,0};
-            deBugShow("Start request pknum "+ pknum+" in operation "+status);
             MailCard mc=findMailCard(pknum);
             if (mc==null) {deBugShow("Request "+pknum+" not found"); return result;}
             NetworkUtils netutil=new NetworkUtils(getContext());

@@ -1,10 +1,12 @@
 package com.fdx.cookbook;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -15,7 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class RecipeCommunityFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
@@ -40,6 +45,7 @@ public class RecipeCommunityFragment extends Fragment {
     private CookBooksShort mCookbookShort;
     private getShortRecipesFromCommunity getAsyncShorties;
     private static final String TAG = "CB_ComFrag";
+    private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
 
     public static RecipeCommunityFragment newInstance() {
         RecipeCommunityFragment fragment=new RecipeCommunityFragment();
@@ -146,7 +152,42 @@ public class RecipeCommunityFragment extends Fragment {
             mPhotoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    LinearLayout layout = new LinearLayout(getContext());
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    final TextView requestRecipeBox = new TextView(getContext());
+                    requestRecipeBox.setText("   "+getString(R.string.P5DT, mRecipe.getTitle()));
+                    layout.addView(requestRecipeBox);
+                    final TextView toRecipeBox = new TextView(getContext());
+                    toRecipeBox.setText("   "+getString(R.string.P5DN, mRecipe.getOwner().getNameComplete()));
+                    layout.addView(toRecipeBox);
+                    final EditText messageBox = new EditText(getContext());
+                    messageBox.setHint(getString(R.string.P5DM));
+                    layout.addView(messageBox);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle(getString(R.string.P5DTT));
+                    builder.setView(layout);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String id=mRecipe.getId().toString();
+                            String mToMessage = messageBox.getText().toString();
+                            Boolean b=(Pattern.matches(REGEX_FAMILY,mToMessage));
+                            if (b) {
+                                sendRequest sendrequest = new sendRequest();
+                                sendrequest.execute(id,mToMessage);
+                                deBugShow("Launch request :"+mToMessage+" / "+id);
+                            } else {
+                                Toast.makeText(getActivity(),getString(R.string.P5DMErr), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
                 }
             });
 
@@ -306,6 +347,70 @@ public class RecipeCommunityFragment extends Fragment {
         }
 
     }
+
+    /******************************************************************************************
+     *                            ASYNC                                                        *
+     *******************************************************************************************/
+
+
+    class sendRequest extends AsyncTask<String, Void, Boolean> {
+        private static final String PHP204 = "return204.php";
+        private static final String PHPREQ = "newrequest.php";
+        private String mTo;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean b) {
+            super.onPostExecute(b);
+            if (b) {
+                Toast.makeText(getActivity(), getString(R.string.P5DMOk), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(getActivity(), getString(R.string.P4_fail), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            NetworkUtils mNetUtils = new NetworkUtils(getContext());
+            if (!test204()) {
+                return false;
+            }
+            String message= strings[1];
+            String recipeid=strings[0];
+            String idfrom=mSession.getUser().getId().toString();
+            HashMap<String, String> data = new HashMap<>();
+            data.put("idrecipe", recipeid);
+            data.put("idfrom", idfrom);
+            data.put("message", message);
+            String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPREQ, data);
+            if (result.equals("1")) return true;
+            return false;
+        }
+
+        private Boolean test204() {
+            try {
+                URL url = new URL(mSession.getURLPath() + PHP204);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(mSession.getConnectTimeout());
+                conn.setReadTimeout(mSession.getReadTimeout());
+                conn.setRequestMethod("HEAD");
+                InputStream in = conn.getInputStream();
+                int status = conn.getResponseCode();
+                in.close();
+                conn.disconnect();
+                return (status == HttpURLConnection.HTTP_NO_CONTENT);
+            } catch (Exception e) {
+                deBugShow("Test 204 : " + e);
+                return false;
+            }
+        }
+
+    }
+
     private void deBugShow(String s){
         Log.d(TAG, s);
     }

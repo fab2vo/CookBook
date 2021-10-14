@@ -124,7 +124,12 @@
     <string name="P5ON"> Mieux notées</string>
     <string name="P5MES"> Votre demande de recette a été acceptée </string>
     <string name="P5MESNO"> Votre demande de recette a été refusée </string>
-
+    <string name="P5DTT">Votre demande </string>
+    <string name="P5DT"> La recette : %1$s </string>
+    <string name="P5DN"> A : %1$s </string>
+    <string name="P5DM"> Votre message </string>
+    <string name="P5DMErr"> Erreur dans votre message </string>
+    <string name="P5DMOk"> Demande envoyée </string>
     <string-array name="recipe_season_array">
         <item>Hiver</item>
         <item>Ete</item>
