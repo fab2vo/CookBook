@@ -151,12 +151,12 @@ public class RecipeMailDisplayFragment extends Fragment {
         public void bind(MailCard mc){
             mMailCard=mc;
             CookBook cookbook=CookBook.get(getActivity());
-            mRecipe=cookbook.getRecipe(mc.getRecipeId());
-            mTitleTextView.setText(mRecipe.getTitle());
+            mTitleTextView.setText(mc.getTitle());
             mMessage.setText(mc.getMessage());
             if (mc.isReceived()) mFrom.setText(getString(R.string.P4MES_IN,mc.getUser().getNameComplete()));
             if (mc.isRequest()) mFrom.setText(getString(R.string.P4MES_OUT,mc.getUser().getNameComplete()));
-            mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
+            mRecipe=cookbook.getRecipe(mc.getRecipeId());
+            if (mRecipe!=null) mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
             if (mPhotoFile==null || !mPhotoFile.exists()){
                 mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_see));
             } else {

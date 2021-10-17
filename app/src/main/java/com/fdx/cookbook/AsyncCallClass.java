@@ -41,6 +41,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private static final String PHPGETRECIPEFROMCB = "getrecipefromcb.php";
     private static final String PHPGETRECIPEFROMCBWITHPHOTO = "getrecipefromcbwithphoto.php";
     private static final String PHPACCEPTRECIPE = "acceptrecipe.php";
+    private static final String PHPCHECKREQUESTS = "checkrequests.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     private static Context mContext;
     private SessionInfo mSession;
@@ -109,6 +110,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                 }
             }
         }
+        mSession.setIsRecipeRequest(checkRecipeRequest());
         return isChanged;
     }
 
@@ -471,5 +473,14 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             deBugShow( "Retour de "+ PHPACCEPTRECIPE+" = "+result);
             return false;}
         return true;
+    }
+
+    private Boolean checkRecipeRequest(){
+        String iduser=mSession.getUser().getId().toString().trim();
+        if ((iduser==null)||(iduser.equals(""))) return false;
+        HashMap<String,String> data = new HashMap<>();
+        data.put("iduser", iduser);
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPCHECKREQUESTS,data);
+        return result.equals("1");
     }
 }

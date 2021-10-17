@@ -12,6 +12,7 @@ public class SessionInfo {
     private Context mContext;
     private Boolean mIsConnected;
     private Boolean mReqNewSession;
+    private Boolean mIsRecipeRequest;
     private String CB_FAMILY="family";
     private String CB_NAME="name";
     private String CB_ID="iduser";
@@ -33,6 +34,7 @@ public class SessionInfo {
         mContext=context.getApplicationContext();
         mIsConnected=false;
         mReqNewSession=false;
+        mIsRecipeRequest=false;
         mMaskSerialized="";
         String sharedPref;
         sharedPref= PreferenceManager.getDefaultSharedPreferences(context)
@@ -95,5 +97,6 @@ public class SessionInfo {
     public int getReadTimeout(){return READ_TIMEOUT;}
     public String getListMask(){return mMaskSerialized;}
     public void setListMask(String s){mMaskSerialized=s;}
-
+    public Boolean IsRecipeRequest(){return mIsRecipeRequest;}
+    public void setIsRecipeRequest(Boolean b){mIsRecipeRequest=b;}
 }

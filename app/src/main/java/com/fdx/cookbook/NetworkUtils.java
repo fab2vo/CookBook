@@ -418,6 +418,8 @@ public class NetworkUtils {
             mc.setMessage(s1);
             n=obj.getInt("pknum");
             mc.setRequestId(n);
+            s1 = obj.getString("title");
+            mc.setTitle(s1);
             s1 = obj.getString("status");
             if (s1.equals("ISSUED")) mc.setSubmitted();
             if (s1.equals("DENIED")) mc.setRefused();

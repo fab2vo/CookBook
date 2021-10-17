@@ -112,7 +112,7 @@ public class RecipeListFragment extends Fragment {
         inflater.inflate(R.menu.fragment_recipe_list, menu);
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
-        mMessageItem.setShowAsAction(cookbook.isThereMail() ?
+        mMessageItem.setShowAsAction(((cookbook.isThereMail())||(mSession.IsRecipeRequest())) ?
                 MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
         MenuCompat.setGroupDividerEnabled(menu, true);
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
@@ -155,10 +155,10 @@ public class RecipeListFragment extends Fragment {
                 return true;
             case R.id.new_mail:
                 CookBook cookbook=CookBook.get(getActivity());
-                if (cookbook.isThereMail()) {
-                    mMessageItem.setVisible(cookbook.isThereMail());
-                    mMessageItem.setShowAsAction(cookbook.isThereMail() ?
-                                MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
+                Boolean thereismail=(cookbook.isThereMail())||(mSession.IsRecipeRequest());
+                if (thereismail) {
+                    mMessageItem.setVisible(true);
+                    mMessageItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                 }
                 intent= RecipeMailDisplayActivity.newIntent(getActivity());
                 startActivity(intent);

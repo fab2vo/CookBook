@@ -69,6 +69,10 @@ public class MailCard {
         return mTitle;
     }
 
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
     public String getMessage() {
         return mMessage;
     }
