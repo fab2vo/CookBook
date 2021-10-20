@@ -68,9 +68,8 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
+        if (resultCode != Activity.RESULT_OK) return;
+        else updateUI();
     }
 
     @Override
@@ -277,7 +276,6 @@ public class RecipeListFragment extends Fragment {
                     RatePickerFragment dialog = RatePickerFragment.newInstance(mRecipe.getId());
                     dialog.setTargetFragment(RecipeListFragment.this, REQUEST_RATE);
                     dialog.show(manager, DIALOG_RATE);
-                    updateUI();
                 }
             });
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
