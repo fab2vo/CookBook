@@ -356,7 +356,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         return b;
     }
     private Boolean syncTiersRecipe(User user) {
-        //mCookbook.deBugShowCB();
         boolean ret=false;
         HashMap<String, String> data = new HashMap<>();
         data.put("iduser", user.getId().toString());
@@ -367,9 +366,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         boolean withphoto=false,update=false;
         Recipe rloc, rnew;
         for(Recipe r:tiersRecipe) {
-            //deBugShow("Stamp :"+r.getId().toString());
             rloc=mCookbook.getRecipe(r.getId());
-            //deBugShow("Loop on tiers recipe => "+rloc.getTitle()+"  "+rloc.getId().toString());
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
                 if (rnew==null) {

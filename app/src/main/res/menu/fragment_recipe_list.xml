@@ -23,7 +23,7 @@
         app:showAsAction="ifRoom|withText"
         />
 
-<group android:id="@+id/add_to_menu_list">
+<group android:id="@+id/add_to_menu_list" >
         <item
             android:id="@+id/list_sync"
             android:icon="@drawable/ic_logout"

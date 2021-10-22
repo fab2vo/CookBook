@@ -45,7 +45,7 @@ public class RecipeCommunityFragment extends Fragment {
     private CookBooksShort mCookbookShort;
     private getShortRecipesFromCommunity getAsyncShorties;
     private static final String TAG = "CB_ComFrag";
-    private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
+    private static final String REGEX_FAMILY="[\\p{Punct}\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
 
     public static RecipeCommunityFragment newInstance() {
         RecipeCommunityFragment fragment=new RecipeCommunityFragment();
@@ -108,7 +108,7 @@ public class RecipeCommunityFragment extends Fragment {
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((RecipeCommunityActivity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int ncol = (Integer) displayMetrics.widthPixels/350;
+        int ncol = (Integer) displayMetrics.widthPixels/300;
         if (ncol<3) ncol=3;
         mRecipeRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),ncol));
         updateUI();
@@ -134,7 +134,7 @@ public class RecipeCommunityFragment extends Fragment {
             implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mName;
-        //private TextView mFamily;
+        private TextView mFamily;
         private ImageView mPhotoView;
         private Recipe mRecipe;
 
@@ -143,7 +143,7 @@ public class RecipeCommunityFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView= (TextView) itemView.findViewById(R.id.com_title);
             mName=(TextView) itemView.findViewById(R.id.com_name);
-            //mFamily=(TextView) itemView.findViewById(R.id.com_family);
+            mFamily=(TextView) itemView.findViewById(R.id.com_family);
             mPhotoView=(ImageView) itemView.findViewById(R.id.com_photo);
             mPhotoView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,8 +191,8 @@ public class RecipeCommunityFragment extends Fragment {
         public void bind(Recipe recipe){
             mRecipe=recipe;
             mTitleTextView.setText(mRecipe.getTitle());
-            mName.setText(mRecipe.getOwner().getNameComplete());
-            //mFamily.setText("@"+mRecipe.getOwner().getFamily());
+            mName.setText(mRecipe.getOwner().getName());
+            mFamily.setText("@"+mRecipe.getOwner().getFamily());
             Bitmap bm=mRecipe.getImage();
             if (bm!=null) mPhotoView.setImageBitmap(bm);
             else mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_recipe_see));

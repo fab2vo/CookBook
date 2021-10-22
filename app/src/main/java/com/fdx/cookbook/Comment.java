@@ -59,11 +59,4 @@ public class Comment {
         b=b && (mUser.equals(c.getUser()));
         return b;
     }
-
-    public String convert(){
-        String s1=">"+mTxt+"< (";
-        s1=s1 + mDate.toString()+") de ";
-        s1=s1+mUser.getNameComplete();
-        return s1;
-    }
 }

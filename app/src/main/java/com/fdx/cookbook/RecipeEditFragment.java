@@ -210,7 +210,7 @@ public class RecipeEditFragment extends Fragment {
                         URL url=new URL(s.toString());
                         mRecipe.setSource_url(url);
                     } catch (MalformedURLException e) {
-                        //fdx Log(TAG, "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
+                        deBug( "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
                     }
                 }
             }

@@ -51,15 +51,6 @@ public class MailCard {
         mIsReceived=false;
     }
 
-    public Boolean isAccepted() {
-        return mStatus==ACCEPTED;
-    }
-    public Boolean isRefused() {
-        return mStatus==REFUSED;
-    }
-    public Boolean isActive() {
-        return ((mStatus==0)||(mStatus==SUBMITTED));
-    }
     public UUID getRecipeId(){return mIdRecipe;}
     public void setIdRecipe(UUID idRecipe) {
         mIdRecipe = idRecipe;

@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/com_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -47,13 +47,11 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="0dp"
         android:text="@string/P5N"
-        app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/com_title" />
-    <!--        app:layout_constraintBottom_toBottomOf="@+id/com_family" -->
-<!--
+        app:layout_constraintTop_toBottomOf="@+id/com_title"
+        app:layout_constraintBottom_toBottomOf="@+id/com_family" />
+
         <TextView
             android:id="@+id/com_family"
             style="@style/CookBookText.UltraSmall"
@@ -67,5 +65,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/com_name" />
-    -->
+
 </android.support.constraint.ConstraintLayout>

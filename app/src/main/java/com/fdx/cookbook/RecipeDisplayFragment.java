@@ -394,7 +394,6 @@ public class RecipeDisplayFragment extends Fragment {
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPSENDMAIL, data);
             if (result==null) return false;
             if (!result.trim().equals("1")) {
-                //fdx Log(TAG, "Retour de "+PHPSENDMAIL+" =>"+result+"<");
                 return false;}
             return true;
         }
@@ -412,7 +411,6 @@ public class RecipeDisplayFragment extends Fragment {
                 conn.disconnect();
                 return (status == HttpURLConnection.HTTP_NO_CONTENT);
             } catch (Exception e) {
-                //fdx Log(TAG, "Test 204 : " + e);
                 return false;
             }
         }

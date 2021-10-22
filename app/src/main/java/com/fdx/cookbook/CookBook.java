@@ -177,14 +177,4 @@ public class CookBook {
         }
         return false;
     }
-
-    public void deBugShowCB(){
-        List<Recipe> recipes=this.getRecipes();
-        String s="";
-        //Log.d(TAG, "Local database -------------------------");
-        for (Recipe r:recipes){
-            s=r.getTitle()+" / " + r.getStatus().toString()+" :"+r.getDate()+" and photo :"+r.getDatePhoto().toString();
-            //Log.d(TAG, s);
-        }
-    }
 }
