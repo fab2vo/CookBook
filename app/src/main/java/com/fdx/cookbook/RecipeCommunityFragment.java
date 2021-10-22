@@ -117,14 +117,10 @@ public class RecipeCommunityFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        //if (mCookbookShort.isDownloading()) getAsyncShorties.cancel(true);
     }
 
     private void updateUI() {
         List<Recipe> recipes=mCookbookShort.getRecipes();
-        /*if (recipes.isEmpty()){
-            Toast.makeText(getContext(), "Vide !!!",Toast.LENGTH_LONG ).show();
-        }*/
         if (mAdapter==null){
             mAdapter=new RecipeCommunityFragment.RecipeAdapter(recipes);
             mRecipeRecyclerView.setAdapter(mAdapter);
@@ -248,19 +244,12 @@ public class RecipeCommunityFragment extends Fragment {
             super.onPreExecute();
             mCookbookShort.getDLStarted();
             mSelectType=mCookbookShort.getSelectType();
-            //Toast.makeText(getActivity(),"Debut : "+mSelectType, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
             mCookbookShort.setDLCompleted();
-            if (b) {
-                //Toast.makeText(getActivity(), "Succès de "+mSelectType, Toast.LENGTH_LONG).show();
-            }
-            else {
-                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
-            }
         }
 
         @Override
@@ -412,7 +401,7 @@ public class RecipeCommunityFragment extends Fragment {
     }
 
     private void deBugShow(String s){
-        Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
 }

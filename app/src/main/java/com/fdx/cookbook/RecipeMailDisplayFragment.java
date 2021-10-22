@@ -46,7 +46,6 @@ public class RecipeMailDisplayFragment extends Fragment {
         for (Recipe r:recipes){
             if (r.IsMessage()) mMailCards.add(new MailCard(r));
         }
-        //deBugShow("Nombre de cards : "+mMailCards.size());
         getRequests gR=new getRequests();
         gR.execute(0);
     }
@@ -72,9 +71,10 @@ public class RecipeMailDisplayFragment extends Fragment {
         for(MailCard mc:mMailCards){
             if (mc.isSubmitted()) mailcards.add(mc);
         }
-        /*if (mailcards.isEmpty()){
-            Toast.makeText(getContext(), getString(R.string.P4M0),Toast.LENGTH_SHORT ).show();
-        }*/
+        if (mailcards.isEmpty()){
+            mSession.setIsRecipeRequest(false);
+            //Toast.makeText(getContext(), getString(R.string.P4M0),Toast.LENGTH_SHORT ).show();
+        }
         if (mAdapter==null){
             mAdapter=new RecipeMailDisplayFragment.RecipeAdapter(mailcards);
             mRecipeRecyclerView.setAdapter(mAdapter);
@@ -135,6 +135,7 @@ public class RecipeMailDisplayFragment extends Fragment {
                         CookBook cookbook=CookBook.get(getActivity());
                         cookbook.updateRecipe(mRecipe);
                         mMailCard.setAccepted();
+                        mSession.setIsRecipeRequest(false);
                         updateUI();
                     }
                     if (mMailCard.isRequest()){
@@ -148,6 +149,7 @@ public class RecipeMailDisplayFragment extends Fragment {
             });
 
         }
+
         public void bind(MailCard mc){
             mMailCard=mc;
             CookBook cookbook=CookBook.get(getActivity());
@@ -213,12 +215,7 @@ public class RecipeMailDisplayFragment extends Fragment {
         protected void onPostExecute(Boolean b) {
             super.onPostExecute(b);
             if (b) {
-                //Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
-                //deBugShow("Nombre de cards post async: "+mMailCards.size());
                 updateUI();
-            }
-            else {
-                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -267,12 +264,10 @@ public class RecipeMailDisplayFragment extends Fragment {
             super.onPostExecute(result);
             String status=(result[1]==0 ? "ACCEPTED":"DENIED");
             if (result[2]==1) {
-                //Toast.makeText(getActivity(), "Succès  ", Toast.LENGTH_LONG).show();
                 deBugShow("Succes mailcard  "+ result[0]+" is "+status);
                 updateUI();
             }
             else {
-                //Toast.makeText(getActivity(), "Echec", Toast.LENGTH_LONG).show();
                 deBugShow("Echec mailcard  "+ result[0]+" could not be "+status);
             }
         }
@@ -316,7 +311,7 @@ public class RecipeMailDisplayFragment extends Fragment {
     }
 
     private void deBugShow(String s){
-        Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
 }

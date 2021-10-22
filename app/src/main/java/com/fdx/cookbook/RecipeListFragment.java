@@ -69,7 +69,9 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
-        else updateUI();
+        else {
+            startSync();
+            updateUI();}
     }
 
     @Override
@@ -111,9 +113,10 @@ public class RecipeListFragment extends Fragment {
         inflater.inflate(R.menu.fragment_recipe_list, menu);
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
-        mMessageItem.setShowAsAction(((cookbook.isThereMail())||(mSession.IsRecipeRequest())) ?
-                MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
-        MenuCompat.setGroupDividerEnabled(menu, true);
+        Boolean b=((cookbook.isThereMail())||(mSession.IsRecipeRequest()));
+        mMessageItem.setVisible(b);
+        mMessageItem.setShowAsAction(b ? MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
+        //MenuCompat.setGroupDividerEnabled(menu, true);
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -155,12 +158,13 @@ public class RecipeListFragment extends Fragment {
             case R.id.new_mail:
                 CookBook cookbook=CookBook.get(getActivity());
                 Boolean thereismail=(cookbook.isThereMail())||(mSession.IsRecipeRequest());
-                if (thereismail) {
-                    mMessageItem.setVisible(true);
-                    mMessageItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                if (!thereismail) {
+                    mMessageItem.setVisible(false);
+                    mMessageItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                } else {
+                    intent= RecipeMailDisplayActivity.newIntent(getActivity());
+                    startActivity(intent);
                 }
-                intent= RecipeMailDisplayActivity.newIntent(getActivity());
-                startActivity(intent);
                 return true;
             case R.id.list_filter:
                 mListMask.reset();
