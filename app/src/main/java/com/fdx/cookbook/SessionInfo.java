@@ -18,6 +18,7 @@ public class SessionInfo {
     private String CB_ID="iduser";
     private String NOT_FOUND="Not found";
     private String mMaskSerialized;
+    private String mDevice;
     private static final String TAG = "DebugSessionInfo";
     private static String URLPATH="http://82.66.37.73:8085/cb/";
     public static int CONNECT_TIMEOUT = 10000;
@@ -36,6 +37,8 @@ public class SessionInfo {
         mReqNewSession=false;
         mIsRecipeRequest=false;
         mMaskSerialized="";
+        mDevice="Device " + android.os.Build.DEVICE+ " model "
+                +android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
         String sharedPref;
         sharedPref= PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(CB_ID, NOT_FOUND);
@@ -99,4 +102,8 @@ public class SessionInfo {
     public void setListMask(String s){mMaskSerialized=s;}
     public Boolean IsRecipeRequest(){return mIsRecipeRequest;}
     public void setIsRecipeRequest(Boolean b){mIsRecipeRequest=b;}
+
+    public String getDevice() {
+        return mDevice;
+    }
 }

@@ -1,20 +1,25 @@
 package com.fdx.cookbook;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +60,8 @@ public class SplashActivity extends AppCompatActivity {
     private User mUser;
     private TestConnection tc;
     private int mState;
-    private static final String TAG = "CB_SplashActivity";
+    private AlertDialog.Builder mBuilder;
+    private static final String TAG = "CB_Splash";
     private final static int NEW_FAMILY=1;
     private final static int NEW_MEMBER=2;
     private final static int NEW_SESSION=3;
@@ -84,6 +90,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        mBuilder=new AlertDialog.Builder(this);
         mNetUtils=new NetworkUtils(getApplicationContext());
         memberFamily=new ArrayList<>();
         mRecipes=new ArrayList<>();
@@ -206,8 +213,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(testConnectStatus()){
                     mState=NEW_MEMBER;
-                    updateDisplayOnAsync(true);
-                    goAsyncTasks();
+                    confirmNewUser();
                 } else {
                 tc.testGo();}
             }
@@ -217,12 +223,37 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(testConnectStatus()){
                     mState=NEW_FAMILY;
-                    updateDisplayOnAsync(true);
-                    goAsyncTasks();
+                    confirmNewUser();
                 } else {
                 tc.testGo(); }
             }
         });
+    }
+
+    private void confirmNewUser(){
+        Context context=getApplicationContext();
+        String name=mMemberEntered+"@"+mFamilyEntered;
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        final TextView message = new TextView(context);
+        message.setText("   "+getString(mState==NEW_FAMILY ? R.string.P0COF:R.string.P0COM,name));
+        layout.addView(message);
+        mBuilder.setTitle(R.string.P0COT);
+        mBuilder.setView(layout);
+        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateDisplayOnAsync(true);
+                goAsyncTasks();
+            }
+        });
+        mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        mBuilder.show();
     }
 
     public void ShowHidePass(View view){
@@ -338,6 +369,7 @@ public class SplashActivity extends AppCompatActivity {
                 mProgressBar.setProgress(5);
                 Integer cas=goFamilyGet();
                 if (cas==0) { return false;}
+                deBugShow("Cas :"+cas);
                 if ((cas==NEW_FAMILY)||(cas==NEW_MEMBER)){
                     if (createMember(cas)){
                         mProgressBar.setProgress(10);
@@ -349,18 +381,18 @@ public class SplashActivity extends AppCompatActivity {
                 cb.clearCookBook();
                 s=downloadCB();
                 if (s==null){
-                    //fdx Log(TAG, "download cookbook failed");
+                    deBugShow( "download cookbook failed");
                     return false;
                 }
                 mProgressBar.setProgress(50);
                 mRecipes=parseJsonCB(s);
                 if (!downloadNotesAndParse()){
-                    //fdx Log(TAG, "Failure in reading and parsing Notes");
+                    deBugShow("Failure in reading and parsing Notes");
                     return false;
                 }
                 mProgressBar.setProgress(70);
                 if (!downloadCommentsAndParse()){
-                    //fdx Log(TAG, "Failure in reading and parsing Comments");
+                    deBugShow( "Failure in reading and parsing Comments");
                     return false;
                 }
                 mProgressBar.setProgress(70);
@@ -388,22 +420,35 @@ public class SplashActivity extends AppCompatActivity {
             if (flag==NEW_FAMILY) {
                 link=link+PHPREQNEWFAMILY;
             } else {
-                //fdx Log(TAG, "Function createmember flag bad value");
+                deBugShow( "Function createmember flag bad value");
                 return false;
             }
         }
+        deBugShow("URL to create member :"+link);
         HashMap<String,String> data = new HashMap<>();
+        if ((mFamilyEntered==null)||(mMemberEntered==null)||
+                (mPwdEntered==null)) {
+            deBugShow( "Anomalie, un element nul");
+            return false;
+        }
+        if ((mFamilyEntered.trim().equals(""))||(mMemberEntered.trim().equals(""))||
+                (mPwdEntered.trim().equals(""))) {
+            deBugShow( "Anomalie, un element vide");
+            return false;
+        }
         data.put("family", mFamilyEntered.trim());
         data.put("pwd", mPwdEntered.trim());
         data.put("name", mMemberEntered.trim());
         mUser=new User(mFamilyEntered.trim(),mMemberEntered.trim());
         data.put("iduser", mUser.getId().toString().trim());
+        data.put("device", mSession.getDevice());
+        deBugShow(mSession.getDevice());
         String result = mNetUtils.sendPostRequestJson(link,data);
         if (result.trim().equals("1")) {
-            //fdx Log(TAG, "Function createmember succeed");
+            deBugShow("Function createmember succeed");
             return true;
         } else {
-            //fdx Log(TAG, "Function createmember failed");
+            deBugShow("Function createmember failed");
             return false;
         }
     }
@@ -436,7 +481,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e){
-                //fdx Log(TAG, "Failure in parsing JSON Notes "+e);
+                deBugShow("Failure in parsing JSON Notes "+e);
                 return false;
             }
         return true;
@@ -464,7 +509,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e){
-            //fdx Log(TAG, "Failure in parsing JSON Array Comments "+e);
+            deBugShow("Failure in parsing JSON Array Comments "+e);
             return false;
         }
         return true;
@@ -493,7 +538,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
         catch (Exception e){
-            //fdx Log(TAG, "Failure in parsing JSON FamilyGet" +e);
+            deBugShow("Failure in parsing JSON FamilyGet" +e);
         }
         return ret;
     }
@@ -508,7 +553,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (mNetUtils.parseObjectRecipe(r,obj, true, true)) result.add(r);
             }
         } catch (Exception e) {
-            //fdx Log(TAG, " Error parsing CB" + e);
+            deBugShow( " Error parsing CB" + e);
         }
         return result;
     }
@@ -577,9 +622,12 @@ public class SplashActivity extends AppCompatActivity {
                 break;
             }
             default : {
-                //fdx Log(TAG, "Switch case on mState anomaly : "+mState);
+                deBugShow( "Switch case on mState anomaly : "+mState);
             }
         }
         return 0;
+    }
+    private void deBugShow(String s){
+        //Log.d(TAG, s);
     }
 }

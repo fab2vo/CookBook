@@ -90,6 +90,7 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        startSync();
         String mask=mSession.getListMask();
         if ((!mask.equals(""))&&(mask!=null)) mListMask.updateFromString(mask);
         updateUI();

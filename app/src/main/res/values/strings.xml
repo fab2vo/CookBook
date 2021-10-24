@@ -26,6 +26,9 @@
     <string name="P0OKP"> Ouvrons ce livre de cuisine, %1$s !  </string>
     <string name="P0OK_done"> Votre nouveau livre de cuisine est ouvert !  </string>
     <string name="P0OKM"> Bienvenue dans votre nouveau livre de cuisine ! </string>
+    <string name="P0COT"> Confirmation </string>
+    <string name="P0COF"> Creation de la famille %1$s </string>
+    <string name="P0COM"> Creation d\'un nouveau membre de la famille %1$s </string>
     <!-- List -->
     <string name="P1ITTL">Nom de la recette</string>
     <string name="P1ITSRCL">Source ou auteur</string>
