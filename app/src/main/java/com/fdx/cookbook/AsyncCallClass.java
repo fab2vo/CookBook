@@ -370,7 +370,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
                 if (rnew==null) {
-                    deBugShow( "Erreur ds download de recette "+ rnew.getTitle());
+                    deBugShow( "Failure in down loading recipe Id "+ r.getId());
                     ret=false;
                 } else {
                     mCookbook.addRecipe(rnew);

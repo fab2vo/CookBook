@@ -350,6 +350,7 @@ public class SplashActivity extends AppCompatActivity {
                     CookBooksShort cbshort=CookBooksShort.get(getApplicationContext());
                     cbshort.clearCompletely();
                     mSession.setStoredUser(mUser);
+                    mSession.setListMask("");
                     Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
                     startActivity(intent);
                     finish();
@@ -442,7 +443,6 @@ public class SplashActivity extends AppCompatActivity {
         mUser=new User(mFamilyEntered.trim(),mMemberEntered.trim());
         data.put("iduser", mUser.getId().toString().trim());
         data.put("device", mSession.getDevice());
-        deBugShow(mSession.getDevice());
         String result = mNetUtils.sendPostRequestJson(link,data);
         if (result.trim().equals("1")) {
             deBugShow("Function createmember succeed");
