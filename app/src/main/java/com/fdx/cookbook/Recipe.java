@@ -397,21 +397,25 @@ public class Recipe {
     }
 
     public boolean containQuery(String s){ //for search request
-        if (mTitle.indexOf(s)!=-1) return true;
-        if (mOwner.getFamily().toString().indexOf(s)!=-1) return true;
+        if (sc(mTitle, s)) return true;
+        if (sc(mOwner.getFamily().toString(), s)) return true;
         for(String sloop:mIngredients){
             if (sloop==null) break;
-            if (sloop.indexOf(s)!=-1) return true;
+            if (sc(sloop, s)) return true;
         }
         for(String sloop:mSteps){
             if (sloop==null) break;
-            if (sloop.indexOf(s)!=-1) return true;
+            if (sc(sloop, s)) return true;
         }
         for(Comment c:mComments){
             if (c==null) break;
-            if (c.getTxt().indexOf(s)!=-1) return true;
+            if (sc(c.getTxt(),s)) return true;
         }
         return false;
+    }
+
+    private boolean sc(String s1, String s2){
+        return s1.toLowerCase().contains(s2.toLowerCase());
     }
 
     public boolean isTheSame(Recipe rtotest){
