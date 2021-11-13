@@ -49,7 +49,7 @@ public class RecipeEditFragment extends Fragment {
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
     private static final String PUNCT="#-_!?.,:()&$£€%*+0-9"; //javaLowercase : A-Za-ÿ Upper et Lower [A-Za-zÀ-ÿ]
     private static final String PTI="[\\p{javaUpperCase}][\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,80}";
-    private static final String PSO="[\\p{javaUpperCase}\\p{javaLowerCase}0-9][\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,254}";
+    private static final String PSO="[\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,254}";
     private static final String PURL="https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     private static final String PST="[\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,499}";
     private static final String PIN="[\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,254}";

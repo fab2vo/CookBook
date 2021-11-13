@@ -68,8 +68,9 @@
                     style="@style/CookBookText.EnterTitle"
                     android:layout_width="110dp"
                     android:layout_height="48dp"
-                    android:gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="8dp"
                     android:text="@string/P0LF" />
                 <EditText
                     android:id="@+id/splash_edit_family"
@@ -92,8 +93,9 @@
                     style="@style/CookBookText.EnterTitle"
                     android:layout_width="110dp"
                     android:layout_height="48dp"
-                    android:gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="8dp"
                     android:text="@string/P0LM" />
                 <EditText
                     android:id="@+id/splash_edit_member"
@@ -116,8 +118,9 @@
                     style="@style/CookBookText.EnterTitle"
                     android:layout_width="110dp"
                     android:layout_height="48dp"
-                    android:gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="8dp"
                     android:text="@string/P0LP" />
                 <RelativeLayout
                     android:layout_width="fill_parent"
