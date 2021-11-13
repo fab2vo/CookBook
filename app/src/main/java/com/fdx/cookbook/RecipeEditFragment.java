@@ -39,14 +39,21 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class RecipeEditFragment extends Fragment {
     // Constantes
     private static final String ARG_RECIPE_ID="recipe_id";
     private static final int PICK_IMAGE= 3;
     private static final String TAG = "CB_EditFrag";
-    private static final String FPROVIDER="com.fdx.cookbook.fileprovider";
     private static final String UUIDNULL="00000000-0000-0000-0000-000000000000";
+    private static final String PUNCT="#-_!?.,:()&$£€%*+0-9"; //javaLowercase : A-Za-ÿ Upper et Lower [A-Za-zÀ-ÿ]
+    private static final String PTI="[\\p{javaUpperCase}][\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,80}";
+    private static final String PSO="[\\p{javaUpperCase}\\p{javaLowerCase}0-9][\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,254}";
+    private static final String PURL="https?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+    private static final String PST="[\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,499}";
+    private static final String PIN="[\\p{javaUpperCase}\\p{javaLowerCase}"+PUNCT+"\\p{Space}]{0,254}";
+    private static final int MAXNBPERS= 12;
     private Recipe mRecipe;
     private Recipe mRecipeInit;
     private UUID mRecipeId;
@@ -170,7 +177,8 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setTitle(s.toString());
+                if (checkField(s.toString(), PTI, mTitleField))
+                    mRecipe.setTitle(s.toString());
             }
 
             @Override
@@ -187,7 +195,8 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setSource(s.toString());
+                if (checkField(s.toString(), PSO, mSourceField))
+                    mRecipe.setSource(s.toString());
             }
 
             @Override
@@ -205,12 +214,14 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) {} else {
-                    try {
-                        URL url=new URL(s.toString());
-                        mRecipe.setSource_url(url);
-                    } catch (MalformedURLException e) {
-                        deBug( "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
+                if (!s.toString().equals(""))  {
+                    if (checkField(s.toString(),PURL,mSourceUrl)){
+                        try {
+                            URL url=new URL(s.toString());
+                            mRecipe.setSource_url(url);
+                        } catch (MalformedURLException e) {
+                            deBug( "onTextChanged de mSource_url >" +s.toString()+"< Failed >"+ e);
+                        }
                     }
                 }
             }
@@ -230,11 +241,12 @@ public class RecipeEditFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) {} else {
+                if (!s.toString().equals(""))  {
                     int nb_entered = Integer.parseInt(s.toString());
-                    if ((nb_entered > 0) && (nb_entered < 13)) {
+                    if ((nb_entered > 0) && (nb_entered < (MAXNBPERS+1))) {
                         mRecipe.setNbPers(nb_entered);
-                    }
+                        mNbPersField.setBackgroundColor(getResources().getColor(R.color.bg_enter_val));
+                    } else mNbPersField.setBackgroundColor(getResources().getColor(R.color.light_red));
                 }
             }
 
@@ -312,7 +324,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(0+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[0]))
+                    mRecipe.setStep(0+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -322,7 +335,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(1+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[1]))
+                    mRecipe.setStep(1+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -332,7 +346,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(2+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[2]))
+                    mRecipe.setStep(2+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -342,7 +357,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(3+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[3]))
+                    mRecipe.setStep(3+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -352,7 +368,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(4+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[4]))
+                    mRecipe.setStep(4+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -362,7 +379,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(5+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[5]))
+                    mRecipe.setStep(5+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -372,7 +390,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(6+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[6]))
+                    mRecipe.setStep(6+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -382,7 +401,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(7+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[7]))
+                    mRecipe.setStep(7+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -392,7 +412,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setStep(8+1, s.toString());
+                if (checkField(s.toString(),PST,mStepTextEdit[8]))
+                    mRecipe.setStep(8+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -431,7 +452,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(0+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[0]))
+                    mRecipe.setIngredient(0+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -441,7 +463,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(1+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[1]))
+                    mRecipe.setIngredient(1+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -451,7 +474,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(2+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[2]))
+                    mRecipe.setIngredient(2+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -461,7 +485,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(3+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[3]))
+                    mRecipe.setIngredient(3+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -471,7 +496,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(4+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[4]))
+                    mRecipe.setIngredient(4+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -481,7 +507,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(5+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[5]))
+                    mRecipe.setIngredient(5+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -491,7 +518,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(6+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[6]))
+                    mRecipe.setIngredient(6+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -501,7 +529,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(7+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[7]))
+                    mRecipe.setIngredient(7+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -511,7 +540,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(8+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[8]))
+                    mRecipe.setIngredient(8+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -521,7 +551,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(9+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[9]))
+                    mRecipe.setIngredient(9+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -531,7 +562,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(10+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[10]))
+                    mRecipe.setIngredient(10+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -541,7 +573,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(11+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[11]))
+                    mRecipe.setIngredient(11+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -551,7 +584,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(12+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[12]))
+                    mRecipe.setIngredient(12+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -561,7 +595,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(13+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[13]))
+                    mRecipe.setIngredient(13+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -571,7 +606,8 @@ public class RecipeEditFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mRecipe.setIngredient(14+1, s.toString());
+                if (checkField(s.toString(),PIN,mIngTextEdit[14]))
+                    mRecipe.setIngredient(14+1, s.toString());
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -585,7 +621,17 @@ public class RecipeEditFragment extends Fragment {
 
        return v;
     }
-
+    private Boolean checkField(String s, String pattern, EditText editext){
+        if (s==null) return true;
+        if (pattern==null) return true;
+        if (Pattern.matches(pattern,s)) {
+            editext.setBackgroundColor(getResources().getColor(R.color.bg_enter_val));
+        return true;}
+        else {
+            editext.setBackgroundColor(getResources().getColor(R.color.light_red));
+            return false;
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
