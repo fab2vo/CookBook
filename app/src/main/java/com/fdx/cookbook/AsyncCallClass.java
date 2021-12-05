@@ -126,10 +126,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
     }
 
-    private void deBugShow(String s){
-        //Log.d(TAG, s);
-    }
-
     private Boolean test204() {
         try {
             URL url = new URL(mSession.getURLPath() + PHP204);
@@ -172,6 +168,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("season", r.getSeason().toString());
         data.put("difficulty", r.getDifficulty().toString());
         data.put("type", r.getType().toString());
+        mSession.fillPwd(data, false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPDATECREATE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
@@ -196,6 +193,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
         s1 = dateFormat.format(r.getDatePhoto());
         data.put("date", s1);
+        mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPUPUPLOADPHOTO, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
@@ -207,6 +205,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         HashMap<String, String> data = new HashMap<>();
         data.put("idrecipe", r.getId().toString());
         data.put("iduser", mSession.getUser().getId().toString());
+        mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPDELETERECIPE, data);
         if (result==null) return false;
         if (!result.trim().equals("1")) {
@@ -219,6 +218,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         boolean ret=false;
         HashMap<String, String> data = new HashMap<>();
         data.put("idrecipe", r.getId().toString());
+        mSession.fillPwd(data,true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETCOMMENTSOFRECIPE, data);
         List<Comment> downloadedComments=mNetUtils.parseCommentsOfRecipe(result);
         if (downloadedComments==null) downloadedComments=new ArrayList<>();
@@ -275,6 +275,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             data.put("comment", c.getTxt());
             s1 = dateFormat.format(c.getDate());
             data.put("date",s1  );
+            mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDCOMMENTTORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
@@ -287,6 +288,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         boolean ret=false;
         HashMap<String, String> data = new HashMap<>();
         data.put("idrecipe", r.getId().toString());
+        mSession.fillPwd(data, true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETNOTESOFRECIPE, data);
         List<Note> downloadedNotes=mNetUtils.parseNotesOfRecipe(result);
         if (downloadedNotes==null) downloadedNotes=new ArrayList<>();
@@ -347,6 +349,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             data.put("note", formatter.format(c.getNote()));
             s1 = dateFormat.format(c.getDate());
             data.put("date",s1  );
+            mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
             if (result==null) b=false;
             if (!result.equals("1")) {
@@ -359,6 +362,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         boolean ret=false;
         HashMap<String, String> data = new HashMap<>();
         data.put("iduser", user.getId().toString());
+        mSession.fillPwd(data, false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETSTAMPSTIERS, data);
         if (result==null)return ret;
         List<Recipe> tiersRecipe=mNetUtils.parseStampsTiers(result);
@@ -416,7 +420,9 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("iduser", mSession.getUser().getId().toString().trim());
-        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPGETRECIPEFROMCBWITHPHOTO,data);
+        data.put("withphoto", "1");
+        mSession.fillPwd(data, true);
+        String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPGETRECIPEFROMCB,data);
         Recipe r=new Recipe();
         try {
             JSONArray jarr1 = new JSONArray(result);
@@ -439,6 +445,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("withphoto", (withphoto)?"1":"0");
+        mSession.fillPwd(data, true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPGETRECIPEFROMCB,data);
         Recipe r=new Recipe();
         try {
@@ -465,6 +472,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", r.getId().toString().trim());
         data.put("iduser", mSession.getUser().getId().toString());
+        mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPACCEPTRECIPE,data);
         if (!result.equals("1")) {
             deBugShow( "Retour de "+ PHPACCEPTRECIPE+" = "+result);
@@ -477,7 +485,11 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         if ((iduser==null)||(iduser.equals(""))) return false;
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", iduser);
+        mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPCHECKREQUESTS,data);
         return result.equals("1");
+    }
+    private void deBugShow(String s){
+        //Log.d(TAG, s);
     }
 }

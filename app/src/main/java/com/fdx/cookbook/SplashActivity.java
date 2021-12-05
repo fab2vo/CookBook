@@ -42,11 +42,14 @@ public class SplashActivity extends AppCompatActivity {
     private String mPwdRead;
     private TextView mEnterFamilyLbl;
     private EditText mEnterFamily;
+    private Boolean mStatusFamily;
     private TextView mEnterMemberLbl;
     private EditText mEnterMember;
     private TextView mEnterPwdLbl;
+    private Boolean mStatusMember;
     private EditText mEnterPwd;
     private TextView mEnterMessage;
+    private Boolean mStatusPwd;
     private Button mNewSession;
     private Button mNewMember;
     private Button mNewFamily;
@@ -66,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
     private final static int NEW_MEMBER=2;
     private final static int NEW_SESSION=3;
     private final static int NEW_PWD=3;
-    private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
+    private final static Integer MINMAX[][]={{6,45},{2,25},{3,25}}; // min max pour family, member, pwd strings
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
     private static final String REGEX_PWD="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()]*";
@@ -138,6 +141,9 @@ public class SplashActivity extends AppCompatActivity {
             mEnterPwd.setText(mPwdEntered);
             mEnterPwd.setHint(R.string.P0HP);
         }
+        mStatusFamily=checkinput(mFamilyEntered,NEW_FAMILY);
+        mStatusMember=checkinput(mMemberEntered,NEW_MEMBER);
+        mStatusPwd=checkinput(mPwdEntered,NEW_PWD);
         mEnterMessage.setText("");
         mNewSession.setText(R.string.P0BP);
         mNewMember.setText(R.string.P0BM);
@@ -155,11 +161,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String z=s.toString();
-                mFamilyEntered=z;
-                Integer d= getColorOnCondition(z,NEW_FAMILY);
-                mEnterFamily.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
-                buttonEnabled((d==R.color.bg_enter_val));
+                mFamilyEntered=s.toString();
+                updatelabelsandbuttons(mFamilyEntered,NEW_FAMILY, mEnterFamily);
             }
 
             @Override
@@ -171,11 +174,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String z=s.toString();
-                mMemberEntered=z;
-                Integer d= getColorOnCondition(z,NEW_MEMBER);
-                mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
-                buttonEnabled((d==R.color.bg_enter_val));
+                mMemberEntered=s.toString();
+                updatelabelsandbuttons(mMemberEntered,NEW_MEMBER, mEnterMember);
             }
 
             @Override
@@ -187,11 +187,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String z=s.toString();
-                mPwdEntered=z;
-                Integer d= getColorOnCondition(z,NEW_PWD);
-                mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), d));
-                buttonEnabled((d==R.color.bg_enter_val));
+                mPwdEntered=s.toString();
+                updatelabelsandbuttons(mPwdEntered,NEW_PWD, mEnterPwd);
             }
 
             @Override
@@ -200,7 +197,7 @@ public class SplashActivity extends AppCompatActivity {
         mNewSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectStatus()){
+                if(testConnectStatus() && mStatusFamily && mStatusMember && mStatusPwd){
                     mState=NEW_SESSION;
                     updateDisplayOnAsync(true);
                     goAsyncTasks();
@@ -211,7 +208,7 @@ public class SplashActivity extends AppCompatActivity {
         mNewMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectStatus()){
+                if(testConnectStatus()&& mStatusFamily && mStatusMember && mStatusPwd){
                     mState=NEW_MEMBER;
                     confirmNewUser();
                 } else {
@@ -221,7 +218,7 @@ public class SplashActivity extends AppCompatActivity {
         mNewFamily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testConnectStatus()){
+                if(testConnectStatus()&& mStatusFamily && mStatusMember && mStatusPwd){
                     mState=NEW_FAMILY;
                     confirmNewUser();
                 } else {
@@ -293,21 +290,28 @@ public class SplashActivity extends AppCompatActivity {
 
     private Boolean IsLenOK(String s, int min, int max){
         int l=s.length();
-        return ((l>min)&&(l<max));
+        return ((l>=min)&&(l<=max));
     }
+     private void updatelabelsandbuttons(String z, Integer state, EditText editext){
+         int TRUE=R.color.bg_enter_val;
+         int FALSE=R.color.light_red;
+         Boolean test=checkinput(z,state);
+         editext.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), test ? TRUE:FALSE));
+         if (state==NEW_FAMILY) mStatusFamily=test;
+         if (state==NEW_MEMBER) mStatusMember=test;
+         if (state==NEW_PWD) mStatusPwd=test;
+         Boolean b=false;
+         if (mStatusFamily && mStatusMember & mStatusPwd) b=true;
+         deBugShow("Status fam, member, pwd, all :"+mStatusFamily+","+mStatusMember+","+mStatusPwd+","+b);
+         mNewSession.setEnabled(b);
+         mNewMember.setEnabled(b);
+         mNewFamily.setEnabled(b);
+     }
 
-    private Integer getColorOnCondition(String z, Integer state){
+    private Boolean checkinput(String z, Integer state){
         state=state-1;
         int retDraw =0;
-        int TRUE=R.color.bg_enter_val;
-        int FALSE=R.color.light_red;
-        retDraw=((Pattern.matches(REGEX[state],z)&&(IsLenOK(z,MINMAX[state][0],MINMAX[state][1])))?
-                TRUE : FALSE);
-        Integer err_mess[]={R.string.P0ERUF,R.string.P0RUM,R.string.P0RUP};
-        if (retDraw==FALSE){
-        mEnterMessage.setText(getResources().getString(err_mess[state],MINMAX[state][0],MINMAX[state][1]));}
-        else {mEnterMessage.setText("");}
-        return retDraw;
+        return Pattern.matches(REGEX[state],z)&&(IsLenOK(z,MINMAX[state][0],MINMAX[state][1]));
     }
 
     private Boolean testConnectStatus(){
@@ -315,7 +319,6 @@ public class SplashActivity extends AppCompatActivity {
         mEnterMember.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
         mEnterPwd.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bg_enter_val));
         Boolean ret=true;
-        //String message="";
         if(!mSession.IsConnected()){
             ret=false;
             Toast.makeText(getApplicationContext(), getString(R.string.P0ER_nocon), Toast.LENGTH_LONG).show();
@@ -349,6 +352,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (b) {
                     CookBooksShort cbshort=CookBooksShort.get(getApplicationContext());
                     cbshort.clearCompletely();
+                    mSession.setPwd(mPwdEntered);
                     mSession.setStoredUser(mUser);
                     mSession.setListMask("");
                     Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
@@ -464,6 +468,7 @@ public class SplashActivity extends AppCompatActivity {
     private Boolean downloadNotesAndParse(){
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", mUser.getId().toString().trim());
+        data.put("pwd", mPwdEntered.trim());
         String json = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQGETNOTES,data);
         UUID uuid;
         Note n;
@@ -490,6 +495,7 @@ public class SplashActivity extends AppCompatActivity {
     private Boolean downloadCommentsAndParse(){
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", mUser.getId().toString().trim());
+        data.put("pwd", mPwdEntered.trim());
         String json = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPREQGETCOMMENTS,data);
         UUID uuid;
         Comment c;

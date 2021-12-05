@@ -3,7 +3,9 @@ package com.fdx.cookbook;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class SessionInfo {
@@ -16,9 +18,11 @@ public class SessionInfo {
     private String CB_FAMILY="family";
     private String CB_NAME="name";
     private String CB_ID="iduser";
+    private String CB_PWD="pwd";
     private String NOT_FOUND="Not found";
     private String mMaskSerialized;
     private String mDevice;
+    private String mPwd;
     private static final String TAG = "DebugSessionInfo";
     private static String URLPATH="http://82.66.37.73:8085/cb/";
     public static int CONNECT_TIMEOUT = 10000;
@@ -44,11 +48,14 @@ public class SessionInfo {
                 .getString(CB_ID, NOT_FOUND);
         if (sharedPref.equals(NOT_FOUND)){
             mUser = new User(NOT_FOUND, NOT_FOUND);
+            mPwd="";
         } else {
             mUser = new User(PreferenceManager.getDefaultSharedPreferences(context)
                     .getString(CB_FAMILY, NOT_FOUND), PreferenceManager.getDefaultSharedPreferences(context)
                     .getString(CB_NAME, NOT_FOUND));
             mUser.setId(UUID.fromString(sharedPref));
+            mPwd=PreferenceManager.getDefaultSharedPreferences(context)
+                    .getString(CB_PWD, NOT_FOUND);
         }
     }
 
@@ -63,6 +70,7 @@ public class SessionInfo {
                 .putString(CB_FAMILY, user.getFamily())
                 .putString(CB_NAME, user.getName())
                 .putString(CB_ID, user.getId().toString())
+                .putString(CB_PWD, mPwd)
                 .apply();
         mUser=user;
     }
@@ -106,4 +114,12 @@ public class SessionInfo {
     public String getDevice() {
         return mDevice;
     }
+    public void setPwd(String s){mPwd=s;}
+    public void fillPwd(HashMap<String, String> data, Boolean withuser ){
+        if ((mPwd!=null)&&(!mPwd.equals(""))) {
+            data.put("pwd", mPwd);
+            if (withuser) data.put("iduser", mUser.getId().toString());
+        }
+    }
+
 }
