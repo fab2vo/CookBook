@@ -226,6 +226,7 @@ public class RecipeMailDisplayFragment extends Fragment {
             if (!netutil.test204()) {deBugShow("204!"); return false;}
             HashMap<String, String> data = new HashMap<>();
             data.put("iduser", mSession.getUser().getId().toString());
+            mSession.fillPwd(data,false);
             String json = netutil.sendPostRequestJson(mSession.getURLPath() + PHPGETREQUESTS, data);
             if (json==null) return false;
             if (json.equals("")) return false;
@@ -288,6 +289,7 @@ public class RecipeMailDisplayFragment extends Fragment {
             data.put("status", status);
             data.put("iduser", mSession.getUser().getId().toString());
             data.put("message", mc.getMessage());
+            mSession.fillPwd(data,false);
             String json = netutil.sendPostRequestJson(mSession.getURLPath() + PHPAORD, data);
             if (json.equals("1")){
                 if (mMailCards.indexOf(mc)==-1){

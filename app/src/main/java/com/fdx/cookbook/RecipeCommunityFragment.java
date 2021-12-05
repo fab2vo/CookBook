@@ -292,6 +292,7 @@ public class RecipeCommunityFragment extends Fragment {
             data.put("count", formatter.format(count));
             data.put("comparam", (withphoto ? "WP":"WOP"));
             NetworkUtils mNetUtils = new NetworkUtils(getContext());
+            mSession.fillPwd(data, false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETSHORTRECIPES, data);
             if (result==null) return "";
             return result;
@@ -345,7 +346,6 @@ public class RecipeCommunityFragment extends Fragment {
     class sendRequest extends AsyncTask<String, Void, Boolean> {
         private static final String PHP204 = "return204.php";
         private static final String PHPREQ = "newrequest.php";
-        private String mTo;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -375,6 +375,7 @@ public class RecipeCommunityFragment extends Fragment {
             data.put("idrecipe", recipeid);
             data.put("idfrom", idfrom);
             data.put("message", message);
+            mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPREQ, data);
             if (result.equals("1")) return true;
             return false;

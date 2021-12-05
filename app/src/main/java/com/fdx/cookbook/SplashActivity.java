@@ -148,7 +148,6 @@ public class SplashActivity extends AppCompatActivity {
         mNewSession.setText(R.string.P0BP);
         mNewMember.setText(R.string.P0BM);
         mNewFamily.setText(R.string.P0BF);
-        //updateTop();
         mNetAnim=(ImageView) findViewById(R.id.net_anim);
         mNetAnim.setBackgroundResource(R.drawable.network_animation);
         mNetAnim.setVisibility(View.INVISIBLE);

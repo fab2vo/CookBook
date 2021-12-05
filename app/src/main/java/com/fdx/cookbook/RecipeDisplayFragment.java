@@ -66,7 +66,7 @@ public class RecipeDisplayFragment extends Fragment {
     private EditText mDNexComment;
     private ImageView mDEnterComment;
     private ScrollView mScroll;
-    private final static Integer MINMAX[][]={{8,45},{1,25},{3,25}}; // min max pour family, member, pwd strings
+    private final static Integer MINMAX[][]={{6,45},{2,25},{3,25}}; // min max pour family, member, pwd strings
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
 
@@ -319,7 +319,7 @@ public class RecipeDisplayFragment extends Fragment {
     }
     private Boolean IsLenOK(String s, int min, int max){
         int l=s.length();
-        return ((l>min)&&(l<max));
+        return ((l>=min)&&(l<=max));
     }
     private String getRecipeReport(){
         String report;
@@ -384,13 +384,14 @@ public class RecipeDisplayFragment extends Fragment {
             }
             HashMap<String, String> data = new HashMap<>();
             data.put("idrecipe", mRecipe.getId().toString());
-            if ((mToFamily==null)||(mToFamily.length()<5)) return false;
+            if ((mToFamily==null)||(mToFamily.length()<3)) return false;
             data.put("family",mToFamily.trim());
-            if ((mToMember==null)||(mToMember.length()<5)) return false;
+            if ((mToMember==null)||(mToMember.length()<1)) return false;
             data.put("membre", mToMember.trim());
             data.put("idfrom", mSession.getUser().getId().toString());
             if (mToMessage==null) return false;
             data.put("message", mToMessage.trim());
+            mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPSENDMAIL, data);
             if (result==null) return false;
             if (!result.trim().equals("1")) {
