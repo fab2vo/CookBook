@@ -38,10 +38,17 @@ public class RecipeCommunityFragment extends Fragment {
     private static final Integer RECENT=1;
     private static final Integer POPULAR=2;
     private static final Integer BESTNOTE=3;
+    private static final Integer SCOPE_ALL=1;
+    private static final Integer SCOPE_CLOSE=2;
+    private static final Integer SCOPE_FOLLOWERS=3;
     private Integer mSelectType;
+    private Integer mSelectScope;
     private MenuItem mMenuR;
     private MenuItem mMenuP;
     private MenuItem mMenuN;
+    private MenuItem mMenuA;
+    private MenuItem mMenuC;
+    private MenuItem mMenuF;
     private CookBooksShort mCookbookShort;
     private getShortRecipesFromCommunity getAsyncShorties;
     private static final String TAG = "CB_ComFrag";
@@ -59,6 +66,7 @@ public class RecipeCommunityFragment extends Fragment {
         mSession= SessionInfo.get(getActivity());
         mCookbookShort=CookBooksShort.get(getActivity());
         mSelectType=mCookbookShort.getSelectType();
+        mSelectScope=mCookbookShort.getSelectScope();
         if (mCookbookShort.isNew()){
             getAsyncShorties=new getShortRecipesFromCommunity();
             getAsyncShorties.execute(20);
@@ -72,13 +80,22 @@ public class RecipeCommunityFragment extends Fragment {
         mMenuR = menu.findItem(R.id.com_recent);
         mMenuN = menu.findItem(R.id.com_bestnote);
         mMenuP = menu.findItem(R.id.com_popular);
-        mMenuR.setEnabled(mSelectType!=RECENT);
-        mMenuN.setEnabled(mSelectType!=BESTNOTE);
-        mMenuP.setEnabled(mSelectType!=POPULAR);
+        mMenuA = menu.findItem(R.id.com_scopeall);
+        mMenuC = menu.findItem(R.id.com_scopeclose);
+        mMenuF = menu.findItem(R.id.com_scopefollower);
+        if (mSelectType==RECENT) switchCheck(mMenuR);
+        if (mSelectType==BESTNOTE) switchCheck(mMenuN);
+        if (mSelectType==POPULAR) switchCheck(mMenuP);
+        if (mSelectScope==SCOPE_ALL) switchCheck(mMenuA);
+        if (mSelectScope==SCOPE_CLOSE) switchCheck(mMenuC);
+        if (mSelectScope==SCOPE_FOLLOWERS) switchCheck(mMenuF);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mCookbookShort.isDownloading()) return true;
+        if (mCookbookShort.isDownloading()) {
+            getAsyncShorties.cancel(true);
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.com_recent:
                 mCookbookShort.setSelectType(RECENT);
@@ -89,16 +106,29 @@ public class RecipeCommunityFragment extends Fragment {
             case R.id.com_bestnote:
                 mCookbookShort.setSelectType(BESTNOTE);
                 break;
+            case R.id.com_scopeall:
+                mCookbookShort.setSelectScope(SCOPE_ALL);
+                break;
+            case R.id.com_scopeclose:
+                mCookbookShort.setSelectScope(SCOPE_CLOSE);
+                break;
+            case R.id.com_scopefollower:
+                mCookbookShort.setSelectScope(SCOPE_FOLLOWERS);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        switchCheck(item);
         mSelectType=mCookbookShort.getSelectType();
-        mMenuR.setEnabled(mSelectType!=RECENT);
-        mMenuN.setEnabled(mSelectType!=BESTNOTE);
-        mMenuP.setEnabled(mSelectType!=POPULAR);
+        mSelectScope=mCookbookShort.getSelectScope();
         getAsyncShorties=new getShortRecipesFromCommunity();
         getAsyncShorties.execute(20);
         return true;
+    }
+
+    private void switchCheck(MenuItem item){
+        if (item.isChecked()) item.setChecked(false);
+        else item.setChecked(true);
     }
 
     @Override
@@ -117,6 +147,7 @@ public class RecipeCommunityFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
+        getAsyncShorties.cancel(true);
     }
 
     private void updateUI() {
@@ -251,20 +282,24 @@ public class RecipeCommunityFragment extends Fragment {
             super.onPostExecute(b);
             mCookbookShort.setDLCompleted();
         }
+        @Override
+        protected void onCancelled(){
+            mCookbookShort.setDLCompleted();
+        }
 
         @Override
         protected Boolean doInBackground(Integer ... integers) {
             Integer ntoDownload=integers[0];
             if (!test204()) {deBugShow("204!"); return false;}
             // download texts
-            String s=getStringRecipesFromServer(0,ntoDownload,mSelectType, false);
-            if (s.equals("")) {deBugShow("Echec query 1"); return false;}
+            String s=getStringRecipesFromServer(0,ntoDownload, false);
+            if (s.equals("")) {deBugShow("Echec query initial"); return false;}
             if (!fillInitialTable(s)) {deBugShow("Echec parse >"+s+"<"); return false;}
             publishProgress(1);
             // download photo i
             for(Integer i=0;i<mCookbookShort.getsize();i++) {
                 if(isCancelled()) {deBugShow("Interrupted)"); return false;}
-                s = getStringRecipesFromServer(i, 1, mSelectType, true);
+                s = getStringRecipesFromServer(i, 1, true);
                 if (s.equals("")) {
                     deBugShow("Echec query "+i);
                     break;
@@ -279,14 +314,19 @@ public class RecipeCommunityFragment extends Fragment {
             updateUI();
         }
 
-        private String getStringRecipesFromServer(Integer start, Integer count, Integer type, Boolean withphoto){
+        private String getStringRecipesFromServer(Integer start, Integer count, Boolean withphoto){
             HashMap<String, String> data = new HashMap<>();
             data.put("iduser", mSession.getUser().getId().toString());
             String comtype="";
-            if (type==RECENT) comtype="RECENT";
-            if (type==POPULAR) comtype="POPULAR";
-            if (type==BESTNOTE) comtype="BESTNOTE";
+            String comscope="";
+            if (mSelectType==RECENT) comtype="RECENT";
+            if (mSelectType==POPULAR) comtype="POPULAR";
+            if (mSelectType==BESTNOTE) comtype="BESTNOTE";
+            if (mSelectScope==SCOPE_ALL) comscope="ALL";
+            if (mSelectScope==SCOPE_CLOSE) comscope="CLOSE";
+            if (mSelectScope==SCOPE_FOLLOWERS) comscope="FOLLOWER";
             data.put("comtype", comtype);
+            data.put("comscope", comscope);
             DecimalFormat formatter = new DecimalFormat("00");
             data.put("start", formatter.format( start));
             data.put("count", formatter.format(count));

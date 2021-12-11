@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single" android:id="@+id/menuGroup_1">
+        <item
+            android:id="@+id/com_scopeall"
+            android:title="@string/P5OSA"
+            app:showAsAction="never|withText"/>
+        <item
+            android:id="@+id/com_scopeclose"
+            android:title="@string/P5OSC"
+            app:showAsAction="never|withText"/>
+        <item
+            android:id="@+id/com_scopefollower"
 
-    <item
-        android:id="@+id/com_popular"
-        android:title="@string/P5OP"
-        app:showAsAction="never|withText"/>
-    <item
-        android:id="@+id/com_bestnote"
-        android:title="@string/P5ON"
-        app:showAsAction="never|withText"/>
-    <item
-        android:id="@+id/com_recent"
-        android:title="@string/P5OR"
-        app:showAsAction="never|withText"/>
+            android:title="@string/P5OSF"
+            app:showAsAction="never|withText" />
+    </group>
+    <group android:checkableBehavior="single" android:id="@+id/menuGroup_2">
+        <item
+            android:id="@+id/com_recent"
+            android:title="@string/P5OR"
+            app:showAsAction="never|withText" />
+        <item
+            android:id="@+id/com_popular"
+            android:title="@string/P5OP"
+            app:showAsAction="never|withText"/>
+        <item
+            android:id="@+id/com_bestnote"
+            android:title="@string/P5ON"
+            app:showAsAction="never|withText"/>
+    </group>
 
 </menu>

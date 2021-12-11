@@ -398,7 +398,7 @@ public class Recipe {
 
     public boolean containQuery(String s){ //for search request
         if (sc(mTitle, s)) return true;
-        if (sc(mOwner.getFamily().toString(), s)) return true;
+        if (sc(mOwner.getNameComplete(), s)) return true;
         for(String sloop:mIngredients){
             if (sloop==null) break;
             if (sc(sloop, s)) return true;

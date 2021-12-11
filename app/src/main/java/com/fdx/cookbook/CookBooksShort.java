@@ -16,14 +16,14 @@ public class CookBooksShort {
     private Context mContext;
     private List<Recipe> mCookBook;
     private Integer mSelectType;
+    private Integer mSelectScope;
     private Integer mDLStatus;
     private static final Integer COMPLETED=2;
     private static final Integer STARTED=1;
     private static final Integer INACTIVE=0;
     private static final Integer RECENT=1;
-    private static final Integer POPULAR=2;
-    private static final Integer BESTNOTE=3;
-    private static final String TAG = "CB_Community";
+    private static final Integer ALL=1;
+    private static final String TAG = "CB_CBshort";
 
     public static CookBooksShort get(Context context) {
         if (ourInstance==null){
@@ -36,6 +36,7 @@ public class CookBooksShort {
         mCookBook=new ArrayList<>();
         mDLStatus=INACTIVE;
         mSelectType=RECENT;
+        mSelectScope=ALL;
     }
 
     public void addRecipe(Recipe r){
@@ -54,6 +55,7 @@ public class CookBooksShort {
     public void clearCompletely (){
         mDLStatus=INACTIVE;
         mSelectType=RECENT;
+        mSelectScope=ALL;
         mCookBook.clear();
     }
 
@@ -77,6 +79,14 @@ public class CookBooksShort {
         if (mCookBook == null) return 0;
         if (mCookBook.isEmpty()) return 0;
         return mCookBook.size();
+    }
+
+    public Integer getSelectScope() {
+        return mSelectScope;
+    }
+
+    public void setSelectScope(Integer selectScope) {
+        mSelectScope = selectScope;
     }
 
     public Integer getSelectType() {

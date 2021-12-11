@@ -122,9 +122,12 @@
     <string name="P5T"> Titre de la recette</string>
     <string name="P5N"> prenom</string>
     <string name="P5F"> \@nom de famille </string>
-    <string name="P5OP"> Populaires</string>
-    <string name="P5OR"> Récentes</string>
-    <string name="P5ON"> Mieux notées</string>
+    <string name="P5OP"> Classé par popularité</string>
+    <string name="P5OR"> Classé par date</string>
+    <string name="P5ON"> Classé par note</string>
+    <string name="P5OSA"> Toutes les recettes </string>
+    <string name="P5OSC"> Votre cercle proche </string>
+    <string name="P5OSF"> Votre cercle large </string>
     <string name="P5MES"> Votre demande de recette a été acceptée </string>
     <string name="P5MESNO"> Votre demande de recette a été refusée </string>
     <string name="P5DTT">Votre demande </string>
