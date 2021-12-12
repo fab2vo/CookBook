@@ -370,6 +370,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         boolean withphoto=false,update=false;
         Recipe rloc, rnew;
         for(Recipe r:tiersRecipe) {
+            deBugShow("Loop 1 Recipe Id:"+r.getId());
             rloc=mCookbook.getRecipe(r.getId());
             if (rloc==null) { // case recipe tiers not found locally => download
                 rnew=downloadRecipe(r);
@@ -416,7 +417,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     }
 
     private Recipe downloadRecipe(Recipe ref){
-        if (ref==null) return null;
+        if (ref==null) {deBugShow("downloadRecipe with null ref");return null;}
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("iduser", mSession.getUser().getId().toString().trim());
@@ -433,7 +434,8 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                 if (jarr1.length()>1) deBugShow( " Recette non unique dans cookbook : <"+ref.getId()+">");
                 JSONObject obj = jarr1.getJSONObject(0);
                 r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
-                if (!mNetUtils.parseObjectRecipe(r,obj, true, true)) return null;
+                if (!mNetUtils.parseObjectRecipe(r,obj, true, true))
+                    {deBugShow("download recipe but not parsed");return null;}
             }
         } catch (Exception e) {
             deBugShow( " Error parsing CB in downloadRecipe" + e);
@@ -441,7 +443,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         return r;
     }
     private Boolean updateRecipe(Recipe ref, boolean withphoto){
-        if (ref==null) return null;
+        if (ref==null) {deBugShow("updateRecipe with null ref");return null;}
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("withphoto", (withphoto)?"1":"0");

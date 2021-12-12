@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,7 @@ public class RecipeCommunityFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_menu_com, menu);
+        MenuCompat.setGroupDividerEnabled(menu, true);
         mMenuR = menu.findItem(R.id.com_recent);
         mMenuN = menu.findItem(R.id.com_bestnote);
         mMenuP = menu.findItem(R.id.com_popular);

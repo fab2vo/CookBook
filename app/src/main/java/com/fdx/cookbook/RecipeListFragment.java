@@ -115,6 +115,8 @@ public class RecipeListFragment extends Fragment {
         mMessageItem = menu.findItem(R.id.new_mail);
         CookBook cookbook=CookBook.get(getActivity());
         Boolean b=((cookbook.isThereMail())||(mSession.IsRecipeRequest()));
+        deBugShow("Creation CookBook is theremail: "+(cookbook.isThereMail()));
+        deBugShow("Creation mSession recipe request: "+(mSession.IsRecipeRequest()));
         mMessageItem.setVisible(b);
         mMessageItem.setShowAsAction(b ? MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
         //MenuCompat.setGroupDividerEnabled(menu, true);
@@ -159,6 +161,8 @@ public class RecipeListFragment extends Fragment {
             case R.id.new_mail:
                 CookBook cookbook=CookBook.get(getActivity());
                 Boolean thereismail=(cookbook.isThereMail())||(mSession.IsRecipeRequest());
+                deBugShow("CookBook is theremail: "+(cookbook.isThereMail()));
+                deBugShow("mSession recipe request: "+(mSession.IsRecipeRequest()));
                 if (!thereismail) {
                     mMessageItem.setVisible(false);
                     mMessageItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -200,7 +204,9 @@ public class RecipeListFragment extends Fragment {
             mInstanceAsync.execute();
         }
     }
-
+    private void deBugShow(String s){
+        //Log.d(TAG, s);
+    }
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes_in=cookbook.getRecipes();
