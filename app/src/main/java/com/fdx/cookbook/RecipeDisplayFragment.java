@@ -224,6 +224,7 @@ public class RecipeDisplayFragment extends Fragment {
         mDNexComment=(EditText) v.findViewById(R.id.recipe_display_enter_comment);
         mDNexComment.setText("");
         mDNexComment.setHint(getString(R.string.P2C_hint));
+        newcomment="";
         //todo test comment versus pattern
         mDNexComment.addTextChangedListener(new TextWatcher() {
             @Override
@@ -245,10 +246,12 @@ public class RecipeDisplayFragment extends Fragment {
         mDEnterComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRecipe.addComment(new Comment(newcomment, mSession.getUser()));
-                mRecipe.updateTS(AsynCallFlag.NEWCOMMENT,true);
-                mDNexComment.setText("...");
+                if ((!newcomment.equals(""))&&(!newcomment.equals("..."))) {
+                    mRecipe.addComment(new Comment(newcomment, mSession.getUser()));
+                    mRecipe.updateTS(AsynCallFlag.NEWCOMMENT,true);
+                    mDNexComment.setText("...");
                 updateUI();
+                }
             }
         });
         return v;
