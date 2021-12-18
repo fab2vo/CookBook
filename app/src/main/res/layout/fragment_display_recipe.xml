@@ -494,7 +494,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/P2I_txt"/>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -528,7 +528,7 @@
                     app:layout_constraintStart_toEndOf="@+id/recipe_display_enter_comment"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 

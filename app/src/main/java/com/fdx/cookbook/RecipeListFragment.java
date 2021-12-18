@@ -6,15 +6,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.view.MenuCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +26,9 @@ import android.widget.RatingBar;
 
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -43,6 +46,7 @@ public class RecipeListFragment extends Fragment {
     private static final String SAVED_SORT_STATUS="sort";
     private AsyncCallClass mInstanceAsync;
     private ListMask mListMask;
+    private FloatingActionButton mFAB;
     private static final String TAG = "CB_ListFra";
     private static final String DIALOG_RATE = "DialogRate";
     private static final int REQUEST_RATE = 0;
@@ -80,6 +84,17 @@ public class RecipeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mFAB= (FloatingActionButton) view.findViewById(R.id.floating_action_button);
+        mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                Intent intent;
+                intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
+                startActivity(intent);
+            }
+        });
         if (savedInstanceState!=null){
             mListMask.updateFromString(savedInstanceState.getString(SAVED_SORT_STATUS));
         }
@@ -146,10 +161,10 @@ public class RecipeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent;
         switch (item.getItemId()){
-            case R.id.new_recipe:
+            /*case R.id.new_recipe:
                 intent= RecipeActivity.newIntent(getActivity(), UUID.fromString( UUIDNULL));
                 startActivity(intent);
-                return true;
+                return true;*/
             case R.id.list_logout:
                 mSession.setReqNewSession(true);
                 intent=new Intent(getActivity().getApplicationContext(), SplashActivity.class);

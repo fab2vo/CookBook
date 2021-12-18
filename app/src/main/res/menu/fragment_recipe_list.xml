@@ -8,14 +8,14 @@
 
     <item android:id="@+id/menu_item_search"
         android:title="@string/P1MU_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
-    <item
+    <!-- item
         android:id="@+id/new_recipe"
         android:icon="@drawable/ic_menu_add"
         android:title="@string/P1MU_new"
         app:showAsAction="always|withText"
-        />
+        /-->
     <item
         android:id="@+id/new_mail"
         android:icon="@drawable/ic_message"

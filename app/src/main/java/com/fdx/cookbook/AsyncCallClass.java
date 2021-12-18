@@ -1,11 +1,10 @@
 package com.fdx.cookbook;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.Toast;
 
 import org.json.JSONArray;

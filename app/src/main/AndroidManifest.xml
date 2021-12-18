@@ -35,7 +35,7 @@
             android:parentActivityName="com.fdx.cookbook.RecipeListActivity">
         </activity>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.fdx.cookbook.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
