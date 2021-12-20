@@ -10,19 +10,12 @@
         android:title="@string/P1MU_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
-    <!-- item
-        android:id="@+id/new_recipe"
-        android:icon="@drawable/ic_menu_add"
-        android:title="@string/P1MU_new"
-        app:showAsAction="always|withText"
-        /-->
     <item
         android:id="@+id/new_mail"
         android:icon="@drawable/ic_message"
         android:title="@string/P1MU_receive"
         app:showAsAction="ifRoom|withText"
         />
-
 <group android:id="@+id/add_to_menu_list" >
         <item
             android:id="@+id/list_sync"
@@ -34,25 +27,28 @@
         <item
             android:id="@+id/list_filter"
             android:icon="@drawable/ic_filter"
+            android:orderInCategory="3"
             android:title="@string/P1MU_raz"
             app:showAsAction="never|withText"
             />
         <item
             android:id="@+id/list_com"
             android:title="@string/P1MU_com"
+            android:orderInCategory="5"
             app:showAsAction="never|withText"
         />
 </group>
 <group android:id="@+id/out_of_menu_list">
     <item
         android:id="@+id/feedback"
-        android:orderInCategory="5"
+        android:orderInCategory="7"
         android:title="@string/P1MU_fb"
         app:showAsAction="never|withText"
     />
 <item
     android:id="@+id/list_logout"
     android:icon="@drawable/ic_logout"
+    android:orderInCategory="7"
     android:title="@string/P1MU_out"
     app:showAsAction="never|withText"
     />

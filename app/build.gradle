@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    //def acraVersion = '5.8.4' requires AndroidX
-    //implementation "ch.acra:acra-http:$acraVersion"
-    //implementation "ch.acra:acra-toast:$acraVersion"
+    def acraVersion = '5.8.4'
+    implementation "ch.acra:acra-http:$acraVersion"
+    implementation "ch.acra:acra-toast:$acraVersion"
 }

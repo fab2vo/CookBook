@@ -134,7 +134,7 @@ public class RecipeListFragment extends Fragment {
         deBugShow("Creation mSession recipe request: "+(mSession.IsRecipeRequest()));
         mMessageItem.setVisible(b);
         mMessageItem.setShowAsAction(b ? MenuItem.SHOW_AS_ACTION_ALWAYS:MenuItem.SHOW_AS_ACTION_NEVER);
-        //MenuCompat.setGroupDividerEnabled(menu, true);
+        MenuCompat.setGroupDividerEnabled(menu, true);
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

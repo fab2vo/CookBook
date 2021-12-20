@@ -26,6 +26,8 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -69,6 +71,7 @@ public class RecipeEditFragment extends Fragment {
     private ScrollView mScroll;
     private ImageView mPhotoView;
     private Bitmap mBmp;
+    private FloatingActionButton mFAB;
 
     public static RecipeEditFragment newInstance(UUID recipeId){
         Bundle args=new Bundle();
@@ -114,7 +117,7 @@ public class RecipeEditFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.recipe_menu_done:
+            /*case R.id.recipe_menu_done:
                 if (mRecipe.getTitle().length()>0){
                     if (!mRecipe.hasNotChangedSince(mRecipeInit)){
                     mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
@@ -134,7 +137,7 @@ public class RecipeEditFragment extends Fragment {
 
                 }
                 getActivity().onBackPressed();
-                return true;
+                return true;*/
             case R.id.recipe_menu_delete:
                 if (!IsRecipeNew(mRecipeId)){
                     CookBook.get(getActivity()).markRecipeToDelete(mRecipe);
@@ -152,6 +155,33 @@ public class RecipeEditFragment extends Fragment {
         mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
         mPhotoView=(ImageView) v.findViewById(R.id.recipe_photo);
         updatePhotoView();
+        mFAB= (FloatingActionButton) v.findViewById(R.id.floating_action_button2);
+        mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                if (mRecipe.getTitle().length()>0){
+                    if (!mRecipe.hasNotChangedSince(mRecipeInit)){
+                        mRecipe.updateTS(AsynCallFlag.NEWRECIPE, true);
+                        mRecipe.setDate(new Date());
+                    }
+                    if (mBmp!=null){
+                        NetworkUtils networkutils=new NetworkUtils(getContext());
+                        networkutils.saveBmpInRecipe(mBmp, mRecipe);
+                        mRecipe.setDatePhoto(new Date());
+                        mRecipe.updateTS(AsynCallFlag.NEWPHOTO,true);
+                    }
+                    if (IsRecipeNew(mRecipeId)){
+                        CookBook.get(getActivity()).addRecipe(mRecipe);
+                    } else {
+                        CookBook.get(getActivity()).updateRecipe(mRecipe);
+                    }
+
+                }
+                getActivity().onBackPressed();
+            }
+        });
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
