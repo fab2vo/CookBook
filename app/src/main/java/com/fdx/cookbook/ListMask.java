@@ -109,6 +109,10 @@ public class ListMask {
             IsSearched=true;
             Query=s;
             i=R.string.TSEON;
+            if (s.equals("FDx007")){
+                String[] crashArray = new String[] {"one","two"};
+                crashArray[2] = "oops";
+            }
         }
         return i;
     }
