@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.acra.ACRA;
+
 import java.util.HashMap;
 import java.util.UUID;
 

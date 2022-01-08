@@ -30,6 +30,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.acra.ACRA;
+
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class RecipeListFragment extends Fragment {
         //String nameInSubtitle=getString(R.string.P2U_txt,u.getName(),u.getFamily());
         String nameInSubtitle=u.getName();
         activity.getSupportActionBar().setSubtitle(nameInSubtitle);
+        ACRA.getErrorReporter().putCustomData("CB_USER", u.getNameComplete());
         mInstanceAsync = new AsyncCallClass(getContext());
         startSync();
         mListMask=new ListMask(mSession.getUser());
