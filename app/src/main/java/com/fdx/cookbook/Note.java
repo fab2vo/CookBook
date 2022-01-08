@@ -50,6 +50,8 @@ public class Note {
         if (o == this) return true;
         if (getClass() != o.getClass()) return false;
         Note n=(Note) o;
+        if (mNote==null) return false;
+        if (n.getNote()==null) return false;
         boolean b=(this.mNote.equals(n.getNote()));
         b=b && (mDate.toString().equals(n.getDate().toString()));
         b=b && (mUser.equals(n.getUser()));

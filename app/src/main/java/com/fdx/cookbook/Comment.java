@@ -54,6 +54,8 @@ public class Comment {
         if (o == this) return true;
         if (getClass() != o.getClass()) return false;
         Comment c=(Comment) o;
+        if (mTxt==null) return false;
+        if (c.getTxt()==null) return false;
         boolean b=(this.mTxt.equals(c.getTxt()));
         b=b && (mDate.toString().equals(c.getDate().toString()));
         b=b && (mUser.equals(c.getUser()));
