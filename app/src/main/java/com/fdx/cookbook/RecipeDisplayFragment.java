@@ -3,6 +3,7 @@ package com.fdx.cookbook;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -122,6 +123,15 @@ public class RecipeDisplayFragment extends Fragment {
             case R.id.recipe_menu_edit:
                 Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
                 startActivity(intent);
+                return true;
+            case R.id.recipe_menu_html:
+                String s= mSession.getURLPath()+"ix.php";
+                // todo later : find pknum  and then add ?recipenum=pknum
+                Uri uri = Uri.parse(s);
+                Intent intent4 = new Intent(Intent.ACTION_VIEW, uri);
+                if (intent4.resolveActivity(mSession.getContext().getPackageManager()) != null) {
+                    startActivity(intent4);
+                }
                 return true;
             case R.id.recipe_mail:
                 LinearLayout layout = new LinearLayout(getContext());

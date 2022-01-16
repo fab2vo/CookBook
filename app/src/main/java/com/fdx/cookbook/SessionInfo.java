@@ -17,6 +17,7 @@ public class SessionInfo {
     private Boolean mIsConnected;
     private Boolean mReqNewSession;
     private Boolean mIsRecipeRequest;
+    private Boolean mNeedUpgrade;
     private String CB_FAMILY="family";
     private String CB_NAME="name";
     private String CB_ID="iduser";
@@ -25,7 +26,7 @@ public class SessionInfo {
     private String mMaskSerialized;
     private String mDevice;
     private String mPwd;
-    private static final String TAG = "DebugSessionInfo";
+    private static final String TAG = "CB_Session";
     private static String URLPATH="http://82.66.37.73:8085/cb/";
     public static int CONNECT_TIMEOUT = 10000;
     public static int READ_TIMEOUT = 10000;
@@ -42,6 +43,7 @@ public class SessionInfo {
         mIsConnected=false;
         mReqNewSession=false;
         mIsRecipeRequest=false;
+        mNeedUpgrade=false;
         mMaskSerialized="";
         mDevice="Device " + android.os.Build.DEVICE+ " model "
                 +android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
@@ -60,7 +62,9 @@ public class SessionInfo {
                     .getString(CB_PWD, NOT_FOUND);
         }
     }
-
+    private void deBugShow(String s){
+        //Log.d(TAG, s);
+    }
 
     public User getUser() {
         return mUser;
@@ -124,4 +128,14 @@ public class SessionInfo {
         }
     }
 
+    public void setNeedUpgrade(String s) {
+        if (s==null) return;
+        try {
+            Integer newversion=Integer.parseInt(s);
+            Integer oldversion=BuildConfig.VERSION_CODE;
+            deBugShow("Old :)"+oldversion+" and new :"+newversion);
+            if (newversion>oldversion) mNeedUpgrade=true;
+        } catch (Exception e ) { deBugShow("Version code of playstore error :"+e);}
+    }
+    public Boolean appNeedUpgrade(){return mNeedUpgrade;}
 }

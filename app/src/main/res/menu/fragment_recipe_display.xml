@@ -24,5 +24,10 @@
         android:icon="@drawable/ic_recipe_edit"
         android:title="@string/P2MU_edit"
         app:showAsAction="ifRoom|withText"/>
+    <item
+        android:id="@+id/recipe_menu_html"
+        android:icon="@drawable/ic_menu_html"
+        android:title="@string/P2MU_html"
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

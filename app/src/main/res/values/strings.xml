@@ -10,6 +10,7 @@
     <string name="P0LP">Mot de passe :</string>
     <string name="P0HF">Lefevre avenue Mouchez</string>
     <string name="P0HM">Emilie</string>
+    <string name="P0NUP">Une nouvelle version est disponible sur playstore</string>
     <string name="P0HP">pas123niAZER</string>
     <string name="P0ER_nocon"> Serveur familycookbook non disponible </string>
     <string name="P0ERUF"> Caractères speciaux autorisés _-?!() et espace. Min %1$s et max %2$s caractères. Par exemple Martin de Saint-Germain. </string>
@@ -53,6 +54,7 @@
     <string name="P2MU_report">Partager la recette</string>
     <string name="P2MU_edit">Editer la recette</string>
     <string name="P2MU_send">Envoyer une recette à vos amis</string>
+    <string name="P2MU_html">Visualiser sur navigateur</string>
     <string name="P2U_txt">%1$s@%2$s</string>
     <string name="P2RE_title">==%1$s ==</string>
     <string name="P2RE_user">de %1$s </string>

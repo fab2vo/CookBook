@@ -44,4 +44,5 @@ dependencies {
     def acraVersion = '5.8.4'
     implementation "ch.acra:acra-http:$acraVersion"
     implementation "ch.acra:acra-toast:$acraVersion"
+    implementation 'org.jsoup:jsoup:1.11.1'
 }

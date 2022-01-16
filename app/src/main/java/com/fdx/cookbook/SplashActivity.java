@@ -85,12 +85,16 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSession= SessionInfo.get(getApplicationContext());
+        GetVersionCode gvc=new GetVersionCode(mSession);
+        gvc.execute();
         if ((!mSession.IsEmpty())&&(!mSession.IsReqNewSession())){
             Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
             startActivity(intent);
             finish();
+        }
+        if (mSession.appNeedUpgrade()) {
+            Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
         }
         mBuilder=new AlertDialog.Builder(this);
         mNetUtils=new NetworkUtils(getApplicationContext());
