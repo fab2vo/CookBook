@@ -224,7 +224,7 @@ public class RecipeListFragment extends Fragment {
         }
     }
     private void deBugShow(String s){
-        Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
     private void updateUI() {

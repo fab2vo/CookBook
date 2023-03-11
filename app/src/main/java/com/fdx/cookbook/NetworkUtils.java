@@ -53,7 +53,6 @@ public class NetworkUtils {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-            deBugShow( "-POSt is "+this.getPostDataString(postDataParams));
             writer.write(this.getPostDataString(postDataParams));
             writer.flush();
             writer.close();
@@ -454,7 +453,7 @@ public class NetworkUtils {
     }
 
     private void deBugShow(String s){
-        Log.d(TAG, s);
+        //Log.d(TAG, s);
     }
 
 }

@@ -17,7 +17,7 @@ public class CookBook {
     private static CookBook ourInstance ;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    private static final String TAG = "CB_Cookbook";
+    private static final String TAG = "CB_CB";
     private String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
     public static CookBook get(Context context) {
@@ -195,6 +195,6 @@ public class CookBook {
         return false;
     }
     private void deBugShow(String s){
-        Log.d("CB_CB", s);
+        //Log.d(TAG, s);
     }
 }
