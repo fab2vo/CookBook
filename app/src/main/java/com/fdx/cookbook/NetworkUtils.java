@@ -53,6 +53,7 @@ public class NetworkUtils {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
+            deBugShow( "-POSt is "+this.getPostDataString(postDataParams));
             writer.write(this.getPostDataString(postDataParams));
             writer.flush();
             writer.close();
@@ -65,7 +66,8 @@ public class NetworkUtils {
             }
             return sb.toString().trim();
         } catch (Exception e) {
-            deBugShow( "SendPostRequest error>"+e);
+            deBugShow( "-Error in SendPostRequest error"+e);
+            deBugShow( "-Hashmap was "+postDataParams.toString());
             return null;
         }
     }
@@ -452,7 +454,7 @@ public class NetworkUtils {
     }
 
     private void deBugShow(String s){
-        //Log.d(TAG, s);
+        Log.d(TAG, s);
     }
 
 }

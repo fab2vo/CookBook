@@ -27,7 +27,7 @@ public class SessionInfo {
     private String mDevice;
     private String mPwd;
     private static final String TAG = "CB_Session";
-    private static String URLPATH="http://82.66.37.73:8085/cb/";
+    private static String URLPATH="https://cookbookfamily.000webhostapp.com/cb/";
     public static int CONNECT_TIMEOUT = 10000;
     public static int READ_TIMEOUT = 10000;
 

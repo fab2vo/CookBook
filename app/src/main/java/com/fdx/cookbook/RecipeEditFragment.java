@@ -761,6 +761,7 @@ public class RecipeEditFragment extends Fragment {
     }
 
     private Boolean IsRecipeNew(UUID uuid){
+        if (uuid==null) return true;
         return uuid.toString().equals(UUIDNULL);
     }
 

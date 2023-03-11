@@ -45,7 +45,6 @@ public class Recipe {
     private static final int NBING_MAX=15;
     private static final int NBCOM_MAX=20;
     private String TAG="CB_Recipe";
-    //private String DEFAULT_URL="http://82.66.37.73:8085/cb/";
     private String DEFAULT_URL="https://wwww.cookbookfamily.com";
     private String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
@@ -76,6 +75,7 @@ public class Recipe {
         mNotes=new ArrayList<Note>();
         mSource="";
         mIdFrom=new User(UUID.fromString( UUIDNULL));
+        mOwner=new User(UUID.fromString( UUIDNULL));
         try {mSource_url=new URL(DEFAULT_URL);
         } catch (MalformedURLException e) {}
         mTS_recipe=false;
@@ -182,6 +182,8 @@ public class Recipe {
     }
 
     public String getOwnerIdString() {
+        if (mOwner==null) return UUIDNULL;
+        if (mOwner.getId()==null) return UUIDNULL;
         return mOwner.getId().toString();
     }
 
@@ -416,6 +418,8 @@ public class Recipe {
     }
 
     private boolean sc(String s1, String s2){
+        if (s1==null) return false;
+        if (s2==null) return true;
         return s1.toLowerCase().contains(s2.toLowerCase());
     }
 

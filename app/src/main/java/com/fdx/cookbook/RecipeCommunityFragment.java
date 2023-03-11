@@ -148,7 +148,7 @@ public class RecipeCommunityFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
-        getAsyncShorties.cancel(true);
+        if (getAsyncShorties!=null)  getAsyncShorties.cancel(true);
     }
 
     private void updateUI() {

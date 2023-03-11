@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -37,8 +38,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private static final String PHPADDNOTETORECIPE = "addnotewithdate.php";
     private static final String PHPGETNOTESOFRECIPE = "getnotesofrecipe.php";
     private static final String PHPGETSTAMPSTIERS = "getrecipestampstiers.php";
-    private static final String PHPGETRECIPEFROMCB = "getrecipefromcb.php";
-    private static final String PHPGETRECIPEFROMCBWITHPHOTO = "getrecipefromcbwithphoto.php";
+    private static final String PHPGETRECIPEFROMCB = "getrecipefromCB.php";
     private static final String PHPACCEPTRECIPE = "acceptrecipe.php";
     private static final String PHPCHECKREQUESTS = "checkrequests.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
@@ -364,7 +364,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             data.put("date",s1  );
             mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
-            if (result==null) b=false;
+            if (result==null)  return false;
             if (!result.equals("1")) {
                 deBugShow( "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
                 b=false;}
@@ -435,9 +435,13 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("iduser", mSession.getUser().getId().toString().trim());
         data.put("withphoto", "1");
+        deBugShow("Send request for recipe "+ref.getId().toString().trim()+" with iduser "+mSession.getUser().getId().toString().trim());
         mSession.fillPwd(data, true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPGETRECIPEFROMCB,data);
-        Recipe r=new Recipe();
+        if((result==null)||(result.length()==0)){
+            deBugShow( "SendPostRequestJson is null or empty ");
+            return null;
+        }
         try {
             JSONArray jarr1 = new JSONArray(result);
             if (jarr1.length()==0){
@@ -446,14 +450,16 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             } else {
                 if (jarr1.length()>1) deBugShow( " Recette non unique dans cookbook : <"+ref.getId()+">");
                 JSONObject obj = jarr1.getJSONObject(0);
-                r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
+                Recipe r = new Recipe(UUID.fromString(obj.getString("id_recipe")));
                 if (!mNetUtils.parseObjectRecipe(r,obj, true, true))
                     {deBugShow("download recipe but not parsed");return null;}
+                return r;
             }
         } catch (Exception e) {
-            deBugShow( " Error parsing CB in downloadRecipe" + e);
+            deBugShow( "Error parsing CB in downloadRecipe: " + e);
+            deBugShow("Chaine a parser:"+result);
+            return null;
         }
-        return r;
     }
     private Boolean updateRecipe(Recipe ref, boolean withphoto){
         if (ref==null) {deBugShow("updateRecipe with null ref");return null;}

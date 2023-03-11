@@ -18,6 +18,7 @@ public class CookBook {
     private Context mContext;
     private SQLiteDatabase mDatabase;
     private static final String TAG = "CB_Cookbook";
+    private String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
     public static CookBook get(Context context) {
         if (ourInstance==null){
@@ -164,6 +165,20 @@ public class CookBook {
         }
     }
 
+    public void cleanCookBook(){
+        List<Recipe> recipes=new ArrayList<>();
+        Boolean deleteflag;
+        recipes=getRecipes();
+        for (Recipe r:recipes){
+            deleteflag=false;
+            if ((r.getTitle()==null)||(r.getTitle().equals(""))) deleteflag=true;
+            if ((r.getId()==null)||(r.getId().toString()=="")||(r.getId().toString()==UUIDNULL)) deleteflag=true;
+            if (deleteflag) {
+                deleteImage(r);
+                removeRecipe(r);}
+        }
+    }
+
     public void fillCookBook(List<Recipe> recipes){
         for(Recipe r:recipes){
             addRecipe(r);
@@ -172,9 +187,14 @@ public class CookBook {
 
     public Boolean isThereMail(){
         List<Recipe> recipes=this.getRecipes();
+        deBugShow( "--- Boucle Cookbook.IsthereMail-------");
         for(Recipe r:recipes){
+            deBugShow( "recipe "+r.getId().toString()+"-"+r.getTitle()+"- :"+r.getStatus());
             if (r.IsMessage()) return true;
         }
         return false;
+    }
+    private void deBugShow(String s){
+        Log.d("CB_CB", s);
     }
 }

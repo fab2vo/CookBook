@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -223,8 +224,9 @@ public class RecipeListFragment extends Fragment {
         }
     }
     private void deBugShow(String s){
-        //Log.d(TAG, s);
+        Log.d(TAG, s);
     }
+
     private void updateUI() {
         CookBook cookbook=CookBook.get(getActivity());
         List<Recipe> recipes_in=cookbook.getRecipes();
