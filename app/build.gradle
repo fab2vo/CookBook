@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.fdx.cookbook"
-        minSdkVersion 21
+        minSdkVersion 25
         targetSdkVersion 33
         versionCode 21
         versionName "3.4"
