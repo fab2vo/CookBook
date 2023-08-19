@@ -3,14 +3,14 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.fdx.cookbook"
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 20
-        versionName "3.3"
+        targetSdkVersion 33
+        versionCode 21
+        versionName "3.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
