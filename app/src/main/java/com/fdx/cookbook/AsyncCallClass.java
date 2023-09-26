@@ -234,7 +234,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                     if (downloadedComments.isEmpty()) {
                         c1oc.add(c);
                     } else {
-                        if (downloadedComments.indexOf(c)==-1) c1oc.add(c);
+                    if (downloadedComments.indexOf(c)==-1) c1oc.add(c);
                     }
                 }
             }
@@ -245,11 +245,8 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             for (int i = 0; i < downloadedComments.size(); i++){
                 ci=downloadedComments.get(i);
                 c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
-                if (recipeComments.isEmpty()) {
-                    cser.add(c);
-                } else {
-                    if (recipeComments.indexOf(c)==-1) cser.add(c);
-                }
+                if (recipeComments.isEmpty()) {cser.add(c);} else {
+                if (recipeComments.indexOf(c)==-1) cser.add(c);}
             }
         }
         if (!cser.isEmpty()){
@@ -262,11 +259,8 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             }
         }
         if (!c1oc.isEmpty()) {
-            if (!uploadComments(r,c1oc)) {
-                ret=false;
-            } else {
-                ret=true;
-            }
+            if (!uploadComments(r,c1oc)) {ret=false;}
+            else {ret=true;}
         }
         return ret;
     }
@@ -308,14 +302,14 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         List<Note> c1oc= new ArrayList<>();
         Note c,ci;
         if (!recipeNotes.isEmpty()){
-            for (int i = 0; i < recipeNotes.size(); i++) {
-                ci = recipeNotes.get(i);
-                c = new Note(ci.getNote(), ci.getUser(), ci.getDate());
-                if (c.getUser().getId().toString().equals(mSession.getUser().getId().toString())) {
+            for (int i = 0; i < recipeNotes.size(); i++){
+                ci=recipeNotes.get(i);
+                c=new Note(ci.getNote(),ci.getUser(),ci.getDate());
+                if (c.getUser().getId().toString().equals(mSession.getUser().getId().toString())){
                     if (downloadedNotes.isEmpty()) {
-                        c1oc.add(c);
-                    } else {
-                        if (downloadedNotes.indexOf(c) == -1) c1oc.add(c);
+                        c1oc.add(c);}
+                    else {
+                        if (downloadedNotes.indexOf(c)==-1) c1oc.add(c);
                     }
                 }
             }
