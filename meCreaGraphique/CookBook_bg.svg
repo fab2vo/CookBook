@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60mm"
+   height="60mm"
+   viewBox="0 0 60 60"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="CookBook_bg.svg">
+  <defs
+     id="defs2">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter865"
+       x="-0.00012015464"
+       width="1.0002403"
+       y="-0.00011984576"
+       height="1.0002397">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.0029970951"
+         id="feGaussianBlur867" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="26.846457"
+     inkscape:cy="132.17821"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1544"
+     inkscape:window-height="964"
+     inkscape:window-x="63"
+     inkscape:window-y="19"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Calque 2"
+     style="display:inline;opacity:1;filter:url(#filter865)">
+    <rect
+       style="opacity:1;fill:#e7e1bb;fill-opacity:1;stroke:#dec3a5;stroke-width:0.2;stroke-opacity:1"
+       id="rect1952"
+       width="59.864758"
+       height="60.019047"
+       x="0.077145308"
+       y="0"
+       ry="1.2160753" />
+    <path
+       style="opacity:0.999;fill:#aad400;stroke-width:0.895031"
+       d="M 2.9854985,225.92905 C 1.7418744,225.31347 1.1147384,224.46376 0.79652368,222.96318 0.63009638,222.17838 0.57238481,186.99866 0.61554313,112.64135 0.6750842,10.058201 0.70339673,3.4270223 1.0848198,2.7303283 1.587501,1.8121482 2.7579803,0.80639211 3.598086,0.57075759 3.9462234,0.4731113 53.463947,0.39321888 113.63747,0.39321888 c 102.877,0 109.45066,0.024225 110.14783,0.40591267 1.00612,0.55082385 1.91291,1.67561075 2.20829,2.73917935 0.16668,0.6001579 0.2417,35.6547771 0.23551,110.0502791 -0.01,116.44428 0.0515,110.19733 -1.09061,111.46018 -0.24032,0.26572 -0.83231,0.68493 -1.31554,0.93156 -0.8584,0.43811 -3.39625,0.44842 -110.35365,0.44823 L 3.9942528,226.42838 Z"
+       id="path831"
+       transform="scale(0.26458333)" />
+    <path
+       style="opacity:0.999;fill:#d3a356;stroke-width:3.77953;fill-opacity:1"
+       d="M 2.046457,224.47821 C 0.4541107,222.88586 0.2926829,5.5814635 1.8816408,2.6124685 2.8954882,0.7180772 5.1895048,0.67821 113.18164,0.67821 c 84.42819,0 110.546,0.2811772 111.46482,1.2 1.74173,1.7417311 1.74173,220.85827 0,222.6 -1.74173,1.74173 -220.8582719,1.74173 -222.600003,0 z"
+       id="path832"
+       transform="scale(0.26458333)" />
+  </g>
+</svg>

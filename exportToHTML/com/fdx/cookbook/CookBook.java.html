@@ -1,0 +1,202 @@
+<html>
+<head>
+<title>CookBook.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+CookBook.java</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.fdx.cookbook</span><span class="s0">;</span>
+<a name="l2"><span class="ln">2    </span></a>
+<a name="l3"><span class="ln">3    </span></a><span class="s0">import </span><span class="s1">android.content.ContentValues</span><span class="s0">;</span>
+<a name="l4"><span class="ln">4    </span></a><span class="s0">import </span><span class="s1">android.content.Context</span><span class="s0">;</span>
+<a name="l5"><span class="ln">5    </span></a><span class="s0">import </span><span class="s1">android.database.Cursor</span><span class="s0">;</span>
+<a name="l6"><span class="ln">6    </span></a><span class="s0">import </span><span class="s1">android.database.sqlite.SQLiteDatabase</span><span class="s0">;</span>
+<a name="l7"><span class="ln">7    </span></a><span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<a name="l8"><span class="ln">8    </span></a>
+<a name="l9"><span class="ln">9    </span></a>
+<a name="l10"><span class="ln">10   </span></a><span class="s0">import </span><span class="s1">java.io.File</span><span class="s0">;</span>
+<a name="l11"><span class="ln">11   </span></a><span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<a name="l12"><span class="ln">12   </span></a><span class="s0">import </span><span class="s1">java.util.Date</span><span class="s0">;</span>
+<a name="l13"><span class="ln">13   </span></a><span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<a name="l14"><span class="ln">14   </span></a><span class="s0">import </span><span class="s1">java.util.UUID</span><span class="s0">;</span>
+<a name="l15"><span class="ln">15   </span></a>
+<a name="l16"><span class="ln">16   </span></a><span class="s0">public class </span><span class="s1">CookBook {</span>
+<a name="l17"><span class="ln">17   </span></a>    <span class="s0">private static </span><span class="s1">CookBook ourInstance </span><span class="s0">;</span>
+<a name="l18"><span class="ln">18   </span></a>    <span class="s0">private </span><span class="s1">Context mContext</span><span class="s0">;</span>
+<a name="l19"><span class="ln">19   </span></a>    <span class="s0">private </span><span class="s1">SQLiteDatabase mDatabase</span><span class="s0">;</span>
+<a name="l20"><span class="ln">20   </span></a>    <span class="s0">private static final </span><span class="s1">String TAG = </span><span class="s2">&quot;CB_Cookbook&quot;</span><span class="s0">;</span>
+<a name="l21"><span class="ln">21   </span></a>
+<a name="l22"><span class="ln">22   </span></a>    <span class="s0">public static </span><span class="s1">CookBook get(Context context) {</span>
+<a name="l23"><span class="ln">23   </span></a>        <span class="s0">if </span><span class="s1">(ourInstance==</span><span class="s0">null</span><span class="s1">){</span>
+<a name="l24"><span class="ln">24   </span></a>            <span class="s1">ourInstance= </span><span class="s0">new </span><span class="s1">CookBook(context)</span><span class="s0">;</span>
+<a name="l25"><span class="ln">25   </span></a>        <span class="s1">}</span>
+<a name="l26"><span class="ln">26   </span></a>        <span class="s0">return </span><span class="s1">ourInstance</span><span class="s0">;</span>
+<a name="l27"><span class="ln">27   </span></a>    <span class="s1">}</span>
+<a name="l28"><span class="ln">28   </span></a>
+<a name="l29"><span class="ln">29   </span></a>    <span class="s0">private </span><span class="s1">CookBook(Context context) {</span>
+<a name="l30"><span class="ln">30   </span></a>          <span class="s1">mContext=context.getApplicationContext()</span><span class="s0">;</span>
+<a name="l31"><span class="ln">31   </span></a>          <span class="s1">mDatabase=</span><span class="s0">new <a href="RecipeBaseHelper.java.html">RecipeBaseHelper</a></span><span class="s1">(mContext)</span>
+<a name="l32"><span class="ln">32   </span></a>                  <span class="s1">.getWritableDatabase()</span><span class="s0">;</span>
+<a name="l33"><span class="ln">33   </span></a>    <span class="s1">}</span>
+<a name="l34"><span class="ln">34   </span></a>
+<a name="l35"><span class="ln">35   </span></a>    <span class="s0">public <a href="Recipe.java.html">Recipe</a> </span><span class="s1">getRecipe(UUID id) {</span>
+<a name="l36"><span class="ln">36   </span></a>        <a href="RecipeCursorWrapper.java.html">RecipeCursorWrapper</a> <span class="s1">cursor=queryRecipes(</span>
+<a name="l37"><span class="ln">37   </span></a>                <a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a><span class="s1">.UUID+</span><span class="s2">&quot; =?&quot;</span><span class="s0">,</span>
+<a name="l38"><span class="ln">38   </span></a>                <span class="s0">new </span><span class="s1">String[] {id.toString()}</span>
+<a name="l39"><span class="ln">39   </span></a>        <span class="s1">)</span><span class="s0">;</span>
+<a name="l40"><span class="ln">40   </span></a>        <span class="s0">try</span><span class="s1">{</span>
+<a name="l41"><span class="ln">41   </span></a>            <span class="s0">if </span><span class="s1">(cursor.getCount()==</span><span class="s3">0</span><span class="s1">) {</span><span class="s0">return null;</span><span class="s1">}</span>
+<a name="l42"><span class="ln">42   </span></a>            <span class="s1">cursor.moveToFirst()</span><span class="s0">;</span>
+<a name="l43"><span class="ln">43   </span></a>            <span class="s0">return </span><span class="s1">cursor.getRecipe()</span><span class="s0">;</span>
+<a name="l44"><span class="ln">44   </span></a>        <span class="s1">} </span><span class="s0">finally </span><span class="s1">{cursor.close()</span><span class="s0">;</span><span class="s1">}</span>
+<a name="l45"><span class="ln">45   </span></a>    <span class="s1">}</span>
+<a name="l46"><span class="ln">46   </span></a>
+<a name="l47"><span class="ln">47   </span></a>    <span class="s0">public void </span><span class="s1">updateRecipe(<a href="Recipe.java.html">Recipe</a> r) {</span>
+<a name="l48"><span class="ln">48   </span></a>        <span class="s1">String uuidString=r.getId().toString()</span><span class="s0">;</span>
+<a name="l49"><span class="ln">49   </span></a>        <span class="s1">ContentValues values=getContentValues(r)</span><span class="s0">;</span>
+<a name="l50"><span class="ln">50   </span></a>        <span class="s1">mDatabase.update(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable</a>.NAME</span><span class="s0">, </span><span class="s1">values</span><span class="s0">,</span>
+<a name="l51"><span class="ln">51   </span></a>                <a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a><span class="s1">.UUID+</span><span class="s2">&quot; =?&quot;</span><span class="s0">,</span>
+<a name="l52"><span class="ln">52   </span></a>                <span class="s0">new </span><span class="s1">String[] {uuidString})</span><span class="s0">;</span>
+<a name="l53"><span class="ln">53   </span></a>    <span class="s1">}</span>
+<a name="l54"><span class="ln">54   </span></a>
+<a name="l55"><span class="ln">55   </span></a>    <span class="s0">private <a href="RecipeCursorWrapper.java.html">RecipeCursorWrapper</a> </span><span class="s1">queryRecipes(String whereClause</span><span class="s0">, </span><span class="s1">String[] whereArgs){</span>
+<a name="l56"><span class="ln">56   </span></a>        <span class="s1">Cursor cursor=mDatabase.query(</span>
+<a name="l57"><span class="ln">57   </span></a>                <a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable</a><span class="s1">.NAME</span><span class="s0">,</span>
+<a name="l58"><span class="ln">58   </span></a>                <span class="s0">null, </span><span class="s4">// selct all columns</span>
+<a name="l59"><span class="ln">59   </span></a>                <span class="s1">whereClause</span><span class="s0">,</span>
+<a name="l60"><span class="ln">60   </span></a>                <span class="s1">whereArgs</span><span class="s0">,</span>
+<a name="l61"><span class="ln">61   </span></a>                <span class="s0">null, null, null</span>
+<a name="l62"><span class="ln">62   </span></a>        <span class="s1">)</span><span class="s0">;</span>
+<a name="l63"><span class="ln">63   </span></a>        <span class="s0">return new <a href="RecipeCursorWrapper.java.html">RecipeCursorWrapper</a></span><span class="s1">(cursor)</span><span class="s0">;</span>
+<a name="l64"><span class="ln">64   </span></a>    <span class="s1">}</span>
+<a name="l65"><span class="ln">65   </span></a>
+<a name="l66"><span class="ln">66   </span></a>    <span class="s0">public void </span><span class="s1">addRecipe(<a href="Recipe.java.html">Recipe</a> r){</span>
+<a name="l67"><span class="ln">67   </span></a>        <span class="s0">if </span><span class="s1">(</span><span class="s0">this</span><span class="s1">.getRecipe(r.getId())==</span><span class="s0">null</span><span class="s1">) {</span>
+<a name="l68"><span class="ln">68   </span></a>            <span class="s1">ContentValues values=getContentValues(r)</span><span class="s0">;</span>
+<a name="l69"><span class="ln">69   </span></a>            <span class="s1">mDatabase.insert(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable</a>.NAME</span><span class="s0">, null, </span><span class="s1">values)</span><span class="s0">;</span>
+<a name="l70"><span class="ln">70   </span></a>        <span class="s1">}</span>
+<a name="l71"><span class="ln">71   </span></a>    <span class="s1">}</span>
+<a name="l72"><span class="ln">72   </span></a>
+<a name="l73"><span class="ln">73   </span></a>    <span class="s0">public void </span><span class="s1">removeRecipe(<a href="Recipe.java.html">Recipe</a> r){</span>
+<a name="l74"><span class="ln">74   </span></a>        <span class="s1">String uuidString=r.getId().toString()</span><span class="s0">;</span>
+<a name="l75"><span class="ln">75   </span></a>        <span class="s1">mDatabase.delete(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable</a>.NAME</span><span class="s0">,</span>
+<a name="l76"><span class="ln">76   </span></a>                <a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a><span class="s1">.UUID+</span><span class="s2">&quot; =?&quot;</span><span class="s0">,</span>
+<a name="l77"><span class="ln">77   </span></a>                <span class="s0">new </span><span class="s1">String[] {uuidString})</span><span class="s0">;</span>
+<a name="l78"><span class="ln">78   </span></a>        <span class="s0">return;</span>
+<a name="l79"><span class="ln">79   </span></a>    <span class="s1">}</span>
+<a name="l80"><span class="ln">80   </span></a>
+<a name="l81"><span class="ln">81   </span></a>    <span class="s0">public void </span><span class="s1">markRecipeToDelete(<a href="Recipe.java.html">Recipe</a> r){</span>
+<a name="l82"><span class="ln">82   </span></a>        <span class="s1">r.setStatus(<a href="Recipe.java.html">StatusRecipe</a>.Deleted)</span><span class="s0">;</span>
+<a name="l83"><span class="ln">83   </span></a>        <span class="s1">updateRecipe(r)</span><span class="s0">;</span>
+<a name="l84"><span class="ln">84   </span></a>        <span class="s0">return;</span>
+<a name="l85"><span class="ln">85   </span></a>    <span class="s1">}</span>
+<a name="l86"><span class="ln">86   </span></a>
+<a name="l87"><span class="ln">87   </span></a>    <span class="s0">public </span><span class="s1">List&lt;Recipe&gt; getRecipes(){</span>
+<a name="l88"><span class="ln">88   </span></a>          <span class="s1">List&lt;Recipe&gt; recipes=</span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+<a name="l89"><span class="ln">89   </span></a>          <a href="RecipeCursorWrapper.java.html">RecipeCursorWrapper</a> <span class="s1">cursor=queryRecipes(</span><span class="s0">null, null</span><span class="s1">)</span><span class="s0">;</span>
+<a name="l90"><span class="ln">90   </span></a>          <span class="s0">try</span><span class="s1">{</span>
+<a name="l91"><span class="ln">91   </span></a>              <span class="s1">cursor.moveToFirst()</span><span class="s0">;</span>
+<a name="l92"><span class="ln">92   </span></a>              <span class="s0">while </span><span class="s1">(!cursor.isAfterLast()){</span>
+<a name="l93"><span class="ln">93   </span></a>                  <span class="s1">recipes.add(cursor.getRecipe())</span><span class="s0">;</span>
+<a name="l94"><span class="ln">94   </span></a>                  <span class="s1">cursor.moveToNext()</span><span class="s0">;</span>
+<a name="l95"><span class="ln">95   </span></a>              <span class="s1">}</span>
+<a name="l96"><span class="ln">96   </span></a>          <span class="s1">} </span><span class="s0">finally </span><span class="s1">{ cursor.close()</span><span class="s0">;</span><span class="s1">}</span>
+<a name="l97"><span class="ln">97   </span></a>          <span class="s0">return </span><span class="s1">recipes</span><span class="s0">;</span>
+<a name="l98"><span class="ln">98   </span></a>    <span class="s1">}</span>
+<a name="l99"><span class="ln">99   </span></a>
+<a name="l100"><span class="ln">100  </span></a>    <span class="s0">public </span><span class="s1">List&lt;Recipe&gt; getRecipesVisibles(){</span>
+<a name="l101"><span class="ln">101  </span></a>        <span class="s1">List&lt;Recipe&gt; recipes=</span><span class="s0">this</span><span class="s1">.getRecipes()</span><span class="s0">;</span>
+<a name="l102"><span class="ln">102  </span></a>        <span class="s1">List&lt;Recipe&gt; recipeloop=</span><span class="s0">this</span><span class="s1">.getRecipes()</span><span class="s0">;</span>
+<a name="l103"><span class="ln">103  </span></a>        <span class="s0">for</span><span class="s1">(<a href="Recipe.java.html">Recipe</a> r:recipeloop){</span>
+<a name="l104"><span class="ln">104  </span></a>            <span class="s0">if </span><span class="s1">(!r.IsVisible()) recipes.remove(r)</span><span class="s0">;</span>
+<a name="l105"><span class="ln">105  </span></a>        <span class="s1">}</span>
+<a name="l106"><span class="ln">106  </span></a>        <span class="s0">return </span><span class="s1">recipes</span><span class="s0">;</span>
+<a name="l107"><span class="ln">107  </span></a>    <span class="s1">}</span>
+<a name="l108"><span class="ln">108  </span></a>
+<a name="l109"><span class="ln">109  </span></a>    <span class="s0">private static </span><span class="s1">ContentValues getContentValues(<a href="Recipe.java.html">Recipe</a> recipe) {</span>
+<a name="l110"><span class="ln">110  </span></a>        <span class="s1">ContentValues values=</span><span class="s0">new </span><span class="s1">ContentValues()</span><span class="s0">;</span>
+<a name="l111"><span class="ln">111  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.UUID</span><span class="s0">, </span><span class="s1">recipe.getId().toString())</span><span class="s0">;</span>
+<a name="l112"><span class="ln">112  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.OWNER</span><span class="s0">, </span><span class="s1">recipe.getSerializedOwner())</span><span class="s0">;</span>
+<a name="l113"><span class="ln">113  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TITLE</span><span class="s0">, </span><span class="s1">recipe.getTitle())</span><span class="s0">;</span>
+<a name="l114"><span class="ln">114  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.SOURCE</span><span class="s0">, </span><span class="s1">recipe.getSource())</span><span class="s0">;</span>
+<a name="l115"><span class="ln">115  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.SOURCE_URL</span><span class="s0">, </span><span class="s1">recipe.getSource_url().toString())</span><span class="s0">;</span>
+<a name="l116"><span class="ln">116  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.DATE</span><span class="s0">, </span><span class="s1">recipe.getDate().getTime())</span><span class="s0">;</span>
+<a name="l117"><span class="ln">117  </span></a>        <span class="s0">if </span><span class="s1">(recipe.getDatePhoto()!=</span><span class="s0">null</span><span class="s1">){</span>
+<a name="l118"><span class="ln">118  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.DATE_PHOTO</span><span class="s0">, </span><span class="s1">recipe.getDatePhoto().getTime())</span><span class="s0">;</span><span class="s1">}</span>
+<a name="l119"><span class="ln">119  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.NBPERS</span><span class="s0">, </span><span class="s1">recipe.getNbPers())</span><span class="s0">;</span>
+<a name="l120"><span class="ln">120  </span></a>        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s0">;</span><span class="s1">i&lt;recipe.getNbStepMax()</span><span class="s0">;</span><span class="s1">i++){</span>
+<a name="l121"><span class="ln">121  </span></a>            <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.STEP[i]</span><span class="s0">, </span><span class="s1">recipe.getStep(i+</span><span class="s3">1</span><span class="s1">))</span><span class="s0">;</span>
+<a name="l122"><span class="ln">122  </span></a>        <span class="s1">}</span>
+<a name="l123"><span class="ln">123  </span></a>        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s3">0</span><span class="s0">;</span><span class="s1">i&lt;recipe.getNbIngMax()</span><span class="s0">;</span><span class="s1">i++){</span>
+<a name="l124"><span class="ln">124  </span></a>            <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.ING[i]</span><span class="s0">, </span><span class="s1">recipe.getIngredient(i+</span><span class="s3">1</span><span class="s1">))</span><span class="s0">;</span>
+<a name="l125"><span class="ln">125  </span></a>        <span class="s1">}</span>
+<a name="l126"><span class="ln">126  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.SEASON</span><span class="s0">, </span><span class="s1">recipe.getSeason().name())</span><span class="s0">;</span>
+<a name="l127"><span class="ln">127  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.DIFFICULTY</span><span class="s0">, </span><span class="s1">recipe.getDifficulty().name())</span><span class="s0">;</span>
+<a name="l128"><span class="ln">128  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TYPE</span><span class="s0">, </span><span class="s1">recipe.getType().name())</span><span class="s0">;</span>
+<a name="l129"><span class="ln">129  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.COMMENTS</span><span class="s0">, </span><span class="s1">recipe.getSerializedComments())</span><span class="s0">;</span>
+<a name="l130"><span class="ln">130  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.STATUS</span><span class="s0">, </span><span class="s1">recipe.getStatus().toString())</span><span class="s0">;</span>
+<a name="l131"><span class="ln">131  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.NOTES</span><span class="s0">, </span><span class="s1">recipe.getSerializedNotes())</span><span class="s0">;</span>
+<a name="l132"><span class="ln">132  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.MESSAGE</span><span class="s0">, </span><span class="s1">recipe.getMessage())</span><span class="s0">;</span>
+<a name="l133"><span class="ln">133  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.MESSAGE_FROM</span><span class="s0">, </span><span class="s1">recipe.getSerializedFrom())</span><span class="s0">;</span>
+<a name="l134"><span class="ln">134  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TS_RECIPE</span><span class="s0">, </span><span class="s1">recipe.getTS(<a href="AsyncCallClass.java.html">AsynCallFlag</a>.NEWRECIPE))</span><span class="s0">;</span>
+<a name="l135"><span class="ln">135  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TS_PHOTO</span><span class="s0">, </span><span class="s1">recipe.getTS(<a href="AsyncCallClass.java.html">AsynCallFlag</a>.NEWPHOTO))</span><span class="s0">;</span>
+<a name="l136"><span class="ln">136  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TS_COMMENT</span><span class="s0">, </span><span class="s1">recipe.getTS(<a href="AsyncCallClass.java.html">AsynCallFlag</a>.NEWCOMMENT))</span><span class="s0">;</span>
+<a name="l137"><span class="ln">137  </span></a>        <span class="s1">values.put(<a href="RecipeDbSchema.java.html">RecipeDbSchema.RecipeTable.Cols</a>.TS_NOTE</span><span class="s0">, </span><span class="s1">recipe.getTS(<a href="AsyncCallClass.java.html">AsynCallFlag</a>.NEWRATING))</span><span class="s0">;</span>
+<a name="l138"><span class="ln">138  </span></a>        <span class="s0">return </span><span class="s1">values</span><span class="s0">;</span>
+<a name="l139"><span class="ln">139  </span></a>    <span class="s1">}</span>
+<a name="l140"><span class="ln">140  </span></a>
+<a name="l141"><span class="ln">141  </span></a>    <span class="s0">public </span><span class="s1">File getPhotoFile(<a href="Recipe.java.html">Recipe</a> r){</span>
+<a name="l142"><span class="ln">142  </span></a>        <span class="s0">if </span><span class="s1">(r==</span><span class="s0">null</span><span class="s1">) {</span><span class="s0">return null;</span><span class="s1">}</span>
+<a name="l143"><span class="ln">143  </span></a>        <span class="s1">File filesDir= mContext.getFilesDir()</span><span class="s0">;</span>
+<a name="l144"><span class="ln">144  </span></a>        <span class="s0">return new </span><span class="s1">File(filesDir</span><span class="s0">, </span><span class="s1">r.getPhotoFilename())</span><span class="s0">;</span>
+<a name="l145"><span class="ln">145  </span></a>    <span class="s1">}</span>
+<a name="l146"><span class="ln">146  </span></a>
+<a name="l147"><span class="ln">147  </span></a>    <span class="s0">public </span><span class="s1">Boolean deleteImage(<a href="Recipe.java.html">Recipe</a> r){</span>
+<a name="l148"><span class="ln">148  </span></a>        <span class="s1">Boolean success=</span><span class="s0">false;</span>
+<a name="l149"><span class="ln">149  </span></a>        <span class="s1">File filesDir= mContext.getFilesDir()</span><span class="s0">;</span>
+<a name="l150"><span class="ln">150  </span></a>        <span class="s1">File im=</span><span class="s0">new </span><span class="s1">File(filesDir</span><span class="s0">, </span><span class="s1">r.getPhotoFilename())</span><span class="s0">;</span>
+<a name="l151"><span class="ln">151  </span></a>        <span class="s0">if </span><span class="s1">(im.exists()){</span>
+<a name="l152"><span class="ln">152  </span></a>            <span class="s1">im.delete()</span><span class="s0">;</span>
+<a name="l153"><span class="ln">153  </span></a>            <span class="s1">success=</span><span class="s0">true;</span>
+<a name="l154"><span class="ln">154  </span></a>        <span class="s1">}</span>
+<a name="l155"><span class="ln">155  </span></a>        <span class="s0">return </span><span class="s1">success</span><span class="s0">;</span>
+<a name="l156"><span class="ln">156  </span></a>    <span class="s1">}</span>
+<a name="l157"><span class="ln">157  </span></a>
+<a name="l158"><span class="ln">158  </span></a>    <span class="s0">public void </span><span class="s1">clearCookBook(){</span>
+<a name="l159"><span class="ln">159  </span></a>        <span class="s1">List&lt;Recipe&gt; recipes=</span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+<a name="l160"><span class="ln">160  </span></a>        <span class="s1">recipes=getRecipes()</span><span class="s0">;</span>
+<a name="l161"><span class="ln">161  </span></a>        <span class="s0">for </span><span class="s1">(<a href="Recipe.java.html">Recipe</a> r:recipes){</span>
+<a name="l162"><span class="ln">162  </span></a>            <span class="s1">deleteImage(r)</span><span class="s0">;</span>
+<a name="l163"><span class="ln">163  </span></a>            <span class="s1">removeRecipe(r)</span><span class="s0">;</span>
+<a name="l164"><span class="ln">164  </span></a>        <span class="s1">}</span>
+<a name="l165"><span class="ln">165  </span></a>    <span class="s1">}</span>
+<a name="l166"><span class="ln">166  </span></a>
+<a name="l167"><span class="ln">167  </span></a>    <span class="s0">public void </span><span class="s1">fillCookBook(List&lt;Recipe&gt; recipes){</span>
+<a name="l168"><span class="ln">168  </span></a>        <span class="s0">for</span><span class="s1">(<a href="Recipe.java.html">Recipe</a> r:recipes){</span>
+<a name="l169"><span class="ln">169  </span></a>            <span class="s1">addRecipe(r)</span><span class="s0">;</span>
+<a name="l170"><span class="ln">170  </span></a>        <span class="s1">}</span>
+<a name="l171"><span class="ln">171  </span></a>    <span class="s1">}</span>
+<a name="l172"><span class="ln">172  </span></a>
+<a name="l173"><span class="ln">173  </span></a>    <span class="s0">public </span><span class="s1">Boolean isThereMail(){</span>
+<a name="l174"><span class="ln">174  </span></a>        <span class="s1">List&lt;Recipe&gt; recipes=</span><span class="s0">this</span><span class="s1">.getRecipes()</span><span class="s0">;</span>
+<a name="l175"><span class="ln">175  </span></a>        <span class="s0">for</span><span class="s1">(<a href="Recipe.java.html">Recipe</a> r:recipes){</span>
+<a name="l176"><span class="ln">176  </span></a>            <span class="s0">if </span><span class="s1">(r.IsMessage()) </span><span class="s0">return true;</span>
+<a name="l177"><span class="ln">177  </span></a>        <span class="s1">}</span>
+<a name="l178"><span class="ln">178  </span></a>        <span class="s0">return false;</span>
+<a name="l179"><span class="ln">179  </span></a>    <span class="s1">}</span>
+<a name="l180"><span class="ln">180  </span></a><span class="s1">}</span>
+<a name="l181"><span class="ln">181  </span></a></pre>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?php
+/* Program: addnotewithdate.php
+ * Create new rating for a recipe 
+ * input : idrecipe idfrom note (pwd)
+ * output : false or true
+ */
+ 
+ include ("ikonexct007.inc");
+ debugtrace("---> ".date('Y-m-d H:i:s')."  ->  ".__FILE__);
+ if (! $cxn = mysqli_connect($host,$user,$password, $nombase,$port)) exitfail(mysqli_error($cxn));
+
+ $idrecipe_req=$_POST['idrecipe'];
+ $iduser_req=$_POST['idfrom'];
+ $note_req=$_POST['note'];
+ $date_req=$_POST['date'];
+ /// check inputs
+ if (! preg_match($pat_uuid, $idrecipe_req)) exitfail("Error in Id recipe ".$idrecipe_req);
+ if (! preg_match($pat_uuid, $iduser_req)) exitfail("Error in Id user ".$iduser_req);
+ if (! preg_match("([1-5]{1})", $note_req)) exitfail("Error in note ".$note_req);
+ if (! preg_match($pat_date, $date_req)) exitfail("Error in date format ".$date_req);
+   //input pwd from $id_user_req
+ include ("itchekpwd.inc");
+  /// check if recipe exists
+ $sql="SELECT * FROM `recipedb` WHERE id_recipe='$idrecipe_req'";
+ debugtrace($sql);
+ mysqli_query($cxn,'SET NAMES UTF8');
+ $result = mysqli_query($cxn,$sql);
+ if (!$result) exitfail("No result");
+ $row_count=$result->num_rows;
+ if ($row_count!=1) exitfail("No / too many recipe found :".$idrecipe_req);
+ 
+ /// check if user exists
+ $sql="SELECT * FROM userdb WHERE id_user='$iduser_req'";
+ debugtrace($sql);
+ mysqli_query($cxn,'SET NAMES UTF8');
+ $result = mysqli_query($cxn,$sql);
+ if (!$result) exitfail("No result");
+ $row_count=$result->num_rows;
+ if ($row_count!=1) exitfail("No / too many user found :".$iduser_req);		
+
+ /// check if note exists already
+ $sql="SELECT * FROM notesdb WHERE id_user='$iduser_req' AND id_recipe='$idrecipe_req' AND date_note='$date_req'";
+ debugtrace($sql);
+ mysqli_query($cxn,'SET NAMES UTF8');
+ $result = mysqli_query($cxn,$sql);
+ if (!$result) exitfail("No result");
+ $row_count=$result->num_rows;
+ if ($row_count!=0) exitfail("Note already exists ");	
+
+ /// insert note
+ $sql="INSERT INTO `notesdb` (`id_recipe`, `note`, `id_user`, `date_note`)
+		VALUES ( '$idrecipe_req', '$note_req', '$iduser_req', '$date_req') ";
+ debugtrace($sql);
+ mysqli_query($cxn,'SET NAMES UTF8');
+ $result = mysqli_query($cxn,$sql);
+ if (!$result) exitfail("Insert failed");
+ /// success !
+ echo $found;
+ exitsuccess($cxn);
+?>
+

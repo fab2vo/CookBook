@@ -1,0 +1,26 @@
+
+--------------------------------------------------- 1.9 -------------------------------------------------
+-----------New Family------------
+Device lavender model Redmi Note 7 (lavender_eea)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('6d065663-56a8-4f80-88aa-0c42fa23cd24','Antoine','De Saint-Exupéry',now(),'cookbook') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('6d065663-56a8-4f80-88aa-0c42fa23cd24','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+-----------New Family------------
+Device pyxis model Mi 9 Lite (pyxis)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('8e1846bc-ac74-4f87-802f-bbbed5f11600','maud','sabiani',now(),'21Spyke!') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('8e1846bc-ac74-4f87-802f-bbbed5f11600','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+-----------New Family------------
+Device p3s model SM-G998B (p3sxeea)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('0ddab906-93e9-4d45-8c7d-4407e4f5f27d','Carole','Sayler',now(),'pilote1') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('0ddab906-93e9-4d45-8c7d-4407e4f5f27d','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+-----------New Family------------
+Device lavender model Redmi Note 7 (lavender_eea)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('89ead477-9a29-4017-80a9-afb94af4c2fe','Fab','MasterCook',now(),'Book') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('89ead477-9a29-4017-80a9-afb94af4c2fe','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')

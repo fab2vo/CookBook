@@ -1,0 +1,8 @@
+
+--------------------------------------------------- 1.9 -------------------------------------------------
+-----------New Family------------
+Device lavender model Redmi Note 7 (lavender_eea)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('6d065663-56a8-4f80-88aa-0c42fa23cd24','Antoine','De Saint-Exupéry',now(),'cookbook') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('6d065663-56a8-4f80-88aa-0c42fa23cd24','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')

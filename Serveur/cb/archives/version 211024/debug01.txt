@@ -1,0 +1,9 @@
+Debut   SELECT * FROM `recipedb` WHERE id_recipe='f33e0d62-cb0a-4098-ac0a-1574b9df8c87' ->  Request:  UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2021-07-03',
+		`title`='Nouvelle pour Essai',`source`='',`source_url`='',`nb_pers`='05',
+		`etape01`='',`etape02`='',`etape03`='',`etape04`='',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='',`difficulty`='',
+		`ing01`='',`ing02`='',`ing03`='',`ing04`='',`ing05`='',
+		`ing06`='',`ing07`='',`ing08`='',`ing09`='',`ing10`='',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='f33e0d62-cb0a-4098-ac0a-1574b9df8c87'/n  -> 

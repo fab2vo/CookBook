@@ -1,0 +1,268 @@
+REPORT_ID = 2eb5c9de-89a0-4b77-b8f9-31d6abd33734
+APP_VERSION_CODE = 17
+APP_VERSION_NAME = 3.0
+PACKAGE_NAME = com.fdx.cookbook
+FILE_PATH = /data/user/0/com.fdx.cookbook/files
+PHONE_MODEL = Motorola One Vision
+BRAND = Motorola
+PRODUCT = scutum
+ANDROID_VERSION = 8.1.0
+BUILD =
+---BOARD = unknown
+---BOOTLOADER = unknown
+---BRAND = Motorola
+---CPU_ABI = arm64-v8a
+---CPU_ABI2 = 
+---DEVICE = scutum
+---DISPLAY = mtrt_arm64-userdebug 8.1.0 OPM8.190605.005 194 test-keys
+---FINGERPRINT = Motorola/scutum/scutum:8.1.1/LMY47D/5080180:user/release-keys
+---HARDWARE = trend
+---HOST = jenkinsbuild-virtual-machine
+---ID = OPM8.190605.005
+---IS_CONTAINER = 
+---IS_DEBUGGABLE = 
+---IS_EMULATOR = 1
+---IS_ENG = 
+---IS_TREBLE_ENABLED = 1
+---IS_USER = 
+---IS_USERDEBUG = 1
+---MANUFACTURER = Motorola
+---MODEL = Motorola One Vision
+---PERMISSIONS_REVIEW_REQUIRED = 
+---PRODUCT = scutum
+---RADIO = unknown
+---SERIAL = RKK021848979234
+---SUPPORTED_32_BIT_ABIS = Array
+---SUPPORTED_64_BIT_ABIS = Array
+---SUPPORTED_ABIS = Array
+---TAGS = release-keys
+---TIME = 1620440306000
+---TYPE = userdebug
+---UNKNOWN = unknown
+---USER = jenkinsbuild
+---VERSION = Array
+TOTAL_MEM_SIZE = 107352141824
+AVAILABLE_MEM_SIZE = 94867259392
+BUILD_CONFIG =
+---APPLICATION_ID = com.fdx.cookbook
+---BUILD_TYPE = release
+---DEBUG = 
+---VERSION_CODE = 17
+---VERSION_NAME = 3.0
+CUSTOM_DATA =
+---CB_USER = 15666666666@15666666666
+IS_SILENT = 
+STACK_TRACE = java.lang.RuntimeException: Unable to start activity ComponentInfo{com.fdx.cookbook/com.fdx.cookbook.RecipeListActivity}: android.view.InflateException: Binary XML file line #21: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2782)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2858)
+	at android.app.ActivityThread.access$1300(ActivityThread.java:178)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1591)
+	at android.os.Handler.dispatchMessage(Handler.java:106)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6518)
+	at java.lang.reflect.Method.invokeImpl(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:411)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:468)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:808)
+Caused by: android.view.InflateException: Binary XML file line #21: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton
+Caused by: android.view.InflateException: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.lang.reflect.Constructor.newInstance0(Native Method)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:334)
+	at android.view.LayoutInflater.createView(LayoutInflater.java:647)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:790)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:730)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:863)
+	at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:824)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:515)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:423)
+	at com.fdx.cookbook.RecipeListFragment.onCreateView(RecipeListFragment.java:87)
+	at androidx.fragment.app.Fragment.performCreateView(Fragment.java:2600)
+	at androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:881)
+	at androidx.fragment.app.FragmentManagerImpl.moveFragmentToExpectedState(FragmentManagerImpl.java:1238)
+	at androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:1303)
+	at androidx.fragment.app.BackStackRecord.executeOps(BackStackRecord.java:439)
+	at androidx.fragment.app.FragmentManagerImpl.executeOps(FragmentManagerImpl.java:2079)
+	at androidx.fragment.app.FragmentManagerImpl.executeOpsTogether(FragmentManagerImpl.java:1869)
+	at androidx.fragment.app.FragmentManagerImpl.removeRedundantOperationsAndExecute(FragmentManagerImpl.java:1824)
+	at androidx.fragment.app.FragmentManagerImpl.execPendingActions(FragmentManagerImpl.java:1727)
+	at androidx.fragment.app.FragmentManagerImpl.dispatchStateChange(FragmentManagerImpl.java:2663)
+	at androidx.fragment.app.FragmentManagerImpl.dispatchActivityCreated(FragmentManagerImpl.java:2613)
+	at androidx.fragment.app.FragmentController.dispatchActivityCreated(FragmentController.java:246)
+	at androidx.fragment.app.FragmentActivity.onStart(FragmentActivity.java:542)
+	at androidx.appcompat.app.AppCompatActivity.onStart(AppCompatActivity.java:210)
+	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1338)
+	at android.app.Activity.performStart(Activity.java:7048)
+	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2743)
+	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2858)
+	at android.app.ActivityThread.access$1300(ActivityThread.java:178)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1591)
+	at android.os.Handler.dispatchMessage(Handler.java:106)
+	at android.os.Looper.loop(Looper.java:164)
+	at android.app.ActivityThread.main(ActivityThread.java:6518)
+	at java.lang.reflect.Method.invokeImpl(Native Method)
+	at java.lang.reflect.Method.invoke(Method.java:411)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:468)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:808)
+Caused by: android.content.res.Resources$NotFoundException: Resource ID #0x7f080077
+	at android.content.res.ResourcesImpl.getValue(ResourcesImpl.java:215)
+	at android.content.res.Resources.getValue(Resources.java:1316)
+	at androidx.appcompat.widget.ResourceManagerInternal.createDrawableIfNeeded(ResourceManagerInternal.java:176)
+	at androidx.appcompat.widget.ResourceManagerInternal.getDrawable(ResourceManagerInternal.java:141)
+	at androidx.appcompat.widget.ResourceManagerInternal.getDrawable(ResourceManagerInternal.java:132)
+	at androidx.appcompat.content.res.AppCompatResources.getDrawable(AppCompatResources.java:104)
+	at androidx.appcompat.widget.AppCompatImageHelper.loadFromAttributes(AppCompatImageHelper.java:63)
+	at com.google.android.material.floatingactionbutton.FloatingActionButton.<init>(FloatingActionButton.java:255)
+	at com.google.android.material.floatingactionbutton.FloatingActionButton.<init>(FloatingActionButton.java:201)
+	... 37 more
+
+INITIAL_CONFIGURATION =
+---appBounds = Rect(0, 0 - 720, 1280)
+---assetsSeq = 0
+---colorMode = 5
+---compatScreenHeightDp = 547
+---compatScreenWidthDp = 320
+---compatSmallestScreenWidthDp = 320
+---densityDpi = 320
+---fontScale = 1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_NO
+---keyboard = KEYBOARD_QWERTY
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = en_US
+---mcc = 460
+---mnc = 2
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---screenHeightDp = 616
+---screenLayout = SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 360
+---seq = 7
+---smallestScreenWidthDp = 360
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+CRASH_CONFIGURATION =
+---appBounds = Rect(0, 0 - 720, 1280)
+---assetsSeq = 0
+---colorMode = 5
+---compatScreenHeightDp = 547
+---compatScreenWidthDp = 320
+---compatSmallestScreenWidthDp = 320
+---densityDpi = 320
+---fontScale = 1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_NO
+---keyboard = KEYBOARD_QWERTY
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = en_US
+---mcc = 460
+---mnc = 2
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---screenHeightDp = 616
+---screenLayout = SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 360
+---seq = 7
+---smallestScreenWidthDp = 360
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+DISPLAY =
+---0 = Array
+USER_COMMENT = 
+USER_EMAIL = N/A
+USER_APP_START_DATE = 2022-05-31T03:38:00.754-04:00
+USER_CRASH_DATE = 2022-05-31T03:38:26.637-04:00
+DUMPSYS_MEMINFO = Permission Denial: can't dump meminfo from from pid=2190, uid=10067 due to missing android.permission.DUMP permission
+
+LOGCAT = 
+INSTALLATION_ID = 8e433dd4-4411-48e1-8428-1d46ed41d40d
+DEVICE_FEATURES =
+---android.hardware.sensor.proximity = 1
+---android.hardware.sensor.accelerometer = 1
+---android.hardware.faketouch = 1
+---android.hardware.usb.accessory = 1
+---android.hardware.telephony.cdma = 1
+---android.software.backup = 1
+---android.hardware.touchscreen = 1
+---android.hardware.touchscreen.multitouch = 1
+---android.software.print = 1
+---android.software.activities_on_secondary_displays = 1
+---android.software.voice_recognizers = 1
+---android.software.picture_in_picture = 1
+---android.hardware.sensor.gyroscope = 1
+---android.hardware.audio.low_latency = 1
+---android.hardware.bluetooth = 1
+---android.hardware.camera.autofocus = 1
+---android.hardware.telephony.gsm = 1
+---android.software.sip.voip = 1
+---android.hardware.audio.output = 1
+---android.hardware.camera.flash = 1
+---android.hardware.camera.front = 1
+---android.hardware.screen.portrait = 1
+---android.hardware.sensor.stepdetector = 1
+---android.software.home_screen = 1
+---android.hardware.microphone = 1
+---android.software.autofill = 1
+---android.hardware.bluetooth_le = 1
+---android.hardware.sensor.compass = 1
+---android.hardware.touchscreen.multitouch.jazzhand = 1
+---android.hardware.sensor.barometer = 1
+---android.software.app_widgets = 1
+---android.software.input_methods = 1
+---android.hardware.sensor.light = 1
+---android.software.companion_device_setup = 1
+---android.software.device_admin = 1
+---android.hardware.camera = 1
+---android.hardware.screen.landscape = 1
+---android.hardware.ram.normal = 1
+---android.software.managed_users = 1
+---android.software.webview = 1
+---android.hardware.sensor.stepcounter = 1
+---android.hardware.camera.capability.manual_post_processing = 1
+---android.hardware.camera.any = 1
+---android.hardware.camera.capability.raw = 1
+---android.software.connectionservice = 1
+---android.hardware.touchscreen.multitouch.distinct = 1
+---android.hardware.location.network = 1
+---android.software.cts = 1
+---android.software.sip = 1
+---android.hardware.camera.capability.manual_sensor = 1
+---android.hardware.camera.level.full = 1
+---android.hardware.wifi.direct = 1
+---android.software.live_wallpaper = 1
+---android.hardware.location.gps = 1
+---android.hardware.wifi = 1
+---android.hardware.location = 1
+---android.hardware.telephony = 1
+---glEsVersion = 0.0
+ENVIRONMENT =
+---getDataDirectory = /data
+---getDataMiscCeDirectory = /data/misc_ce
+---getDataMiscDirectory = /data/misc
+---getDataPreloadsAppsDirectory = /data/preloads/apps
+---getDataPreloadsDemoDirectory = /data/preloads/demo
+---getDataPreloadsDirectory = /data/preloads
+---getDataPreloadsFileCacheDirectory = /data/preloads/file_cache
+---getDataPreloadsMediaDirectory = /data/preloads/media
+---getDataSystemCeDirectory = /data/system_ce
+---getDataSystemDeDirectory = /data/system_de
+---getDataSystemDirectory = /data/system
+---getDownloadCacheDirectory = /data/cache
+---getExpandDirectory = /mnt/expand
+---getExternalStorageDirectory = /storage/emulated/0
+---getExternalStorageState = mounted
+---getLegacyExternalStorageDirectory = /sdcard
+---getLegacyExternalStorageObbDirectory = /sdcard/Android/obb
+---getOdmDirectory = /odm
+---getOemDirectory = /oem
+---getRootDirectory = /system
+---getStorageDirectory = /storage
+---getVendorDirectory = /vendor
+---isExternalStorageEmulated = 1
+---isExternalStorageRemovable = 
+SHARED_PREFERENCES =
+---default = Array
+JSON_RAW=
+{"REPORT_ID":"2eb5c9de-89a0-4b77-b8f9-31d6abd33734","APP_VERSION_CODE":17,"APP_VERSION_NAME":"3.0","PACKAGE_NAME":"com.fdx.cookbook","FILE_PATH":"\/data\/user\/0\/com.fdx.cookbook\/files","PHONE_MODEL":"Motorola One Vision","BRAND":"Motorola","PRODUCT":"scutum","ANDROID_VERSION":"8.1.0","BUILD":{"BOARD":"unknown","BOOTLOADER":"unknown","BRAND":"Motorola","CPU_ABI":"arm64-v8a","CPU_ABI2":"","DEVICE":"scutum","DISPLAY":"mtrt_arm64-userdebug 8.1.0 OPM8.190605.005 194 test-keys","FINGERPRINT":"Motorola\/scutum\/scutum:8.1.1\/LMY47D\/5080180:user\/release-keys","HARDWARE":"trend","HOST":"jenkinsbuild-virtual-machine","ID":"OPM8.190605.005","IS_CONTAINER":false,"IS_DEBUGGABLE":false,"IS_EMULATOR":true,"IS_ENG":false,"IS_TREBLE_ENABLED":true,"IS_USER":false,"IS_USERDEBUG":true,"MANUFACTURER":"Motorola","MODEL":"Motorola One Vision","PERMISSIONS_REVIEW_REQUIRED":false,"PRODUCT":"scutum","RADIO":"unknown","SERIAL":"RKK021848979234","SUPPORTED_32_BIT_ABIS":["armeabi-v7a","armeabi"],"SUPPORTED_64_BIT_ABIS":["arm64-v8a"],"SUPPORTED_ABIS":["arm64-v8a","armeabi-v7a","armeabi"],"TAGS":"release-keys","TIME":1620440306000,"TYPE":"userdebug","UNKNOWN":"unknown","USER":"jenkinsbuild","VERSION":{"ACTIVE_CODENAMES":[],"BASE_OS":"","CODENAME":"REL","INCREMENTAL":"194","PREVIEW_SDK_INT":0,"RELEASE":"8.1.0","RESOURCES_SDK_INT":27,"SDK":"27","SDK_INT":27,"SECURITY_PATCH":"2018-12-05"}},"TOTAL_MEM_SIZE":107352141824,"AVAILABLE_MEM_SIZE":94867259392,"BUILD_CONFIG":{"APPLICATION_ID":"com.fdx.cookbook","BUILD_TYPE":"release","DEBUG":false,"VERSION_CODE":17,"VERSION_NAME":"3.0"},"CUSTOM_DATA":{"CB_USER":"15666666666@15666666666"},"IS_SILENT":false,"STACK_TRACE":"java.lang.RuntimeException: Unable to start activity ComponentInfo{com.fdx.cookbook\/com.fdx.cookbook.RecipeListActivity}: android.view.InflateException: Binary XML file line #21: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2782)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2858)\n\tat android.app.ActivityThread.access$1300(ActivityThread.java:178)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1591)\n\tat android.os.Handler.dispatchMessage(Handler.java:106)\n\tat android.os.Looper.loop(Looper.java:164)\n\tat android.app.ActivityThread.main(ActivityThread.java:6518)\n\tat java.lang.reflect.Method.invokeImpl(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:411)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:468)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:808)\nCaused by: android.view.InflateException: Binary XML file line #21: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton\nCaused by: android.view.InflateException: Binary XML file line #21: Error inflating class com.google.android.material.floatingactionbutton.FloatingActionButton\nCaused by: java.lang.reflect.InvocationTargetException\n\tat java.lang.reflect.Constructor.newInstance0(Native Method)\n\tat java.lang.reflect.Constructor.newInstance(Constructor.java:334)\n\tat android.view.LayoutInflater.createView(LayoutInflater.java:647)\n\tat android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:790)\n\tat android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:730)\n\tat android.view.LayoutInflater.rInflate(LayoutInflater.java:863)\n\tat android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:824)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:515)\n\tat android.view.LayoutInflater.inflate(LayoutInflater.java:423)\n\tat com.fdx.cookbook.RecipeListFragment.onCreateView(RecipeListFragment.java:87)\n\tat androidx.fragment.app.Fragment.performCreateView(Fragment.java:2600)\n\tat androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:881)\n\tat androidx.fragment.app.FragmentManagerImpl.moveFragmentToExpectedState(FragmentManagerImpl.java:1238)\n\tat androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:1303)\n\tat androidx.fragment.app.BackStackRecord.executeOps(BackStackRecord.java:439)\n\tat androidx.fragment.app.FragmentManagerImpl.executeOps(FragmentManagerImpl.java:2079)\n\tat androidx.fragment.app.FragmentManagerImpl.executeOpsTogether(FragmentManagerImpl.java:1869)\n\tat androidx.fragment.app.FragmentManagerImpl.removeRedundantOperationsAndExecute(FragmentManagerImpl.java:1824)\n\tat androidx.fragment.app.FragmentManagerImpl.execPendingActions(FragmentManagerImpl.java:1727)\n\tat androidx.fragment.app.FragmentManagerImpl.dispatchStateChange(FragmentManagerImpl.java:2663)\n\tat androidx.fragment.app.FragmentManagerImpl.dispatchActivityCreated(FragmentManagerImpl.java:2613)\n\tat androidx.fragment.app.FragmentController.dispatchActivityCreated(FragmentController.java:246)\n\tat androidx.fragment.app.FragmentActivity.onStart(FragmentActivity.java:542)\n\tat androidx.appcompat.app.AppCompatActivity.onStart(AppCompatActivity.java:210)\n\tat android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1338)\n\tat android.app.Activity.performStart(Activity.java:7048)\n\tat android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2743)\n\tat android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2858)\n\tat android.app.ActivityThread.access$1300(ActivityThread.java:178)\n\tat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1591)\n\tat android.os.Handler.dispatchMessage(Handler.java:106)\n\tat android.os.Looper.loop(Looper.java:164)\n\tat android.app.ActivityThread.main(ActivityThread.java:6518)\n\tat java.lang.reflect.Method.invokeImpl(Native Method)\n\tat java.lang.reflect.Method.invoke(Method.java:411)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:468)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:808)\nCaused by: android.content.res.Resources$NotFoundException: Resource ID #0x7f080077\n\tat android.content.res.ResourcesImpl.getValue(ResourcesImpl.java:215)\n\tat android.content.res.Resources.getValue(Resources.java:1316)\n\tat androidx.appcompat.widget.ResourceManagerInternal.createDrawableIfNeeded(ResourceManagerInternal.java:176)\n\tat androidx.appcompat.widget.ResourceManagerInternal.getDrawable(ResourceManagerInternal.java:141)\n\tat androidx.appcompat.widget.ResourceManagerInternal.getDrawable(ResourceManagerInternal.java:132)\n\tat androidx.appcompat.content.res.AppCompatResources.getDrawable(AppCompatResources.java:104)\n\tat androidx.appcompat.widget.AppCompatImageHelper.loadFromAttributes(AppCompatImageHelper.java:63)\n\tat com.google.android.material.floatingactionbutton.FloatingActionButton.<init>(FloatingActionButton.java:255)\n\tat com.google.android.material.floatingactionbutton.FloatingActionButton.<init>(FloatingActionButton.java:201)\n\t... 37 more\n","INITIAL_CONFIGURATION":{"appBounds":"Rect(0, 0 - 720, 1280)","assetsSeq":0,"colorMode":5,"compatScreenHeightDp":547,"compatScreenWidthDp":320,"compatSmallestScreenWidthDp":320,"densityDpi":320,"fontScale":1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_NO","keyboard":"KEYBOARD_QWERTY","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"en_US","mcc":460,"mnc":2,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","screenHeightDp":616,"screenLayout":"SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":360,"seq":7,"smallestScreenWidthDp":360,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false},"CRASH_CONFIGURATION":{"appBounds":"Rect(0, 0 - 720, 1280)","assetsSeq":0,"colorMode":5,"compatScreenHeightDp":547,"compatScreenWidthDp":320,"compatSmallestScreenWidthDp":320,"densityDpi":320,"fontScale":1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_NO","keyboard":"KEYBOARD_QWERTY","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"en_US","mcc":460,"mnc":2,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","screenHeightDp":616,"screenLayout":"SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":360,"seq":7,"smallestScreenWidthDp":360,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false},"DISPLAY":{"0":{"currentSizeRange":{"smallest":[720,672],"largest":[1280,1232]},"flags":"FLAG_SUPPORTS_PROTECTED_BUFFERS+FLAG_SECURE","metrics":{"density":2,"densityDpi":320,"scaledDensity":"x2.0","widthPixels":720,"heightPixels":1280,"xdpi":160,"ydpi":160},"realMetrics":{"density":2,"densityDpi":320,"scaledDensity":"x2.0","widthPixels":720,"heightPixels":1280,"xdpi":160,"ydpi":160},"name":"Built-in Screen","realSize":[720,1280],"rectSize":[0,0,720,1280],"size":[720,1280],"rotation":"ROTATION_0","isValid":true,"orientation":0,"refreshRate":60.000003814697266,"height":1280,"width":720,"pixelFormat":1}},"USER_COMMENT":null,"USER_EMAIL":"N\/A","USER_APP_START_DATE":"2022-05-31T03:38:00.754-04:00","USER_CRASH_DATE":"2022-05-31T03:38:26.637-04:00","DUMPSYS_MEMINFO":"Permission Denial: can't dump meminfo from from pid=2190, uid=10067 due to missing android.permission.DUMP permission\n","LOGCAT":"","INSTALLATION_ID":"8e433dd4-4411-48e1-8428-1d46ed41d40d","DEVICE_FEATURES":{"android.hardware.sensor.proximity":true,"android.hardware.sensor.accelerometer":true,"android.hardware.faketouch":true,"android.hardware.usb.accessory":true,"android.hardware.telephony.cdma":true,"android.software.backup":true,"android.hardware.touchscreen":true,"android.hardware.touchscreen.multitouch":true,"android.software.print":true,"android.software.activities_on_secondary_displays":true,"android.software.voice_recognizers":true,"android.software.picture_in_picture":true,"android.hardware.sensor.gyroscope":true,"android.hardware.audio.low_latency":true,"android.hardware.bluetooth":true,"android.hardware.camera.autofocus":true,"android.hardware.telephony.gsm":true,"android.software.sip.voip":true,"android.hardware.audio.output":true,"android.hardware.camera.flash":true,"android.hardware.camera.front":true,"android.hardware.screen.portrait":true,"android.hardware.sensor.stepdetector":true,"android.software.home_screen":true,"android.hardware.microphone":true,"android.software.autofill":true,"android.hardware.bluetooth_le":true,"android.hardware.sensor.compass":true,"android.hardware.touchscreen.multitouch.jazzhand":true,"android.hardware.sensor.barometer":true,"android.software.app_widgets":true,"android.software.input_methods":true,"android.hardware.sensor.light":true,"android.software.companion_device_setup":true,"android.software.device_admin":true,"android.hardware.camera":true,"android.hardware.screen.landscape":true,"android.hardware.ram.normal":true,"android.software.managed_users":true,"android.software.webview":true,"android.hardware.sensor.stepcounter":true,"android.hardware.camera.capability.manual_post_processing":true,"android.hardware.camera.any":true,"android.hardware.camera.capability.raw":true,"android.software.connectionservice":true,"android.hardware.touchscreen.multitouch.distinct":true,"android.hardware.location.network":true,"android.software.cts":true,"android.software.sip":true,"android.hardware.camera.capability.manual_sensor":true,"android.hardware.camera.level.full":true,"android.hardware.wifi.direct":true,"android.software.live_wallpaper":true,"android.hardware.location.gps":true,"android.hardware.wifi":true,"android.hardware.location":true,"android.hardware.telephony":true,"glEsVersion":"0.0"},"ENVIRONMENT":{"getDataDirectory":"\/data","getDataMiscCeDirectory":"\/data\/misc_ce","getDataMiscDirectory":"\/data\/misc","getDataPreloadsAppsDirectory":"\/data\/preloads\/apps","getDataPreloadsDemoDirectory":"\/data\/preloads\/demo","getDataPreloadsDirectory":"\/data\/preloads","getDataPreloadsFileCacheDirectory":"\/data\/preloads\/file_cache","getDataPreloadsMediaDirectory":"\/data\/preloads\/media","getDataSystemCeDirectory":"\/data\/system_ce","getDataSystemDeDirectory":"\/data\/system_de","getDataSystemDirectory":"\/data\/system","getDownloadCacheDirectory":"\/data\/cache","getExpandDirectory":"\/mnt\/expand","getExternalStorageDirectory":"\/storage\/emulated\/0","getExternalStorageState":"mounted","getLegacyExternalStorageDirectory":"\/sdcard","getLegacyExternalStorageObbDirectory":"\/sdcard\/Android\/obb","getOdmDirectory":"\/odm","getOemDirectory":"\/oem","getRootDirectory":"\/system","getStorageDirectory":"\/storage","getVendorDirectory":"\/vendor","isExternalStorageEmulated":true,"isExternalStorageRemovable":false},"SHARED_PREFERENCES":{"default":{"name":"15666666666","iduser":"eb50dcb6-1ea2-4611-b65e-34944c576c64","family":"15666666666","pwd":"80996240"}}}END

@@ -1,0 +1,396 @@
+REPORT_ID = 097d1e81-48de-48b4-849b-96c07db8eb63
+APP_VERSION_CODE = 17
+APP_VERSION_NAME = 3.0
+PACKAGE_NAME = com.fdx.cookbook
+FILE_PATH = /data/user/0/com.fdx.cookbook/files
+PHONE_MODEL = SM-T580
+BRAND = samsung
+PRODUCT = gtaxlwifixx
+ANDROID_VERSION = 8.1.0
+BUILD =
+---BOARD = universal7870
+---BOOTLOADER = T580XXS5CTK1
+---BRAND = samsung
+---CPU_ABI = armeabi-v7a
+---CPU_ABI2 = armeabi
+---DEVICE = gtaxlwifi
+---DISPLAY = M1AJQ.T580XXS5CTK1
+---FINGERPRINT = samsung/gtaxlwifixx/gtaxlwifi:8.1.0/M1AJQ/T580XXS5CTK1:user/release-keys
+---HARDWARE = samsungexynos7870
+---HOST = SWDH7006
+---ID = M1AJQ
+---IS_CONTAINER = 
+---IS_DEBUGGABLE = 
+---IS_EMULATOR = 
+---IS_ENG = 
+---IS_TREBLE_ENABLED = 
+---IS_USER = 1
+---IS_USERDEBUG = 
+---MANUFACTURER = samsung
+---MODEL = SM-T580
+---PERMISSIONS_REVIEW_REQUIRED = 
+---PRODUCT = gtaxlwifixx
+---RADIO = unknown
+---SERIAL = 52039086fc4334e1
+---SUPPORTED_32_BIT_ABIS = Array
+---SUPPORTED_64_BIT_ABIS = Array
+---SUPPORTED_ABIS = Array
+---TAGS = release-keys
+---TIME = 1604387361000
+---TYPE = user
+---UNKNOWN = unknown
+---USER = dpi
+---VERSION = Array
+TOTAL_MEM_SIZE = 11429711872
+AVAILABLE_MEM_SIZE = 1313492992
+BUILD_CONFIG =
+---APPLICATION_ID = com.fdx.cookbook
+---BUILD_TYPE = release
+---DEBUG = 
+---VERSION_CODE = 17
+---VERSION_NAME = 3.0
+CUSTOM_DATA =
+---CB_USER = Leandre@Devaux_Lion de ML
+IS_SILENT = 
+STACK_TRACE = java.lang.RuntimeException: An error occurred while executing doInBackground()
+	at android.os.AsyncTask$3.done(AsyncTask.java:353)
+	at java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)
+	at java.util.concurrent.FutureTask.setException(FutureTask.java:252)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:271)
+	at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+	at java.lang.Thread.run(Thread.java:764)
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference
+	at com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)
+	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)
+	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)
+	at android.os.AsyncTask$2.call(AsyncTask.java:333)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	... 4 more
+
+INITIAL_CONFIGURATION =
+---FlipFont = 0
+---appBounds = Rect(0, 0 - 1200, 1920)
+---assetsSeq = 0
+---colorMode = 5
+---compatScreenHeightDp = 502
+---compatScreenWidthDp = 320
+---compatSmallestScreenWidthDp = 320
+---densityDpi = 240
+---dexCompatEnabled = 0
+---dexCompatUiMode = -1
+---fontScale = 1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_YES
+---keyboard = KEYBOARD_NOKEYS
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = fr_FR
+---mcc = 0
+---mnc = 0
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---rilSetLocale = 
+---screenHeightDp = 1256
+---screenLayout = SCREENLAYOUT_SIZE_XLARGE+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 800
+---semDesktopModeEnabled = 0
+---semMobileKeyboardCovered = 0
+---seq = 9
+---showButtonBackground = 0
+---smallestScreenWidthDp = 800
+---themeSeq = 0
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+CRASH_CONFIGURATION =
+---FlipFont = 0
+---appBounds = Rect(0, 0 - 1200, 1920)
+---assetsSeq = 0
+---colorMode = 5
+---compatScreenHeightDp = 502
+---compatScreenWidthDp = 320
+---compatSmallestScreenWidthDp = 320
+---densityDpi = 240
+---dexCompatEnabled = 0
+---dexCompatUiMode = -1
+---fontScale = 1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_YES
+---keyboard = KEYBOARD_NOKEYS
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = fr_FR
+---mcc = 0
+---mnc = 0
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---rilSetLocale = 
+---screenHeightDp = 1256
+---screenLayout = SCREENLAYOUT_SIZE_XLARGE+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 800
+---semDesktopModeEnabled = 0
+---semMobileKeyboardCovered = 0
+---seq = 9
+---showButtonBackground = 0
+---smallestScreenWidthDp = 800
+---themeSeq = 0
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+DISPLAY =
+---0 = Array
+USER_COMMENT = 
+USER_EMAIL = N/A
+USER_APP_START_DATE = 2022-06-06T15:05:23.993+02:00
+USER_CRASH_DATE = 2022-06-06T15:05:41.113+02:00
+DUMPSYS_MEMINFO = 
+LOGCAT = --------- beginning of main
+06-06 15:05:40.096 W/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f1101e6, entry index(486) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11022d, entry index(557) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f110231, entry index(561) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11022f, entry index(559) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f1101e1, entry index(481) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11023f, entry index(575) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f110216, entry index(534) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f110218, entry index(536) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11023d, entry index(573) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f110219, entry index(537) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f1101e5, entry index(485) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11021a, entry index(538) is beyond type entryCount(178)
+06-06 15:05:40.097 W/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)
+06-06 15:05:40.098 I/chatty  ( 6624): uid=10194(com.fdx.cookbook) identical 2 lines
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110221, entry index(545) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f1101e4, entry index(484) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f1100fb, entry index(251) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110228, entry index(552) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110229, entry index(553) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110240, entry index(576) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110241, entry index(577) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110192, entry index(402) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f11023c, entry index(572) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f11024e, entry index(590) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f11024f, entry index(591) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110227, entry index(551) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110225, entry index(549) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f11013e, entry index(318) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110168, entry index(360) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110151, entry index(337) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110152, entry index(338) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110258, entry index(600) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f110257, entry index(599) is beyond type entryCount(178)
+06-06 15:05:40.098 W/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f1101e6, entry index(486) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11022d, entry index(557) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f110231, entry index(561) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11022f, entry index(559) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f1101e1, entry index(481) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11023f, entry index(575) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f110216, entry index(534) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f110218, entry index(536) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11023d, entry index(573) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f110219, entry index(537) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f1101e5, entry index(485) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11021a, entry index(538) is beyond type entryCount(178)
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)
+06-06 15:05:40.099 I/chatty  ( 6624): uid=10194(com.fdx.cookbook) identical 2 lines
+06-06 15:05:40.099 W/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110221, entry index(545) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f1101e4, entry index(484) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f1100fb, entry index(251) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110228, entry index(552) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110229, entry index(553) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110240, entry index(576) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110241, entry index(577) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110192, entry index(402) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f11023c, entry index(572) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f11024e, entry index(590) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f11024f, entry index(591) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110227, entry index(551) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110225, entry index(549) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f11013e, entry index(318) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110168, entry index(360) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110151, entry index(337) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110152, entry index(338) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110258, entry index(600) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f110257, entry index(599) is beyond type entryCount(178)
+06-06 15:05:40.100 W/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)
+06-06 15:05:40.101 D/AbsListView( 6624):  in onLayout changed 
+06-06 15:05:40.125 D/ViewRootImpl@480d373[PopupWindow:8f70dc4]( 6624): MSG_WINDOW_FOCUS_CHANGED 1
+06-06 15:05:40.125 V/InputMethodManager( 6624): Not IME target window, ignoring
+06-06 15:05:40.135 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.135 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.150 D/ViewRootImpl@480d373[PopupWindow:8f70dc4]( 6624): MSG_RESIZED_REPORT: frame=Rect(861, 48 - 1182, 408) ci=Rect(0, 0 - 0, 0) vi=Rect(0, 0 - 0, 0) or=1
+06-06 15:05:40.209 D/ViewRootImpl@7846308[RecipeListActivity]( 6624): MSG_WINDOW_FOCUS_CHANGED 0
+06-06 15:05:40.279 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.280 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.412 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.413 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.539 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.539 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.669 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.669 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.794 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.794 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.918 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+06-06 15:05:40.918 I/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false
+--------- beginning of crash
+06-06 15:05:41.053 E/AndroidRuntime( 6624): FATAL EXCEPTION: AsyncTask #3
+06-06 15:05:41.053 E/AndroidRuntime( 6624): Process: com.fdx.cookbook, PID: 6624
+06-06 15:05:41.053 E/AndroidRuntime( 6624): java.lang.RuntimeException: An error occurred while executing doInBackground()
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at android.os.AsyncTask$3.done(AsyncTask.java:353)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.FutureTask.setException(FutureTask.java:252)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.FutureTask.run(FutureTask.java:271)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.lang.Thread.run(Thread.java:764)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at android.os.AsyncTask$2.call(AsyncTask.java:333)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+06-06 15:05:41.053 E/AndroidRuntime( 6624): 	... 4 more
+06-06 15:05:41.060 E/ACRA    ( 6624): ACRA caught a RuntimeException for com.fdx.cookbook
+06-06 15:05:41.060 E/ACRA    ( 6624): java.lang.RuntimeException: An error occurred while executing doInBackground()
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at android.os.AsyncTask$3.done(AsyncTask.java:353)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.FutureTask.setException(FutureTask.java:252)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.FutureTask.run(FutureTask.java:271)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.lang.Thread.run(Thread.java:764)
+06-06 15:05:41.060 E/ACRA    ( 6624): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at android.os.AsyncTask$2.call(AsyncTask.java:333)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+06-06 15:05:41.060 E/ACRA    ( 6624): 	... 4 more
+
+INSTALLATION_ID = 095bb3e5-e130-499f-8ef1-c679de2c7686
+DEVICE_FEATURES =
+---com.samsung.android.sdk.camera.processor = 1
+---com.sec.feature.motionrecognition_service = 1
+---android.hardware.sensor.accelerometer = 1
+---android.hardware.faketouch = 1
+---com.samsung.feature.virtualscreen = 1
+---android.hardware.usb.accessory = 1
+---android.software.backup = 1
+---android.hardware.touchscreen = 1
+---android.hardware.touchscreen.multitouch = 1
+---android.software.print = 1
+---android.software.activities_on_secondary_displays = 1
+---android.software.voice_recognizers = 1
+---android.software.picture_in_picture = 1
+---com.samsung.android.knox.knoxsdk = 1
+---com.sec.feature.slocation = 1
+---com.samsung.android.sdk.camera.processor.haze = 1
+---com.sec.feature.secretmode_service = 1
+---com.samsung.feature.device_category_tablet = 1
+---android.hardware.opengles.aep = 1
+---com.sec.feature.overlaymagnifier = 1
+---android.hardware.bluetooth = 1
+---android.hardware.camera.autofocus = 1
+---android.software.sip.voip = 1
+---com.samsung.feature.samsung_experience_mobile = 1
+---android.hardware.usb.host = 1
+---android.hardware.audio.output = 1
+---android.hardware.camera.flash = 1
+---android.hardware.camera.front = 1
+---com.samsung.feature.clockpack_v05 = 1
+---android.hardware.screen.portrait = 1
+---com.sec.android.mdm = 1
+---android.software.home_screen = 1
+---android.hardware.microphone = 1
+---android.software.autofill = 1
+---com.samsung.android.sdk.camera.processor.effect = 1
+---android.hardware.bluetooth_le = 1
+---android.hardware.touchscreen.multitouch.jazzhand = 1
+---android.software.app_widgets = 1
+---android.software.input_methods = 1
+---android.hardware.sensor.light = 1
+---android.hardware.vulkan.version = 1
+---android.software.companion_device_setup = 1
+---com.samsung.feature.galaxyfinder_v7 = 1
+---android.software.device_admin = 1
+---com.sec.android.secimaging.faceAR = 1
+---android.hardware.camera = 1
+---android.hardware.screen.landscape = 1
+---android.hardware.ram.normal = 1
+---com.samsung.android.api.version.2402 = 1
+---com.samsung.android.api.version.2403 = 1
+---com.samsung.android.api.version.2501 = 1
+---com.samsung.android.api.version.2502 = 1
+---com.samsung.android.api.version.2601 = 1
+---com.samsung.android.api.version.2701 = 1
+---com.sec.feature.cover = 1
+---com.sec.feature.findo = 1
+---android.software.managed_users = 1
+---com.sec.feature.nsflp = 1
+---android.software.webview = 1
+---android.hardware.camera.any = 1
+---com.samsung.android.sdk.camera.processor.dof = 1
+---com.samsung.android.sdk.camera.processor.gif = 1
+---com.samsung.android.sdk.camera.processor.hdr = 1
+---com.samsung.android.sdk.camera.processor.lls = 1
+---com.samsung.feature.device_category_tablet_low_end = 1
+---android.software.connectionservice = 1
+---android.hardware.touchscreen.multitouch.distinct = 1
+---android.hardware.location.network = 1
+---com.sec.android.secimaging = 1
+---android.software.cts = 1
+---android.software.sip = 1
+---android.hardware.wifi.direct = 1
+---android.software.live_wallpaper = 1
+---android.software.freeform_window_management = 1
+---android.hardware.location.gps = 1
+---com.sec.feature.fingerprint_ui = 1
+---android.software.midi = 1
+---com.sec.feature.support_mst = 1
+---android.hardware.wifi = 1
+---android.hardware.location = 1
+---android.hardware.vulkan.level = 1
+---com.sec.feature.cover.flip = 1
+---glEsVersion = 3.2
+ENVIRONMENT =
+---getDataDirectory = /data
+---getDataMiscCeDirectory = /data/misc_ce
+---getDataMiscDirectory = /data/misc
+---getDataPreloadsAppsDirectory = /data/preloads/apps
+---getDataPreloadsDemoDirectory = /data/preloads/demo
+---getDataPreloadsDirectory = /data/preloads
+---getDataPreloadsFileCacheDirectory = /data/preloads/file_cache
+---getDataPreloadsMediaDirectory = /data/preloads/media
+---getDataSystemCeDirectory = /data/system_ce
+---getDataSystemDeDirectory = /data/system_de
+---getDataSystemDirectory = /data/system
+---getDownloadCacheDirectory = /data/cache
+---getExpandDirectory = /mnt/expand
+---getExternalStorageDirectory = /storage/emulated/0
+---getExternalStorageState = mounted
+---getLegacyExternalStorageDirectory = /sdcard
+---getLegacyExternalStorageObbDirectory = /sdcard/Android/obb
+---getOdmDirectory = /odm
+---getOemDirectory = /oem
+---getRootDirectory = /system
+---getStorageDirectory = /storage
+---getVendorDirectory = /vendor
+---isExternalStorageEmulated = 1
+---isExternalStorageRemovable = 
+SHARED_PREFERENCES =
+---default = Array
+JSON_RAW=
+{"REPORT_ID":"097d1e81-48de-48b4-849b-96c07db8eb63","APP_VERSION_CODE":17,"APP_VERSION_NAME":"3.0","PACKAGE_NAME":"com.fdx.cookbook","FILE_PATH":"\/data\/user\/0\/com.fdx.cookbook\/files","PHONE_MODEL":"SM-T580","BRAND":"samsung","PRODUCT":"gtaxlwifixx","ANDROID_VERSION":"8.1.0","BUILD":{"BOARD":"universal7870","BOOTLOADER":"T580XXS5CTK1","BRAND":"samsung","CPU_ABI":"armeabi-v7a","CPU_ABI2":"armeabi","DEVICE":"gtaxlwifi","DISPLAY":"M1AJQ.T580XXS5CTK1","FINGERPRINT":"samsung\/gtaxlwifixx\/gtaxlwifi:8.1.0\/M1AJQ\/T580XXS5CTK1:user\/release-keys","HARDWARE":"samsungexynos7870","HOST":"SWDH7006","ID":"M1AJQ","IS_CONTAINER":false,"IS_DEBUGGABLE":false,"IS_EMULATOR":false,"IS_ENG":false,"IS_TREBLE_ENABLED":false,"IS_USER":true,"IS_USERDEBUG":false,"MANUFACTURER":"samsung","MODEL":"SM-T580","PERMISSIONS_REVIEW_REQUIRED":false,"PRODUCT":"gtaxlwifixx","RADIO":"unknown","SERIAL":"52039086fc4334e1","SUPPORTED_32_BIT_ABIS":["armeabi-v7a","armeabi"],"SUPPORTED_64_BIT_ABIS":[],"SUPPORTED_ABIS":["armeabi-v7a","armeabi"],"TAGS":"release-keys","TIME":1604387361000,"TYPE":"user","UNKNOWN":"unknown","USER":"dpi","VERSION":{"ACTIVE_CODENAMES":[],"BASE_OS":"samsung\/gtaxlwifixx\/gtaxlwifi:8.1.0\/M1AJQ\/T580XXU4CSA1:user\/release-keys","CODENAME":"REL","INCREMENTAL":"T580XXS5CTK1","PREVIEW_SDK_INT":0,"RELEASE":"8.1.0","RESOURCES_SDK_INT":27,"SDK":"27","SDK_INT":27,"SECURITY_INDEX":"R","SECURITY_PATCH":"2020-04-01","SEM_INT":2701,"SEM_PLATFORM_INT":90500}},"TOTAL_MEM_SIZE":11429711872,"AVAILABLE_MEM_SIZE":1313492992,"BUILD_CONFIG":{"APPLICATION_ID":"com.fdx.cookbook","BUILD_TYPE":"release","DEBUG":false,"VERSION_CODE":17,"VERSION_NAME":"3.0"},"CUSTOM_DATA":{"CB_USER":"Leandre@Devaux_Lion de ML"},"IS_SILENT":false,"STACK_TRACE":"java.lang.RuntimeException: An error occurred while executing doInBackground()\n\tat android.os.AsyncTask$3.done(AsyncTask.java:353)\n\tat java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)\n\tat java.util.concurrent.FutureTask.setException(FutureTask.java:252)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:271)\n\tat android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)\n\tat java.lang.Thread.run(Thread.java:764)\nCaused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference\n\tat com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)\n\tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)\n\tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)\n\tat android.os.AsyncTask$2.call(AsyncTask.java:333)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\t... 4 more\n","INITIAL_CONFIGURATION":{"FlipFont":0,"appBounds":"Rect(0, 0 - 1200, 1920)","assetsSeq":0,"colorMode":5,"compatScreenHeightDp":502,"compatScreenWidthDp":320,"compatSmallestScreenWidthDp":320,"densityDpi":240,"dexCompatEnabled":0,"dexCompatUiMode":-1,"fontScale":1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_YES","keyboard":"KEYBOARD_NOKEYS","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"fr_FR","mcc":0,"mnc":0,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","rilSetLocale":false,"screenHeightDp":1256,"screenLayout":"SCREENLAYOUT_SIZE_XLARGE+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":800,"semDesktopModeEnabled":0,"semMobileKeyboardCovered":0,"seq":9,"showButtonBackground":0,"smallestScreenWidthDp":800,"themeSeq":0,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false},"CRASH_CONFIGURATION":{"FlipFont":0,"appBounds":"Rect(0, 0 - 1200, 1920)","assetsSeq":0,"colorMode":5,"compatScreenHeightDp":502,"compatScreenWidthDp":320,"compatSmallestScreenWidthDp":320,"densityDpi":240,"dexCompatEnabled":0,"dexCompatUiMode":-1,"fontScale":1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_YES","keyboard":"KEYBOARD_NOKEYS","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"fr_FR","mcc":0,"mnc":0,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","rilSetLocale":false,"screenHeightDp":1256,"screenLayout":"SCREENLAYOUT_SIZE_XLARGE+SCREENLAYOUT_LONG_NO+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":800,"semDesktopModeEnabled":0,"semMobileKeyboardCovered":0,"seq":9,"showButtonBackground":0,"smallestScreenWidthDp":800,"themeSeq":0,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false},"DISPLAY":{"0":{"currentSizeRange":{"smallest":[1200,1164],"largest":[1920,1884]},"flags":"FLAG_SUPPORTS_PROTECTED_BUFFERS+FLAG_SECURE","metrics":{"density":1.5,"densityDpi":240,"scaledDensity":"x1.5","widthPixels":1200,"heightPixels":1920,"xdpi":225.77700805664062,"ydpi":225.77699279785156},"realMetrics":{"density":1.5,"densityDpi":240,"scaledDensity":"x1.5","widthPixels":1200,"heightPixels":1920,"xdpi":225.77700805664062,"ydpi":225.77699279785156},"name":"Écran intégré","realSize":[1200,1920],"rectSize":[0,0,1200,1920],"size":[1200,1920],"rotation":"ROTATION_0","isValid":true,"orientation":0,"refreshRate":60.000003814697266,"height":1920,"width":1200,"pixelFormat":1}},"USER_COMMENT":null,"USER_EMAIL":"N\/A","USER_APP_START_DATE":"2022-06-06T15:05:23.993+02:00","USER_CRASH_DATE":"2022-06-06T15:05:41.113+02:00","DUMPSYS_MEMINFO":"","LOGCAT":"--------- beginning of main\n06-06 15:05:40.096 W\/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f1101e6, entry index(486) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11022d, entry index(557) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f110231, entry index(561) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11022f, entry index(559) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f1101e1, entry index(481) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11023f, entry index(575) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f110216, entry index(534) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f110218, entry index(536) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11023d, entry index(573) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f110219, entry index(537) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f1101e5, entry index(485) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11021a, entry index(538) is beyond type entryCount(178)\n06-06 15:05:40.097 W\/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)\n06-06 15:05:40.098 I\/chatty  ( 6624): uid=10194(com.fdx.cookbook) identical 2 lines\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110221, entry index(545) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f1101e4, entry index(484) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f1100fb, entry index(251) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110228, entry index(552) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110229, entry index(553) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110240, entry index(576) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110241, entry index(577) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110192, entry index(402) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f11023c, entry index(572) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f11024e, entry index(590) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f11024f, entry index(591) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110227, entry index(551) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110225, entry index(549) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f11013e, entry index(318) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110168, entry index(360) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110151, entry index(337) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110152, entry index(338) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110258, entry index(600) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f110257, entry index(599) is beyond type entryCount(178)\n06-06 15:05:40.098 W\/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f1101e6, entry index(486) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11022b, entry index(555) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11022d, entry index(557) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f110231, entry index(561) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11022f, entry index(559) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f1101e1, entry index(481) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11023f, entry index(575) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f110216, entry index(534) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f110218, entry index(536) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11023d, entry index(573) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f110219, entry index(537) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f1101e5, entry index(485) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11021a, entry index(538) is beyond type entryCount(178)\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)\n06-06 15:05:40.099 I\/chatty  ( 6624): uid=10194(com.fdx.cookbook) identical 2 lines\n06-06 15:05:40.099 W\/ResourceType( 6624): For resource 0x7f11021e, entry index(542) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110221, entry index(545) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f1101e4, entry index(484) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f1100fb, entry index(251) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110228, entry index(552) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110229, entry index(553) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110240, entry index(576) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110241, entry index(577) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110192, entry index(402) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f11023c, entry index(572) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f11024e, entry index(590) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f11024f, entry index(591) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110227, entry index(551) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110225, entry index(549) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f11013e, entry index(318) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110155, entry index(341) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110168, entry index(360) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110151, entry index(337) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110152, entry index(338) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110258, entry index(600) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f110257, entry index(599) is beyond type entryCount(178)\n06-06 15:05:40.100 W\/ResourceType( 6624): For resource 0x7f0800b7, entry index(183) is beyond type entryCount(182)\n06-06 15:05:40.101 D\/AbsListView( 6624):  in onLayout changed \n06-06 15:05:40.125 D\/ViewRootImpl@480d373[PopupWindow:8f70dc4]( 6624): MSG_WINDOW_FOCUS_CHANGED 1\n06-06 15:05:40.125 V\/InputMethodManager( 6624): Not IME target window, ignoring\n06-06 15:05:40.135 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.135 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.150 D\/ViewRootImpl@480d373[PopupWindow:8f70dc4]( 6624): MSG_RESIZED_REPORT: frame=Rect(861, 48 - 1182, 408) ci=Rect(0, 0 - 0, 0) vi=Rect(0, 0 - 0, 0) or=1\n06-06 15:05:40.209 D\/ViewRootImpl@7846308[RecipeListActivity]( 6624): MSG_WINDOW_FOCUS_CHANGED 0\n06-06 15:05:40.279 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.280 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.412 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.413 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.539 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.539 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.669 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.669 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.794 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.794 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.918 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n06-06 15:05:40.918 I\/System.out( 6624): (HTTPLog)-Static: isSBSettingEnabled false\n--------- beginning of crash\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): FATAL EXCEPTION: AsyncTask #3\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): Process: com.fdx.cookbook, PID: 6624\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): java.lang.RuntimeException: An error occurred while executing doInBackground()\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat android.os.AsyncTask$3.done(AsyncTask.java:353)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.FutureTask.setException(FutureTask.java:252)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.FutureTask.run(FutureTask.java:271)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.lang.Thread.run(Thread.java:764)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat android.os.AsyncTask$2.call(AsyncTask.java:333)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n06-06 15:05:41.053 E\/AndroidRuntime( 6624): \t... 4 more\n06-06 15:05:41.060 E\/ACRA    ( 6624): ACRA caught a RuntimeException for com.fdx.cookbook\n06-06 15:05:41.060 E\/ACRA    ( 6624): java.lang.RuntimeException: An error occurred while executing doInBackground()\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat android.os.AsyncTask$3.done(AsyncTask.java:353)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:383)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.FutureTask.setException(FutureTask.java:252)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.FutureTask.run(FutureTask.java:271)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat android.os.AsyncTask$SerialExecutor$1.run(AsyncTask.java:245)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1162)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:636)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.lang.Thread.run(Thread.java:764)\n06-06 15:05:41.060 E\/ACRA    ( 6624): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.UUID com.fdx.cookbook.User.getId()' on a null object reference\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat com.fdx.cookbook.Recipe.getOwnerIdString(Recipe.java:184)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:67)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat com.fdx.cookbook.AsyncCallClass.doInBackground(AsyncCallClass.java:29)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat android.os.AsyncTask$2.call(AsyncTask.java:333)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n06-06 15:05:41.060 E\/ACRA    ( 6624): \t... 4 more\n","INSTALLATION_ID":"095bb3e5-e130-499f-8ef1-c679de2c7686","DEVICE_FEATURES":{"com.samsung.android.sdk.camera.processor":true,"com.sec.feature.motionrecognition_service":true,"android.hardware.sensor.accelerometer":true,"android.hardware.faketouch":true,"com.samsung.feature.virtualscreen":true,"android.hardware.usb.accessory":true,"android.software.backup":true,"android.hardware.touchscreen":true,"android.hardware.touchscreen.multitouch":true,"android.software.print":true,"android.software.activities_on_secondary_displays":true,"android.software.voice_recognizers":true,"android.software.picture_in_picture":true,"com.samsung.android.knox.knoxsdk":true,"com.sec.feature.slocation":true,"com.samsung.android.sdk.camera.processor.haze":true,"com.sec.feature.secretmode_service":true,"com.samsung.feature.device_category_tablet":true,"android.hardware.opengles.aep":true,"com.sec.feature.overlaymagnifier":true,"android.hardware.bluetooth":true,"android.hardware.camera.autofocus":true,"android.software.sip.voip":true,"com.samsung.feature.samsung_experience_mobile":true,"android.hardware.usb.host":true,"android.hardware.audio.output":true,"android.hardware.camera.flash":true,"android.hardware.camera.front":true,"com.samsung.feature.clockpack_v05":true,"android.hardware.screen.portrait":true,"com.sec.android.mdm":true,"android.software.home_screen":true,"android.hardware.microphone":true,"android.software.autofill":true,"com.samsung.android.sdk.camera.processor.effect":true,"android.hardware.bluetooth_le":true,"android.hardware.touchscreen.multitouch.jazzhand":true,"android.software.app_widgets":true,"android.software.input_methods":true,"android.hardware.sensor.light":true,"android.hardware.vulkan.version":true,"android.software.companion_device_setup":true,"com.samsung.feature.galaxyfinder_v7":true,"android.software.device_admin":true,"com.sec.android.secimaging.faceAR":true,"android.hardware.camera":true,"android.hardware.screen.landscape":true,"android.hardware.ram.normal":true,"com.samsung.android.api.version.2402":true,"com.samsung.android.api.version.2403":true,"com.samsung.android.api.version.2501":true,"com.samsung.android.api.version.2502":true,"com.samsung.android.api.version.2601":true,"com.samsung.android.api.version.2701":true,"com.sec.feature.cover":true,"com.sec.feature.findo":true,"android.software.managed_users":true,"com.sec.feature.nsflp":true,"android.software.webview":true,"android.hardware.camera.any":true,"com.samsung.android.sdk.camera.processor.dof":true,"com.samsung.android.sdk.camera.processor.gif":true,"com.samsung.android.sdk.camera.processor.hdr":true,"com.samsung.android.sdk.camera.processor.lls":true,"com.samsung.feature.device_category_tablet_low_end":true,"android.software.connectionservice":true,"android.hardware.touchscreen.multitouch.distinct":true,"android.hardware.location.network":true,"com.sec.android.secimaging":true,"android.software.cts":true,"android.software.sip":true,"android.hardware.wifi.direct":true,"android.software.live_wallpaper":true,"android.software.freeform_window_management":true,"android.hardware.location.gps":true,"com.sec.feature.fingerprint_ui":true,"android.software.midi":true,"com.sec.feature.support_mst":true,"android.hardware.wifi":true,"android.hardware.location":true,"android.hardware.vulkan.level":true,"com.sec.feature.cover.flip":true,"glEsVersion":"3.2"},"ENVIRONMENT":{"getDataDirectory":"\/data","getDataMiscCeDirectory":"\/data\/misc_ce","getDataMiscDirectory":"\/data\/misc","getDataPreloadsAppsDirectory":"\/data\/preloads\/apps","getDataPreloadsDemoDirectory":"\/data\/preloads\/demo","getDataPreloadsDirectory":"\/data\/preloads","getDataPreloadsFileCacheDirectory":"\/data\/preloads\/file_cache","getDataPreloadsMediaDirectory":"\/data\/preloads\/media","getDataSystemCeDirectory":"\/data\/system_ce","getDataSystemDeDirectory":"\/data\/system_de","getDataSystemDirectory":"\/data\/system","getDownloadCacheDirectory":"\/data\/cache","getExpandDirectory":"\/mnt\/expand","getExternalStorageDirectory":"\/storage\/emulated\/0","getExternalStorageState":"mounted","getLegacyExternalStorageDirectory":"\/sdcard","getLegacyExternalStorageObbDirectory":"\/sdcard\/Android\/obb","getOdmDirectory":"\/odm","getOemDirectory":"\/oem","getRootDirectory":"\/system","getStorageDirectory":"\/storage","getVendorDirectory":"\/vendor","isExternalStorageEmulated":true,"isExternalStorageRemovable":false},"SHARED_PREFERENCES":{"default":{"name":"Leandre","iduser":"fce5a6c7-2dc3-4f4d-989f-69b308b6966a","family":"Devaux_Lion de ML","pwd":"Lion"}}}END

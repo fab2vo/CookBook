@@ -1,0 +1,12 @@
+body {background:MediumSeaGreen; }
+h1 {color:orange;}
+p {color:white;}
+p.login {text-align:right;}
+table.login {width:100%}
+input.login {
+	color:black;
+	font-size:18px;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:5px;}
+label.logtitle {color : white;}

@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Add a rating to a recipe incl. the date (no check !)</th>
+        </tr>
+    </thead>
+	
+<form action="http://82.66.37.73:8085/cb/addnotewithdate.php" method="POST">
+<tbody>
+<tr><td>Id recipe</td><td><input type="text" name="idrecipe" size="100"></td></tr>
+<tr><td>Id user</td><td><input type="text" name="idfrom" size="100"></td></tr>
+ <tr><td>Note</td><td><input type="number" name="note" size="10" min="1" max="5"></td></tr>	
+ <tr><td>Date</td><td><input type="date" name="date" size="15" ></td></tr>	
+ <tr><td>  </td><td><input type="submit" value="Envoyez"></td></tr>	
+ </tbody>
+</form>
+</body>
+</html>

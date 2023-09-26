@@ -1,0 +1,107 @@
+Reset 5/12/2021 21:17 ---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 00,20
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 00,01
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 01,01
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 02,01
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 03,01
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 04,01
+Success
+---> 2021-12-05 21:18:52  ->  C:\wamp\www\cb\getcommunitynews.php
+No pwd given, find pwd
+SELECT family FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT r.id_recipe, r.title, r.season, r.type,r.difficulty, r.photo , u.id_user, u.name, u.family, r.lastupdate_recipe, x.noteavg, x.notecount 
+			FROM recipedb r
+			LEFT JOIN userdb u ON u.id_user=r.id_user 
+			LEFT JOIN (SELECT id_recipe, AVG(note) AS noteavg, COUNT(note) AS notecount FROM notesdb GROUP BY id_recipe) AS x 
+				ON x.id_recipe=r.id_recipe 
+			LEFT JOIN (SELECT id_recipe FROM cookbooks  WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db') AS c
+				ON c.id_recipe=r.id_recipe
+			WHERE u.family!='Devaux_Lion de ML' AND c.id_recipe IS NULL
+			ORDER BY r.lastupdate_recipe DESC LIMIT 05,01
+Success
+---> 2021-12-05 21:36:40  ->  C:\wamp\www\cb\getrequests.php
+No pwd given, find pwd
+SELECT rq.pknum, rq.id_recipe, rq.id_from, u.family, u.name, date_creation, message, rq.status, re.title
+		FROM requestdb rq 
+		LEFT JOIN recipedb re ON re.id_recipe=rq.id_recipe
+		LEFT JOIN userdb u ON u.id_user=rq.id_from
+		WHERE rq.status='ISSUED' AND re.id_user='fce5a6c7-2dc3-4f4d-989f-69b308b6966a'
+Success
+---> 2021-12-05 21:37:49  ->  C:\wamp\www\cb\getrequests.php
+Pwd given and checked
+SELECT rq.pknum, rq.id_recipe, rq.id_from, u.family, u.name, date_creation, message, rq.status, re.title
+		FROM requestdb rq 
+		LEFT JOIN recipedb re ON re.id_recipe=rq.id_recipe
+		LEFT JOIN userdb u ON u.id_user=rq.id_from
+		WHERE rq.status='ISSUED' AND re.id_user='fce5a6c7-2dc3-4f4d-989f-69b308b6966a'
+Success

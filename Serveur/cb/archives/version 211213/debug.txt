@@ -1,0 +1,32 @@
+Reset 12/12/2021 10/33
+
+
+---> 2021-12-13 19:42:01  ->  C:\wamp\www\cb\addcommentwithdate.php
+Error in comment 
+---> 2021-12-13 19:42:01  ->  C:\wamp\www\cb\addcommentwithdate.php
+Error in comment ...
+---> 2021-12-13 19:42:01  ->  C:\wamp\www\cb\addcommentwithdate.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae'
+SELECT * FROM userdb WHERE id_user='0ddab906-93e9-4d45-8c7d-4407e4f5f27d'
+SELECT * FROM commentsdb WHERE id_user='0ddab906-93e9-4d45-8c7d-4407e4f5f27d' AND id_recipe='188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae' AND date_comment='2021-12-13 19:34:22'
+INSERT INTO `commentsdb` (`id_recipe`, `comment`, `id_user`, `date_comment`)
+		VALUES ( '188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae', 'Une de mes premières recettes, faite dans un mini-four de résidence universitaire.', '0ddab906-93e9-4d45-8c7d-4407e4f5f27d', '2021-12-13 19:34:22') 
+Success
+---> 2021-12-13 21:28:07  ->  C:\wamp\www\cb\addcommentwithdate.php
+Error in comment 
+---> 2021-12-13 21:29:42  ->  C:\wamp\www\cb\addcommentwithdate.php
+Error in comment ...
+---> 2021-12-13 21:29:43  ->  C:\wamp\www\cb\addcommentwithdate.php
+Error in comment ...
+---> 2021-12-13 21:29:48  ->  C:\wamp\www\cb\addcommentwithdate.php
+Pwd given and checked
+wrong pwd id=0ddab906-93e9-4d45-8c7d-4407e4f5f27d and pass=Lion
+---> 2021-12-13 21:38:14  ->  C:\wamp\www\cb\addcommentwithdate.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae'
+SELECT * FROM userdb WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT * FROM commentsdb WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db' AND id_recipe='188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae' AND date_comment='2021-12-13 21:38:04'
+INSERT INTO `commentsdb` (`id_recipe`, `comment`, `id_user`, `date_comment`)
+		VALUES ( '188a4c1b-e6e6-4ae4-8396-e1e1c5e727ae', '..', 'c81d4e2e-bcf2-11e6-869b-7df92533d2db', '2021-12-13 21:38:04') 
+Success

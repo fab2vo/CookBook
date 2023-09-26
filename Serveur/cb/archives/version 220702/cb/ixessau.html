@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>CookBook Family</title>
+<link href="ixsitestyle.css" rel="stylesheet" type="text/css" >
+</head>
+<table>
+<tr id="header"><!-- Header -->
+<td>
+	<table class="headtable">
+	<tr><form action="ix.php?status=tolog" method="post">
+		<td class="headtablecol1">
+			<img src="./image/cookbook_fg.svg" width="56">
+		</td>
+		<td class="headtablecol2" > 
+			<label class="logtitle" for="familyl">Nom du livre de famille:</label><br>
+			<input type="text" id="familyl" name="family" pattern="[\_\s \-\?\!\(\)A-Za-z ]{8,45}" size="45" required autofocus>
+		</td>
+		<td class="headtablecol3"> 
+			<label class="logtitle" for="memberl">Prenom:</label><br>
+			<input type="text" id="memberl" name="member" pattern="[\_\-A-Za-z]{1,25}" size="25" required autofocus>
+		</td>
+		<td class="headtablecol4"> 
+			<label class="logtitle" for="passwordl">Mot de passe:</label><br>
+			<input type="password" id="pwd" name="password" pattern="[\_\-\?\!\(\)A-Za-z]{3,25}" size="25" required>
+		</td>
+	</tr>
+	</table>
+</td>
+</tr>
+<tr id="Main">
+<td colspan=4>
+	<input type="submit" value="Login"></form>
+	<br>
+	<?php 
+	if (isset($message))
+		echo 'Erreur : '.$message;
+	?>
+</td>
+</tr>
+</table>
+<body >
+</html>
+

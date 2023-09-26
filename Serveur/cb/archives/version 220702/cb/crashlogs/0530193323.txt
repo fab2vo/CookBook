@@ -1,0 +1,408 @@
+REPORT_ID = ac46651e-cbbb-4d73-9477-107860063349
+APP_VERSION_CODE = 17
+APP_VERSION_NAME = 3.0
+PACKAGE_NAME = com.fdx.cookbook
+FILE_PATH = /data/user/0/com.fdx.cookbook/files
+PHONE_MODEL = SM-A405FN
+BRAND = samsung
+PRODUCT = a40eea
+ANDROID_VERSION = 9
+BUILD =
+---BOARD = universal7885
+---BOOTLOADER = A405FNXXU3ATA4
+---BRAND = samsung
+---CPU_ABI = arm64-v8a
+---CPU_ABI2 = 
+---DEVICE = a40
+---DISPLAY = PPR1.180610.011.A405FNXXU3ATA4
+---FINGERPRINT = samsung/a40eea/a40:9/PPR1.180610.011/A405FNXXU3ATA4:user/release-keys
+---HARDWARE = exynos7885
+---HOST = 21HH1F10
+---ID = PPR1.180610.011
+---IS_DEBUGGABLE = 
+---IS_EMULATOR = 
+---MANUFACTURER = samsung
+---MODEL = SM-A405FN
+---PERMISSIONS_REVIEW_REQUIRED = 
+---PRODUCT = a40eea
+---RADIO = unknown
+---SERIAL = unknown
+---SUPPORTED_32_BIT_ABIS = Array
+---SUPPORTED_64_BIT_ABIS = Array
+---SUPPORTED_ABIS = Array
+---TAGS = release-keys
+---TIME = 1579063572000
+---TYPE = user
+---UNKNOWN = unknown
+---USER = dpi
+---VERSION = Array
+TOTAL_MEM_SIZE = 54810640384
+AVAILABLE_MEM_SIZE = 20042330112
+BUILD_CONFIG =
+---APPLICATION_ID = com.fdx.cookbook
+---BUILD_TYPE = release
+---DEBUG = 
+---VERSION_CODE = 17
+---VERSION_NAME = 3.0
+CUSTOM_DATA =
+---CB_USER = Véronique@Devaux_Lion de ML
+IS_SILENT = 
+STACK_TRACE = java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference
+	at com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)
+	at com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)
+	at com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)
+	at com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)
+	at android.view.View.performClick(View.java:7339)
+	at android.widget.TextView.performClick(TextView.java:14221)
+	at android.view.View.performClickInternal(View.java:7305)
+	at android.view.View.access$3200(View.java:846)
+	at android.view.View$PerformClick.run(View.java:27787)
+	at android.os.Handler.handleCallback(Handler.java:873)
+	at android.os.Handler.dispatchMessage(Handler.java:99)
+	at android.os.Looper.loop(Looper.java:214)
+	at android.app.ActivityThread.main(ActivityThread.java:7063)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)
+
+INITIAL_CONFIGURATION =
+---FlipFont = 0
+---boldFont = -1
+---colorMode = 5
+---densityDpi = 480
+---dexCompatEnabled = 0
+---dexCompatUiMode = 0
+---fontScale = 1.1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_YES
+---keyboard = KEYBOARD_NOKEYS
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = fr_FR
+---mcc = 208
+---mnc = 1
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---rilSetLocale = 
+---screenHeightDp = 703
+---screenLayout = SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 360
+---semButtonShapeEnabled = 0
+---semDesktopModeEnabled = -1
+---semDisplayDeviceType = -1
+---semMobileKeyboardCovered = 0
+---seq = 458
+---showButtonBackground = 0
+---smallestScreenWidthDp = 360
+---themeSeq = 0
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+---windowConfiguration = { mBounds=Rect(0, 0 - 1080, 2110) mAppBounds=Rect(0, 86 - 1080, 2196) mWindowingMode=fullscreen mActivityType=undefined}
+CRASH_CONFIGURATION =
+---FlipFont = 0
+---boldFont = -1
+---colorMode = 5
+---densityDpi = 480
+---dexCompatEnabled = 0
+---dexCompatUiMode = 0
+---fontScale = 1.1
+---hardKeyboardHidden = HARDKEYBOARDHIDDEN_YES
+---keyboard = KEYBOARD_NOKEYS
+---keyboardHidden = KEYBOARDHIDDEN_NO
+---locale = fr_FR
+---mcc = 208
+---mnc = 1
+---navigation = NAVIGATION_NONAV
+---navigationHidden = NAVIGATIONHIDDEN_YES
+---orientation = ORIENTATION_PORTRAIT
+---rilSetLocale = 
+---screenHeightDp = 703
+---screenLayout = SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO
+---screenWidthDp = 360
+---semButtonShapeEnabled = 0
+---semDesktopModeEnabled = -1
+---semDisplayDeviceType = -1
+---semMobileKeyboardCovered = 0
+---seq = 458
+---showButtonBackground = 0
+---smallestScreenWidthDp = 360
+---themeSeq = 0
+---touchscreen = TOUCHSCREEN_FINGER
+---uiMode = UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO
+---userSetLocale = 
+---windowConfiguration = { mBounds=Rect(0, 0 - 1080, 2110) mAppBounds=Rect(0, 86 - 1080, 2196) mWindowingMode=fullscreen mActivityType=undefined}
+DISPLAY =
+---0 = Array
+USER_COMMENT = 
+USER_EMAIL = N/A
+USER_APP_START_DATE = 2022-05-30T19:33:13.785+02:00
+USER_CRASH_DATE = 2022-05-30T19:33:18.310+02:00
+DUMPSYS_MEMINFO = 
+LOGCAT = --------- beginning of main
+05-30 19:33:13.856 D/NetworkManagementSocketTagger(16273): tagSocket(52) with statsTag=0xffffffff, statsUid=-1
+05-30 19:33:13.891 I/DecorView(16273): createDecorCaptionView >> DecorView@a2926f5[], isFloating: false, isApplication: true, hasWindowDecorCaption: false, hasWindowControllerCallback: true
+05-30 19:33:13.940 D/skia    (16273): approximate: numPoints=51, lengths[0]=0.000000, totalLength=620.200073, segmentPoints[0]=[-197.600006,0.000000]
+05-30 19:33:13.940 D/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=-197.600006, approximation[2]=0.000000
+05-30 19:33:13.940 D/skia    (16273): approximate: numPoints=51, lengths[50]=620.200073, totalLength=620.200073, segmentPoints[50]=[422.600037,0.000000]
+05-30 19:33:13.940 D/skia    (16273): approximate: approximation[150]=1.000000, approximation[151]=422.600037, approximation[152]=0.000000
+05-30 19:33:13.941 D/skia    (16273): approximate: numPoints=4, lengths[0]=0.000000, totalLength=3.448155, segmentPoints[0]=[0.000000,0.100000]
+05-30 19:33:13.941 D/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=0.000000, approximation[2]=0.100000
+05-30 19:33:13.941 D/skia    (16273): approximate: numPoints=4, lengths[3]=3.448155, totalLength=3.448155, segmentPoints[3]=[3.000000,0.100000]
+05-30 19:33:13.941 D/skia    (16273): approximate: approximation[9]=1.000000, approximation[10]=3.000000, approximation[11]=0.100000
+05-30 19:33:13.942 D/skia    (16273): approximate: numPoints=47, lengths[0]=0.000000, totalLength=722.199951, segmentPoints[0]=[-522.599976,0.000000]
+05-30 19:33:13.942 D/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=-522.599976, approximation[2]=0.000000
+05-30 19:33:13.942 D/skia    (16273): approximate: numPoints=47, lengths[46]=722.199951, totalLength=722.199951, segmentPoints[46]=[199.600006,0.000000]
+05-30 19:33:13.942 D/skia    (16273): approximate: approximation[138]=1.000000, approximation[139]=199.600006, approximation[140]=0.000000
+05-30 19:33:13.942 D/skia    (16273): approximate: numPoints=3, lengths[0]=0.000000, totalLength=2.472497, segmentPoints[0]=[0.000000,0.100000]
+05-30 19:33:13.942 D/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=0.000000, approximation[2]=0.100000
+05-30 19:33:13.942 D/skia    (16273): approximate: numPoints=3, lengths[2]=2.472497, totalLength=2.472497, segmentPoints[2]=[2.000000,0.100000]
+05-30 19:33:13.942 D/skia    (16273): approximate: approximation[6]=1.000000, approximation[7]=2.000000, approximation[8]=0.100000
+05-30 19:33:14.014 W/ActivityThread(16273): handleWindowVisibility: no activity for token android.os.BinderProxy@1a5b6d8
+05-30 19:33:14.033 I/DecorView(16273): createDecorCaptionView >> DecorView@3dddfab[], isFloating: false, isApplication: true, hasWindowDecorCaption: false, hasWindowControllerCallback: true
+05-30 19:33:14.046 I/ACRA    (16250): Sending report /data/user/0/com.fdx.cookbook/app_ACRA-approved/2022-05-30T19:33:09.080+02:00.stacktrace
+05-30 19:33:14.077 I/System.out(16250): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:14.077 I/System.out(16250): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:14.087 D/NetworkManagementSocketTagger(16250): tagSocket(56) with statsTag=0xffffffff, statsUid=-1
+05-30 19:33:14.118 I/ACRA    (16250): Request received by server
+05-30 19:33:14.330 D/OpenGLRenderer(16273): Skia GL Pipeline
+05-30 19:33:14.335 D/EmergencyMode(16273): [EmergencyManager] android createPackageContext successful
+05-30 19:33:14.353 D/InputTransport(16273): Input channel constructed: fd=66
+05-30 19:33:14.353 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): setView = DecorView@3dddfab[RecipeListActivity] TM=true MM=false
+05-30 19:33:14.383 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): Relayout returned: old=[0,0][1080,2340] new=[0,0][1080,2340] result=0x7 surface={true 522284089344} changed=true
+05-30 19:33:14.389 I/ConfigStore(16273): android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasWideColorDisplay retrieved: 0
+05-30 19:33:14.389 I/ConfigStore(16273): android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasHDRDisplay retrieved: 0
+05-30 19:33:14.389 I/OpenGLRenderer(16273): Initialized EGL, version 1.4
+05-30 19:33:14.389 D/OpenGLRenderer(16273): Swap behavior 2
+05-30 19:33:14.398 D/mali_winsys(16273): EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+05-30 19:33:14.398 D/OpenGLRenderer(16273): eglCreateWindowSurface = 0x797a3e7980, 0x799a8ec010
+05-30 19:33:14.864 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): MSG_RESIZED: frame=[0,0][1080,2340] ci=[0,86][0,144] vi=[0,86][0,144] or=1
+05-30 19:33:14.870 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:14.870 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:14.881 D/NetworkManagementSocketTagger(16273): tagSocket(74) with statsTag=0xffffffff, statsUid=-1
+05-30 19:33:14.941 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): MSG_WINDOW_FOCUS_CHANGED 1 1
+05-30 19:33:14.951 D/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]
+05-30 19:33:14.951 D/InputMethodManager(16273): getNavigationBarColor() -855310
+05-30 19:33:14.961 D/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]
+05-30 19:33:14.961 D/InputMethodManager(16273): getNavigationBarColor() -855310
+05-30 19:33:14.961 V/InputMethodManager(16273): Starting input: tba=com.fdx.cookbook ic=null mNaviBarColor -855310 mIsGetNaviBarColorSuccess true , NavVisible : true , NavTrans : false
+05-30 19:33:14.961 D/InputMethodManager(16273): startInputInner - Id : 0
+05-30 19:33:14.961 I/InputMethodManager(16273): startInputInner - mService.startInputOrWindowGainedFocus
+05-30 19:33:14.970 D/InputTransport(16273): Input channel constructed: fd=79
+05-30 19:33:14.971 D/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]
+05-30 19:33:14.971 D/InputMethodManager(16273): getNavigationBarColor() -855310
+05-30 19:33:14.971 V/InputMethodManager(16273): Starting input: tba=com.fdx.cookbook ic=null mNaviBarColor -855310 mIsGetNaviBarColorSuccess true , NavVisible : true , NavTrans : false
+05-30 19:33:14.971 D/InputMethodManager(16273): startInputInner - Id : 0
+05-30 19:33:15.349 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:15.349 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:15.372 W/System  (16250): A resource failed to call end. 
+05-30 19:33:15.461 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:15.461 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:15.555 I/ACRA    (16250): Request received by server
+05-30 19:33:15.557 W/ACRA    (16250): Could not delete file: /data/user/0/com.fdx.cookbook/app_ACRA-approved/2022-05-30T19:33:09.080+02:00.stacktrace
+05-30 19:33:15.772 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:15.772 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:16.389 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:16.389 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:16.390 D/NetworkManagementSocketTagger(16273): tagSocket(77) with statsTag=0xffffffff, statsUid=-1
+05-30 19:33:16.395 W/System  (16273): A resource failed to call end. 
+05-30 19:33:16.395 W/System  (16273): A resource failed to call end. 
+05-30 19:33:16.918 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:16.919 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.042 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.043 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.182 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.182 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.327 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.328 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.458 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.458 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.593 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.593 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.726 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.726 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.863 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.864 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.986 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:17.987 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:18.059 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): ViewPostIme pointer 0
+05-30 19:33:18.117 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:18.118 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:18.135 D/ViewRootImpl@d602ba5[RecipeListActivity](16273): ViewPostIme pointer 1
+05-30 19:33:18.256 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:18.256 I/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false
+05-30 19:33:18.258 W/System  (16273): A resource failed to call end. 
+05-30 19:33:18.259 I/chatty  (16273): uid=10252(com.fdx.cookbook) FinalizerDaemon identical 8 lines
+05-30 19:33:18.259 W/System  (16273): A resource failed to call end. 
+05-30 19:33:18.289 D/AndroidRuntime(16273): Shutting down VM
+--------- beginning of crash
+05-30 19:33:18.291 E/AndroidRuntime(16273): FATAL EXCEPTION: main
+05-30 19:33:18.291 E/AndroidRuntime(16273): Process: com.fdx.cookbook, PID: 16273
+05-30 19:33:18.291 E/AndroidRuntime(16273): java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.view.View.performClick(View.java:7339)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.widget.TextView.performClick(TextView.java:14221)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.view.View.performClickInternal(View.java:7305)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.view.View.access$3200(View.java:846)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.view.View$PerformClick.run(View.java:27787)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.os.Handler.handleCallback(Handler.java:873)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.os.Looper.loop(Looper.java:214)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at android.app.ActivityThread.main(ActivityThread.java:7063)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at java.lang.reflect.Method.invoke(Native Method)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)
+05-30 19:33:18.291 E/AndroidRuntime(16273): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)
+05-30 19:33:18.291 E/ACRA    (16273): ACRA caught a NullPointerException for com.fdx.cookbook
+05-30 19:33:18.291 E/ACRA    (16273): java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.view.View.performClick(View.java:7339)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.widget.TextView.performClick(TextView.java:14221)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.view.View.performClickInternal(View.java:7305)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.view.View.access$3200(View.java:846)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.view.View$PerformClick.run(View.java:27787)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.os.Handler.handleCallback(Handler.java:873)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.os.Looper.loop(Looper.java:214)
+05-30 19:33:18.291 E/ACRA    (16273): 	at android.app.ActivityThread.main(ActivityThread.java:7063)
+05-30 19:33:18.291 E/ACRA    (16273): 	at java.lang.reflect.Method.invoke(Native Method)
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)
+05-30 19:33:18.291 E/ACRA    (16273): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)
+05-30 19:33:18.309 I/x.cookbook:acr(16250): Waiting for a blocking GC ProfileSaver
+05-30 19:33:18.315 W/System  (16250): A resource failed to call end. 
+05-30 19:33:18.315 I/x.cookbook:acr(16250): WaitForGcToComplete blocked ProfileSaver on HeapTrim for 6.348ms
+
+INSTALLATION_ID = 149099f4-8e17-44ef-aa55-2fa8f23d2bfd
+DEVICE_FEATURES =
+---android.hardware.sensor.proximity = 1
+---com.samsung.android.sdk.camera.processor = 1
+---com.sec.feature.motionrecognition_service = 1
+---android.hardware.sensor.accelerometer = 1
+---android.hardware.faketouch = 1
+---android.hardware.usb.accessory = 1
+---android.software.backup = 1
+---android.hardware.touchscreen = 1
+---android.hardware.touchscreen.multitouch = 1
+---android.software.print = 1
+---com.samsung.feature.mirrorlink_fw = 1
+---android.software.activities_on_secondary_displays = 1
+---com.samsung.feature.device_category_phone_low_end = 1
+---com.sec.feature.nfc_authentication = 1
+---android.software.voice_recognizers = 1
+---android.software.picture_in_picture = 1
+---android.hardware.fingerprint = 1
+---com.samsung.android.knox.knoxsdk = 1
+---android.hardware.sensor.gyroscope = 1
+---com.sec.feature.slocation = 1
+---android.software.cant_save_state = 1
+---com.samsung.android.sdk.camera.processor.haze = 1
+---com.samsung.feature.device_category_phone = 1
+---android.hardware.opengles.aep = 1
+---com.sec.feature.fingerprint_manager_service = 1
+---com.sec.feature.overlaymagnifier = 1
+---android.hardware.bluetooth = 1
+---android.hardware.camera.autofocus = 1
+---android.hardware.telephony.gsm = 1
+---com.samsung.android.bio.face = 1
+---android.software.sip.voip = 1
+---com.sec.feature.saccessorymanager = 1
+---com.samsung.feature.samsung_experience_mobile = 1
+---android.hardware.usb.host = 1
+---android.hardware.audio.output = 1
+---android.software.verified_boot = 1
+---android.hardware.camera.flash = 1
+---android.hardware.camera.front = 1
+---com.samsung.feature.clockpack_v06 = 1
+---android.hardware.screen.portrait = 1
+---android.hardware.nfc = 1
+---com.google.android.feature.TURBO_PRELOAD = 1
+---com.sec.android.mdm = 1
+---com.samsung.feature.ipsgeofence = 1
+---com.nxp.mifare = 1
+---android.software.home_screen = 1
+---android.hardware.microphone = 1
+---android.software.autofill = 1
+---com.samsung.android.sdk.camera.processor.effect = 1
+---android.software.securely_removes_users = 1
+---android.hardware.bluetooth_le = 1
+---android.hardware.sensor.compass = 1
+---android.hardware.touchscreen.multitouch.jazzhand = 1
+---android.software.app_widgets = 1
+---android.software.input_methods = 1
+---android.hardware.sensor.light = 1
+---android.hardware.vulkan.version = 1
+---android.software.companion_device_setup = 1
+---com.samsung.feature.galaxyfinder_v7 = 1
+---android.software.device_admin = 1
+---com.sec.android.secimaging.faceAR = 1
+---android.hardware.camera = 1
+---android.hardware.screen.landscape = 1
+---android.hardware.ram.normal = 1
+---com.samsung.android.authfw = 1
+---com.samsung.android.api.version.2402 = 1
+---com.samsung.android.api.version.2403 = 1
+---com.samsung.android.api.version.2501 = 1
+---com.samsung.android.api.version.2502 = 1
+---com.samsung.android.api.version.2601 = 1
+---com.samsung.android.api.version.2701 = 1
+---com.samsung.android.api.version.2801 = 1
+---com.sec.feature.cover = 1
+---com.sec.feature.findo = 1
+---android.software.managed_users = 1
+---com.sec.feature.nsflp = 1
+---android.software.webview = 1
+---android.hardware.camera.any = 1
+---com.samsung.android.sdk.camera.processor.dof = 1
+---com.samsung.android.sdk.camera.processor.gif = 1
+---com.samsung.android.sdk.camera.processor.hdr = 1
+---com.samsung.android.sdk.camera.processor.lls = 1
+---android.hardware.vulkan.compute = 1
+---android.software.connectionservice = 1
+---android.hardware.touchscreen.multitouch.distinct = 1
+---android.hardware.location.network = 1
+---com.sec.android.secimaging = 1
+---android.software.cts = 1
+---android.software.sip = 1
+---com.sec.feature.usb_authentication = 1
+---com.google.android.feature.EEA_DEVICE = 1
+---android.hardware.wifi.direct = 1
+---android.software.live_wallpaper = 1
+---com.google.android.paid.chrome = 1
+---android.software.freeform_window_management = 1
+---android.hardware.nfc.hcef = 1
+---android.hardware.location.gps = 1
+---android.software.midi = 1
+---com.samsung.feature.samsungpositioning = 1
+---android.hardware.nfc.any = 1
+---android.hardware.nfc.hce = 1
+---android.hardware.wifi = 1
+---android.hardware.location = 1
+---com.google.android.paid.search = 1
+---android.hardware.vulkan.level = 1
+---com.sec.feature.cover.flip = 1
+---android.hardware.telephony = 1
+---com.sec.android.smartface.smart_stay = 1
+---android.software.file_based_encryption = 1
+---glEsVersion = 3.2
+ENVIRONMENT =
+---getDataDirectory = /data
+---getDataSystemDirectory = /data/system
+---getDownloadCacheDirectory = /data/cache
+---getExternalStorageDirectory = /storage/emulated/0
+---getExternalStorageState = mounted
+---getLegacyExternalStorageDirectory = /sdcard
+---getLegacyExternalStorageObbDirectory = /sdcard/Android/obb
+---getOemDirectory = /oem
+---getRootDirectory = /system
+---getStorageDirectory = /storage
+---getVendorDirectory = /vendor
+---isExternalStorageEmulated = 1
+---isExternalStorageRemovable = 
+SHARED_PREFERENCES =
+---default = Array
+JSON_RAW=
+{"REPORT_ID":"ac46651e-cbbb-4d73-9477-107860063349","APP_VERSION_CODE":17,"APP_VERSION_NAME":"3.0","PACKAGE_NAME":"com.fdx.cookbook","FILE_PATH":"\/data\/user\/0\/com.fdx.cookbook\/files","PHONE_MODEL":"SM-A405FN","BRAND":"samsung","PRODUCT":"a40eea","ANDROID_VERSION":"9","BUILD":{"BOARD":"universal7885","BOOTLOADER":"A405FNXXU3ATA4","BRAND":"samsung","CPU_ABI":"arm64-v8a","CPU_ABI2":"","DEVICE":"a40","DISPLAY":"PPR1.180610.011.A405FNXXU3ATA4","FINGERPRINT":"samsung\/a40eea\/a40:9\/PPR1.180610.011\/A405FNXXU3ATA4:user\/release-keys","HARDWARE":"exynos7885","HOST":"21HH1F10","ID":"PPR1.180610.011","IS_DEBUGGABLE":false,"IS_EMULATOR":false,"MANUFACTURER":"samsung","MODEL":"SM-A405FN","PERMISSIONS_REVIEW_REQUIRED":false,"PRODUCT":"a40eea","RADIO":"unknown","SERIAL":"unknown","SUPPORTED_32_BIT_ABIS":["armeabi-v7a","armeabi"],"SUPPORTED_64_BIT_ABIS":["arm64-v8a"],"SUPPORTED_ABIS":["arm64-v8a","armeabi-v7a","armeabi"],"TAGS":"release-keys","TIME":1579063572000,"TYPE":"user","UNKNOWN":"unknown","USER":"dpi","VERSION":{"ACTIVE_CODENAMES":[],"BASE_OS":"","CODENAME":"REL","FIRST_SDK_INT":28,"INCREMENTAL":"A405FNXXU3ATA4","PREVIEW_SDK_INT":0,"RELEASE":"9","RESOURCES_SDK_INT":28,"SDK":"28","SDK_INT":28,"SECURITY_INDEX":"1","SECURITY_PATCH":"2020-01-01","SEM_FIRST_SDK_INT":28,"SEM_INT":2801,"SEM_PLATFORM_INT":100100}},"TOTAL_MEM_SIZE":54810640384,"AVAILABLE_MEM_SIZE":20042330112,"BUILD_CONFIG":{"APPLICATION_ID":"com.fdx.cookbook","BUILD_TYPE":"release","DEBUG":false,"VERSION_CODE":17,"VERSION_NAME":"3.0"},"CUSTOM_DATA":{"CB_USER":"Véronique@Devaux_Lion de ML"},"IS_SILENT":false,"STACK_TRACE":"java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference\n\tat com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)\n\tat com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)\n\tat com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)\n\tat com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)\n\tat android.view.View.performClick(View.java:7339)\n\tat android.widget.TextView.performClick(TextView.java:14221)\n\tat android.view.View.performClickInternal(View.java:7305)\n\tat android.view.View.access$3200(View.java:846)\n\tat android.view.View$PerformClick.run(View.java:27787)\n\tat android.os.Handler.handleCallback(Handler.java:873)\n\tat android.os.Handler.dispatchMessage(Handler.java:99)\n\tat android.os.Looper.loop(Looper.java:214)\n\tat android.app.ActivityThread.main(ActivityThread.java:7063)\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)\n\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)\n","INITIAL_CONFIGURATION":{"FlipFont":0,"boldFont":-1,"colorMode":5,"densityDpi":480,"dexCompatEnabled":0,"dexCompatUiMode":0,"fontScale":1.1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_YES","keyboard":"KEYBOARD_NOKEYS","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"fr_FR","mcc":208,"mnc":1,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","rilSetLocale":false,"screenHeightDp":703,"screenLayout":"SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":360,"semButtonShapeEnabled":0,"semDesktopModeEnabled":-1,"semDisplayDeviceType":-1,"semMobileKeyboardCovered":0,"seq":458,"showButtonBackground":0,"smallestScreenWidthDp":360,"themeSeq":0,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false,"windowConfiguration":"{ mBounds=Rect(0, 0 - 1080, 2110) mAppBounds=Rect(0, 86 - 1080, 2196) mWindowingMode=fullscreen mActivityType=undefined}"},"CRASH_CONFIGURATION":{"FlipFont":0,"boldFont":-1,"colorMode":5,"densityDpi":480,"dexCompatEnabled":0,"dexCompatUiMode":0,"fontScale":1.1,"hardKeyboardHidden":"HARDKEYBOARDHIDDEN_YES","keyboard":"KEYBOARD_NOKEYS","keyboardHidden":"KEYBOARDHIDDEN_NO","locale":"fr_FR","mcc":208,"mnc":1,"navigation":"NAVIGATION_NONAV","navigationHidden":"NAVIGATIONHIDDEN_YES","orientation":"ORIENTATION_PORTRAIT","rilSetLocale":false,"screenHeightDp":703,"screenLayout":"SCREENLAYOUT_SIZE_NORMAL+SCREENLAYOUT_LONG_YES+SCREENLAYOUT_LAYOUTDIR_LTR+SCREENLAYOUT_ROUND_NO","screenWidthDp":360,"semButtonShapeEnabled":0,"semDesktopModeEnabled":-1,"semDisplayDeviceType":-1,"semMobileKeyboardCovered":0,"seq":458,"showButtonBackground":0,"smallestScreenWidthDp":360,"themeSeq":0,"touchscreen":"TOUCHSCREEN_FINGER","uiMode":"UI_MODE_TYPE_NORMAL+UI_MODE_NIGHT_NO","userSetLocale":false,"windowConfiguration":"{ mBounds=Rect(0, 0 - 1080, 2110) mAppBounds=Rect(0, 86 - 1080, 2196) mWindowingMode=fullscreen mActivityType=undefined}"},"DISPLAY":{"0":{"currentSizeRange":{"smallest":[1080,1008],"largest":[2110,2110]},"flags":"FLAG_SUPPORTS_PROTECTED_BUFFERS+FLAG_SECURE","metrics":{"density":3,"densityDpi":480,"scaledDensity":"x3.0","widthPixels":1080,"heightPixels":2110,"xdpi":435.4280090332031,"ydpi":440.2659912109375},"realMetrics":{"density":3,"densityDpi":480,"scaledDensity":"x3.0","widthPixels":1080,"heightPixels":2340,"xdpi":435.4280090332031,"ydpi":440.2659912109375},"name":"Écran intégré","realSize":[1080,2340],"rectSize":[0,0,1080,2110],"size":[1080,2110],"rotation":"ROTATION_0","isValid":true,"orientation":0,"refreshRate":60.000003814697266,"height":2110,"width":1080,"pixelFormat":1}},"USER_COMMENT":null,"USER_EMAIL":"N\/A","USER_APP_START_DATE":"2022-05-30T19:33:13.785+02:00","USER_CRASH_DATE":"2022-05-30T19:33:18.310+02:00","DUMPSYS_MEMINFO":"","LOGCAT":"--------- beginning of main\n05-30 19:33:13.856 D\/NetworkManagementSocketTagger(16273): tagSocket(52) with statsTag=0xffffffff, statsUid=-1\n05-30 19:33:13.891 I\/DecorView(16273): createDecorCaptionView >> DecorView@a2926f5[], isFloating: false, isApplication: true, hasWindowDecorCaption: false, hasWindowControllerCallback: true\n05-30 19:33:13.940 D\/skia    (16273): approximate: numPoints=51, lengths[0]=0.000000, totalLength=620.200073, segmentPoints[0]=[-197.600006,0.000000]\n05-30 19:33:13.940 D\/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=-197.600006, approximation[2]=0.000000\n05-30 19:33:13.940 D\/skia    (16273): approximate: numPoints=51, lengths[50]=620.200073, totalLength=620.200073, segmentPoints[50]=[422.600037,0.000000]\n05-30 19:33:13.940 D\/skia    (16273): approximate: approximation[150]=1.000000, approximation[151]=422.600037, approximation[152]=0.000000\n05-30 19:33:13.941 D\/skia    (16273): approximate: numPoints=4, lengths[0]=0.000000, totalLength=3.448155, segmentPoints[0]=[0.000000,0.100000]\n05-30 19:33:13.941 D\/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=0.000000, approximation[2]=0.100000\n05-30 19:33:13.941 D\/skia    (16273): approximate: numPoints=4, lengths[3]=3.448155, totalLength=3.448155, segmentPoints[3]=[3.000000,0.100000]\n05-30 19:33:13.941 D\/skia    (16273): approximate: approximation[9]=1.000000, approximation[10]=3.000000, approximation[11]=0.100000\n05-30 19:33:13.942 D\/skia    (16273): approximate: numPoints=47, lengths[0]=0.000000, totalLength=722.199951, segmentPoints[0]=[-522.599976,0.000000]\n05-30 19:33:13.942 D\/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=-522.599976, approximation[2]=0.000000\n05-30 19:33:13.942 D\/skia    (16273): approximate: numPoints=47, lengths[46]=722.199951, totalLength=722.199951, segmentPoints[46]=[199.600006,0.000000]\n05-30 19:33:13.942 D\/skia    (16273): approximate: approximation[138]=1.000000, approximation[139]=199.600006, approximation[140]=0.000000\n05-30 19:33:13.942 D\/skia    (16273): approximate: numPoints=3, lengths[0]=0.000000, totalLength=2.472497, segmentPoints[0]=[0.000000,0.100000]\n05-30 19:33:13.942 D\/skia    (16273): approximate: approximation[0]=0.000000, approximation[1]=0.000000, approximation[2]=0.100000\n05-30 19:33:13.942 D\/skia    (16273): approximate: numPoints=3, lengths[2]=2.472497, totalLength=2.472497, segmentPoints[2]=[2.000000,0.100000]\n05-30 19:33:13.942 D\/skia    (16273): approximate: approximation[6]=1.000000, approximation[7]=2.000000, approximation[8]=0.100000\n05-30 19:33:14.014 W\/ActivityThread(16273): handleWindowVisibility: no activity for token android.os.BinderProxy@1a5b6d8\n05-30 19:33:14.033 I\/DecorView(16273): createDecorCaptionView >> DecorView@3dddfab[], isFloating: false, isApplication: true, hasWindowDecorCaption: false, hasWindowControllerCallback: true\n05-30 19:33:14.046 I\/ACRA    (16250): Sending report \/data\/user\/0\/com.fdx.cookbook\/app_ACRA-approved\/2022-05-30T19:33:09.080+02:00.stacktrace\n05-30 19:33:14.077 I\/System.out(16250): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:14.077 I\/System.out(16250): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:14.087 D\/NetworkManagementSocketTagger(16250): tagSocket(56) with statsTag=0xffffffff, statsUid=-1\n05-30 19:33:14.118 I\/ACRA    (16250): Request received by server\n05-30 19:33:14.330 D\/OpenGLRenderer(16273): Skia GL Pipeline\n05-30 19:33:14.335 D\/EmergencyMode(16273): [EmergencyManager] android createPackageContext successful\n05-30 19:33:14.353 D\/InputTransport(16273): Input channel constructed: fd=66\n05-30 19:33:14.353 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): setView = DecorView@3dddfab[RecipeListActivity] TM=true MM=false\n05-30 19:33:14.383 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): Relayout returned: old=[0,0][1080,2340] new=[0,0][1080,2340] result=0x7 surface={true 522284089344} changed=true\n05-30 19:33:14.389 I\/ConfigStore(16273): android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasWideColorDisplay retrieved: 0\n05-30 19:33:14.389 I\/ConfigStore(16273): android::hardware::configstore::V1_0::ISurfaceFlingerConfigs::hasHDRDisplay retrieved: 0\n05-30 19:33:14.389 I\/OpenGLRenderer(16273): Initialized EGL, version 1.4\n05-30 19:33:14.389 D\/OpenGLRenderer(16273): Swap behavior 2\n05-30 19:33:14.398 D\/mali_winsys(16273): EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000\n05-30 19:33:14.398 D\/OpenGLRenderer(16273): eglCreateWindowSurface = 0x797a3e7980, 0x799a8ec010\n05-30 19:33:14.864 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): MSG_RESIZED: frame=[0,0][1080,2340] ci=[0,86][0,144] vi=[0,86][0,144] or=1\n05-30 19:33:14.870 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:14.870 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:14.881 D\/NetworkManagementSocketTagger(16273): tagSocket(74) with statsTag=0xffffffff, statsUid=-1\n05-30 19:33:14.941 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): MSG_WINDOW_FOCUS_CHANGED 1 1\n05-30 19:33:14.951 D\/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]\n05-30 19:33:14.951 D\/InputMethodManager(16273): getNavigationBarColor() -855310\n05-30 19:33:14.961 D\/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]\n05-30 19:33:14.961 D\/InputMethodManager(16273): getNavigationBarColor() -855310\n05-30 19:33:14.961 V\/InputMethodManager(16273): Starting input: tba=com.fdx.cookbook ic=null mNaviBarColor -855310 mIsGetNaviBarColorSuccess true , NavVisible : true , NavTrans : false\n05-30 19:33:14.961 D\/InputMethodManager(16273): startInputInner - Id : 0\n05-30 19:33:14.961 I\/InputMethodManager(16273): startInputInner - mService.startInputOrWindowGainedFocus\n05-30 19:33:14.970 D\/InputTransport(16273): Input channel constructed: fd=79\n05-30 19:33:14.971 D\/InputMethodManager(16273): prepareNavigationBarInfo() DecorView@3dddfab[RecipeListActivity]\n05-30 19:33:14.971 D\/InputMethodManager(16273): getNavigationBarColor() -855310\n05-30 19:33:14.971 V\/InputMethodManager(16273): Starting input: tba=com.fdx.cookbook ic=null mNaviBarColor -855310 mIsGetNaviBarColorSuccess true , NavVisible : true , NavTrans : false\n05-30 19:33:14.971 D\/InputMethodManager(16273): startInputInner - Id : 0\n05-30 19:33:15.349 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:15.349 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:15.372 W\/System  (16250): A resource failed to call end. \n05-30 19:33:15.461 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:15.461 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:15.555 I\/ACRA    (16250): Request received by server\n05-30 19:33:15.557 W\/ACRA    (16250): Could not delete file: \/data\/user\/0\/com.fdx.cookbook\/app_ACRA-approved\/2022-05-30T19:33:09.080+02:00.stacktrace\n05-30 19:33:15.772 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:15.772 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:16.389 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:16.389 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:16.390 D\/NetworkManagementSocketTagger(16273): tagSocket(77) with statsTag=0xffffffff, statsUid=-1\n05-30 19:33:16.395 W\/System  (16273): A resource failed to call end. \n05-30 19:33:16.395 W\/System  (16273): A resource failed to call end. \n05-30 19:33:16.918 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:16.919 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.042 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.043 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.182 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.182 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.327 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.328 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.458 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.458 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.593 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.593 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.726 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.726 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.863 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.864 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.986 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:17.987 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:18.059 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): ViewPostIme pointer 0\n05-30 19:33:18.117 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:18.118 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:18.135 D\/ViewRootImpl@d602ba5[RecipeListActivity](16273): ViewPostIme pointer 1\n05-30 19:33:18.256 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:18.256 I\/System.out(16273): (HTTPLog)-Static: isSBSettingEnabled false\n05-30 19:33:18.258 W\/System  (16273): A resource failed to call end. \n05-30 19:33:18.259 I\/chatty  (16273): uid=10252(com.fdx.cookbook) FinalizerDaemon identical 8 lines\n05-30 19:33:18.259 W\/System  (16273): A resource failed to call end. \n05-30 19:33:18.289 D\/AndroidRuntime(16273): Shutting down VM\n--------- beginning of crash\n05-30 19:33:18.291 E\/AndroidRuntime(16273): FATAL EXCEPTION: main\n05-30 19:33:18.291 E\/AndroidRuntime(16273): Process: com.fdx.cookbook, PID: 16273\n05-30 19:33:18.291 E\/AndroidRuntime(16273): java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.view.View.performClick(View.java:7339)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.widget.TextView.performClick(TextView.java:14221)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.view.View.performClickInternal(View.java:7305)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.view.View.access$3200(View.java:846)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.view.View$PerformClick.run(View.java:27787)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.os.Handler.handleCallback(Handler.java:873)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.os.Handler.dispatchMessage(Handler.java:99)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.os.Looper.loop(Looper.java:214)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat android.app.ActivityThread.main(ActivityThread.java:7063)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat java.lang.reflect.Method.invoke(Native Method)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)\n05-30 19:33:18.291 E\/AndroidRuntime(16273): \tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)\n05-30 19:33:18.291 E\/ACRA    (16273): ACRA caught a NullPointerException for com.fdx.cookbook\n05-30 19:33:18.291 E\/ACRA    (16273): java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.fdx.cookbook.User.IsEqual(com.fdx.cookbook.User)' on a null object reference\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.fdx.cookbook.ListMask.isRecipeSelected(ListMask.java:177)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.fdx.cookbook.RecipeListFragment.updateUI(RecipeListFragment.java:234)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.fdx.cookbook.RecipeListFragment.access$100(RecipeListFragment.java:42)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.fdx.cookbook.RecipeListFragment$RecipeHolder$4.onClick(RecipeListFragment.java:332)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.view.View.performClick(View.java:7339)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.widget.TextView.performClick(TextView.java:14221)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.view.View.performClickInternal(View.java:7305)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.view.View.access$3200(View.java:846)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.view.View$PerformClick.run(View.java:27787)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.os.Handler.handleCallback(Handler.java:873)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.os.Handler.dispatchMessage(Handler.java:99)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.os.Looper.loop(Looper.java:214)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat android.app.ActivityThread.main(ActivityThread.java:7063)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat java.lang.reflect.Method.invoke(Native Method)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:494)\n05-30 19:33:18.291 E\/ACRA    (16273): \tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:965)\n05-30 19:33:18.309 I\/x.cookbook:acr(16250): Waiting for a blocking GC ProfileSaver\n05-30 19:33:18.315 W\/System  (16250): A resource failed to call end. \n05-30 19:33:18.315 I\/x.cookbook:acr(16250): WaitForGcToComplete blocked ProfileSaver on HeapTrim for 6.348ms\n","INSTALLATION_ID":"149099f4-8e17-44ef-aa55-2fa8f23d2bfd","DEVICE_FEATURES":{"android.hardware.sensor.proximity":true,"com.samsung.android.sdk.camera.processor":true,"com.sec.feature.motionrecognition_service":true,"android.hardware.sensor.accelerometer":true,"android.hardware.faketouch":true,"android.hardware.usb.accessory":true,"android.software.backup":true,"android.hardware.touchscreen":true,"android.hardware.touchscreen.multitouch":true,"android.software.print":true,"com.samsung.feature.mirrorlink_fw":true,"android.software.activities_on_secondary_displays":true,"com.samsung.feature.device_category_phone_low_end":true,"com.sec.feature.nfc_authentication":true,"android.software.voice_recognizers":true,"android.software.picture_in_picture":true,"android.hardware.fingerprint":true,"com.samsung.android.knox.knoxsdk":true,"android.hardware.sensor.gyroscope":true,"com.sec.feature.slocation":true,"android.software.cant_save_state":true,"com.samsung.android.sdk.camera.processor.haze":true,"com.samsung.feature.device_category_phone":true,"android.hardware.opengles.aep":true,"com.sec.feature.fingerprint_manager_service":true,"com.sec.feature.overlaymagnifier":true,"android.hardware.bluetooth":true,"android.hardware.camera.autofocus":true,"android.hardware.telephony.gsm":true,"com.samsung.android.bio.face":true,"android.software.sip.voip":true,"com.sec.feature.saccessorymanager":true,"com.samsung.feature.samsung_experience_mobile":true,"android.hardware.usb.host":true,"android.hardware.audio.output":true,"android.software.verified_boot":true,"android.hardware.camera.flash":true,"android.hardware.camera.front":true,"com.samsung.feature.clockpack_v06":true,"android.hardware.screen.portrait":true,"android.hardware.nfc":true,"com.google.android.feature.TURBO_PRELOAD":true,"com.sec.android.mdm":true,"com.samsung.feature.ipsgeofence":true,"com.nxp.mifare":true,"android.software.home_screen":true,"android.hardware.microphone":true,"android.software.autofill":true,"com.samsung.android.sdk.camera.processor.effect":true,"android.software.securely_removes_users":true,"android.hardware.bluetooth_le":true,"android.hardware.sensor.compass":true,"android.hardware.touchscreen.multitouch.jazzhand":true,"android.software.app_widgets":true,"android.software.input_methods":true,"android.hardware.sensor.light":true,"android.hardware.vulkan.version":true,"android.software.companion_device_setup":true,"com.samsung.feature.galaxyfinder_v7":true,"android.software.device_admin":true,"com.sec.android.secimaging.faceAR":true,"android.hardware.camera":true,"android.hardware.screen.landscape":true,"android.hardware.ram.normal":true,"com.samsung.android.authfw":true,"com.samsung.android.api.version.2402":true,"com.samsung.android.api.version.2403":true,"com.samsung.android.api.version.2501":true,"com.samsung.android.api.version.2502":true,"com.samsung.android.api.version.2601":true,"com.samsung.android.api.version.2701":true,"com.samsung.android.api.version.2801":true,"com.sec.feature.cover":true,"com.sec.feature.findo":true,"android.software.managed_users":true,"com.sec.feature.nsflp":true,"android.software.webview":true,"android.hardware.camera.any":true,"com.samsung.android.sdk.camera.processor.dof":true,"com.samsung.android.sdk.camera.processor.gif":true,"com.samsung.android.sdk.camera.processor.hdr":true,"com.samsung.android.sdk.camera.processor.lls":true,"android.hardware.vulkan.compute":true,"android.software.connectionservice":true,"android.hardware.touchscreen.multitouch.distinct":true,"android.hardware.location.network":true,"com.sec.android.secimaging":true,"android.software.cts":true,"android.software.sip":true,"com.sec.feature.usb_authentication":true,"com.google.android.feature.EEA_DEVICE":true,"android.hardware.wifi.direct":true,"android.software.live_wallpaper":true,"com.google.android.paid.chrome":true,"android.software.freeform_window_management":true,"android.hardware.nfc.hcef":true,"android.hardware.location.gps":true,"android.software.midi":true,"com.samsung.feature.samsungpositioning":true,"android.hardware.nfc.any":true,"android.hardware.nfc.hce":true,"android.hardware.wifi":true,"android.hardware.location":true,"com.google.android.paid.search":true,"android.hardware.vulkan.level":true,"com.sec.feature.cover.flip":true,"android.hardware.telephony":true,"com.sec.android.smartface.smart_stay":true,"android.software.file_based_encryption":true,"glEsVersion":"3.2"},"ENVIRONMENT":{"getDataDirectory":"\/data","getDataSystemDirectory":"\/data\/system","getDownloadCacheDirectory":"\/data\/cache","getExternalStorageDirectory":"\/storage\/emulated\/0","getExternalStorageState":"mounted","getLegacyExternalStorageDirectory":"\/sdcard","getLegacyExternalStorageObbDirectory":"\/sdcard\/Android\/obb","getOemDirectory":"\/oem","getRootDirectory":"\/system","getStorageDirectory":"\/storage","getVendorDirectory":"\/vendor","isExternalStorageEmulated":true,"isExternalStorageRemovable":false},"SHARED_PREFERENCES":{"default":{"name":"Véronique","iduser":"c81d4e2e-bcf3-11e6-869b-7df92533d2db","family":"Devaux_Lion de ML","pwd":"Lion"}}}END

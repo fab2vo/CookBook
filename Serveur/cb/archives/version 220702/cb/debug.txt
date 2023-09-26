@@ -1,0 +1,491 @@
+
+---> 2022-04-16 15:17:58  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : nofamily
+path nologin 
+---> 2022-04-16 15:18:17  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : Devaux_Lion de ML
+ok : ok
+path login ok, id_user= c81d4e2e-bcf2-11e6-869b-7df92533d2db
+---> 2022-04-16 15:27:53  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='4aaa06b3-9eae-4fed-a075-9baef5ac0cd5'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-04-09 12:27:16',
+		`title`='Couscous',`source`='',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='06',
+		`etape01`='Laver, éplucher et couper en gros cubes. Dans une cocotte faire revenir le poulet et le mouton. Ajouter les carottes, les navets, les épices, l\'harissa, le sel, le poivre. Égaliser avec de l\'eau. Faire cuire 20 minutes.',`etape02`='Ajouter les courgettes et les pois chiches. Cuire 10 minutes.',`etape03`='Faire griller les merguez.',`etape04`='Servir avec la semoule préparée',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='WINTER',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='6 pilons de poulet',`ing02`='6 merguez au moins',`ing03`='1 tranche de gigot',`ing04`='400 g de pois chiches',`ing05`='400 g de couscous moyen',
+		`ing06`='2 gros navets',`ing07`='5 carottes',`ing08`='3 courgettes',`ing09`='harissa',`ing10`='épices à couscous ras el hanout',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='4aaa06b3-9eae-4fed-a075-9baef5ac0cd5'
+Success
+---> 2022-04-16 15:33:01  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='302da266-1987-44fc-a276-8acd68c55779'
+ INSERT INTO `recipedb`(`id_recipe`,`id_user`,`lastupdate_recipe`, `lastupdate_photo`, `title`, `source`, `source_url`, `nb_pers`, 
+								`etape01`, `etape02`, `etape03`, `etape04`, `etape05`, `etape06`, `etape07`, `etape08`, `etape09`,
+								`season`, `difficulty`,`type`,
+								`ing01`, `ing02`, `ing03`, `ing04`, `ing05`, `ing06`, `ing07`, `ing08`, `ing09`, `ing10`,
+								`ing11`, `ing12`, `ing13`, `ing14`, `ing15`)
+		VALUES ( '302da266-1987-44fc-a276-8acd68c55779','0ddab906-93e9-4d45-8c7d-4407e4f5f27d','2022-04-16 15:32:57','1900-01-01 00:00:00','Essai 5', '', 'https://wwww.cookbookfamily.com','04',
+			'','','','','', 
+			'','','','',
+			'ALLYEAR','UNDEFINED','MAIN',
+			'','','','','',
+			'','','','','',
+			'','','','','') 
+SELECT `family` FROM `userdb` WHERE id_user='0ddab906-93e9-4d45-8c7d-4407e4f5f27d'
+SELECT `id_user` FROM `userdb` WHERE family='Sayler'
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('0ddab906-93e9-4d45-8c7d-4407e4f5f27d','302da266-1987-44fc-a276-8acd68c55779','Visible','Nouvelle recette dans la famille','0ddab906-93e9-4d45-8c7d-4407e4f5f27d')
+Recipe inserted
+Success
+---> 2022-04-16 15:49:05  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : nofamily
+path nologin 
+---> 2022-04-16 15:49:26  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : Devaux_Lion de ML
+ok : ok
+path login ok, id_user= c81d4e2e-bcf2-11e6-869b-7df92533d2db
+---> 2022-04-16 16:06:20  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : nofamily
+path nologin 
+---> 2022-04-16 16:06:39  ->  /storage/ssd2/387/18724387/public_html/cb/login.php
+ field family : Devaux_Lion de ML
+ok : ok
+path login ok, id_user= c81d4e2e-bcf2-11e6-869b-7df92533d2db
+---> 2022-04-16 18:13:23  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0416181323.txt
+Success
+---> 2022-04-16 18:13:27  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0416181327.txt
+Success
+---> 2022-04-16 18:13:32  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0416181332.txt
+Success
+---> 2022-04-17 19:47:28  ->  /storage/ssd2/387/18724387/public_html/cb/addcommentwithdate.php
+Id_recipe :f819bcc2-ab09-4ed8-8a7c-98fade172da2
+Id_recipe :c81d4e2e-bcf2-11e6-869b-7df92533d2db
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='f819bcc2-ab09-4ed8-8a7c-98fade172da2'
+SELECT * FROM userdb WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT * FROM commentsdb WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db' AND id_recipe='f819bcc2-ab09-4ed8-8a7c-98fade172da2' AND date_comment='2021-07-16 10:19:51'
+Comment already exists 
+---> 2022-04-17 19:47:48  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='6e53147f-4f1f-44e3-8517-eee4df515944'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-04-17 19:47:07',
+		`title`='Tarte tatin d\'Eloise',`source`='',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Pour la pâte, mélanger la farine le beurre et le sucre',`etape02`='',`etape03`='',`etape04`='',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='ALLYEAR',`difficulty`='UNDEFINED',`type`='DESSERT',
+		`ing01`='5 pommes',`ing02`='200g de farine ',`ing03`='100g de beurre mi mou',`ing04`='350g de sucre ',`ing05`='lait',
+		`ing06`='',`ing07`='',`ing08`='',`ing09`='',`ing10`='',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='6e53147f-4f1f-44e3-8517-eee4df515944'
+Success
+---> 2022-05-14 18:22:06  ->  /storage/ssd2/387/18724387/public_html/cb/createnewfamily.php
+Device HWVOG model VOG-L29 (VOG-L29EEA)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('43ea25c3-8b16-41db-90ee-924b2790c1eb','Maman','Bazot Tribe',now(),'Ciboulette06!') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('43ea25c3-8b16-41db-90ee-924b2790c1eb','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Success
+---> 2022-05-15 19:51:40  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-T580  BRAND = samsung  PRODUCT = gtaxlwifixx  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0515195140.txt
+Success
+---> 2022-05-21 08:11:16  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='2f5af79e-d826-4f50-89d1-575fb731cd6d'
+ INSERT INTO `recipedb`(`id_recipe`,`id_user`,`lastupdate_recipe`, `lastupdate_photo`, `title`, `source`, `source_url`, `nb_pers`, 
+								`etape01`, `etape02`, `etape03`, `etape04`, `etape05`, `etape06`, `etape07`, `etape08`, `etape09`,
+								`season`, `difficulty`,`type`,
+								`ing01`, `ing02`, `ing03`, `ing04`, `ing05`, `ing06`, `ing07`, `ing08`, `ing09`, `ing10`,
+								`ing11`, `ing12`, `ing13`, `ing14`, `ing15`)
+		VALUES ( '2f5af79e-d826-4f50-89d1-575fb731cd6d','c81d4e2e-bcf2-11e6-869b-7df92533d2db','2022-05-21 08:10:57','1900-01-01 00:00:00','Cake feta tomates olives', '', 'https://wwww.cookbookfamily.com','04',
+			'Préchauffer le four à 180 C, beurrer le moule, couper en dés les tomates, les olives, la feta','Dans un saladier battre la farine, les oeufs, la levure, l\'huile et le lait.','Ajouter les dés, saler, poivrer. Verser dans le moule et enfourner pour 46 minutes. ','','', 
+			'','','','',
+			'SUMMER','EASY','SIDE',
+			'3 oeufs','150 g de farine','1 sachet de levure alsacienne','10 cl huile olive','15 cl de lait',
+			'2 tomates','150 g de feta','50 g d\'olives vertes dénoyautées','','',
+			'','','','','') 
+SELECT `family` FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT `id_user` FROM `userdb` WHERE family='Devaux_Lion de ML'
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e6-869b-7df92533d2db','2f5af79e-d826-4f50-89d1-575fb731cd6d','Visible','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e7-869b-7df92533d2db','2f5af79e-d826-4f50-89d1-575fb731cd6d','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf3-11e6-869b-7df92533d2db','2f5af79e-d826-4f50-89d1-575fb731cd6d','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('fce5a6c7-2dc3-4f4d-989f-69b308b6966a','2f5af79e-d826-4f50-89d1-575fb731cd6d','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+Success
+---> 2022-05-30 19:33:14  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0530193314.txt
+Success
+---> 2022-05-30 19:33:15  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0530193315.txt
+Success
+---> 2022-05-30 19:33:23  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0530193323.txt
+Success
+---> 2022-05-30 19:33:45  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0530193345.txt
+Success
+---> 2022-05-31 09:26:15  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092615.txt
+Success
+---> 2022-05-31 09:26:30  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092630.txt
+Success
+---> 2022-05-31 09:26:32  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092632.txt
+Success
+---> 2022-05-31 09:27:10  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092710.txt
+Success
+---> 2022-05-31 09:27:47  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092747.txt
+Success
+---> 2022-05-31 09:27:49  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092749.txt
+Success
+---> 2022-05-31 09:27:50  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092750.txt
+Success
+---> 2022-05-31 09:27:51  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092751.txt
+Success
+---> 2022-05-31 09:27:53  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092753.txt
+Success
+---> 2022-05-31 09:27:54  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092754.txt
+Success
+---> 2022-05-31 09:28:04  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092804.txt
+Success
+---> 2022-05-31 09:28:05  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092805.txt
+Success
+---> 2022-05-31 09:28:06  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092806.txt
+Success
+---> 2022-05-31 09:28:18  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092818.txt
+Success
+---> 2022-05-31 09:28:19  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092819.txt
+Success
+---> 2022-05-31 09:28:20  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092820.txt
+Success
+---> 2022-05-31 09:28:21  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092821.txt
+Success
+---> 2022-05-31 09:28:22  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092822.txt
+Success
+---> 2022-05-31 09:28:24  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092824.txt
+Success
+---> 2022-05-31 09:28:25  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092825.txt
+Success
+---> 2022-05-31 09:28:26  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531092826.txt
+Success
+---> 2022-05-31 09:38:23  ->  /storage/ssd2/387/18724387/public_html/cb/createnewfamily.php
+Device scutum model Motorola One Vision (scutum)
+INSERT INTO `userdb`(`id_user`, `name`, `family`, `last_sync`, `pass`)
+				VALUES ('eb50dcb6-1ea2-4611-b65e-34944c576c64','15666666666','15666666666',now(),'80996240') 
+INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+			VALUES ('eb50dcb6-1ea2-4611-b65e-34944c576c64','f819bcc2-ab09-4ed8-8a7c-08fade172da2','Submitted','Bienvenue !','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Success
+---> 2022-05-31 09:38:31  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = Motorola One Vision  BRAND = Motorola  PRODUCT = scutum  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531093831.txt
+Success
+---> 2022-05-31 11:08:21  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531110821.txt
+Success
+---> 2022-05-31 11:08:28  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531110828.txt
+Success
+---> 2022-05-31 18:41:29  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531184129.txt
+Success
+---> 2022-05-31 18:41:48  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531184148.txt
+Success
+---> 2022-05-31 18:42:06  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531184206.txt
+Success
+---> 2022-05-31 18:42:51  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0531184251.txt
+Success
+---> 2022-06-05 19:22:59  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='43fd200e-f279-45f0-a6a1-e340f31d8910'
+ INSERT INTO `recipedb`(`id_recipe`,`id_user`,`lastupdate_recipe`, `lastupdate_photo`, `title`, `source`, `source_url`, `nb_pers`, 
+								`etape01`, `etape02`, `etape03`, `etape04`, `etape05`, `etape06`, `etape07`, `etape08`, `etape09`,
+								`season`, `difficulty`,`type`,
+								`ing01`, `ing02`, `ing03`, `ing04`, `ing05`, `ing06`, `ing07`, `ing08`, `ing09`, `ing10`,
+								`ing11`, `ing12`, `ing13`, `ing14`, `ing15`)
+		VALUES ( '43fd200e-f279-45f0-a6a1-e340f31d8910','c81d4e2e-bcf2-11e6-869b-7df92533d2db','2022-06-05 19:22:40','1900-01-01 00:00:00','Escalope milanaise', 'Marmiton Ça change des Coquillettes p96', 'https://wwww.cookbookfamily.com','04',
+			'','','','','', 
+			'','','','',
+			'ALLYEAR','ELABORATE','MAIN',
+			'4 escalopes de veau fines','100 g de chapelure','100 g de parmesan râpé fin','3 oeufs','50 g de farine',
+			'','','','','',
+			'','','','','') 
+SELECT `family` FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT `id_user` FROM `userdb` WHERE family='Devaux_Lion de ML'
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e6-869b-7df92533d2db','43fd200e-f279-45f0-a6a1-e340f31d8910','Visible','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e7-869b-7df92533d2db','43fd200e-f279-45f0-a6a1-e340f31d8910','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf3-11e6-869b-7df92533d2db','43fd200e-f279-45f0-a6a1-e340f31d8910','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('fce5a6c7-2dc3-4f4d-989f-69b308b6966a','43fd200e-f279-45f0-a6a1-e340f31d8910','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+Success
+---> 2022-06-05 19:30:51  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='43fd200e-f279-45f0-a6a1-e340f31d8910'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-05 19:30:33',
+		`title`='Escalope milanaise',`source`='Marmiton Ça change des Coquillettes p96',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Bien aplatir les escalopes, au besoin avec rouleau entre 2 feuilles de film alimentaire',`etape02`='Disposer dans 3 assiettes : la farine, les oeufs battus avec sel et poivre, chapelure et parmesan.',`etape03`='Passer les escalopes dans la farine, les oeufs, le mélange chapelure, encore les oeufs et la chapelure.',`etape04`='Mettre au réfrigérateur 20 minutes pour que la croûte tienne pendant la cuisson.',
+		`etape05`='Dans une poêle avec un filet d\'huile, saisir des 2 côtés puis laisser 5 min à feu plus doux.',`etape06`='Servir avec une rondelle de citron, des pâtes et/ou des haricots',`etape07`='',`etape08`='',`etape09`='',
+		`season`='ALLYEAR',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='4 escalopes de veau fines',`ing02`='100 g de chapelure',`ing03`='100 g de parmesan râpé fin',`ing04`='3 oeufs',`ing05`='50 g de farine',
+		`ing06`='1 citron',`ing07`='',`ing08`='',`ing09`='',`ing10`='',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='43fd200e-f279-45f0-a6a1-e340f31d8910'
+Success
+---> 2022-06-05 19:44:25  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605194425.txt
+Success
+---> 2022-06-05 19:44:45  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605194445.txt
+Success
+---> 2022-06-05 19:45:03  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605194503.txt
+Success
+---> 2022-06-05 20:35:16  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='43fd200e-f279-45f0-a6a1-e340f31d8910'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-05 20:34:56',
+		`title`='Escalope milanaise',`source`='Marmiton Ça change des Coquillettes p96',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Bien aplatir les escalopes, au besoin avec rouleau entre 2 feuilles de film alimentaire. Touche perso: mettre de la moutarde.',`etape02`='Disposer dans 3 assiettes : la farine, les oeufs battus avec sel et poivre, chapelure et parmesan.',`etape03`='Passer les escalopes dans la farine, les oeufs, le mélange chapelure, encore les oeufs et la chapelure.',`etape04`='Mettre au réfrigérateur 20 minutes pour que la croûte tienne pendant la cuisson.',
+		`etape05`='Dans une poêle avec un filet d\'huile, saisir des 2 côtés puis laisser 5 min à feu plus doux.',`etape06`='Servir avec une rondelle de citron, des pâtes et/ou des haricots',`etape07`='',`etape08`='',`etape09`='',
+		`season`='ALLYEAR',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='4 escalopes de veau fines',`ing02`='100 g de chapelure',`ing03`='100 g de parmesan râpé fin',`ing04`='3 oeufs',`ing05`='50 g de farine',
+		`ing06`='1 citron',`ing07`='',`ing08`='',`ing09`='',`ing10`='',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='43fd200e-f279-45f0-a6a1-e340f31d8910'
+Success
+---> 2022-06-05 21:33:39  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='2a7826b9-6459-4f2e-b0de-1580f243af87'
+ INSERT INTO `recipedb`(`id_recipe`,`id_user`,`lastupdate_recipe`, `lastupdate_photo`, `title`, `source`, `source_url`, `nb_pers`, 
+								`etape01`, `etape02`, `etape03`, `etape04`, `etape05`, `etape06`, `etape07`, `etape08`, `etape09`,
+								`season`, `difficulty`,`type`,
+								`ing01`, `ing02`, `ing03`, `ing04`, `ing05`, `ing06`, `ing07`, `ing08`, `ing09`, `ing10`,
+								`ing11`, `ing12`, `ing13`, `ing14`, `ing15`)
+		VALUES ( '2a7826b9-6459-4f2e-b0de-1580f243af87','c81d4e2e-bcf2-11e6-869b-7df92533d2db','2022-06-05 21:33:18','1900-01-01 00:00:00','Charlotte au chocolat', '', 'https://wwww.cookbookfamily.com','04',
+			'Séparer les jaunes et les blancs. mettre une pincée de sel dans les blancs. ','Casser la tablettes en demi-morceaux. Mettre un film étirable dans le moule à Charlotte et disposer les biscuits sur les bords et le fond.','','','', 
+			'','','','',
+			'ALLYEAR','ELABORATE','DESSERT',
+			'5 oeufs','1 tablette de chocolat noir','10 cl creme','5 cl de lait','30 biscuits cuillère',
+			'','','','','',
+			'','','','','') 
+SELECT `family` FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT `id_user` FROM `userdb` WHERE family='Devaux_Lion de ML'
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e6-869b-7df92533d2db','2a7826b9-6459-4f2e-b0de-1580f243af87','Visible','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e7-869b-7df92533d2db','2a7826b9-6459-4f2e-b0de-1580f243af87','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf3-11e6-869b-7df92533d2db','2a7826b9-6459-4f2e-b0de-1580f243af87','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('fce5a6c7-2dc3-4f4d-989f-69b308b6966a','2a7826b9-6459-4f2e-b0de-1580f243af87','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+Success
+---> 2022-06-05 21:38:35  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='2a7826b9-6459-4f2e-b0de-1580f243af87'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-05 21:38:14',
+		`title`='Charlotte au chocolat',`source`='',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Séparer les jaunes et les blancs. mettre une pincée de sel dans les blancs. ',`etape02`='Casser la tablettes en demi-morceaux. Mettre un film étirable dans le moule à Charlotte et disposer les biscuits sur les bords et le fond.',`etape03`='Porter à ébullition la crème et le lait. Verser sur le chocolat, attendre 2 minutes et mélanger jusqu\'à obtenir une pâte onctueuse.',`etape04`='Ajouter les jaunes et bien mélanger. Monter les blancs en neige et incorporer délicatement.',
+		`etape05`='Ajouter le mélange, des couches de biscuits et le mélange jusqu\'au dessus. Recouvrir d\'une assiette et mettre au frigo pour une nuit.',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='ALLYEAR',`difficulty`='ELABORATE',`type`='DESSERT',
+		`ing01`='5 oeufs',`ing02`='1 tablette de chocolat noir',`ing03`='10 cl creme',`ing04`='5 cl de lait',`ing05`='30 biscuits cuillère',
+		`ing06`='',`ing07`='',`ing08`='',`ing09`='',`ing10`='',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='2a7826b9-6459-4f2e-b0de-1580f243af87'
+Success
+---> 2022-06-05 21:38:55  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605213855.txt
+Success
+---> 2022-06-05 21:39:18  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605213918.txt
+Success
+---> 2022-06-05 21:39:41  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605213941.txt
+Success
+---> 2022-06-05 21:40:28  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0605214028.txt
+Success
+---> 2022-06-06 15:05:15  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-T580  BRAND = samsung  PRODUCT = gtaxlwifixx  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0606150515.txt
+Success
+---> 2022-06-06 15:05:39  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-T580  BRAND = samsung  PRODUCT = gtaxlwifixx  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0606150539.txt
+Success
+---> 2022-06-06 19:52:42  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+ INSERT INTO `recipedb`(`id_recipe`,`id_user`,`lastupdate_recipe`, `lastupdate_photo`, `title`, `source`, `source_url`, `nb_pers`, 
+								`etape01`, `etape02`, `etape03`, `etape04`, `etape05`, `etape06`, `etape07`, `etape08`, `etape09`,
+								`season`, `difficulty`,`type`,
+								`ing01`, `ing02`, `ing03`, `ing04`, `ing05`, `ing06`, `ing07`, `ing08`, `ing09`, `ing10`,
+								`ing11`, `ing12`, `ing13`, `ing14`, `ing15`)
+		VALUES ( 'd38efe8e-b61c-4551-a35c-3ffc930fd1dc','c81d4e2e-bcf2-11e6-869b-7df92533d2db','2022-06-06 19:52:22','1900-01-01 00:00:00','Salade pois boulgour', 'L Mariotte Mieux manger tte l\'année p179', 'https://wwww.cookbookfamily.com','04',
+			'','','','','', 
+			'','','','',
+			'SUMMER','ELABORATE','MAIN',
+			'250 g de petits pois frais','','','','',
+			'','','','','',
+			'','','','','') 
+SELECT `family` FROM `userdb` WHERE id_user='c81d4e2e-bcf2-11e6-869b-7df92533d2db'
+SELECT `id_user` FROM `userdb` WHERE family='Devaux_Lion de ML'
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e6-869b-7df92533d2db','d38efe8e-b61c-4551-a35c-3ffc930fd1dc','Visible','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf2-11e7-869b-7df92533d2db','d38efe8e-b61c-4551-a35c-3ffc930fd1dc','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('c81d4e2e-bcf3-11e6-869b-7df92533d2db','d38efe8e-b61c-4551-a35c-3ffc930fd1dc','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+ INSERT INTO `cookbooks`(`id_user`, `id_recipe`, `status`, `message`, `id_from`) 
+				VALUES ('fce5a6c7-2dc3-4f4d-989f-69b308b6966a','d38efe8e-b61c-4551-a35c-3ffc930fd1dc','Submitted','Nouvelle recette dans la famille','c81d4e2e-bcf2-11e6-869b-7df92533d2db')
+Recipe inserted
+Success
+---> 2022-06-06 19:58:07  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-06 19:57:48',
+		`title`='Salade pois boulgour',`source`='L Mariotte Mieux manger tte l\'année p179',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Cuire ds l\'eau bouillantes successivement les pois, les fèves,et le boulgour 5, 6 et 12 minutes respectivement. Rincer à l\'eau froide .',`etape02`='',`etape03`='',`etape04`='',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='SUMMER',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='250 g de petits pois frais',`ing02`='250 g de fèves congelées',`ing03`='150 g de pois chiches cuits',`ing04`='250 g de boulgour',`ing05`='1/2 bouquet de menthe',
+		`ing06`='1/2 bouquet de coriandre',`ing07`='2 citrons verts',`ing08`='3 cuil. à soupe de sirop d\'érable',`ing09`='4 cuil. à soupe d\'huile de sésame',`ing10`='2 cuil. à soupe d\'huile d\'olive',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+Success
+---> 2022-06-06 20:00:46  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-06 20:00:28',
+		`title`='Salade pois boulgour',`source`='L Mariotte Mieux manger tte l\'année p179',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Cuire ds l\'eau bouillantes successivement les pois, les fèves,et le boulgour 5, 6 et 12 minutes respectivement. Rincer à l\'eau froide .',`etape02`='Égoutter les pois chiches. Hacher les herbes.',`etape03`='Mélanger le jus de citron, le sirop, le piment et l\'huile. Battre.',`etape04`='Mettre les ingrédients dans la saladier et la sauce. Mélanger et servir.',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='SUMMER',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='250 g de petits pois frais',`ing02`='250 g de fèves congelées',`ing03`='150 g de pois chiches cuits',`ing04`='250 g de boulgour',`ing05`='1/2 bouquet de menthe',
+		`ing06`='1/2 bouquet de coriandre',`ing07`='2 citrons verts',`ing08`='3 cuil. à soupe de sirop d\'érable',`ing09`='4 cuil. à soupe d\'huile de sésame',`ing10`='2 cuil. à soupe d\'huile d\'olive',
+		`ing11`='',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+Success
+---> 2022-06-06 20:01:14  ->  /storage/ssd2/387/18724387/public_html/cb/updateorcreaterecipe.php
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+UPDATE `recipedb` SET `id_user`='c81d4e2e-bcf2-11e6-869b-7df92533d2db',`lastupdate_recipe`='2022-06-06 20:00:55',
+		`title`='Salade pois boulgour',`source`='L Mariotte Mieux manger tte l\'année p179',`source_url`='https://wwww.cookbookfamily.com',`nb_pers`='04',
+		`etape01`='Cuire ds l\'eau bouillantes successivement les pois, les fèves,et le boulgour 5, 6 et 12 minutes respectivement. Rincer à l\'eau froide .',`etape02`='Égoutter les pois chiches. Hacher les herbes.',`etape03`='Mélanger le jus de citron, le sirop, le piment et l\'huile. Battre.',`etape04`='Mettre les ingrédients dans la saladier et la sauce. Mélanger et servir.',
+		`etape05`='',`etape06`='',`etape07`='',`etape08`='',`etape09`='',
+		`season`='SUMMER',`difficulty`='ELABORATE',`type`='MAIN',
+		`ing01`='250 g de petits pois frais',`ing02`='250 g de fèves congelées',`ing03`='150 g de pois chiches cuits',`ing04`='250 g de boulgour',`ing05`='1/2 bouquet de menthe',
+		`ing06`='1/2 bouquet de coriandre',`ing07`='2 citrons verts',`ing08`='3 cuil. à soupe de sirop d\'érable',`ing09`='4 cuil. à soupe d\'huile de sésame',`ing10`='2 cuil. à soupe d\'huile d\'olive',
+		`ing11`='un peu de piment',`ing12`='',`ing13`='',`ing14`='',`ing15`=''
+		WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+Success
+---> 2022-06-06 20:51:12  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-T580  BRAND = samsung  PRODUCT = gtaxlwifixx  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0606205112.txt
+Success
+---> 2022-06-06 20:51:39  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-T580  BRAND = samsung  PRODUCT = gtaxlwifixx  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0606205139.txt
+Success
+---> 2022-06-06 22:39:08  ->  /storage/ssd2/387/18724387/public_html/cb/crashedreport.php
+PHONE_MODEL = SM-A405FN  BRAND = samsung  PRODUCT = a40eea  
+/storage/ssd2/387/18724387/public_html/cb/crashlogs/0606223908.txt
+Success
+---> 2022-06-11 12:25:58  ->  /storage/ssd2/387/18724387/public_html/cb/addcommentwithdate.php
+Id_recipe :d38efe8e-b61c-4551-a35c-3ffc930fd1dc
+Id_recipe :fce5a6c7-2dc3-4f4d-989f-69b308b6966a
+Pwd given and checked
+SELECT * FROM `recipedb` WHERE id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc'
+SELECT * FROM userdb WHERE id_user='fce5a6c7-2dc3-4f4d-989f-69b308b6966a'
+SELECT * FROM commentsdb WHERE id_user='fce5a6c7-2dc3-4f4d-989f-69b308b6966a' AND id_recipe='d38efe8e-b61c-4551-a35c-3ffc930fd1dc' AND date_comment='2022-06-11 12:25:43'
+INSERT INTO `commentsdb` (`id_recipe`, `comment`, `id_user`, `date_comment`)
+		VALUES ( 'd38efe8e-b61c-4551-a35c-3ffc930fd1dc', 'Tout le monde aime !', 'fce5a6c7-2dc3-4f4d-989f-69b308b6966a', '2022-06-11 12:25:43') 
+Success

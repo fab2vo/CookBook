@@ -1,0 +1,7 @@
+Debut checkrequest 
+ SELECT rq.pknum, rq.id_recipe, rq.id_from, u.family, u.name, date_creation, message, rq.status, re.title
+		FROM requestdb rq 
+		LEFT JOIN recipedb re ON re.id_recipe=rq.id_recipe
+		LEFT JOIN userdb u ON u.id_user=rq.id_from
+		WHERE rq.status='ISSUED' AND re.id_user='c81d4e2e-bcf2-11e6-869b-8df92533d2db'
+No request
