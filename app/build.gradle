@@ -4,13 +4,13 @@ android {
     signingConfigs {
     }
     compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "33.0.1"
     defaultConfig {
         applicationId "com.fdx.cookbook"
-        minSdkVersion 25
+        minSdkVersion 33
         targetSdkVersion 33
-        versionCode 21
-        versionName "3.4"
+        versionCode 23 // avec nouveau site internet https://cookbookfamily.cloud/
+        versionName "3.6"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -29,6 +29,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.fdx.cookbook'
 }
 
 dependencies {
