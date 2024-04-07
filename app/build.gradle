@@ -9,8 +9,8 @@ android {
         applicationId "com.fdx.cookbook"
         minSdkVersion 33
         targetSdkVersion 33
-        versionCode 23 // avec nouveau site internet https://cookbookfamily.cloud/
-        versionName "3.6"
+        versionCode 24 // avec nouveau site internet https://cookbookfamily.cloud/
+        versionName "3.7"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {

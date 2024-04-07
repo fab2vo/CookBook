@@ -45,7 +45,7 @@ public class Recipe {
     private static final int NBING_MAX=15;
     private static final int NBCOM_MAX=20;
     private String TAG="CB_Recipe";
-    private String DEFAULT_URL="https://wwww.cookbookfamily.com";
+    private String DEFAULT_URL="https://cookbookfamily.cloud/cd/ix.php";
     private String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
 
