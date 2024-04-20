@@ -25,7 +25,7 @@ public class MyApplication extends Application {
                 .withEnabled(true)
                 .withLength(Toast.LENGTH_LONG) ;
         builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder.class)
-                .withUri("https://cookbookfamily.000webhostapp.com/cb/crashedreport.php")
+                .withUri("https://cookbookfamily.cloud/cb/crashedreport.php")
                 .withEnabled(true);
         ACRA.init(this, builder);
     }

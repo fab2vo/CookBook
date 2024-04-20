@@ -41,7 +41,7 @@ public class RecipeDisplayFragment extends Fragment {
     private int mStepNb;
     private int mIngNb;
     private String newcomment;
-    private String DEFAULT_URL="https://wwww.cookbookfamily.com";
+    private String DEFAULT_URL="https://cookbookfamily.cloud/cb/ix.php";
     private SessionInfo mSession;
     private ImageView mDPhotoView;
     private TextView mDTitleText;
