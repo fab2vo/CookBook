@@ -7,10 +7,10 @@ android {
     buildToolsVersion "33.0.1"
     defaultConfig {
         applicationId "com.fdx.cookbook"
-        minSdkVersion 33
+        minSdkVersion 33 // google demande 33
         targetSdkVersion 33
-        versionCode 24 // avec nouveau site internet https://cookbookfamily.cloud/
-        versionName "3.7"
+        versionCode 26 // corrections test sur string null dans asynclass
+        versionName "3.9"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {

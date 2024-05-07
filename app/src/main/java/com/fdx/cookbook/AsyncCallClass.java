@@ -281,10 +281,15 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             data.put("date",s1  );
             mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDCOMMENTTORECIPE, data);
-            if (result==null) b=false;
-            if (!result.equals("1")) {
-                deBugShow( "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
-                b=false;}
+            if (result==null) {
+                deBugShow( "Retour de "+ PHPADDCOMMENTTORECIPE+" est vide");
+                b=false;
+            }
+            else {
+                if (!result.equals("1")) {
+                    deBugShow( "Retour de "+ PHPADDCOMMENTTORECIPE+" = "+result);
+                    b=false;}
+            }
         }
         return b;
     }
@@ -358,7 +363,9 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
             data.put("date",s1  );
             mSession.fillPwd(data,false);
             String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPADDNOTETORECIPE, data);
-            if (result==null)  return false;
+            if (result==null)  {
+                deBugShow( "Retour de "+ PHPADDNOTETORECIPE+" est vide");
+                return false;}
             if (!result.equals("1")) {
                 deBugShow( "Retour de "+ PHPADDNOTETORECIPE+" = "+result);
                 b=false;}
@@ -489,6 +496,9 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("iduser", mSession.getUser().getId().toString());
         mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPACCEPTRECIPE,data);
+        if (result==null) {
+            deBugShow( "Retour de "+ PHPACCEPTRECIPE+" est vide");
+            return false;}
         if (!result.equals("1")) {
             deBugShow( "Retour de "+ PHPACCEPTRECIPE+" = "+result);
             return false;}
@@ -502,6 +512,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("iduser", iduser);
         mSession.fillPwd(data,false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPCHECKREQUESTS,data);
+        if (result==null) return false;
         return result.equals("1");
     }
     private void deBugShow(String s){
