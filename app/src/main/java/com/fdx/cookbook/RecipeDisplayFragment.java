@@ -186,7 +186,7 @@ public class RecipeDisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View v=inflater.inflate(R.layout.fragment_display_recipe, container, false);
-        mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_scroll);
+        mScroll=(ScrollView) v.findViewById(R.id.fragment_recipe_display_scroll);
         mDTitleText =(TextView) v.findViewById(R.id.recipe_display_title);
         mDPhotoView=(ImageView) v.findViewById(R.id.recipe_display_photo);
         updatePhotoView();
