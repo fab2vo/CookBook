@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +63,7 @@ public class RecipeCommunityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        deBugShow("Started RecipeCommunityFragment");
         setHasOptionsMenu(true);
         mSession= SessionInfo.get(getActivity());
         mCookbookShort=CookBooksShort.get(getActivity());
@@ -70,6 +72,7 @@ public class RecipeCommunityFragment extends Fragment {
         if (mCookbookShort.isNew()){
             getAsyncShorties=new getShortRecipesFromCommunity();
             getAsyncShorties.execute(20);
+            deBugShow("getShortRecipesFromCommunity executed");
         }
     }
 
@@ -291,9 +294,11 @@ public class RecipeCommunityFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Integer ... integers) {
             Integer ntoDownload=integers[0];
+            deBugShow("getShortRecipesFromCommunity: In background now");
             if (!test204()) {deBugShow("204!"); return false;}
             // download texts
             String s=getStringRecipesFromServer(0,ntoDownload, false);
+            deBugShow("String received : "+s);
             if (s.equals("")) {deBugShow("Echec query initial"); return false;}
             if (!fillInitialTable(s)) {deBugShow("Echec parse >"+s+"<"); return false;}
             publishProgress(1);
