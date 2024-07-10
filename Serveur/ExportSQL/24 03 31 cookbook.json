@@ -1,0 +1,24 @@
+[
+{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"id18724387_cookbook"},
+{"type":"table","name":"userdb","database":"id18724387_cookbook","data":
+[
+{"pknum":"42","id_user":"0ddab906-93e9-4d45-8c7d-4407e4f5f27d","name":"Carole","family":"Sayler","last_sync":"2021-10-28 23:53:45","pass":"pilote1"},
+{"pknum":"45","id_user":"1d19a9b2-5c36-4e74-8b3f-d0aa8b3e398c","name":"Marie","family":"Agius2022","last_sync":"2021-12-20 18:13:42","pass":"Sawadee"},
+{"pknum":"12","id_user":"252b2d53-af35-4e63-8ebd-f172d5436435","name":"Yves","family":"Hoet de Liege","last_sync":"2021-09-11 10:25:54","pass":"cookbook"},
+{"pknum":"47","id_user":"43ea25c3-8b16-41db-90ee-924b2790c1eb","name":"Maman","family":"Bazot Tribe","last_sync":"2022-05-14 16:22:06","pass":"Ciboulette06!"},
+{"pknum":"43","id_user":"89ead477-9a29-4017-80a9-afb94af4c2fe","name":"Fab","family":"MasterCook","last_sync":"2021-11-20 12:30:49","pass":"Book"},
+{"pknum":"50","id_user":"8d6c5ba7-acea-4f69-92b3-a2233ec07874","name":"15666666666","family":"15666666666","last_sync":"2023-08-19 17:44:12","pass":"80996240"},
+{"pknum":"41","id_user":"8e1846bc-ac74-4f87-802f-bbbed5f11600","name":"maud","family":"sabiani","last_sync":"2021-10-28 14:28:39","pass":"21Spyke!"},
+{"pknum":"44","id_user":"95297437-546b-45c5-943c-4806eecc0c2f","name":"Vero","family":"MasterCook","last_sync":"2021-12-12 17:31:19","pass":"Book"},
+{"pknum":"46","id_user":"9a8637b8-ef01-4a1e-834d-61b9d447f2cd","name":"All","family":"Co2-Sustainability","last_sync":"2021-12-20 18:15:49","pass":"OneTech"},
+{"pknum":"17","id_user":"ae03f73a-cacc-4818-af54-216d70b281f8","name":"Walter","family":"Hoet de Liège","last_sync":"2021-10-22 18:16:43","pass":"cookbook"},
+{"pknum":"1","id_user":"b9ca15d6-5b36-4561-8339-f5496e286a39","name":"Antoinette","family":"De Cursac de Neuilly","last_sync":"2021-10-25 17:58:40","pass":"cookbook"},
+{"pknum":"3","id_user":"c81d4e2e-bcf2-11e6-869b-7df92533d2db","name":"Fabrice","family":"Devaux_Lion de ML","last_sync":"2021-05-27 10:27:13","pass":"Lion"},
+{"pknum":"4","id_user":"c81d4e2e-bcf2-11e6-869b-8df92533d2db","name":"Antoine","family":"De Cursac de Neuilly","last_sync":"2021-05-18 08:00:36","pass":"cookbook"},
+{"pknum":"5","id_user":"c81d4e2e-bcf2-11e7-869b-7df92533d2db","name":"Lucile","family":"Devaux_Lion de ML","last_sync":"2021-05-27 10:16:37","pass":"Lion"},
+{"pknum":"6","id_user":"c81d4e2e-bcf3-11e6-869b-7df92533d2db","name":"Véronique","family":"Devaux_Lion de ML","last_sync":"2021-05-28 07:00:00","pass":"Lion"},
+{"pknum":"9","id_user":"fce5a6c7-2dc3-4f4d-989f-69b308b6966a","name":"Leandre","family":"Devaux_Lion de ML","last_sync":"2021-09-01 22:13:07","pass":"Lion"}
+]
+}
+]
