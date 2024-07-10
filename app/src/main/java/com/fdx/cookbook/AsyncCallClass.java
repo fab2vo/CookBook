@@ -121,8 +121,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean isChanged) {
         super.onPostExecute(isChanged);
-        if (isChanged)
-        Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
+        if (isChanged) Toast.makeText(mContext, mContext.getString(R.string.P1_sync), Toast.LENGTH_SHORT).show();
     }
 
     private Boolean test204() {
