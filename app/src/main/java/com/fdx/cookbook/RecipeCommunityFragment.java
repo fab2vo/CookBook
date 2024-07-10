@@ -448,7 +448,7 @@ public class RecipeCommunityFragment extends Fragment {
     }
 
     private void deBugShow(String s){
-        //Log.d(TAG, s);
+        Log.d(TAG, s);
     }
 
 }

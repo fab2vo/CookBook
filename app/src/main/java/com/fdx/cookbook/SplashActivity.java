@@ -3,6 +3,8 @@ package com.fdx.cookbook;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -22,6 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -88,14 +98,32 @@ public class SplashActivity extends AppCompatActivity {
         mSession= SessionInfo.get(getApplicationContext());
         GetVersionCode gvc=new GetVersionCode(mSession);
         gvc.execute();
+        //ccc
+        AppUpdateManager appUpdateManager= AppUpdateManagerFactory.create(getApplicationContext());
+        Task<AppUpdateInfo> appUpdateInfoTask=appUpdateManager.getAppUpdateInfo();
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            deBugShow("oooh");
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                deBugShow("Version "+getAppVersion(getApplicationContext())+" should be updated");
+                Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
+            } else {
+                deBugShow("Version "+getAppVersion(getApplicationContext())+" is up to date");
+            }
+        });
+        //ccc
         if ((!mSession.IsEmpty())&&(!mSession.IsReqNewSession())){
             Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
             startActivity(intent);
             finish();
         }
+        /*
         if (mSession.appNeedUpgrade()) {
             Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
         }
+         */
+
+
         mBuilder=new AlertDialog.Builder(this);
         mNetUtils=new NetworkUtils(getApplicationContext());
         memberFamily=new ArrayList<>();
@@ -635,7 +663,19 @@ public class SplashActivity extends AppCompatActivity {
         }
         return 0;
     }
+
+    //ccc
+    private static int getAppVersion(Context context){
+        try{
+            PackageInfo packageInfo=context.getPackageManager()
+                    .getPackageInfo(context.getOpPackageName(),0);
+            return packageInfo.versionCode;
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
+    }
     private void deBugShow(String s){
-        //Log.d(TAG, s);
+        Log.d(TAG, s);
     }
 }
