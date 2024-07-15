@@ -63,7 +63,7 @@ public class SessionInfo {
         }
     }
     private void deBugShow(String s){
-        //Log.d(TAG, s);
+        Log.d(TAG, s);
     }
 
     public User getUser() {
