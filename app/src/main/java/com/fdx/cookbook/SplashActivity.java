@@ -96,33 +96,24 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSession= SessionInfo.get(getApplicationContext());
-        GetVersionCode gvc=new GetVersionCode(mSession);
-        gvc.execute();
-        //ccc
-        AppUpdateManager appUpdateManager= AppUpdateManagerFactory.create(getApplicationContext());
-        Task<AppUpdateInfo> appUpdateInfoTask=appUpdateManager.getAppUpdateInfo();
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            deBugShow("oooh");
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                deBugShow("Version "+getAppVersion(getApplicationContext())+" should be updated");
+        Task<Boolean> isUpdateAvailableTask = mSession.isUpdateAvailable();
+        isUpdateAvailableTask.addOnSuccessListener(isUpdateAvailable -> {
+            if (isUpdateAvailable) {
+                // Show an update prompt to the user
+                deBugShow("Version "+mSession.getCurrentVersionCode()+" should be updated");
                 Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
             } else {
-                deBugShow("Version "+getAppVersion(getApplicationContext())+" is up to date");
+                deBugShow("No update available");
             }
+        }).addOnFailureListener(e -> {
+            deBugShow("No update available");
         });
-        //ccc
+
         if ((!mSession.IsEmpty())&&(!mSession.IsReqNewSession())){
             Intent intent=new Intent(getApplicationContext(), RecipeListActivity.class);
             startActivity(intent);
             finish();
         }
-        /*
-        if (mSession.appNeedUpgrade()) {
-            Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
-        }
-         */
-
 
         mBuilder=new AlertDialog.Builder(this);
         mNetUtils=new NetworkUtils(getApplicationContext());

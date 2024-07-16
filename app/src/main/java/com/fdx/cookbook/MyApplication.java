@@ -17,7 +17,7 @@ public class MyApplication extends Application {
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
         //core configuration: StringFormat.JSON or StringFormat.KEY_VALUE_LIST
         builder
-                .withBuildConfigClass(BuildConfig.class)
+                //.withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.JSON);
         //each plugin you chose above can be configured with its builder like this:
         builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)

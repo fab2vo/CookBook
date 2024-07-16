@@ -2,8 +2,17 @@ package com.fdx.cookbook;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 
 import org.acra.ACRA;
 
@@ -62,6 +71,7 @@ public class SessionInfo {
                     .getString(CB_PWD, NOT_FOUND);
         }
     }
+
     private void deBugShow(String s){
         Log.d(TAG, s);
     }
@@ -80,6 +90,7 @@ public class SessionInfo {
                 .apply();
         mUser=user;
     }
+
     public void clearStoredUser(){
         SharedPreferences settings = mContext.getSharedPreferences("PreferencesName", Context.MODE_PRIVATE);
         settings.edit().remove("CB_FAMILY").commit();
@@ -103,6 +114,7 @@ public class SessionInfo {
     public void setConnection(Boolean b){
         mIsConnected=b;
     }
+
     public Boolean IsConnected(){
         return mIsConnected;
     }
@@ -110,17 +122,25 @@ public class SessionInfo {
     public Context getContext(){return mContext;}
 
     public String getURLPath(){return URLPATH;}
+
     public int getConnectTimeout(){return CONNECT_TIMEOUT;}
+
     public int getReadTimeout(){return READ_TIMEOUT;}
+
     public String getListMask(){return mMaskSerialized;}
+
     public void setListMask(String s){mMaskSerialized=s;}
+
     public Boolean IsRecipeRequest(){return mIsRecipeRequest;}
+
     public void setIsRecipeRequest(Boolean b){mIsRecipeRequest=b;}
 
     public String getDevice() {
         return mDevice;
     }
+
     public void setPwd(String s){mPwd=s;}
+
     public void fillPwd(HashMap<String, String> data, Boolean withuser ){
         if ((mPwd!=null)&&(!mPwd.equals(""))) {
             data.put("pwd", mPwd);
@@ -128,14 +148,47 @@ public class SessionInfo {
         }
     }
 
-    public void setNeedUpgrade(String s) {
-        if (s==null) return;
+    public int getCurrentVersionCode() {
         try {
-            Integer newversion=Integer.parseInt(s);
-            Integer oldversion=BuildConfig.VERSION_CODE;
-            deBugShow("Old :)"+oldversion+" and new :"+newversion);
-            if (newversion>oldversion) mNeedUpgrade=true;
-        } catch (Exception e ) { deBugShow("Version code of playstore error :"+e);}
+            PackageInfo packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // Handle the exception (e.g., log the error)
+            return -1; // Return a default value in case of an error
+        }
     }
-    public Boolean appNeedUpgrade(){return mNeedUpgrade;}
+
+    public Task<Integer> getLatestVersionCode() {
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(mContext);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        return appUpdateInfoTask.continueWith(task -> {
+            if (task.isSuccessful()) {
+                AppUpdateInfo appUpdateInfo = task.getResult();
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                        appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                    return appUpdateInfo.availableVersionCode();
+                } else {
+                    return null; // No update available
+                }
+            } else {
+                // Handle exceptions (e.g., Play Store not available)
+                return null;
+            }
+        });
+    }
+
+    public Task<Boolean> isUpdateAvailable() {
+        Task<Integer> latestVersionCodeTask = getLatestVersionCode();
+        return latestVersionCodeTask.continueWith(task -> {
+            if (task.isSuccessful()) {
+                Integer latestVersionCode = task.getResult();
+                if (latestVersionCode != null) {
+                    int currentVersionCode = getCurrentVersionCode();
+                    return latestVersionCode > currentVersionCode;
+                }
+            }
+            return false; // No update available or error occurred
+        });
+    }
+
 }
