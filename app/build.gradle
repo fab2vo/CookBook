@@ -3,8 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 34
-    buildToolsVersion "34.0.0"
+    defaultConfig {
+        compileSdk 34
+        buildToolsVersion = "34.0.0"
+    }
     defaultConfig {
         applicationId "com.fdx.cookbook"
         minSdkVersion 34
@@ -12,7 +14,8 @@ android {
         // version 28 : upgrade to sdk 34 (nota tried on Acer PC with v27 4.0
         // android studio upgraded to Android Studio Iguana | 2023.2.1 Canary 13 November 9, 2023
         // version 29 update buildconfig and version comparator
-        versionCode 29
+        // version 30 trying to improve deprecation
+        versionCode 30
         versionName "4.2"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -37,15 +40,15 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.android.play:app-update:2.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'com.google.code.gson:gson:2.10.1'
     def acraVersion = '5.8.4'
     implementation "ch.acra:acra-http:$acraVersion"
     //implementation "ch.acra:acra-mail:$acraVersion"
