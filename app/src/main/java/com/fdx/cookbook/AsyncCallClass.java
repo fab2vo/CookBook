@@ -3,14 +3,9 @@ package com.fdx.cookbook;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -23,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 enum AsynCallFlag { NEWRECIPE, NEWPHOTO, NEWCOMMENT, NEWRATING, GLOBALSYNC, DELETERECIPE}
@@ -43,9 +39,9 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private static final String PHPCHECKREQUESTS = "checkrequests.php";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
     private static Context mContext;
-    private SessionInfo mSession;
-    private NetworkUtils mNetUtils;
-    private CookBook mCookbook;
+    private final SessionInfo mSession;
+    private final NetworkUtils mNetUtils;
+    private final CookBook mCookbook;
 
     public AsyncCallClass(Context context){
         mContext=context;
@@ -56,7 +52,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        Boolean isChanged=false;
+        boolean isChanged=false;
         if (!test204()) {
             return isChanged;
         }
@@ -145,7 +141,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
     private Boolean uploadRecipe(Recipe r) {
         HashMap<String, String> data = new HashMap<>();
         String s1;
-        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE);
         data.put("idrecipe", r.getId().toString());
         data.put("iduser", r.getOwner().getId().toString());
         data.put("title", r.getTitle());
@@ -188,7 +184,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("idrecipe", r.getId().toString());
         if (uploadImage==null) return false;
         data.put("image", uploadImage);
-        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE);
         s1 = dateFormat.format(r.getDatePhoto());
         data.put("date", s1);
         mSession.fillPwd(data,false);
@@ -233,7 +229,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                     if (downloadedComments.isEmpty()) {
                         c1oc.add(c);
                     } else {
-                    if (downloadedComments.indexOf(c)==-1) c1oc.add(c);
+                    if (!downloadedComments.contains(c)) c1oc.add(c);
                     }
                 }
             }
@@ -245,30 +241,29 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                 ci=downloadedComments.get(i);
                 c=new Comment(ci.getTxt(),ci.getUser(),ci.getDate());
                 if (recipeComments.isEmpty()) {cser.add(c);} else {
-                if (recipeComments.indexOf(c)==-1) cser.add(c);}
+                if (!recipeComments.contains(c)) cser.add(c);}
             }
         }
         if (!cser.isEmpty()){
             for (int i = 0; i < cser.size(); i++){
                 r.addComment(cser.get(i));
             }
-            if (cser.size()>0) {
+            if (!cser.isEmpty()) {
                 mCookbook.updateRecipe(r);
                 ret=true;
             }
         }
         if (!c1oc.isEmpty()) {
-            if (!uploadComments(r,c1oc)) {ret=false;}
-            else {ret=true;}
+            ret= uploadComments(r, c1oc);
         }
         return ret;
     }
 
     private Boolean uploadComments(Recipe r, List<Comment> cs){
         if (cs==null) return false;
-        if (cs.size()==0) return true;
+        if (cs.isEmpty()) return true;
         HashMap<String, String> data = new HashMap<>();
-        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE);
         String s1;
         boolean b=true;
         for (Comment c:cs) {
@@ -313,7 +308,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                     if (downloadedNotes.isEmpty()) {
                         c1oc.add(c);}
                     else {
-                        if (downloadedNotes.indexOf(c)==-1) c1oc.add(c);
+                        if (!downloadedNotes.contains(c)) c1oc.add(c);
                     }
                 }
             }
@@ -327,29 +322,28 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                 if (recipeNotes.isEmpty()){
                     cser.add(c);}
                 else{
-                    if (recipeNotes.indexOf(c)==-1) cser.add(c);}
+                    if (!recipeNotes.contains(c)) cser.add(c);}
             }
         }
         if (!cser.isEmpty()){
             for (int i = 0; i < cser.size(); i++){
                 r.addNote(cser.get(i));
             }
-            if (cser.size()>0) {
+            if (!cser.isEmpty()) {
                 mCookbook.updateRecipe(r);
                 ret=true;
             }
         }
         if (!c1oc.isEmpty()) {
-            if (!uploadNotes(r,c1oc)) {ret=false;}
-            else {ret=true;}
+            ret= uploadNotes(r, c1oc);
         }
         return ret;
     }
     private Boolean uploadNotes(Recipe r, List<Note> cs){
         if (cs==null) return false;
-        if (cs.size()==0) return true;
+        if (cs.isEmpty()) return true;
         HashMap<String, String> data = new HashMap<>();
-        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT);
+        DateFormat dateFormat = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE);
         DecimalFormat formatter = new DecimalFormat("00");
         String s1;
         boolean b=true;
@@ -377,10 +371,10 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         data.put("iduser", user.getId().toString());
         mSession.fillPwd(data, false);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath() + PHPGETSTAMPSTIERS, data);
-        if (result==null)return ret;
+        if (result==null) return false;
         List<Recipe> tiersRecipe=mNetUtils.parseStampsTiers(result);
-        if (tiersRecipe==null) return ret;
-        boolean withphoto=false,update=false;
+        if (tiersRecipe==null) return false;
+        boolean withphoto,update;
         Recipe rloc, rnew;
         for(Recipe r:tiersRecipe) {
             deBugShow("Loop 1 Recipe Id:"+r.getId());
@@ -414,7 +408,6 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
                             ret=true;
                         }
                     }
-                    else continue;
                 }
             }
         }
@@ -438,7 +431,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         deBugShow("Send request for recipe "+ref.getId().toString().trim()+" with iduser "+mSession.getUser().getId().toString().trim());
         mSession.fillPwd(data, true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+PHPGETRECIPEFROMCB,data);
-        if((result==null)||(result.length()==0)){
+        if((result==null)||(result.isEmpty())){
             deBugShow( "SendPostRequestJson is null or empty ");
             return null;
         }
@@ -462,18 +455,17 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
         }
     }
     private Boolean updateRecipe(Recipe ref, boolean withphoto){
-        if (ref==null) {deBugShow("updateRecipe with null ref");return null;}
+        if (ref==null) {deBugShow("updateRecipe with null ref");return false;}
         HashMap<String,String> data = new HashMap<>();
         data.put("idrecipe", ref.getId().toString().trim());
         data.put("withphoto", (withphoto)?"1":"0");
         mSession.fillPwd(data, true);
         String result = mNetUtils.sendPostRequestJson(mSession.getURLPath()+ PHPGETRECIPEFROMCB,data);
-        Recipe r=new Recipe();
         try {
             JSONArray jarr1 = new JSONArray(result);
             if (jarr1.length()!=1){
                 deBugShow( " Number of json objects from downloadRecipes =" + jarr1.length()+" !");
-                return null;
+                return false;
             } else {
                 JSONObject obj = jarr1.getJSONObject(0);
                 if (!mNetUtils.parseObjectRecipe(ref,obj, withphoto, false)) {
@@ -506,7 +498,7 @@ class AsyncCallClass extends AsyncTask<Void, Integer, Boolean> {
 
     private Boolean checkRecipeRequest(){
         String iduser=mSession.getUser().getId().toString().trim();
-        if ((iduser==null)||(iduser.equals(""))) return false;
+        if (iduser.isEmpty()) return false;
         HashMap<String,String> data = new HashMap<>();
         data.put("iduser", iduser);
         mSession.fillPwd(data,false);

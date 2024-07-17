@@ -24,7 +24,7 @@ public class Recipe {
     private String mSource;
     private URL mSource_url;
     private int mNbPers;
-    private String[] mSteps;
+    private final String[] mSteps;
     private double mNoteAvg;
     private ArrayList<Note> mNotes;
     private ArrayList<Comment> mComments;
@@ -71,8 +71,8 @@ public class Recipe {
         mType=RecipeType.MAIN;
         mDifficulty=RecipeDifficulty.UNDEFINED;
         mStatus=StatusRecipe.Visible;
-        mComments=new ArrayList<Comment>();
-        mNotes=new ArrayList<Note>();
+        mComments=new ArrayList<>();
+        mNotes=new ArrayList<>();
         mSource="";
         mIdFrom=new User(UUID.fromString( UUIDNULL));
         mOwner=new User(UUID.fromString( UUIDNULL));
@@ -328,7 +328,7 @@ public class Recipe {
     public double getNoteAvg() {
         mNoteAvg=0;
         if (mNotes==null) return mNoteAvg;
-        if (mNotes.size()!=0) {
+        if (!mNotes.isEmpty()) {
             for(Note n:mNotes){mNoteAvg+=n.getNote();}
             mNoteAvg=mNoteAvg/mNotes.size();
         } else {mNoteAvg=0;}
@@ -395,8 +395,7 @@ public class Recipe {
         }
         if (!mSeason.toString().equals(r.getSeason().toString())) return false;
         if (!mType.toString().equals(r.getType().toString())) return false;
-        if (!mDifficulty.toString().equals(r.getDifficulty().toString())) return false;
-        return true;
+        return mDifficulty.toString().equals(r.getDifficulty().toString());
     }
 
     public boolean containQuery(String s){ //for search request

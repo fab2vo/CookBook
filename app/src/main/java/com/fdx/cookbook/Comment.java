@@ -3,10 +3,11 @@ package com.fdx.cookbook;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Comment {
-    private String mTxt;
-    private User mUser;
+    private final String mTxt;
+    private final User mUser;
     private Date mDate;
 
     public Comment(){
@@ -43,7 +44,7 @@ public class Comment {
     }
 
     public String toTxt(){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         String s= dateFormat.format(mDate);
         return mTxt+" ("+mUser.getNameComplete()+") - " + s;
     }

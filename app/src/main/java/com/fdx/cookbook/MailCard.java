@@ -1,5 +1,6 @@
 package com.fdx.cookbook;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class MailCard {
@@ -8,13 +9,13 @@ public class MailCard {
     private String mMessage;
     private User mUser; // from or to
     private Integer mStatus;
-    private Integer SUBMITTED=1;
-    private Integer ACCEPTED=2;
-    private Integer REFUSED=3;
+    private final Integer SUBMITTED=1;
+    private final Integer ACCEPTED=2;
+    private final Integer REFUSED=3;
     private UUID mIdRecipe;
     private Integer mRequestId;
     private String mTitle;
-    private String UUIDNULL="00000000-0000-0000-0000-000000000000";
+    private final String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
 
     public MailCard(Recipe r){
@@ -56,7 +57,7 @@ public class MailCard {
         mIdRecipe = idRecipe;
     }
 
-    public Boolean isSubmitted() {return mStatus==SUBMITTED;}
+    public Boolean isSubmitted() {return Objects.equals(mStatus, SUBMITTED);}
     public void setSubmitted(){mStatus=SUBMITTED;}
     public String getTitle() {
         return mTitle;

@@ -1,20 +1,15 @@
 package com.fdx.cookbook;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Objects;
+
 
 public class CookBooksShort {
     private static CookBooksShort ourInstance ;
-    private Context mContext;
-    private List<Recipe> mCookBook;
+    //private final Context mContext;
+    private final List<Recipe> mCookBook;
     private Integer mSelectType;
     private Integer mSelectScope;
     private Integer mDLStatus;
@@ -32,17 +27,11 @@ public class CookBooksShort {
         return ourInstance;
     }
     private CookBooksShort(Context context) {
-        mContext=context.getApplicationContext();
+        //mContext=context.getApplicationContext();
         mCookBook=new ArrayList<>();
         mDLStatus=INACTIVE;
         mSelectType=RECENT;
         mSelectScope=ALL;
-    }
-
-    public void addRecipe(Recipe r){
-        if (r!=null){
-            mCookBook.add(r);
-        }
     }
 
     public List<Recipe> getRecipes(){
@@ -76,7 +65,6 @@ public class CookBooksShort {
     }
 
     public Integer getsize() {
-        if (mCookBook == null) return 0;
         if (mCookBook.isEmpty()) return 0;
         return mCookBook.size();
     }
@@ -97,16 +85,12 @@ public class CookBooksShort {
         mSelectType = selectType;
     }
 
-    public Integer getDLStatus() {
-        return mDLStatus;
-    }
-
     public void getDLStarted() {
         mDLStatus = STARTED;
     }
     public void setDLCompleted() {
         mDLStatus = COMPLETED;
     }
-    public Boolean isDownloading(){return mDLStatus==STARTED;}
-    public Boolean isNew(){return mDLStatus==INACTIVE;}
+    public Boolean isDownloading(){return Objects.equals(mDLStatus, STARTED);}
+    public Boolean isNew(){return Objects.equals(mDLStatus, INACTIVE);}
 }

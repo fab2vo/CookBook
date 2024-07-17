@@ -10,7 +10,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 public class PictureUtils {
-    public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
+    private static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
         BitmapFactory.Options options=new BitmapFactory.Options();
         options.inJustDecodeBounds=true;
         BitmapFactory.decodeFile(path, options);
@@ -20,7 +20,7 @@ public class PictureUtils {
         if (srcHeight>destHeight || srcWidth>destWidth) {
             float heightScale=srcHeight / destHeight;
             float widthScale=srcWidth/destWidth;
-            inSampleSize=Math.round(heightScale > widthScale ? heightScale : widthScale);
+            inSampleSize=Math.round(Math.max(heightScale, widthScale));
         }
         options=new BitmapFactory.Options();
         options.inSampleSize=inSampleSize;
@@ -50,7 +50,7 @@ public class PictureUtils {
     public static Bitmap getScaledBitmap(String path, Activity activity, int width){
         Point size=new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(size);
-        int height=(Integer) Math.round(width*size.y/size.x);
+        int height=(Integer) Math.round((float) (width * size.y) /size.x);
         return getScaledBitmap(path, width, height);
     }
 
@@ -58,13 +58,12 @@ public class PictureUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
     }
 
     public static Bitmap getBitmapFromString(String s){
         byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        return decodedByte;
+        return  BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 }

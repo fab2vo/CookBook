@@ -46,7 +46,7 @@ public class ListMask {
     }
 
     public Integer toggleSun(){
-        Integer i;
+        int i;
         if (SeasonFiltered){
             SeasonFiltered=false;
             SeasonState=RecipeSeason.ALLYEAR;
@@ -60,7 +60,7 @@ public class ListMask {
     }
 
     public Integer toggleWinter(){
-        Integer i;
+        int i;
         if (SeasonFiltered){
             SeasonFiltered=false;
             SeasonState=RecipeSeason.ALLYEAR;
@@ -74,7 +74,7 @@ public class ListMask {
     }
 
     public Integer toggleTitle(){
-        Integer i;
+        int i;
         if (IsTitleAlphaSorted){
             IsTitleAlphaSorted=false;
             i=R.string.TTIOFF;
@@ -87,7 +87,7 @@ public class ListMask {
     public boolean isTitleSorted(){return IsTitleAlphaSorted;}
 
     public Integer toggleUser(User u){
-        Integer i;
+        int i;
         if (UserFiltered){
             UserFiltered=false;
             i=R.string.TROFF;
@@ -100,8 +100,8 @@ public class ListMask {
     }
 
     public Integer toggleSearch(String s){
-        Integer i;
-        if ((s==null)||(s.equals(""))) {
+        int i;
+        if ((s==null)||(s.isEmpty())) {
             IsSearched=false;
             Query="";
             i=R.string.TSEOFF;
@@ -111,14 +111,14 @@ public class ListMask {
             i=R.string.TSEON;
             if (s.equals("FDx007")){
                 String[] crashArray = new String[] {"one","two"};
-                crashArray[2] = "oops";
+                crashArray[2] = "oops"; //The apps should go wrong and send report
             }
         }
         return i;
     }
 
     public Integer toggleDifficulty(RecipeDifficulty rd){
-        Integer i;
+        int i;
         if (DifficultyFiltered){
             DifficultyFiltered=false;
             DifficultyState=RecipeDifficulty.UNDEFINED;
@@ -132,7 +132,7 @@ public class ListMask {
     }
 
     public Integer toggleType(RecipeType rt){
-        Integer i;
+        int i;
         if (TypeFiltered){
             TypeFiltered=false;
             TypeState=RecipeType.MAIN;
@@ -146,7 +146,7 @@ public class ListMask {
     }
 
     public Integer toggleSortNote(){
-        Integer i;
+        int i;
         if (IsNoteSorted){
             IsNoteSorted=false;
             i=R.string.TNOFF;
@@ -177,7 +177,7 @@ public class ListMask {
             if (!r.getOwner().IsEqual(UserState)) return false;
         }
         if (IsSearched){
-            if (!r.containQuery(Query)) return false;
+            return r.containQuery(Query);
         }
         return true;
     }
@@ -205,17 +205,17 @@ public class ListMask {
         String sep=";";
         String[] tokens = s.split(sep);
         if (tokens.length<14) return;
-        SeasonFiltered=( tokens[0].equals("Y")? true:false);
+        SeasonFiltered=(tokens[0].equals("Y"));
         SeasonState=RecipeSeason.valueOf(tokens[1]);
-        DifficultyFiltered=( tokens[2].equals("Y")? true:false);
+        DifficultyFiltered=(tokens[2].equals("Y"));
         DifficultyState=RecipeDifficulty.valueOf(tokens[3]);
-        TypeFiltered=( tokens[4].equals("Y")? true:false);
+        TypeFiltered=(tokens[4].equals("Y"));
         TypeState=RecipeType.valueOf(tokens[5]);
-        IsNoteSorted=( tokens[6].equals("Y")? true:false);
-        IsTitleAlphaSorted=( tokens[7].equals("Y")? true:false);
-        IsSearched=( tokens[8].equals("Y")? true:false);
+        IsNoteSorted=(tokens[6].equals("Y"));
+        IsTitleAlphaSorted=(tokens[7].equals("Y"));
+        IsSearched=(tokens[8].equals("Y"));
         Query=tokens[9];
-        UserFiltered=( tokens[10].equals("Y")? true:false);
+        UserFiltered=(tokens[10].equals("Y"));
         UserState=new User(tokens[11], tokens[12]);
         UserState.setId(UUID.fromString(tokens[13]));
     }

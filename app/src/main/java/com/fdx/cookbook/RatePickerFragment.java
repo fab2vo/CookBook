@@ -15,7 +15,7 @@ import android.widget.RatingBar;
 import java.util.UUID;
 
 public class RatePickerFragment extends DialogFragment {
-    public static final String EXTRA_RATE = "com.fdx.cookbook.rate";
+    private static final String EXTRA_RATE = "com.fdx.cookbook.rate";
     private static final String ARG_ID= "recipeId";
     private static final String TAG = "DebugRatePickerFragment";
     private int mRate;
@@ -39,21 +39,14 @@ public class RatePickerFragment extends DialogFragment {
                 .setView(v)
                 .setTitle(R.string.DS_title)
                 .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mRate=(int) ratingBar.getRating();
-                                addNotetoRecipe();
-                                sendResult(Activity.RESULT_OK, mRate);
-                            }
+                        (dialog1, which) -> {
+                            mRate=(int) ratingBar.getRating();
+                            addNotetoRecipe();
+                            sendResult(Activity.RESULT_OK, mRate);
                         });
         dialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return ;
-                    }
+                (dialog12, which) -> {
+                    return ;
                 });
         AlertDialog dia=dialog.show();
         Button b=dia.getButton(DialogInterface.BUTTON_POSITIVE);

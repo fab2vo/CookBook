@@ -2,7 +2,6 @@ package com.fdx.cookbook;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,17 +19,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 public class NetworkUtils {
-    private SessionInfo mSession;
+    private final SessionInfo mSession;
     private static final String TAG = "CB_NetworkUtils";
     private static final String MYSQLDATEFORMAT="yyyy-MM-dd HH:mm:ss";
 
@@ -52,7 +53,7 @@ public class NetworkUtils {
             conn.setDoOutput(true);
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
+                    new OutputStreamWriter(os, StandardCharsets.UTF_8));
             writer.write(this.getPostDataString(postDataParams));
             writer.flush();
             writer.close();
@@ -61,7 +62,7 @@ public class NetworkUtils {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String json;
             while ((json = bufferedReader.readLine()) != null) {
-                sb.append(json + "\n");
+                sb.append(json).append("\n");
             }
             return sb.toString().trim();
         } catch (Exception e) {
@@ -90,7 +91,7 @@ public class NetworkUtils {
     public List<Comment> parseCommentsOfRecipe(String json){
         Comment c;
         List<Comment> cs=new ArrayList<>();
-        if ((json==null)||(json.equals(""))) return null;
+        if ((json==null)||(json.isEmpty())) return null;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
@@ -111,7 +112,7 @@ public class NetworkUtils {
         User u=new User(obj.getString("family"), obj.getString("name") );
         u.setId(uuid);
         String s=obj.getString("date_comment");
-        Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
+        Date date=new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s);
         return new Comment(obj.getString("comment"),u,date);}
         catch (Exception e){
             deBugShow("Failure in parsing JSONObject Comments "+e);
@@ -121,7 +122,7 @@ public class NetworkUtils {
     public List<Note> parseNotesOfRecipe(String json){
         Note n;
         List<Note> ns=new ArrayList<>();
-        if ((json==null)||(json.equals(""))) return null;
+        if ((json==null)||(json.isEmpty())) return null;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
@@ -142,14 +143,14 @@ public class NetworkUtils {
             User u=new User(obj.getString("family"), obj.getString("name") );
             u.setId(uuid);
             String s=obj.getString("date_note");
-            Date date=new SimpleDateFormat(MYSQLDATEFORMAT).parse(s);
+            Date date=new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s);
             return new Note(obj.getInt("note"),u,date);}
         catch (Exception e){
             deBugShow("Failure in parsing JSONObject Note : "+e);
             return null;
         }
     }
-    public Recipe parseObjectRecipeStamp(JSONObject obj){
+    private Recipe parseObjectRecipeStamp(JSONObject obj){
         try {
             //---------------- uuid and users
             UUID uuid = UUID.fromString(obj.getString("id_recipe"));
@@ -160,18 +161,17 @@ public class NetworkUtils {
             //dates
             Date date;
             String s1 = obj.getString("lastupdate_recipe");
-            if (s1==null) return null;
             if ((!s1.equals("null"))&&(s1.length()>5)) {
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                date = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s1);
                 r.setDate(date);
             } else {return null;}
             s1 = obj.getString("lastupdate_photo");
             if ((!s1.equals("null"))&&(s1.length()>5)) {
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+                date = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s1);
                 r.setDatePhoto(date);
             }
             s1=obj.getString("message");
-            if ((s1==null)||(s1.equals("null"))) s1="";
+            if (s1.equals("null")) s1="";
             r.setMessage(s1);
             r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
             s1 = obj.getString("id_from");
@@ -191,7 +191,7 @@ public class NetworkUtils {
     public List<Recipe> parseStampsTiers(String json){
         Recipe r;
         List<Recipe> rs=new ArrayList<>();
-        if ((json==null)||(json.equals(""))) return null;
+        if ((json==null)||(json.isEmpty())) return null;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
@@ -219,11 +219,11 @@ public class NetworkUtils {
                 u.setId(uuid);
                 r.setOwner(u);
                 s1=obj.getString("message");
-                if ((s1==null)||(s1.equals("null"))) s1="";
+                if (s1.equals("null")) s1="";
                 r.setMessage(s1);
                 r.setStatus(StatusRecipe.valueOf(obj.getString("status")));
                 s1 = obj.getString("id_from");
-                if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
+                if ((!s1.equals("null"))&&(s1.length()>5)) {
                     uuid = UUID.fromString(s1);
                     s1 = obj.getString("from_family");
                     s2 = obj.getString("from_name");
@@ -235,24 +235,23 @@ public class NetworkUtils {
             //------------ dates
             Date date;
             s1 = obj.getString("lastupdate_recipe");
-            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s1);
                 r.setDate(date);
             } else {return false;}
             s1 = obj.getString("lastupdate_photo");
-            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s1);
                 r.setDatePhoto(date);
             }
             //----------------- titre, source x2, nbpers
             s1 = obj.getString("title");
             URL url;
-            if (s1==null) return false;
             if (s1.equals("null")) return false;
             r.setTitle(s1);
             r.setSource(obj.getString("source"));
             s1 = obj.getString("source_url");
-            if (!s1.equals("null")&&(s1.length()>5)&&(s1!=null)) {
+            if (!s1.equals("null")&&(s1.length()>5)) {
                 try {
                     url = new URL(s1);
                     r.setSource_url(url);
@@ -286,18 +285,18 @@ public class NetworkUtils {
             File f=cb.getPhotoFile(r);
             if (withphoto) {
                 s1 = obj.getString("photo");
-                if ((!s1.equals("null"))&&(!s1.equals(""))&&(s1!=null)) {
+                if ((!s1.equals("null"))&&(!s1.isEmpty())) {
                     Bitmap bm=PictureUtils.getBitmapFromString(s1);
                     if (f.exists()){
-                        deBugShow( "file  " + f.toString()+" ecrasée dans parsing recipe !");
+                        deBugShow( "file  " + f +" ecrasée dans parsing recipe !");
                         f.delete();
                     }
                     try {
                         if(!f.createNewFile()) {
-                            deBugShow( "Error in creating file  "+f.toString());
+                            deBugShow( "Error in creating file  "+ f);
                         }
                     } catch (IOException e) {
-                        deBugShow( "Error in creating file "+f.toString()+":" +e);
+                        deBugShow( "Error in creating file "+ f +":" +e);
                     }
                     try {
                         FileOutputStream out = new FileOutputStream(f);
@@ -341,7 +340,7 @@ public class NetworkUtils {
     public List<Recipe> parseRecipesOfCommunity(String json, boolean withphoto){
         Recipe r;
         List<Recipe> rs=new ArrayList<>();
-        if ((json==null)||(json.equals(""))) return null;
+        if ((json==null)||(json.isEmpty())) return null;
         try {
             JSONArray jarr1=new JSONArray(json);
             for (int i=0; i<jarr1.length(); i++){
@@ -350,7 +349,7 @@ public class NetworkUtils {
                 if (!parseObjectRecipeShort(r,obj, withphoto)) {
                     deBugShow("Error in parsing");
                     return null;}
-                if (r!=null) rs.add(r);
+                rs.add(r);
             }
         } catch (Exception e){
             deBugShow("Failure in parsing JSON Array Recipes for community "+e);
@@ -359,7 +358,7 @@ public class NetworkUtils {
         return rs;
     }
 
-    public Boolean parseObjectRecipeShort(Recipe r,JSONObject obj, boolean withphoto){
+    private Boolean parseObjectRecipeShort(Recipe r, JSONObject obj, boolean withphoto){
         try {
             UUID uuid;
             String s1, s2;
@@ -375,8 +374,8 @@ public class NetworkUtils {
             //------------ dates
             Date date;
             s1 = obj.getString("lastupdate_recipe");
-            if ((!s1.equals("null"))&&(s1.length()>5)&&(s1!=null)) {
-                date = new SimpleDateFormat(MYSQLDATEFORMAT).parse(s1);
+            if ((!s1.equals("null"))&&(s1.length()>5)) {
+                date = new SimpleDateFormat(MYSQLDATEFORMAT, Locale.FRANCE).parse(s1);
                 r.setDate(date);
             } else {return false;}
             //----------------- titre, source x2, nbpers
@@ -389,7 +388,7 @@ public class NetworkUtils {
             // --------------- photo
             if (withphoto) {
                 s1 = obj.getString("photo");
-                if ((s1!=null)&&(!s1.equals("")))
+                if (!s1.isEmpty())
                     r.setImage(PictureUtils.getBitmapFromString(s1));
                 }
             return true;
@@ -405,7 +404,7 @@ public class NetworkUtils {
         mc.setRequest();
         String s1, s2;
         User u;
-        Integer n;
+        int n;
         try {
             UUID uuid=UUID.fromString(obj.getString("id_recipe"));
             mc.setIdRecipe(uuid);

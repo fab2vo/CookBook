@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class User {
     private UUID mId;
-    private String mFamily;
+    private final String mFamily;
     private String mName;
     private Date mDate;
     private static final String TAG = "DebugUser";
@@ -56,10 +56,6 @@ public class User {
 
     public String getFamily() {
         return mFamily;
-    }
-
-    public void setFamily(String family) {
-        mFamily = family;
     }
 
     public String getName() {

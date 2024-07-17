@@ -14,7 +14,7 @@ android {
         // version 28 : upgrade to sdk 34 (nota tried on Acer PC with v27 4.0
         // android studio upgraded to Android Studio Iguana | 2023.2.1 Canary 13 November 9, 2023
         // version 29 update buildconfig and version comparator
-        // version 30 trying to improve deprecation
+        // version 30 trying to improve deprecation in async to Recipe
         versionCode 30
         versionName "4.3"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

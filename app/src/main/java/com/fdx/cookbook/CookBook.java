@@ -4,21 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 public class CookBook {
     private static CookBook ourInstance ;
-    private Context mContext;
-    private SQLiteDatabase mDatabase;
+    private final Context mContext;
+    private final SQLiteDatabase mDatabase;
     private static final String TAG = "CB_CB";
-    private String UUIDNULL="00000000-0000-0000-0000-000000000000";
+    private final String UUIDNULL="00000000-0000-0000-0000-000000000000";
 
     public static CookBook get(Context context) {
         if (ourInstance==null){
@@ -34,7 +30,18 @@ public class CookBook {
     }
 
     public Recipe getRecipe(UUID id) {
-        RecipeCursorWrapper cursor=queryRecipes(
+        try (RecipeCursorWrapper cursor = queryRecipes(
+                RecipeDbSchema.RecipeTable.Cols.UUID + " =?",
+                new String[]{id.toString()}
+        )) {
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getRecipe();
+        }
+        /* OLD VERSION
+                RecipeCursorWrapper cursor=queryRecipes(
                 RecipeDbSchema.RecipeTable.Cols.UUID+" =?",
                 new String[] {id.toString()}
         );
@@ -43,6 +50,8 @@ public class CookBook {
             cursor.moveToFirst();
             return cursor.getRecipe();
         } finally {cursor.close();}
+
+         */
     }
 
     public void updateRecipe(Recipe r) {
@@ -76,13 +85,11 @@ public class CookBook {
         mDatabase.delete(RecipeDbSchema.RecipeTable.NAME,
                 RecipeDbSchema.RecipeTable.Cols.UUID+" =?",
                 new String[] {uuidString});
-        return;
     }
 
     public void markRecipeToDelete(Recipe r){
         r.setStatus(StatusRecipe.Deleted);
         updateRecipe(r);
-        return;
     }
 
     public List<Recipe> getRecipes(){
@@ -146,7 +153,7 @@ public class CookBook {
     }
 
     public Boolean deleteImage(Recipe r){
-        Boolean success=false;
+        boolean success=false;
         File filesDir= mContext.getFilesDir();
         File im=new File(filesDir, r.getPhotoFilename());
         if (im.exists()){
@@ -166,13 +173,11 @@ public class CookBook {
     }
 
     public void cleanCookBook(){
-        List<Recipe> recipes=new ArrayList<>();
-        Boolean deleteflag;
-        recipes=getRecipes();
+        boolean deleteflag;
+        List<Recipe> recipes=getRecipes();
         for (Recipe r:recipes){
-            deleteflag=false;
-            if ((r.getTitle()==null)||(r.getTitle().equals(""))) deleteflag=true;
-            if ((r.getId()==null)||(r.getId().toString()=="")||(r.getId().toString()==UUIDNULL)) deleteflag=true;
+            deleteflag= (r.getTitle() == null) || (r.getTitle().isEmpty());
+            if ((r.getId()==null)||(r.getId().toString().isEmpty())||(r.getId().toString().equals(UUIDNULL))) deleteflag=true;
             if (deleteflag) {
                 deleteImage(r);
                 removeRecipe(r);}
