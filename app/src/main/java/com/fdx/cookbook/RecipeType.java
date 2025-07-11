@@ -3,7 +3,7 @@ package com.fdx.cookbook;
 public enum RecipeType {
     APERITIF,STARTER,MAIN,DESSERT,SIDE,OTHER;
 
-        private static RecipeType[] list=RecipeType.values();
+        private static final RecipeType[] list=RecipeType.values();
 
         public static RecipeType getType(int i){
             return list[i];

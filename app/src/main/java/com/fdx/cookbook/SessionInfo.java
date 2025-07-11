@@ -13,16 +13,13 @@ import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
-
-import org.acra.ACRA;
-
 import java.util.HashMap;
 import java.util.UUID;
 
 public class SessionInfo {
     private static SessionInfo ourInstance;
     private User mUser;
-    private Context mContext;
+    private final Context mContext;
     private Boolean mIsConnected;
     private Boolean mReqNewSession;
     private Boolean mIsRecipeRequest;
@@ -33,12 +30,12 @@ public class SessionInfo {
     private String CB_PWD="pwd";
     private String NOT_FOUND="Not found";
     private String mMaskSerialized;
-    private String mDevice;
+    private final String mDevice;
     private String mPwd;
     private static final String TAG = "CB_Session";
     private static String URLPATH="https://cookbookfamily.cloud/cb/";
-    public static int CONNECT_TIMEOUT = 10000;
-    public static int READ_TIMEOUT = 10000;
+    private static int CONNECT_TIMEOUT = 10000;
+    private static int READ_TIMEOUT = 10000;
 
     public static SessionInfo get(Context context) {
         if (ourInstance==null){
@@ -99,8 +96,7 @@ public class SessionInfo {
     }
 
     public Boolean IsEmpty(){
-        if (mUser.getName().equals(NOT_FOUND)){return true;}
-        return false;
+        return mUser.getName().equals(NOT_FOUND);
     }
 
     public Boolean IsReqNewSession() {
@@ -142,13 +138,14 @@ public class SessionInfo {
     public void setPwd(String s){mPwd=s;}
 
     public void fillPwd(HashMap<String, String> data, Boolean withuser ){
-        if ((mPwd!=null)&&(!mPwd.equals(""))) {
+        if ((mPwd!=null)&&(!mPwd.isEmpty())) {
             data.put("pwd", mPwd);
             if (withuser) data.put("iduser", mUser.getId().toString());
         }
     }
 
     public int getCurrentVersionCode() {
+        deBugShow("getCurrent called");
         try {
             PackageInfo packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             return packageInfo.versionCode;
@@ -158,7 +155,7 @@ public class SessionInfo {
         }
     }
 
-    public Task<Integer> getLatestVersionCode() {
+    private Task<Boolean> getLatestVersionCode() {
         AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(mContext);
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         return appUpdateInfoTask.continueWith(task -> {
@@ -166,29 +163,23 @@ public class SessionInfo {
                 AppUpdateInfo appUpdateInfo = task.getResult();
                 if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
                         appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                    return appUpdateInfo.availableVersionCode();
+                    // Update available! Handle it here (e.g., set mNeedUpgrade = true)
+                    mNeedUpgrade = true;
+                    return true;
                 } else {
-                    return null; // No update available
+                    // No update available
+                    return false;
                 }
             } else {
                 // Handle exceptions (e.g., Play Store not available)
-                return null;
+                return false;
             }
         });
     }
 
-    public Task<Boolean> isUpdateAvailable() {
-        Task<Integer> latestVersionCodeTask = getLatestVersionCode();
-        return latestVersionCodeTask.continueWith(task -> {
-            if (task.isSuccessful()) {
-                Integer latestVersionCode = task.getResult();
-                if (latestVersionCode != null) {
-                    int currentVersionCode = getCurrentVersionCode();
-                    return latestVersionCode > currentVersionCode;
-                }
-            }
-            return false; // No update available or error occurred
-        });
-    }
-
+public Task<Boolean> isUpdateAvailable() {
+    Task<Boolean> latestVersionCodeTask = getLatestVersionCode();
+    deBugShow("isupdateavailable:"+latestVersionCodeTask);
+    return latestVersionCodeTask; // Already sets mNeedUpgrade in getLatestVersionCode
+}
 }

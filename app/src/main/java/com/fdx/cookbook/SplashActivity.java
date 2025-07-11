@@ -49,12 +49,9 @@ public class SplashActivity extends AppCompatActivity {
     private String mMemberEntered;
     private String mPwdEntered;
     private String mPwdRead;
-    private TextView mEnterFamilyLbl;
     private EditText mEnterFamily;
     private Boolean mStatusFamily;
-    private TextView mEnterMemberLbl;
     private EditText mEnterMember;
-    private TextView mEnterPwdLbl;
     private Boolean mStatusMember;
     private EditText mEnterPwd;
     private TextView mEnterMessage;
@@ -103,7 +100,7 @@ public class SplashActivity extends AppCompatActivity {
                 deBugShow("Version "+mSession.getCurrentVersionCode()+" should be updated");
                 Toast.makeText(getApplicationContext(), getString(R.string.P0NUP), Toast.LENGTH_LONG).show();
             } else {
-                deBugShow("No update available");
+                //deBugShow("No update available");
             }
         }).addOnFailureListener(e -> {
             deBugShow("No update available");
@@ -133,13 +130,13 @@ public class SplashActivity extends AppCompatActivity {
         mProgressBar.setProgress(0);
         mEnterMessage=(TextView) findViewById(R.id.splash_edit_message);
         mEnterMessage.setText("");
-        mEnterFamilyLbl=(TextView) findViewById(R.id.splash_edit_family_lbl);
+        TextView mEnterFamilyLbl = (TextView) findViewById(R.id.splash_edit_family_lbl);
         mEnterFamilyLbl.setText(R.string.P0LF);
         mEnterFamily=(EditText) findViewById(R.id.splash_edit_family);
-        mEnterMemberLbl=(TextView) findViewById(R.id.splash_edit_member_lbl);
+        TextView mEnterMemberLbl = (TextView) findViewById(R.id.splash_edit_member_lbl);
         mEnterMemberLbl.setText(R.string.P0LM);
         mEnterMember=(EditText) findViewById(R.id.splash_edit_member);
-        mEnterPwdLbl=(TextView) findViewById(R.id.splash_edit_pwd_lbl);
+        TextView mEnterPwdLbl = (TextView) findViewById(R.id.splash_edit_pwd_lbl);
         mEnterPwd=(EditText) findViewById(R.id.splash_edit_pwd);
         mEnterPwdLbl.setText(R.string.P0LP);
         mNewSession=(Button) findViewById(R.id.splash_button_session);

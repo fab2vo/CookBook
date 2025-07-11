@@ -16,7 +16,7 @@ public class RecipeBaseHelper extends SQLiteOpenHelper {
         String st="",si="";
         Recipe r=new Recipe();
         for(int i=0;i<r.getNbStepMax();i++){
-            st=st+ RecipeDbSchema.RecipeTable.Cols.STEP[i];
+            st= st + RecipeDbSchema.RecipeTable.Cols.STEP[i];
             st=st+", ";
         }
         for(int i=0;i<r.getNbIngMax();i++){

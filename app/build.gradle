@@ -4,19 +4,19 @@ android {
     signingConfigs {
     }
     defaultConfig {
-        compileSdk 34
-        buildToolsVersion = "34.0.0"
+        compileSdk 35
+        buildToolsVersion = "35.0.0"
     }
     defaultConfig {
         applicationId "com.fdx.cookbook"
         minSdkVersion 34
-        targetSdkVersion 34
+        targetSdkVersion 35
         // version 28 : upgrade to sdk 34 (nota tried on Acer PC with v27 4.0
         // android studio upgraded to Android Studio Iguana | 2023.2.1 Canary 13 November 9, 2023
         // version 29 update buildconfig and version comparator
         // version 30 trying to improve deprecation in async to Recipe
-        versionCode 30
-        versionName "4.3"
+        versionCode 31 // 30 API34
+        versionName "4.4" // 4.3 API34
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -40,14 +40,14 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.android.play:app-update:2.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     def acraVersion = '5.8.4'
     implementation "ch.acra:acra-http:$acraVersion"

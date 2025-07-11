@@ -3,7 +3,7 @@ package com.fdx.cookbook;
 public enum RecipeSeason {
     WINTER,SUMMER,ALLYEAR;
 
-    private static RecipeSeason[] list=RecipeSeason.values();
+    private static final RecipeSeason[] list=RecipeSeason.values();
 
     public static RecipeSeason getSeason(int i){
         return list[i];
