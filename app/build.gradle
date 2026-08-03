@@ -4,19 +4,19 @@ android {
     signingConfigs {
     }
     defaultConfig {
-        compileSdk 35
+        compileSdk 36
         buildToolsVersion = "35.0.0"
     }
     defaultConfig {
         applicationId "com.fdx.cookbook"
         minSdkVersion 34
-        targetSdkVersion 35
+        targetSdkVersion 36
         // version 28 : upgrade to sdk 34 (nota tried on Acer PC with v27 4.0
         // android studio upgraded to Android Studio Iguana | 2023.2.1 Canary 13 November 9, 2023
         // version 29 update buildconfig and version comparator
         // version 30 trying to improve deprecation in async to Recipe
-        versionCode 31 // 30 API34
-        versionName "4.4" // 4.3 API34
+        versionCode 32 // API36
+        versionName "4.5" // API436
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
