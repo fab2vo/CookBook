@@ -32,17 +32,20 @@ Contrainte : chaque modification serveur doit rester **transparente pour l'app a
    `sendrecipetosb` et `updatestatusrequest` sécurisés. Ces 4 fichiers tracent leurs appels dans le journal.
 5. Bug corrigé : `ixupdateorcreaterecipe.php` (bind_param faux, le portail web ne pouvait pas enregistrer).
 
-## À déployer
-- `addnotewithdate.php` : refuse de réinsérer une note identique (même utilisateur, recette et date)
-  et répond "1".
-- `ikonexct007.inc` : journal d'erreurs PHP dans `cb_private/php_errors.log`.
-- Nettoyer les doublons existants de `notesdb` (requête SQL plus bas), après une sauvegarde de la table.
+6. `addnotewithdate.php` : une note identique (même utilisateur, recette et date) n'est pas réinsérée,
+   réponse "1". `ikonexct007.inc` : journal d'erreurs PHP dans `cb_private/php_errors.log`.
 
-## En cours d'investigation
-- **Doublons dans notesdb** (vus dans clearnet.php, section E.1). L'app (`AsyncCallClass.syncNotesRecipe`)
-  renvoie toutes les notes de l'utilisateur qu'elle ne retrouve pas dans `getnotesofrecipe.php` ;
-  `addnotewithdate.php` n'avait aucun contrôle de doublon. Cause exacte à confirmer : relever dans
-  E.1 les pknum, dates et utilisateurs des doublons (sont-ils récents ? un seul utilisateur ?).
+## Notes (notesdb) — vérifiées le 24/10/2026
+- clearnet.php (E.1) a signalé des milliers de doublons ; le DELETE de dédoublonnage a été exécuté.
+  Le total a semblé tomber à 24 lignes, puis une synchronisation depuis l'app l'a ramené à 174.
+- Vérification contre l'export du 17/10 (`Serveur/ExportSQL/verif_notes_171017.sql`, table notes_ref) :
+  174 lignes, 174 distinctes, les 170 notes du 17/10 toutes présentes avec leurs dates exactes,
+  4 notes ajoutées depuis, pk_max = 201. La table est saine et complète.
+- Non expliqué : pk_max = 201 ne colle pas avec des milliers de lignes insérées ; les « 24 lignes »
+  étaient peut-être une page d'affichage de phpMyAdmin (25 lignes par page). Si E.1 signale encore des
+  doublons alors que COUNT = COUNT DISTINCT, c'est clearnet.php qui se trompe.
+- À faire : `DROP TABLE notes_ref;` puis
+  `ALTER TABLE notesdb ADD UNIQUE KEY uniq_note (id_recipe, id_user, date_note);`
 
 ## Étapes suivantes (transparentes pour l'app)
 - Point 5 : administration (`superindexGhW78k.php`, `clearnet.php`) derrière htpasswd ou une liste d'IP ;
