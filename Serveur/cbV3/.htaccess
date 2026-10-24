@@ -1,0 +1,31 @@
+# Security rules for CookBook V3 API
+
+# Force HTTPS (the app and ACRA already use https://, this only affects stray http:// calls)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# Never serve includes, logs, dumps, archives, backups or hidden files
+<FilesMatch "(\.(inc|txt|log|sql|zip|gz|tar|json|bak|old|orig|swp|md)|~)$|^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Crash reports written by crashedreport.php are not public
+RedirectMatch 404 /crashlogs(/|$)
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "same-origin"
+</IfModule>

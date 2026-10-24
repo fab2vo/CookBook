@@ -11,3 +11,12 @@
 /build
 /captures
 .externalNativeBuild
+
+# Server secrets and logs (only cbconfig.example.php is versioned)
+/Serveur/cb_private/*
+!/Serveur/cb_private/cbconfig.example.php
+/Serveur/cbV2 2026 10 18/idconnect.inc
+/Serveur/**/debug.txt
+/Serveur/**/debug.log
+/Serveur/**/crashlogs/*.txt
+/Serveur/tests/private/
