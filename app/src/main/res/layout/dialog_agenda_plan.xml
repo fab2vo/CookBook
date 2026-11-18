@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fenêtre « Planifier » : date, repas et agenda pour une recette -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="20dp">
+
+    <Button
+        android:id="@+id/plan_date_button"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/plan_meal_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/plan_meal_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PAG_lunch_cap" />
+
+        <RadioButton
+            android:id="@+id/plan_meal_dinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PAG_dinner" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/plan_scope_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/plan_scope_family"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PAG_tab_family" />
+
+        <RadioButton
+            android:id="@+id/plan_scope_perso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PAG_tab_perso" />
+    </RadioGroup>
+</LinearLayout>

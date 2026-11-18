@@ -35,6 +35,28 @@ Contrainte : chaque modification serveur doit rester **transparente pour l'app a
 6. `addnotewithdate.php` : une note identique (même utilisateur, recette et date) n'est pas réinsérée,
    réponse "1". `ikonexct007.inc` : journal d'erreurs PHP dans `cb_private/php_errors.log`.
 
+## Agenda des repas (nouvelle fonction, voir `SPEC_AGENDA.md`) — 18/11/2026
+- Nouveaux fichiers : `agenda.inc`, `getagenda.php`, `addagenda.php`, `updateagenda.php`, `deleteagenda.php`,
+  `getagendarecipe.php` ; table `agendadb` (`Serveur/sql/agendadb.sql`).
+- Droits : la famille est toujours lue dans `userdb`, jamais prise dans la requête ; modification et suppression
+  contrôlées (même famille pour FAMILY, auteur pour PERSO) ; `getagendarecipe` ne sert qu'une recette planifiée
+  dans un agenda visible par l'utilisateur.
+- **Faille corrigée le 18/11/2026 (avant toute diffusion de l'app)** : `addagenda`/`updateagenda` acceptaient
+  n'importe quelle recette de `recipedb`. Comme l'écran Communauté montre les identifiants des recettes des
+  autres familles, on pouvait planifier une recette jamais partagée puis la lire en entier par
+  `getagendarecipe`, sans l'accord du propriétaire. Règle désormais (`agenda_label()` dans `agenda.inc`) :
+  une recette ne peut être planifiée que si elle est dans le cookbook de l'utilisateur ou déjà planifiée
+  dans un agenda qu'il voit (`agenda_recipe_visible()`, partagé avec `getagendarecipe`).
+- Banc de test : 42 scénarios agenda, les 75 scénarios passent.
+- Déploiement initial (18/11/2026) : `agendadb.sql` exécuté, fichiers copiés dans `public_html/cb/`
+  (`deleteagenda.php` oublié au premier envoi : 404, l'app affichait « Pas de connexion au serveur »).
+  Vérification rapide après un envoi : `curl -X POST https://cookbookfamily.cloud/cb/<fichier>.php`
+  doit répondre 200 (et non 404).
+- **À redéployer après la correction** : `agenda.inc`, `addagenda.php`, `updateagenda.php`, `getagendarecipe.php`.
+- Observé le 18/11/2026 : un appel a reçu `FAIL: Database connection error` (refus ponctuel de MySQL chez
+  Hostinger, l'appel suivant a réussi). L'agenda refait l'appel une fois. À surveiller : si cela se répète,
+  regarder la limite de connexions simultanées (`max_user_connections`) de l'hébergement.
+
 ## Notes (notesdb) — vérifiées le 24/10/2026
 - clearnet.php (E.1) a signalé des milliers de doublons ; le DELETE de dédoublonnage a été exécuté.
   Le total a semblé tomber à 24 lignes, puis une synchronisation depuis l'app l'a ramené à 174.

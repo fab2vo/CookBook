@@ -159,4 +159,51 @@
         <item>Accompagn.</item>
         <item>Autre</item>
     </string-array>
+
+    <!-- Agenda des repas (SPEC_AGENDA.md) -->
+    <string name="P1MU_agenda"> Agenda </string>
+    <string name="PAG_title">Agenda des repas</string>
+    <string name="PAG_tab_family">Famille</string>
+    <string name="PAG_tab_perso">Perso</string>
+    <string name="PAG_lunch">Déj.</string>
+    <string name="PAG_dinner">Dîner</string>
+    <string name="PAG_lunch_long">déjeuner</string>
+    <string name="PAG_dinner_long">dîner</string>
+    <string name="PAG_lunch_cap">Déjeuner</string>
+    <string name="P2MU_plan">Planifier</string>
+    <string name="PAG_plan_title">Planifier « %1$s »</string>
+    <string name="PAG_planned">« %1$s » ajouté au %2$s du %3$s (%4$s)</string>
+    <string name="PAG_hint_long_press">Astuce : appui long sur la photo d\'une recette pour la planifier</string>
+    <string name="PAG_add">＋</string>
+    <string name="PAG_recipe_mark">%1$s  📖</string>
+    <string name="PAG_edit">Modifier</string>
+    <string name="PAG_delete">Effacer</string>
+    <string name="PAG_confirm_delete">Effacer « %1$s » du %2$s du %3$s ?</string>
+    <string name="PAG_dialog_title">%1$s — %2$s</string>
+    <string name="PAG_slot_full">Ce repas contient déjà deux plats</string>
+    <string name="PAG_readonly_subtitle">Hors connexion — lecture seule</string>
+    <string name="PAG_readonly_since">Serveur injoignable : agenda en lecture seule, tel qu\'enregistré le %1$s. Revenez sur l\'écran pour réessayer.</string>
+    <string name="PAG_readonly_nocopy">Serveur injoignable : aucune copie de cet agenda sur ce téléphone. Revenez sur l\'écran pour réessayer.</string>
+    <string name="PAG_readonly_action">Hors connexion : agenda en lecture seule, modification impossible</string>
+    <string name="PAG_offline_short">Pas de connexion au serveur</string>
+    <string name="PAG_error">Le serveur a refusé l\'opération</string>
+    <string name="PAG_from_cookbook">Recette du cookbook</string>
+    <string name="PAG_free_text">Texte libre</string>
+    <string name="PAG_recipe_hint">Titre de la recette</string>
+    <string name="PAG_text_hint">Ex. : bœuf bourguignon</string>
+    <string name="PAG_pick_recipe">Choisissez une recette dans la liste proposée</string>
+    <string name="PAG_empty_text">Entrez le nom du plat</string>
+    <string name="PAG_recipe_loading">Chargement de la recette…</string>
+    <string name="PAG_recipe_unavailable">Cette recette n\'est plus disponible sur le serveur</string>
+    <string name="PAG_recipe_offline">Hors connexion : seules les recettes de votre cookbook peuvent être ouvertes</string>
+    <string name="P2_guest_subtitle">Hors de votre cookbook — lecture seule</string>
+    <string-array name="PAG_days">
+        <item>L</item>
+        <item>Ma</item>
+        <item>Me</item>
+        <item>J</item>
+        <item>V</item>
+        <item>S</item>
+        <item>D</item>
+    </string-array>
 </resources>

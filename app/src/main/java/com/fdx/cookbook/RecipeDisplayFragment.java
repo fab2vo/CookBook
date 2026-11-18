@@ -71,6 +71,14 @@ public class RecipeDisplayFragment extends Fragment {
     private static final String REGEX_FAMILY="[-_!?\\w\\p{javaLowerCase}\\p{javaUpperCase}()\\p{Space}]*";
     private static final String REGEX_MEMBER="[-_\\w\\p{javaLowerCase}\\p{javaUpperCase}]*";
 
+    // ---- Guest mode: read-only display of a recipe that is NOT in the local cookbook
+    // (opened from the agenda). The recipe is never written in the local database.
+    private static final String ARG_GUEST="guest";
+    private static Recipe sGuestRecipe;   // handed over by RecipeDisplayActivity.newGuestIntent
+    private boolean mGuest;
+
+    static void setGuestRecipe(Recipe r) { sGuestRecipe = r; }
+
     public static RecipeDisplayFragment newInstance(UUID recipeId) {
         Bundle args=new Bundle();
         args.putSerializable(ARG_RECIPE_ID, recipeId);
@@ -79,12 +87,28 @@ public class RecipeDisplayFragment extends Fragment {
         return fragment;
     }
 
+    public static RecipeDisplayFragment newGuestInstance(UUID recipeId) {
+        RecipeDisplayFragment fragment=newInstance(recipeId);
+        fragment.getArguments().putBoolean(ARG_GUEST, true);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRecipe=new Recipe();
         UUID recipeId=(UUID) getArguments().getSerializable(ARG_RECIPE_ID);
-        mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
+        mGuest=getArguments().getBoolean(ARG_GUEST, false);
+        if (mGuest) {
+            // After the app was killed in background the downloaded recipe is gone: show nothing
+            mRecipe=(sGuestRecipe!=null && sGuestRecipe.getId().equals(recipeId)) ? sGuestRecipe : null;
+        } else {
+            mRecipe=CookBook.get(getActivity()).getRecipe(recipeId);
+        }
+        if (mRecipe==null) {
+            mRecipe=new Recipe(recipeId);   // empty recipe so that the views can be built
+            requireActivity().finish();
+        }
         mPhotoFile=CookBook.get(getActivity()).getPhotoFile(mRecipe);
         mSession= SessionInfo.get(getActivity());
         setHasOptionsMenu(true);
@@ -96,8 +120,21 @@ public class RecipeDisplayFragment extends Fragment {
     @Override
     public void onPause(){
         super.onPause();
+        if (mGuest) return;   // a guest recipe is never stored in the local cookbook
         //todo pourquoi update recipe ?
         CookBook.get(getActivity()).updateRecipe(mRecipe);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // The photo of a guest recipe was written in the photo folder by the download:
+        // remove it unless the recipe has meanwhile its place in the local cookbook
+        if (mGuest && getActivity()!=null && getActivity().isFinishing()
+                && CookBook.get(getActivity()).getRecipe(mRecipe.getId())==null
+                && mPhotoFile!=null && mPhotoFile.exists()) {
+            mPhotoFile.delete();
+        }
     }
 
     @Override
@@ -105,8 +142,15 @@ public class RecipeDisplayFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_recipe_display, menu);
         MenuItem menuItem = menu.findItem(R.id.recipe_menu_edit);
-        if(!mRecipe.getOwner().getId().equals(mSession.getUser().getId())){
+        if(mGuest || !mRecipe.getOwner().getId().equals(mSession.getUser().getId())){
             menuItem.setVisible(false);
+        }
+        if (mGuest) {
+            // Only "Planifier" and "Partager" make sense for a recipe outside the cookbook
+            // (sendmail.php refuses a recipe that is not in the sender's cookbook)
+            menu.findItem(R.id.recipe_mail).setVisible(false);
+            menu.findItem(R.id.recipe_menu_delete).setVisible(false);
+            menu.findItem(R.id.recipe_menu_html).setVisible(false);
         }
     }
 
@@ -123,6 +167,9 @@ public class RecipeDisplayFragment extends Fragment {
             case R.id.recipe_menu_edit:
                 Intent intent= RecipeActivity.newIntent(getActivity(),mRecipe.getId());
                 startActivity(intent);
+                return true;
+            case R.id.recipe_menu_plan:
+                AgendaPlanDialog.show(getActivity(), mRecipe);
                 return true;
             case R.id.recipe_menu_html:
                 String s= mSession.getURLPath()+"ix.php";
@@ -264,6 +311,17 @@ public class RecipeDisplayFragment extends Fragment {
                 }
             }
         });
+        if (mGuest) {
+            // Notes and comments belong to the cookbook synchronisation: not available here
+            ((View) mDRatingBar.getParent()).setVisibility(View.GONE);
+            mDComTitle.setVisibility(View.GONE);
+            ((View) mDNexComment.getParent()).setVisibility(View.GONE);
+            if (getActivity() instanceof androidx.appcompat.app.AppCompatActivity) {
+                androidx.appcompat.app.ActionBar bar =
+                        ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+                if (bar != null) bar.setSubtitle(R.string.P2_guest_subtitle);
+            }
+        }
         return v;
     }
     private void updatePhotoView(){

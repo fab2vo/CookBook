@@ -85,5 +85,49 @@ check "web: edit recipe NOT in my cookbook"            "$V3" ixupdateorcreaterec
 check "web: create recipe for myself"                  "$V3" ixupdateorcreaterecipe.php "{\"idrecipe\":\"$R3\",\"iduser\":\"$A2\",\"pknum\":\"0\",$RECIPE}" '#WRITES=INSERT INTO recipedb' "{\"auth\":\"yes\",\"id_user\":\"$A2\"}"
 check "[cbV2] web: edit recipe (bind_param bug)"       "$V2" ixupdateorcreaterecipe.php "{\"idrecipe\":\"$R2\",\"iduser\":\"$B1\",\"pknum\":\"2\",$RECIPE}" 'ArgumentCountError' "{\"auth\":\"yes\",\"id_user\":\"$B1\"}"
 
+echo "== agenda (E1,E2: FamA dinner 2026-11-20 full; E3: A1 perso with R2; E4: FamB)"
+E1=e1e1e1e1-e1e1-e1e1-e1e1-e1e1e1e1e1e1; E2=e2e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2
+E3=e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3; E4=e4e4e4e4-e4e4-e4e4-e4e4-e4e4e4e4e4e4
+EN=f0f0f0f0-f0f0-f0f0-f0f0-f0f0f0f0f0f0
+AA="\"iduser\":\"$A2\",\"pwd\":\"pwdA\""; A1P="\"iduser\":\"$A1\",\"pwd\":\"pwdA\""; BB="\"iduser\":\"$B1\",\"pwd\":\"pwdB\""
+check "get family agenda (member of FamA)"             "$V3" getagenda.php "{$AA,\"scope\":\"FAMILY\",\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-22\"}" "^\[.*$E1.*$E2.*\] #WRITES= *$"
+check "get family agenda: other family sees only its"  "$V3" getagenda.php "{$BB,\"scope\":\"FAMILY\",\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-22\"}" "^\[\{\"id_entry\":\"$E4\"[^]]*\] #WRITES"
+check "get perso agenda of A1"                         "$V3" getagenda.php "{$A1P,\"scope\":\"PERSO\",\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-22\"}" "^\[\{\"id_entry\":\"$E3\"[^]]*\] #WRITES"
+check "get perso agenda of A2 (A1's not visible)"      "$V3" getagenda.php "{$AA,\"scope\":\"PERSO\",\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-22\"}" '^\[\] #WRITES= *$'
+check "get agenda with wrong password"                 "$V3" getagenda.php "{\"iduser\":\"$A2\",\"pwd\":\"pwdB\",\"scope\":\"FAMILY\",\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-22\"}" 'FAIL: Wrong pwd'
+check "get agenda over more than 92 days"              "$V3" getagenda.php "{$AA,\"scope\":\"FAMILY\",\"date_from\":\"2026-01-01\",\"date_to\":\"2026-12-31\"}" 'FAIL: Error in date range'
+check "get agenda with reversed dates"                 "$V3" getagenda.php "{$AA,\"scope\":\"FAMILY\",\"date_from\":\"2026-11-22\",\"date_to\":\"2026-11-16\"}" 'FAIL: Error in date range'
+check "add free text"                                  "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"\",\"label\":\"Boeuf bourguignon\"}" '^1 #WRITES=INSERT INTO agendadb *$'
+check "add recipe of another family, not shared"       "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"$R2\",\"label\":\"\"}" 'FAIL: Recipe not accessible.*WRITES= *$'
+check "then read it through the agenda (hole closed)"  "$V3" getagendarecipe.php "{$AA,\"idrecipe\":\"$R2\"}" 'FAIL: Recipe not in user agenda'
+check "add recipe of my cookbook"                      "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"$R1\",\"label\":\"\"}" '^1 #WRITES=INSERT INTO agendadb *$'
+check "add recipe not in cookbook but in my agenda"    "$V3" addagenda.php "{$A1P,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"$R2\",\"label\":\"\"}" '^1 #WRITES=INSERT INTO agendadb *$'
+check "update: put a not shared recipe in an entry"    "$V3" updateagenda.php "{$AA,\"identry\":\"$E2\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"$R2\",\"label\":\"\"}" 'FAIL: Recipe not accessible.*WRITES= *$'
+check "add to a full meal (2 entries)"                 "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"$R1\",\"label\":\"\"}" 'FAIL: Slot full.*WRITES= *$'
+check "same meal in perso agenda is free"              "$V3" addagenda.php "{$A1P,\"identry\":\"$EN\",\"scope\":\"PERSO\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"$R1\",\"label\":\"\"}" '^1 #WRITES=INSERT INTO agendadb *$'
+check "same entry sent again: OK, not inserted"        "$V3" addagenda.php "{$AA,\"identry\":\"$E1\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"$R1\",\"label\":\"\"}" '^1 #WRITES= *$'
+check "add unknown recipe"                             "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"$R3\",\"label\":\"\"}" 'FAIL: Unknown recipe.*WRITES= *$'
+check "add label with HTML"                            "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"\",\"label\":\"<script>\"}" 'FAIL: Error in label'
+check "add empty label without recipe"                 "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"LUNCH\",\"idrecipe\":\"\",\"label\":\"  \"}" 'FAIL: Error in label'
+check "add on 30 February"                             "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-02-30\",\"meal\":\"LUNCH\",\"idrecipe\":\"\",\"label\":\"x\"}" 'FAIL: Error in date'
+check "add with bad meal"                              "$V3" addagenda.php "{$AA,\"identry\":\"$EN\",\"scope\":\"FAMILY\",\"date\":\"2026-11-20\",\"meal\":\"BREAKFAST\",\"idrecipe\":\"\",\"label\":\"x\"}" 'FAIL: Error in meal'
+check "update family entry by another member"          "$V3" updateagenda.php "{$AA,\"identry\":\"$E1\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"\",\"label\":\"Quiche\"}" '^1 #WRITES=UPDATE agendadb SET *$'
+check "update: move E5 into the full dinner"           "$V3" updateagenda.php "{$AA,\"identry\":\"e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"\",\"label\":\"x\"}" 'FAIL: Slot full.*WRITES= *$'
+check "update: E2 stays in its full dinner"            "$V3" updateagenda.php "{$AA,\"identry\":\"$E2\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"\",\"label\":\"Salade verte\"}" '^1 #WRITES=UPDATE agendadb SET *$'
+check "update: move E3 to a free meal"                 "$V3" updateagenda.php "{$A1P,\"identry\":\"$E3\",\"date\":\"2026-11-22\",\"meal\":\"DINNER\",\"idrecipe\":\"$R2\",\"label\":\"\"}" '^1 #WRITES=UPDATE agendadb SET *$'
+check "update family entry from other family"          "$V3" updateagenda.php "{$BB,\"identry\":\"$E1\",\"date\":\"2026-11-20\",\"meal\":\"DINNER\",\"idrecipe\":\"\",\"label\":\"x\"}" 'FAIL: Entry not in user family.*WRITES= *$'
+check "update perso entry of someone else"             "$V3" updateagenda.php "{$AA,\"identry\":\"$E3\",\"date\":\"2026-11-21\",\"meal\":\"LUNCH\",\"idrecipe\":\"\",\"label\":\"x\"}" 'FAIL: Entry not owned by user.*WRITES= *$'
+check "delete family entry by another member"          "$V3" deleteagenda.php "{$A1P,\"identry\":\"$E2\"}" '^1 #WRITES=DELETE FROM agendadb *$'
+check "delete entry of another family"                 "$V3" deleteagenda.php "{$A1P,\"identry\":\"$E4\"}" 'FAIL: Entry not in user family.*WRITES= *$'
+check "delete perso entry of someone else"             "$V3" deleteagenda.php "{$AA,\"identry\":\"$E3\"}" 'FAIL: Entry not owned by user.*WRITES= *$'
+check "delete own perso entry"                         "$V3" deleteagenda.php "{$A1P,\"identry\":\"$E3\"}" '^1 #WRITES=DELETE FROM agendadb *$'
+check "delete unknown entry"                           "$V3" deleteagenda.php "{$A1P,\"identry\":\"$EN\"}" 'FAIL: Unknown entry'
+check "delete with wrong password"                     "$V3" deleteagenda.php "{\"iduser\":\"$A1\",\"pwd\":\"pwdB\",\"identry\":\"$E2\"}" 'FAIL: Wrong pwd'
+check "agenda recipe planned in my perso agenda"       "$V3" getagendarecipe.php "{$A1P,\"idrecipe\":\"$R2\"}" "^\[\{\"id_recipe\":\"$R2\""
+check "agenda recipe in someone else's perso agenda"   "$V3" getagendarecipe.php "{$AA,\"idrecipe\":\"$R2\"}" 'FAIL: Recipe not in user agenda'
+check "agenda recipe planned in my family agenda"      "$V3" getagendarecipe.php "{$AA,\"idrecipe\":\"$R1\"}" "^\[\{\"id_recipe\":\"$R1\""
+check "agenda recipe planned in another family"        "$V3" getagendarecipe.php "{$BB,\"idrecipe\":\"$R1\"}" 'FAIL: Recipe not in user agenda'
+check "[ref] getrecipefromCB refuses it"               "$V3" getrecipefromCBwithphoto.php "{\"iduser\":\"$A1\",\"pwd\":\"pwdA\",\"idrecipe\":\"$R2\"}" 'FAIL: Recipe not in user cookbook'
+
 echo
 echo "Passed: $pass  Failed: $fail"

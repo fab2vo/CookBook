@@ -22,6 +22,15 @@ $GLOBALS['FAKE'] = array(
     'recipes' => array(R1 => A1, R2 => B1),
     'cookbooks' => array(array(A1, R1), array(A2, R1), array(B1, R1), array(B1, R2)),
     'requests' => array(1 => array('id_recipe' => R2, 'id_from' => A1, 'status' => 'ISSUED')),
+    // Agenda: E1, E2 fill the FamA dinner of 2026-11-20; E3 is A1's personal lunch with R2
+    // (a recipe NOT in A1's cookbook); E4 is a FamB entry
+    'agenda' => array(
+        'e1e1e1e1-e1e1-e1e1-e1e1-e1e1e1e1e1e1' => array('family' => 'FamA', 'id_user' => A1, 'scope' => 'FAMILY', 'date_meal' => '2026-11-20', 'meal' => 'DINNER', 'id_recipe' => R1, 'label' => 'Tarte'),
+        'e2e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2' => array('family' => 'FamA', 'id_user' => A2, 'scope' => 'FAMILY', 'date_meal' => '2026-11-20', 'meal' => 'DINNER', 'id_recipe' => null, 'label' => 'Salade'),
+        'e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3' => array('family' => 'FamA', 'id_user' => A1, 'scope' => 'PERSO', 'date_meal' => '2026-11-21', 'meal' => 'LUNCH', 'id_recipe' => R2, 'label' => 'Gratin'),
+        'e4e4e4e4-e4e4-e4e4-e4e4-e4e4e4e4e4e4' => array('family' => 'FamB', 'id_user' => B1, 'scope' => 'FAMILY', 'date_meal' => '2026-11-20', 'meal' => 'LUNCH', 'id_recipe' => null, 'label' => 'Soupe'),
+        'e5e5e5e5-e5e5-e5e5-e5e5-e5e5e5e5e5e5' => array('family' => 'FamA', 'id_user' => A2, 'scope' => 'FAMILY', 'date_meal' => '2026-11-19', 'meal' => 'LUNCH', 'id_recipe' => null, 'label' => 'Pizza'),
+    ),
     'writes' => array(),
 );
 
@@ -74,6 +83,31 @@ function fake_select($sql, $p) {
     if (preg_match('/^SELECT pass FROM userdb WHERE pass = \?/', $s)) {
         $out = array(); foreach ($F['users'] as $u) if ($u['pass'] === $p[0]) $out[] = array('pass' => $u['pass']); return $out;
     }
+    // ---- agenda
+    $AG = $F['agenda'];
+    if (preg_match('/^SELECT pknum FROM agendadb WHERE id_entry = \?/', $s))
+        return isset($AG[$p[0]]) ? array(array('pknum' => 1)) : array();
+    if (preg_match('/^SELECT id_entry, family, id_user, scope, date_meal, meal FROM agendadb WHERE id_entry = \?/', $s))
+        return isset($AG[$p[0]]) ? array(array('id_entry' => $p[0]) + $AG[$p[0]]) : array();
+    if (preg_match("/^SELECT COUNT\\(\\*\\) AS nb FROM agendadb WHERE scope = '(FAMILY|PERSO)' AND (family|id_user) = \\? AND date_meal = \\? AND meal = \\? AND id_entry <> \\?/", $s, $m)) {
+        $nb = 0;
+        foreach ($AG as $id => $e) if ($e['scope'] === $m[1] && $e[$m[2]] === $p[0] && $e['date_meal'] === $p[1] && $e['meal'] === $p[2] && $id !== $p[3]) $nb++;
+        return array(array('nb' => $nb));
+    }
+    if (preg_match('/^SELECT title FROM recipedb WHERE id_recipe = \?/', $s))
+        return isset($F['recipes'][$p[0]]) ? array(array('title' => 'Recette ' . substr($p[0], 0, 4))) : array();
+    if (preg_match("/^SELECT a.id_entry, .* WHERE a.scope = '(FAMILY|PERSO)' AND a.(family|id_user) = \\? AND a.date_meal BETWEEN \\? AND \\?/", $s, $m)) {
+        $out = array();
+        foreach ($AG as $id => $e) if ($e['scope'] === $m[1] && $e[$m[2]] === $p[0] && $e['date_meal'] >= $p[1] && $e['date_meal'] <= $p[2])
+            $out[] = array('id_entry' => $id, 'author_name' => $F['users'][$e['id_user']]['name']) + $e;
+        return $out;
+    }
+    if (preg_match("/^SELECT pknum FROM agendadb WHERE id_recipe = \\? AND \\(\\(scope = 'FAMILY' AND family = \\?\\) OR \\(scope = 'PERSO' AND id_user = \\?\\)\\)/", $s)) {
+        foreach ($AG as $e) if ($e['id_recipe'] === $p[0] && (($e['scope'] === 'FAMILY' && $e['family'] === $p[1]) || ($e['scope'] === 'PERSO' && $e['id_user'] === $p[2]))) return array(array('pknum' => 1));
+        return array();
+    }
+    if (preg_match('/^SELECT c.pknum, r.id_recipe/', $s))
+        return isset($F['recipes'][$p[1]]) ? array(array('id_recipe' => $p[1], 'title' => 'Recette', 'id_owner' => $F['recipes'][$p[1]], 'pknum' => $inCb($p[0], $p[1]) ? 1 : null)) : array();
     fwrite(STDERR, "UNKNOWN SQL: $s\n");
     return array();
 }

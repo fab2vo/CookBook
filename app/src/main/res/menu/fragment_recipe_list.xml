@@ -33,6 +33,11 @@
             android:orderInCategory="5"
             android:title="@string/P1MU_com"
             app:showAsAction="never|withText" />
+        <item
+            android:id="@+id/list_agenda"
+            android:orderInCategory="6"
+            android:title="@string/P1MU_agenda"
+            app:showAsAction="never|withText" />
     </group>
     <group android:id="@+id/out_of_menu_list">
         <item

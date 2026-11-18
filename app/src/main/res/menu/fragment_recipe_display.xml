@@ -25,6 +25,10 @@
         android:title="@string/P2MU_edit"
         app:showAsAction="ifRoom|withText"/>
     <item
+        android:id="@+id/recipe_menu_plan"
+        android:title="@string/P2MU_plan"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/recipe_menu_html"
         android:icon="@drawable/ic_menu_html"
         android:title="@string/P2MU_html"

@@ -198,6 +198,10 @@ public class RecipeListFragment extends Fragment {
                 intent= RecipeCommunityActivity.newIntent(getActivity());
                 startActivity(intent);
                 return true;
+            case R.id.list_agenda:
+                intent= AgendaActivity.newIntent(getActivity());
+                startActivity(intent);
+                return true;
             case R.id.feedback:
                 intent = new Intent(Intent.ACTION_SENDTO);
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on application");
@@ -380,6 +384,11 @@ public class RecipeListFragment extends Fragment {
                     Intent intent=RecipeDisplayActivity.newIntent(getActivity(),mRecipe.getId());
                     startActivity(intent);
                 }
+            });
+            // Long press on the photo: plan the recipe in the agenda (short press still opens it)
+            mPhotoView.setOnLongClickListener(v -> {
+                AgendaPlanDialog.show(getActivity(), mRecipe);
+                return true;
             });
         }
         public void bind(Recipe recipe){
